@@ -29,6 +29,8 @@
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{definition}{Definition}[section]
 \newtheorem{corollary}{Corollary}[section]
+\newtheorem{ex}{Exercise}[section]
+\newtheorem{note}{Notation}
 \newtheorem{example}{Example}[section]
 \newtheorem{remark}{Remark}[section]
 \usepackage{cleveref}
@@ -41,10 +43,7 @@
 	\bibliographystyle{chicago}
 	\tableofcontents
 
-\section{Preliminaries}
-\subsection{Logic}
-\subsection{Sets}
-\subsection{Functions}
+
 
 \section{The Real Numbers}
 We begin by returning to the most basic concepts in math. What exactly is a number? We begin with the most basic possible set of numbers, and use those to define more complex sets of numbers, with our goal being to define the real numbers. Lastly, we will look at the ``size'' of these sets, and explore the concept of infinity. 
@@ -494,7 +493,13 @@ First, we will address the abstract case of when two sets have the same number o
 \end{definition} 
 \begin{definition}
 	Two sets $ X $ and $ Y $ have \textit{\color{red}the same cardinal number} if there exists a bijection $ f:X\to Y $ from $ X $ to $ Y $.  
-\end{definition}  
+\end{definition} 
+\begin{proposition}
+	Define the relation $ X\sim Y $ \textit{if and only if} $ X $ and $ Y $ have the same cardinal number ($ |X|=|Y| $). The relation $ \sim $ is an equivalence relation. 
+\end{proposition} 
+\begin{proof}
+	We have that $ X\sim X $ by letting $ f:X\to X $ be $ f(x)=x $, so $ \sim $ is reflexive. If $ X\sim Y $, there exists a bijection $ f:X\to Y $. Since $ f $ is a bijection, it has an inverse $ f^{-1}:Y\to X $. This inverse is itself a bijection, so $ Y\sim X $, making $ \sim $ symmetric. Lastly, assume $ X\sim Y $ and $ Y\sim Z $. We have bijections $ f:X\to Y $ and $ g:Y\to Z $. The composition of two bijections is a bijection, so $ h:X\to Z $ is a bijection where $ h:X\to Z $. This makes $ \sim $ transitive.  
+\end{proof}
 \begin{example}
 	Let $ X=\{1,2,3\} $ and $ Y=\{\sqrt{2},e,\pi\} $. We can define $ f:X\to Y $ as $$ f(x)=\begin{cases}
 	\sqrt{2}\text{ if }x=1\\e\text{ if }x=2\\\pi\text{ if }x=3
@@ -536,7 +541,13 @@ As discussed earlier, counting is intrinsically linked to the set of natural num
 	A set $ X $ is \textit{\color{red}countably infinite} if $ X $ has the same cardinal number as $ \N $. Alternatively, $ X $ is countably infinite if there exists a bijection $ f:X\to\N $. This is sometimes denoted as $ |X|=\aleph_0 $.\footnote{This symbol is an ``aleph'', and is the first letter of the Hebrew alphabet.} 
 \end{definition}
 \begin{definition}
-	A set $ X $ is  \textit{\color{red}uncountably infinite} if it is neither finite nor countably infinite.
+	A set $ X $ is \textit{\color{red}countable} if it is countably infinite or finite.
+\end{definition}
+\begin{remark}
+	From here on out, I'm going to use countable and countably infinite interchangeably, as nearly all the sets we are interested in are infinite.  
+\end{remark}
+\begin{definition}
+	A set $ X $ is  \textit{\color{red}uncountably infinite} (or uncountable) if it is neither finite nor countably infinite.
 \end{definition}
 Before jumping into examples, let's unpack some of this. Finiteness and countable infiniteness depend on whether a set has the same cardinal number as a subset of $ \N $ or $ \N $ itself. This means we can find a bijection between the set and a subset of $ \N $ or $ \N $ itself. Definition 2.22 and 2.23 are often presented in terms of this hypothetical bijection. Secondly, two of these definitions involve infinity. A set can be either countably infinite or uncountably infinite. In a sense, some infinite sets have so many elements that they cannot even be counted, and are ``bigger'' than other uncountable sets! These two concepts of infinity will show up constantly in real analysis. Hopefully examples will make this clear. Some of the following examples are so important that they will be presented as formal results. 
 \begin{example}
@@ -561,27 +572,110 @@ $$f(n)=\begin{cases}
 This function counts $ \Z $ in the aforementioned manner of alternating between positive and negative integers. We now will verify that $ f $ is a bijection, by showing it is injective and surjective.\footnote{It would be quicker to show $ f $ has an inverse, but that approach is not as instructive.} Let $ y\in\Z $, and pick $ x\in\N $ such that $ x=2y $ if $ y $ is even, and $ x=-2y+1 $ if $ y $ is odd. This choice of $ x\in\N $ gives $ f(x)=y $, so $ f $ is surjective. Now suppose that $ f(x_1)=f(x_2) $. If $ x_1/2=x_2/2 $, then $ x_1=x_2 $. If $ -(x_1-1)/2=-(x_2-1)/2 $, then $ x_1=x_2 $. Therefore, $ f $ is injective.
 \end{proof}
 An even more surprising result is that not only $ |\N|=|\Q| $, but also $ |\N|=|\Z|=|\Q| $! Even if we add every possible fraction to the integers, the size of our set remains the same.
-\begin{proposition}
+\begin{theorem}
 	The set $ \Q $ is countably infinite. 
-\end{proposition}
-We will provide two proofs of this result. The first is a very classical approach that uses an illustration and shows explicitly in which order to count the elements of $ \Q $ using a bijection. The second proof will show $ \Q $ is countable by establishing the bijection symbolically. 
+\end{theorem}
+
 \begin{proof}
+	We can enumerate the rational numbers in the following way: $$ \frac{0}{1},\frac{1}{1},\frac{-1}{1},\frac{1}{2}, \frac{1}{3}, \frac{2}{1}, \frac{-2}{1}, \frac{-1}{3}, \frac{1}{4}, \frac{1}{5}, \frac{-1}{4}, \frac{2}{3},\ldots $$ This particular ordering can be seen in Figure 7. The red arrows in Figure 7 show the order in which we count, and it becomes evident that we will eventually count every possible fraction. Note that we only count fractions which are expressed in simplest terms, with others in gray. 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=0.7\linewidth]{figures/Qcountable}
+	\includegraphics[width=0.9\linewidth]{figures/Qcountable}
 	\caption{}
 	\label{fig:qcountable}
 \end{figure}
-
-
 \end{proof}
+It may not be a surprise that it is not possible to count $ \R $. This puts $ \R $ in our second category of infinite sets, uncountably infinite.
+\begin{theorem}
+	The set $ \R $ is uncountably infinite. 
+\end{theorem}
+The proof of this theorem is a classic, and is due to Cantor. 
 \begin{proof}
-	
+Suppose for contradiction that $ \R $ were countably infinite. There exists a bijection $ f:\N\to\R $, and we make a table of values the function takes on (see Table 1). Table 1 is just an example of what such a bijection may look like, and the exact values are moot.
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{cc}
+		$ n\in\N  $       & $ f(n)\in\R $              \\ \hline
+		1        & $4.3214875\ldots$ \\
+		2        & $1.4918401\ldots$           \\
+		3        & $3.0194510\ldots$                   \\
+		4        & $9.0194510\ldots$                  \\
+		5        & $0.3917293\ldots $               \\
+		6        & $ 5.9184017\ldots $\\
+		7        & $ 1.9284010\ldots $                \\
+		$\vdots$ & $\vdots$         
+	\end{tabular}
+\end{table}
+Because $ f $ is a bijection, this table should go on forever, and count every element of $ \R $. To reach a contradiction, we will simply show there exists a real number that was not counted.\footnote{There in fact exist \textit{many} that would go uncounted, but it suffices to find just one.} ``Construct'' this uncounted real number in the following way: let the $ n^{th} $ digit (decimal places included) take on the value of the $ n^{th}$ digit of $ f(n) $ minus one (if it is $ 0 $, set it to $ 9 $). For Table 1, the first digit would be the first digit of $ f(1) $ minus 1, which is $ 4-1=3 $. The second digit would be the second digit of $ f(2) $ minus 1, which is $4-1=3$. We repeat this process for all $ n\in\N $, and in our case we get $$3.308690\ldots $$
+By construction, the $ n^{th} $ digit of this number is different from at least one of the $ n^{th} $ digits of $ f(n) $. This holds for every $ n\in\N $, so this number is different from every value of $ f(n) $, and was therefore not counted.  
 \end{proof}
-\subsection{Problems}
-uniqueness of LUB
+\begin{corollary}
+	Every infinite subset of $ \R $ is uncountable.
+\end{corollary}
+\begin{example}
+	Every interval $ [a,b]\subset\R $ is uncountable. 
+\end{example}
+Now that we've seen which familiar sets are and are not countable, there are several key results involving the cardinality of sets that deserve attention. These will establish what happens to the cardinality of sets when different set operations are performed. 
+\begin{proposition}
+	Let $ \{E_n\} $, $ n\in\N $, be a sequence of countably infinite sets, and let $ E=\cup_{n\in N}E_n $ be a countable union. The set $ E $ is countably infinite. 
+\end{proposition}
+\begin{proposition}
+	We will prove via induction. Our base case is $ n=2 $. The sets $ E_1 $ and $ E_2 $ are countably infinite, so there exists bijections $ f:\N\to E_1 $ and $ g:\N\to E_2 $. Without loss of generality, assume $ E_1\cap E_2=\emptyset $.\footnote{Otherwise, we could replace $ E_1 $ with $ E_1\backslash E_2 $.} Define $ h:\N\to E_1\cup E_2 $ as $$ h(k)=\begin{cases}
+	f(k/2)\text{ if }k  \text{ is even}\\
+		g((k+1)/2)\text{ if }k  \text{ is odd}
+	\end{cases}. $$ This function counts the elements in the set by alternating between those in $ E_1 $ and $ E_2 $ (like in the proof of Proposition 2.7). The function $ h $ is a bijection, so $ E_1\cup E_2 $ is countably infinite. Now suppose this holds for $ E_1,\ldots E_{n-1} $. We can write $ E $ as a union of two countably infinite sets by taking the union over $ E_1,\ldots E_{n-1} $, which is countably infinite by the induction hypothesis. 
+	\begin{align*}
+		E&=\bigcup_{n\in \N} E_n\\
+		 &=E_1\cup E_2\cup\cdots E_{n-1}\cup E_n\\
+		 &=(E_1\cup E_2\cup\cdots E_{n-1})\cup E_n
+	\end{align*} 
+	Therefore $ E $ is countably infinite. 
+\end{proposition}
+\begin{corollary}
+	If $ X $ is uncountable, and $ E\subset X $ is countably infinite, then $ X\backslash E$ is uncountably infinite.
+\end{corollary}
+\begin{example}
+	Let $ E_n=\{m/n\mid m\in\Z\} $ for $ n\in\N $. Each $ E_n $ is countable as there is a bijection $ f_n:E_n\to\Z $ defined as $ f_n(x)=nx $, and $ \Z $ is countably infinite.\footnote{This allows us to use the transitivity of sets having the same cardinality.} Note that $$\bigcup_{n\in \N}E_n=\Q, $$ which is indeed countably infinite. 
+\end{example}
+\begin{example}
+	The set $ \R $ is uncountable. We have that $ \Q\subset \R $ is countable. By Corollary 2.1, $ \R\backslash \Q $ (the set of irrational numbers) is uncountable. This means that in a certain sense, there are more gaps in $ \Q $ than there aren't! We are not even capable of counting all the gaps, whereas we can count $ \Q $. 
+\end{example}
+\begin{proposition}
+	Let $ X $ be a countable set. Any subset $ Y\subseteq X $ is countable
+\end{proposition}
+\begin{proof}
+	There exists a bijection $ f:\N\to X $. If we restrict the codomain of $ f $ to be $ Y $, $ f $ is still a bijection. 
+\end{proof}
+\begin{example}
+	Every subset of $ \Q $ is countable, because $ \Q $ is countable. We already know two such examples: $ \N $ and $ \Z $. 
+\end{example}
+\begin{proposition}
+	Let $ \{E_n\} $, $ n\in\N $, be a sequence of countably infinite sets, and let $ E=\bigtimes\limits_{n\in N}E_n $ be a countable Cartesian product. The set $ E $ is countably infinite. 
+\end{proposition}
+\begin{proof}
+	It suffices to show the result for two sets $ E_1 $ and $ E_2 $, and then apply induction using the same argument used in the proof of Proposition 2.9. We have bijections $ f:E_1\to\N$ and $ g:E_2\to\N $. Define $ h:E_1\times E_2 $ as $$ h((a,b))=2^{f(a)}3^{g(a)},$$ where $ (a,b)\in E_1\times E_2 $. Each element in $ h(E_1\times E_2) $ is a whole number with a prime factorization comprised of only $ 2 $ and/or $ 3 $. Because each element of $ \N $ is uniquely determined by its prime factorization, $ h $ is injective. Unfortunately, $ h $ is no surjective, as there exist many elements of $ \N $ with prime factorizations that include more than $ 2 $ and/or $ 3 $. If we restrict the codomain of $ h $ to just its image, we have a bijection $ h':E_1\times E_2\to  h(E_1\times E_2) $  We do have that $ h(E_1\times E_2)\subseteq \N  $, so by Proposition 2.10, $ |h(E_1\times E_2)|=\aleph_0 $ . By transitivity, $ |E_1\times E_2|=\aleph_0 $. The aforementioned induction can be applied to conclude $ |E|=\aleph_0 $. 
+\end{proof}
+\begin{example}
+	The set of all pairs of rational numbers $ \Q^2 $ is countable.
+\end{example}
+\subsection{Exercises}
+\begin{ex}
+	Show that $ \sqrt{3} $ is irrational.
+\end{ex}
+\begin{ex}
+	Let $ (S,<) $ be an ordered set, and $ T $ be a nonempty subset of $ T $. Verify that $ T $ has at most one supremum.
+\end{ex}
+\begin{ex}
+	Let $ E $ be a nonempty subset of an ordered set; suppose $ \alpha $ is a lower bound of $ E $ and $ \beta $ is an upper bound of $ E $. Prove that $ \alpha\le\beta $. 
+\end{ex}
+\begin{ex}
+	Let $ E $ be a nonempty subset of $ \R $ which is bounded below. Let $ -E=\{-x\mid x\in E\} $. Show that $ \inf E=-\sup(-E) $. 
+\end{ex}
+\begin{ex}
+	A set has the least-upper-bound property \textit{if and only if} it has the greatest-lower-bound property. 
+\end{ex}
 
-LUB property implies GLB property
+
 \section{Point-Set Topology in Metric Spaces}
 One of the main goals of calculus is to study rates of change and limiting behavior. Both of these concepts require some notion of distance, and to that end we will study \textit{metric spaces}, sets equipped with a distance function. Any such space has induced ``topological'' properties. This is a fancy way of saying that we can use distance to categorize different types of sets. Of particular interest, will be the different types of sets in $ \R $ and $ \R^n $, as the properties these sets have will have major implications down the road.  
 \subsection{Metric Spaces}
@@ -596,7 +690,7 @@ Our first definition will outline how we endow a set with some notion of distanc
 \end{definition}
 The function $ d $ is often called the metric, and most of its properties are compatible with our everyday understanding of distance. Firstly, distance cannot be negative. There is no distance between a point and itself. The distance from $ x $ to $ y $ is the same from $ y $ to $ x $. The final property may not be as immediate, but it is extremely important.
  
-Suppose you are traveling from point $ x $ to $ z $. If you decide to take a detour to point $ y $ before heading to $ z $, then the triangle inequality ensures that you travel a weakly greater distance. An illustration shown in Figure 6 of this gives rise to the inequalities name.
+Suppose you are traveling from point $ x $ to $ z $. If you decide to take a detour to point $ y $ before heading to $ z $, then the triangle inequality ensures that you travel a weakly greater distance. An illustration shown in Figure 8 of this gives rise to the inequalities name.
 \begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}
@@ -615,10 +709,10 @@ Geometrically, this is equivalent to saying that the length of any side of a tri
 The real line $ \R $ is a metric space when equipped with the metric $ d(x,y)=|x-y| $. 
 \end{example}
 \begin{example}[Euclidean Metric]
-Euclidean space $ \R^n $ is a metric space when equipped with the metric $$ d(\mathbf{x},\mathbf{y})=|\x-\y|=\sqrt{(x_1-y_1)^2+\cdots+(x_n-y_n)^2} .$$
+Euclidean space $ \R^n $ is a metric space when equipped with the metric $$ d(\mathbf{x},\mathbf{y})=|\x-\y|=\sqrt{(x_1-y_1)^2+\cdots+(x_n-y_n)^2} .$$ The Euclidean metric is sometimes refered to as the $ \ell^2 $-metric. The Euclidean metric is intimately linked to the concept of a \textit{\color{red}norm}. Recall from linear algebra that Euclidean space is a vector space where vectors are elements of $ \R^n $, and scalers are elements of $ \R $. This space is equipped with function $ \norm{}_2:\R^n\to\R $ that measures the length of vectors. $$ \norm{\x}_2=\sqrt{x_1^2+\cdots+x_n^2}$$ We can write the $ \ell^2 -$metric as $ d(\x,\y)=\norm{\x-\y}_2 $. We'll come back to the concept of a norm throughout, and will discuss it at length when treating functional analysis.
 \end{example}
 \begin{example}[Taxi-Cab Metric]
-If our set is $ \R^2 $ we can let $ d(\mathbf{x},\mathbf{y})=|x_1-y_1|+|x_2-y_2| $. This is often referred to as the taxi-cab metric, as it is how you would measure distance if driving a car on a grid. 
+If our set is $ \R^2 $ we can let $ d(\mathbf{x},\mathbf{y})=|x_1-y_1|+|x_2-y_2| $. This is often referred to as the taxi-cab metric, as it is how you would measure distance if driving a car on a grid. We can extend to $ \R^n $ and let $ d(\mathbf{x},\mathbf{y})=\sum_{i=1}^{n}|x_i-y_i| $. This metric is also called the $ \ell^1 -$metric.    
 \end{example}
 \begin{example}[$ p $-Adic Metric]
 The previous examples are easy to verify, but this may not always be the case. Suppose are set is $ \Z $ and $ d:\Z\times\Z\to[0,\infty] $ is defined as $$ d(x,y)=\begin{cases}
@@ -643,6 +737,16 @@ It turns out that the more factors of $ p $ that go into the prime factorization
 We can combine these equations to conclude $$x-z=(x-y)+(y-z)=p^mr+p^ns. $$ If $ m>n $, then $ x-z=p^n(p^{m-n}r+s)$ and $ d(x,z)=d(y,z) $. Similarly, if $ n>m $, $ d(x,z)=d(x,y) $. Finally if $ n=m $, then $$x-z=p^n(r+s)=p^m(r+s), $$ and $ d(x,z)=d(x,y)=d(y,z) $. These three cases gives the desired inequality. 
 \end{enumerate}
 \end{example}
+\begin{definition}
+	Let $ X $ be a metric space. A set $ E\subseteq X $ is \textit{\color{red} bounded} if there is a positive number $ M\in\R $ and a point $ x\in X $ such that $ d(x,y)<M $ for all $ x\in E $. If a set is no bounded, we say it is \textit{\color{red}unbounded}. 
+\end{definition}
+Boundedness insures that a set doesn't ``go off to infinity''. 
+\begin{example}
+	The sets $ \N $, $ \Z $, $ \Q $, and $ \R $ are all unbounded. 
+\end{example}
+\begin{example}
+Both the intervals $ [a,b] $ and $ (a,b) $ are bounded in $ \R $. For any $ x,y\in[a,b] $, $ d(x,y)<d(a,b)+1 $. The same holds for $ (a,b) $. 
+\end{example}
 The metric space we are most interested in is of course $ \R^n $ equipped with the familiar Euclidean metric. We can use this metric to define the notion of an open or closed ball in $ \R^n $. 
 \begin{definition}
 	If $ \x\in\R^n $ and $ r>0 $, the \textit{\color{red} open ball} with center $ \x $ and radius $ r $ is defined as $$ B_r(\x)=\{\y\in\R^n\mid|\y-\x|<r\}. $$ 
@@ -650,7 +754,7 @@ The metric space we are most interested in is of course $ \R^n $ equipped with t
 \begin{definition}
 	If $ \x\in\R^n $ and $ r>0 $, the \textit{\color{red} closed ball} with center $ \x $ and radius $ r $ is defined as $$ \bar{B}_r(\x)=\{\y\in\R^n\mid|\y-\x|\le r\}. $$ 
 \end{definition}
-Open and closed balls in $ \R^n $ are a generalization of the open and closed intervals you were first introduced to in high school, and Figure 5 provides an illustration in $ \R^2 $. 
+Open and closed balls in $ \R^n $ are a generalization of the open and closed intervals you were first introduced to in high school, and Figure 9 provides an illustration in $ \R^2 $. 
 \begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}
@@ -659,21 +763,23 @@ Open and closed balls in $ \R^n $ are a generalization of the open and closed in
 	\end{tikzpicture}
 	\caption{Open and closed balls in $ \R^2 $.}
 \end{figure}  
-\subsection{Open and Closed Sets}
+\subsection{Open Sets, Closed Sets, and Boundaries}
 We want to generalize the notion of open and closed balls in $ \R^n $ to any metric space. In order to do these, we'll need to outline a couple preliminary definitions that classify the elements of a metric space. 
 \begin{definition}
 	A \textit{\color{red}neighborhood } of $ x $ in a metric space $ X $ is defined as $ N_r(x)=\{y\in X\mid d(x,y)<r\} $ for a radius $ r>0 $.  
 \end{definition}
-As the name implies, a neighborhood centered at $ x $ is simply all the points ``around'' $ x $. Much like the open ball of Definition 3.2, neighborhoods do not include the points that are exactly a distance of $ r $ away from the point $ x $. In fact, if our metric space is $ \R^n $ with the standard metric, a neighborhood and open ball are precisely the same. 
+As the name implies, a neighborhood centered at $ x $ is simply all the points ``around'' $ x $. A neighborhood is its own set, and we will use them constantly. They are sort of like ``sets of utility'', because we will use them as tools to analyze the properties of other sets. If there is a set $ E $ in a metric space $ X $, we can use neighborhoods in $ X $ to learn about the points in $ E $. Are some neighborhoods subsets of $ E $? Do some neighborhoods intersect $ E $? Will the answers to these questions change if we make $ r $ really big or really small? It is worth thinking about these questions taking $ E $ to be one of the balls defined in Definition 3.3. Do the answers change if $ E $ is an open ball versus a closed ball? 
+
+ Much like the open ball of Definition 3.2, neighborhoods do not include the points that are exactly a distance of $ r $ away from the point $ x $. In fact, if our metric space is $ \R^n $ with the standard metric, a neighborhood and open ball are precisely the same. 
 \begin{example}
-	Let our metric space be $ \Z^2 $ equipped with the taxi-cab metric. Figure 6 shows the neighborhood center at the origin of radius 3. 
+	Let our metric space be $ \Z^2 $ equipped with the taxi-cab metric. Figure 10 shows the neighborhood centered at the origin of radius 3. 
 		\begin{figure}[h]
 		\centering
 		\begin{tikzpicture}
 		\draw[step=1cm,gray,very thin] (-2,-2) grid (6,6);
 		\draw[thick,->] (2,-2.5) -- (2,6.5);
 		\draw[thick,->] (-2.5,2) -- (6.5,2);
-		\filldraw (2,2) circle (3pt) node[anchor=north west] {$ x $};
+		\filldraw (2,2) circle (3pt) node[anchor=north west] {$ 0 $};
 		\filldraw (2,3) circle (3pt);
 		\filldraw (2,4) circle (3pt);
 		\filldraw (2,1) circle (3pt);
@@ -696,15 +802,35 @@ As the name implies, a neighborhood centered at $ x $ is simply all the points `
 		\caption{The set $ N_{3}(\mathbf{0})=\{\y\in\Z^2\mid|y_1|+|y_2|<3 \} $.}
 	\end{figure}
 \end{example} 
+ 
+\begin{example}
+Let $ d:\R^2\times\R^2\to[0,\infty] $ be the euclidean metric, and $ t:\R^2\times\R^2\to[0,\infty] $ be the taxi-cab metric. A neighborhood in $ (\R^2,d) $ may have a different ``shape'' then it would in $ (\R^2,t) $. We will denote $ N_{3}(\mathbf{0})\in \R^2 $ as $ E $ and $ F $, in $ (X,d) $ and $ (X,t) $ respectively. These neighboorhoods are shown in Figure 11.     
+	\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+	\draw[step=1cm,gray,very thin] (-2,-2) grid (6,6);
+	\draw[thick,->] (2,-2.5) -- (2,6.5);
+	\draw[thick,->] (-2.5,2) -- (6.5,2);
+	\filldraw[color=blue, fill=blue!15, thick, dashed, opacity=0.6] (2,2) circle (3cm);
+	\filldraw[color=red, fill=red!15, thick, dashed, opacity=0.6] (2,5) -- (5,2) -- (2,-1) -- (-1,2) --(2,5) ;
+	\draw[color = red] (2.5,2.5) node {$ F $};
+	\draw[color = blue] (4.5,4.5) node {$ E $};
+	\end{tikzpicture}
+	\caption{$ N_{3}(\mathbf{0})\in \R^2 $ in $ (\R^2,d) $ and $ (\R^2,t) $. }
+\end{figure}	
+\end{example}
 \begin{definition}
-	Let $ X $ be a metric space. A point $ x\in X $ is a \textit{\color{red}limit point} of the set $ E\subseteq X $ if \textit{every} neighborhood of $ x $ contains a point $ y\in E $, where $ y\neq x $. We will denote the \textit{\color{red} set of all limit points} of $ E $ as $ E'=\{x\in X\mid x\text{ is a limit point of }E \} $.
+	Let $ X $ be a metric space. A point $ x\in X $ is a \textit{\color{red}limit point} of the set $ E\subseteq X $ if \textit{every} neighborhood of $ x $ contains a point $ y\in E $, where $ y\neq x $. We will denote the \textit{\color{red} set of all limit points} of $ E $ as $ E'=\{x\in X\mid x\text{ is a limit point of }E \}=\{x\in X\mid \in (N_r(x)\cap E)\backslash\{x\}\neq\emptyset\ \forall r>0\} $.
 \end{definition}
+\begin{note}
+	For the remainder of Section 2, we will use $ X $ to denote a metric space, and $ E $ as some subset of $ X $. 
+\end{note}
 A limit point of a set is in some sense always ``close'' to points of the set. If $ x $ is a limit point of $ E\subseteq X $, then $ N_r(x) $ will always include points other than $ x $, no matter what we take $ r $ to be! We could make $ r $ smaller and smaller, but the set $ N_r(x) $ will never just be $ x $. In this sense, a limit point can always be ``approximated'' by elements in $ E $.  
 \begin{remark}
 Definition $ 3.5 $ never specifically said that a limit point of some set belongs to the set. As the next example shows, being a limit point has nothing to do with whether or not a point is included in the set in question. 	
 \end{remark}
 \begin{example}
-$\R^2$ is a good starting place. Suppose we have a set $ E\subset \R $ that for the most part forms a rectangle. The ``border'' of the rectangle is no included in $ E $. Also note that $ E $ includes am ``isolated'' point $ z $. Let's consider three point in $ \R^2 $: $ x $, $ y $, and $ z $.  
+$\R^2$ is a good starting place. Suppose we have a set $ E\subset \R $ that for the most part forms a rectangle. The ``border'' of the rectangle is no included in $ E $. Also note that $ E $ includes an ``isolated'' point $ z $ (see Figure 12). Let's consider three points in $ \R^2 $: $ x $, $ y $, and $ z $.  
 		\begin{figure}[h]
 	\centering
 	\begin{tikzpicture}
@@ -724,14 +850,14 @@ Lastly, the point $ z $ is not a limit point. If we took $ r $ to be sufficientl
 \end{example}
 
 \begin{definition}
-		Let $ X $ be a metric space. For a set $ E\subseteq X $, $ x\in E $ is an \textit{\color{red}isolated point} if it is not a limit point. 
+		Let $ X $ be a metric space. For a set $ E\subseteq X $, $ x\in E $ is an \textit{\color{red}isolated point} if it is not a limit point. That is, there exists an $ r>0 $ such that $ N_r(x)=\{x\} $. 
 \end{definition}
-By the definition of an isolated point, it is the opposite of a limit point, rendering the two definitions mutually exclusive. Every point of $ X $ must fall into the catagory of limit point or that of isolated point. For the two definitions this section is building to, this is not the case, even though it is tempting to think it is! 
+By the definition of an isolated point, it is the opposite of a limit point, rendering the two definitions mutually exclusive. This definition also means any point $ x\in X $ is \textit{either} a limit point \textit{or} an isolated point.  An isolated point of any set is also included in the set, which is not the case for limit points. 
 \begin{definition}
 Let $ X $ be a metric space. A point $ x\in X$ is an \textit{\color{red}interior point} of $ E\subseteq X $ if there exists \textit{a single} $ r>0 $ such that $ N_r(x)\subset E $. 
 \end{definition}
 \begin{example}
-	Again, let's look at an example in $ \R^2 $. Let $ E\subset \R^2 $ be a closed ball that is ``punctured'' at $ z\in\R^2 $ such that $ z\notin E$. This can be seen in figure 8.  
+	Again, let's look at an example in $ \R^2 $. Let $ E\subset \R^2 $ be a closed ball that is ``punctured'' at $ z\in\R^2 $ such that $ z\notin E$. This can be seen in figure 13. The point $ x $ is in an interior point, as we could find some small $ r $ for which $ N_r(x)\subset E $. The point $ y $ is not an interior point of $ E $, because every single $ N_r(y) $ will contain some point outside of $ E $, meaning $ N_r(y)\not\subset E $. Finally, the point $ z $ is not an interior point, as each neighborhood of $ N_r(z) $ contains $ z $, and $ z\notin\ E $. Even though we can make $ r $ small enough to guarantee the only point in $ N_r(z) $ which is not in $ E $ is $ z $ $ (N_r(z)\backslash E=\{z\}) $, this point is all it takes to guarantee $ N_r(z)\not\subset E $ for all $ r $. 
 \begin{figure}[h]
 	\centering
 	\begin{tikzpicture}
@@ -747,6 +873,31 @@ Let $ X $ be a metric space. A point $ x\in X$ is an \textit{\color{red}interior
 \begin{remark}
 	While a limit point of $ E\subset X $ need not be a point in $ E $, an interior point of $ E $ must be an element of $ E $. If $ x $ is an interior point, then $ x\in N_r(x)\subset E $ for some $ r $, so $ x\in E $. 
 \end{remark}
+\begin{example}
+	It may be tempting to conclude that an interior point must be a limit point, after all, if we can find an $ N_r(x)\subset E $, then it is likely each neighborhood would contain infinite points of $ X $. This logic makes the dangerous assumption that $ X $ is in infinite, and $ d(x,y) $ ``behaves like'' the Euclidean metric. Consider a metric space $ X $ with the discrete metric $$ d(x,y)=\begin{cases}
+	1\text{ if }x\neq y\\
+	0\text{ if }x=y
+	\end{cases}.$$ 
+	For any $ x\in X $, $ N_{1/2}(x)=\{x\}\subseteq X $. We have that $ x $ is an interior point, but not a limit point. 
+\end{example}
+We now briefly introduce the idea of an exterior point. The only difference between the  definition of an interior point and exterior point, will be that the neighborhood of a point will be in the complement of $ E $ for an exterior point. This small change in language will make a big difference in meaning. 
+\begin{definition}
+Let $ X $ be a metric space. A point $ x\in X$ is an \textit{\color{red}exterior point} of $ E\subseteq X $ if there exists \textit{a single} $ r>0 $ such that $ N_r(x)\subset E^c $.
+\end{definition}
+\begin{remark}
+Any point $ x\in X $ is \textit{either} an interior point \textit{or} an exterior point.
+\end{remark}
+\begin{example}
+	Let $ [0,1]\in \R $. The point $ 2\in\R $ is an exterior point of $ [0,1] $. 
+\end{example} 
+\begin{remark}
+	Nearly every definition in this section specifies a metric space $ X $. This means the metric space we work in could affect how we classify a point (and later sets). If we have two metric spaces $ X $ and $ Y $ where $ X\subseteq Y $, a point $ x\in E\subseteq X $ may be a limit point/interior point/exterior point in $ X $ but not in $ Y $. 
+\end{remark}
+\begin{example}
+{\color{red}EXAMPLE }
+\end{example}
+
+We already generalized the idea of some open or closed interval in $ \R $ to the concept of an open or closed ball in $ \R^n $. Now we will go one step further, by bringing these concepts to any metric space. 
 \begin{definition}
 	Let $ X $ be a metric space. A set $ E\subseteq X $ is \textit{\color{red}open} if every point of $ E $ is an interior point.  
 \end{definition}
@@ -754,53 +905,218 @@ Let $ X $ be a metric space. A point $ x\in X$ is an \textit{\color{red}interior
 	Let $ X $ be a metric space. A set $ E\subseteq X $ is \textit{\color{red}closed} if it contains all its limit points. That is, $ E'\subseteq E $. 
 \end{definition}
 \begin{example}
-	open and closed balls in $ \R^2 $
+	Let $ (a,b)\subset\R $. This set is open, as for all $ x\in(a,b) $, we can find an $ r $ such that $ N_r(x)\subset(a,b) $. If $ d(a,x)\ge d(x,b) $, let $ r=d(x,b)/2 $. If $ d(x,b)>d(a,x) $ let $ r=d(x,a)/2 $.  Figure 14 shows this neighborhood for $ x $ where $ d(a,x)\ge d(b,x) $.
+		\begin{figure}[h]
+		\centering
+		\begin{tikzpicture}
+		\draw[very thick, color=red] (0,0) -- (2,0); 
+		\draw[very thick, ->] (6,0) -- (8,0);
+		\draw[very thick, ->] (-6,0) -- (-8,0);
+		\draw[very thick] (-6,0) -- (6,0);
+		\filldraw[fill=white] (-6,0) circle (2pt)node[anchor=south east] {$ a $};
+		\filldraw[fill=white] (6,0) circle (2pt)node[anchor=south west] {$ b $};
+		\filldraw[fill=black] (2,0) circle (2pt)node[anchor=south east] {$ x $};
+		\draw[color=red, very thick] (4,0) circle (2pt)node[anchor=north west] {$ x+\frac{|b-a|}{2} $};
+		\draw[color=red, very thick] (0,0) circle (2pt)node[anchor=north east] {$ x-\frac{|b-a|}{2} $};
+		\draw[very thick, color=red] (0,0) -- (4,0) node[anchor=south east] {$ N_{\frac{d(x,b)}{2}}(x) $}; 
+		\filldraw[fill=black] (2,0) circle (2pt)node[anchor=south east] {$ x $};
+		\end{tikzpicture}
+		\caption{The open interval $ (a,b)\subset \R $.}
+	\end{figure}
+By construction, our neighborhood will always be a proper subset of $ (a,b) $, so each point of $ x $ is an interior point. Therefore $ (a,b) $ is open. On the other hand, $ (a,b) $ is not closed, because $ a $ and $ b $ are limit points, but neither are in the set $ (a,b) $.
 \end{example}
 \begin{example}
-	open set
+	Let $ [a,b]\subset\R $. This set is not open, as $ a $ and $ b $ are not interior points. For instance, $ a-r/2\in N_r(a) $ for all $ r>0 $. The number $ a-r/2\notin[a,b] $, so $ N_r(a)\not\subset[a,b] $ for all $ r $. While $ [a,b] $ is not open, it is closed. Every point in $ [a,b] $ is a limit point because $ \R $ is complete. The interval $ [a,b] $ trivially contains itself, so it contains all its limit points and is closed. 
 \end{example}
 \begin{example}
-	closed set
+Let $ X $ be a metric space, and $ E\subseteq X $. Any set with no limit points, $ E'=\emptyset $, is closed, because $ \emptyset\subseteq E $. This means any finite set is closed, as no finite set has limit points. Let $ X=\{x_1,\ldots, x_n\} $, and $ E\subseteq X $. If we let $ y\in E $, and set $ r=\min_{x\in X}d(x,y) $, then $ N_r(y)=\{y\} $. This means $ y $ fails to be a limit point for all $ y\in E $.
 \end{example}
 \begin{remark}
-	closed and open are not opposite or mutually exclusive
-\end{remark}
-\begin{remark}
-	It's important to remember what metric space we're in!
+	The definitions of open and closed sets never imply that a set is either closed or open. It is possible for a set to be both closed and open, or be neither closed nor open.
 \end{remark}
 \begin{example}
-	$ \Z $ in $ \Z $ vs. $ \Z $ in $ \R $. 
+The set $ \emptyset $ in any metric space $ X $ is closed and open. This set has no limit points $ (\emptyset'=\emptyset) $, and $ \emptyset\subset\emptyset $, so it is closed. The set also has no points, so every point is an interior point, making $ \emptyset $ open. 
 \end{example}
+\begin{example}
+The set of rationals $ \Q $ is neither open nor closed in $ \R $. For all $ x\in\Q $, $ N_r(x) $ will contain irrational numbers for all $ r $, meaning $ N_r(x)\not\subset\Q $. Therefore no elements of $ \Q $ are interior points. The set $ \Q $ also does not contain all of its limit points, as any irrational number is a limit point as a result of Theorem 2.4. For example, any neighborhood of $ \sqrt{2} $ will contain elements of $ \Q $ (which are not $ \sqrt{2} $), making it a limit point. 
+\end{example}
+\begin{remark}
+	The point made in Remark 3.3 is especially relevant for open and closed sets. A set could be open in one metric space, but closed in another. In most cases it's clear what metric space we are working in, but sometimes it is not. In cases where it is vague, it's always best to say a set is \textit{open in $ X $} or \textit{closed in $ X $}. For this reason it is a good practice to either specify $ E\subseteq X $, or include ``in $ X $.'' Many topics in analysis concern the metric space $ \R^n $ or $ \R $, so if you say a set is closed or open in conversation, it is usually assumed the metric space is one of these spaces. For example, if you were to ask someone ``are the integers closed or open?", they would most likely assume you mean ``are the integers closed or open in $ \R $?" 
+\end{remark}
+
+\begin{example}
+	Suppose we want to determine if $ \Z $ is open or closed in $ \Z $. Every point is an interior point as $ N_{1/2}(x)={x}\subset\Z $ for all $ x\in\Z $, so $ \Z $ is open in $ \Z $. The set $ \Z $ has no limit points in $ \Z $, as $ N_{1/2}(x) $ does not include any points $ y\in\Z $ where $ y\neq x $. This gives that $ \Z'=\emptyset $,\footnote{This also means that every point of $ \Z $ is isolated.} so $ \Z\subseteq \Z' $, and $ \Z $ is closed in $ \Z $.
+	
+	 Now let our metric space be $ \R $. Is $ \Z $ open in $ \R $? Let $ x\in\Z $. For any $ N_r(x) $ such that $ r<1 $, $ x-r/2\in N_r(x) $, where $ x-r/2\notin\Z $. If $ r\ge 1 $, then $ x-1/2\in N_r(x) $, where $ x-1/2\notin\Z $.\footnote{The case where $ r\ge 1 $ handles the situation where $ r/2\in\Z $. If this were the case, then $ x-r/2\in\Z $. This is not a problem, as $ N_r(x) $ would still contain an uncountably infinite number of reals numbers, but it makes explicitly finding one of those reals a little tricky. It's easier to just add or subtract $ 1/2 $ from $ x $ and call it a day.} Therefore, there exists no $ r $ such that $ N_r(x)\subset \Z $, so $ \Z $ is not open in $ \R $. We have that $ \Z $ is closed in $ \R $, as each point of $ \Z $ is still isolated.  
+\end{example}
+
+Before proving some useful properties of open and closed sets, there is one more definition that can prove helpful at times. It formalizes the notion of points in a set that are just on the border of a set, like the endpoints of $ [a,b]\subset\R $.  
+\begin{definition}
+	Let $ X $ be a metric space, and $ E\subseteq X $. The \textit{\color{red}boundary} of $ E $, denoted $ \partial E $, is the set of points in $ X $ such that every neighborhood of $ p $ contains at least one point of $ E $ and at least one point not of $ E $. $$ \partial E=\{x\in X\mid N_r(x)\cap E\neq\emptyset\text{ and }N_r(x)\cap  E^c\neq\emptyset \ \forall r>0  \} $$ 
+	Any element of $ \partial E $ is a \textit{\color{red}boundary point}.
+\end{definition}
+There are several equivalent definitions of $ \partial E $, many of which are more popular than this specific one. These other definitions use terms that we will cover in Section 3.4, so we will circle back then and discuss the boundary of a again. The first example one's mind should jump to are open and closed balls in $ \R^n $. 
+  \begin{figure}[h]
+  	\centering
+  	\begin{tikzpicture}
+  	\draw[color=black, thick ] (0,0) rectangle (12,6);
+  	\filldraw[color=blue, fill=gray!15, thick ] (4,3) circle (2.5cm);
+  	\draw (12.2,6.4) node {$ X $};
+  	\draw (2,3) node {$ E $};
+  	\draw (10,3) node {$ E^c $};
+  	\filldraw (6.1,2.7) circle (1pt) node[anchor = south east] {$ y $};
+  	\filldraw (6.5,3) circle (1pt) node[anchor = south east] {$ x $};
+  	\filldraw (7.2,3.2) circle (1pt) node[anchor = south east] {$ z $};
+  	\draw[color=red,dashed, thick ] (6.5,3) circle (1cm);
+  	\draw[color = red] (8,3.3) node {$ N_r(x) $};
+  	\draw[color = blue] (5.4,5.4) node {$ \partial E $};
+  	\end{tikzpicture}
+  	\caption{The boundary of a set $ E $ is shown in blue. Let $ \x\in X $. No matter how small we make $ r $, $ N_r(x) $ will always contain some $ y\in E $ and some $ z\in E^c $, so $ x\in\partial E $. } 
+  \end{figure}
+\begin{example}
+	Let $ B_r(\x) $ be the open ball of radius $ r $ centered at $ x\in\R^n $ (we could also denote this as $ N_r(\x) $). As the name suggests, the boundary is just all the points that are exactly a distance of $ r $ away from $ \x $, meaning $ \partial B_r(\x)=\{\y\in X\mid |\x-\y|=r\} $. In this particular case, no points in the boundary are in $ B_r(\x) $, so we have $ B_r(\x)\cap\partial B_r(\x)=\emptyset  $. If we take $ \bar{B}_r(\x) $ to be the closed ball, then we have the same boundary. $$\partial \bar{B}_r(\x)=\partial B_r(\x)=\{\y\in X\mid |\x-\y|=r\} $$ We also have $ \partial \bar{B}_r(\x)\cap \bar{B}_r(\x)=\bar{B}_r(\x)  $, and $ B_r(\x)\cup\partial B_r(\x)=\bar{B}_r(\x) $. 
+\end{example}
+\begin{remark}
+	It is very tempting to think all boundary points are limit points. At first glance, the definition of a boundary point seems to imply a point $ x\in\partial E $ is not only a limit point of $ E $, but also a limit point of $ E^c $. This is not true! Suppose $ x\in E $ is a limit point. The definition of a limit point not only requires that $ N_r(x)\cap E $ for all $ r $, but also requires that there are points \textit{other than} $ x $ in $ N_r(x) $. A boundary point needn't satisfy this second requirement, so even if $ N_r(x)\cap E=\{x\} $ for all $ r $, $ x $ can still be a boundary point! 
+\end{remark}
+
+\begin{example}
+	Let $ E\subset \R^2 $ be the union of a disk punctured at $ z $ and an isolated point $ y $ (Figure 16).  
+	\begin{figure}[h]
+		\centering
+		\begin{tikzpicture}
+		\filldraw[color=black, fill=gray!15, thick ] (6,0) circle (50pt);
+		\filldraw[color=black, fill=white, thick, dashed] (6,0) circle (2pt)node[anchor=north west] {$ z $};
+		\filldraw[color=black, fill=gray!60, thick, dashed] (9,1) circle (2pt)node[anchor=north west] {$ y $};
+		\end{tikzpicture}
+		\caption{The set $ E\subset \R^2 $.}
+	\end{figure}
+
+The points $ y $ and $ z $ are both boundary points. Despite this, $ y $ is not a limit point of $ E $, and $ z $ is not a limit point of $ E^c $. This follows from the reasoning in the previous remark.  	
+\end{example}
+
+\begin{remark}
+	We have now introduced five different definitions that classify points: limit points, isolated points, interior points, boundary points, and exterior points. This is \textit{a lot} to take in all at once. By far the most important concepts introduced here were open and closed sets. Being able to determine if a set is open and/or closed is one of the most important skills to have for this section, and those that follow. 
+\end{remark}
 \subsection{Properties of Open and Closed Sets}
+Open set and closed sets will play a roll in many of the results and theorems to come, so it is important to be able to identify which sets are open and which are closed. We will know introduce several tools that make this easier.  
 \begin{proposition}
 	Every neighborhood is an open set.
 \end{proposition}
+\begin{proof}
+	Suppose we have a metric space $ X $, and some point $ x\in X $. We will show that any point $ y\in N_r(x) $ is an interior point. There exists some $ h $ such that $$d(x,y)=r-h .$$ I claim that $ N_{r'}(y)\subset E $ for $ r'<h $. For all points $ z $ such that $ d(y,z)=r'<h $, the triangle inequality gives $$d(x,z)\le d(x,y)+d(y,z)<r-h+h=r, $$ so $ z\in N_r(x)=E $ for all $ z $ by the definition of $ N_r(x) $. This implies that $ N_{r'}(y)\subset E $, making $ y $ an interior point. (Figure 17)
+	\begin{figure}[h]
+		\centering
+		\begin{tikzpicture}
+		\filldraw[color=black, fill=gray!15, thick, dashed ] (6,0) circle (4cm);
+		\draw[very thick, dashed, color=blue] (6,0) -- (8,0);
+		\draw[color=blue] (7.8,-0.3) node[anchor = east] {$ r-h $};
+		\draw[very thick, dashed, color=green] (8,0) -- (10,0);
+		\draw[color=green] (9,-0.3) node[anchor = east] {$ h $};
+		\draw[color=black] (9.8,3.8) node[anchor = east] {$ E=N_r(x)$};
+		\filldraw (6,0) circle (1pt) node[anchor = south east] {$ x $};
+		\filldraw (8,0) circle (1pt) node[anchor = south west] {$ y $};
+		\filldraw (8,0.7) circle (1pt) node[anchor = south east] {$ z $}; 
+		\draw[color=red] (8.5,1.4)  node[anchor = south east] {$ N_{r'}(y) $};
+		\draw[color=red, thick, dashed] (8,0) circle (1.4cm); 
+		\end{tikzpicture}
+		\caption{The set $ E\subseteq X $. We constructed a neighborhood $ N_{r'}(y) $ for an arbitrary $ y\in N_r(x) $ such that $ N_{r'}(y)\subset E $. }
+	\end{figure}
+\end{proof}
+
 \begin{proposition}
-	If $ x $ is a limit point of $ E $ ($ x\in E' $), then every neighborhood of $ x $ contains infinitely many points of $ E $.
+	If $ x\in X $ is a limit point of $ E $ ($ x\in E' $), then every neighborhood of $ x $ contains infinitely many points of $ E $.
 \end{proposition}
+\begin{proof}
+	Let $ x\in X $. Suppose for contradiction, there exists some $ N_r(x) $ which contains only a finite number of points of $ E $. Let this finite set of points be $ \{y_1, \ldots, y_n\}\subseteq N_r(x)\cap E $. Pick the radius of $ N_r(x) $ to be the distance between $ x $ and the point to which it is closest in the finite set $ \{y_1,\ldots,y_n\} $: $$ r=\min_{1\le m\le n} d(x,y_m). $$ By construction, $ N_r(x) $ contains no point $ y\in E $ such that $ y\neq x $, so $ x $ is not a limit point of $ E $. This is a contradiction. (Figure 18)
+	\begin{figure}[h]
+		\centering
+		\begin{tikzpicture}
+		\filldraw[color=black, fill=gray!60, thick, dashed] (1,0) circle (2pt)node[anchor=north west] {$ y_1 $};
+		\filldraw[color=black, fill=gray!60, thick, dashed] (0,0) circle (2pt)node[anchor=north west] {$ x $};
+		
+		\filldraw[color=black, fill=gray!60, thick, dashed] (1.5,0) circle (2pt)node[anchor=north west] {$ y_2 $};
+		\filldraw[color=black, fill=gray!60, thick, dashed] (6.5,0) circle (2pt)node[anchor=north west] {$ y_3 $};
+		\filldraw[color=black, fill=gray!60, thick, dashed] (-2.3,0) circle (2pt)node[anchor=north west] {$ y_4 $};
+		\filldraw[color=black, fill=gray!60, thick, dashed] (-3.5,0) circle (2pt)node[anchor=north west] {$ y_5 $};
+		\filldraw[color=black, fill=gray!60, thick, dashed] (5,0) circle (2pt)node[anchor=north west] {$ y_6 $};
+		\filldraw[color=black, fill=gray!60, thick, dashed] (3.1,0) circle (2pt)node[anchor=north west] {$ y_7 $};
+		\filldraw[color=black, fill=gray!60, thick, dashed] (4,0) circle (2pt)node[anchor=north west] {$ y_8 $};
+		\filldraw[color=black, fill=gray!60, thick, dashed] (4.5,0) circle (2pt)node[anchor=north west] {$ y_9 $};
+		\filldraw[color=black, fill=gray!60, thick, dashed] (6,0) circle (2pt)node[anchor=north west] {$ y_{10} $};
+		\draw[color=red, thick, dashed] (0,0) circle (1cm);
+		\draw[color=red] (3,.5)  node[anchor = south east] {$ N_{r}(x)=\{x\} $};
+		\end{tikzpicture}
+		\caption{If our finite set of points of $ E $ is $ \{y_1,\ldots,y_{10}\} $, then we can reach a contradiction by constructing a neighborhood of $ x $ with $ r=\min_{1\le m\le n} d(x,y_m)=d(x,y_1) $. This will hold no matter where the points  $ \{y_1,\ldots,y_{10}\} $ happen to be in $ E $. In this case $ x\in E $, but remember that this isn't a requirement.}
+	\end{figure}
+\end{proof}
+	
 \begin{corollary}
-A finite set has no limit points.
+A finite set has no limit points. (see Example 3.13)
 \end{corollary}
+The next theorem and its corollary allows us to determine if a set is open or closed based on its complement. At first, this may not seem helpful, but if it is not clear if $ E $ is open or closed, one can just use $ E^c $! We will provide examples where using $ E^c $ is easier.
 \begin{theorem}
 	A set $ E $ is open \textit{if and only if} its complement is closed.
 \end{theorem}
+\begin{proof}{\color{white}space}
+	\begin{enumerate}
+		\item [$ (\Longrightarrow) $] Suppose $ E $ is open. Let $ x\in X $ be a limit point of $ E^c $. Every neighborhood $ N_r(x) $ contains a point of $ E^c $, so $ N_r(x)\not\subset E $, meaning $ x $ is \textit{not} and interior point of $ E $. But we have assumed every point of $ E $ is an interior point, so $ x\in E^c $. Therefore $ E^c $ includes all its limit points and is closed.   
+		\item [$ (\Longleftarrow) $] Suppose $ E^c $ is closed. Let $ x\in E $. We have $ x\notin E^c $, so $ x $ is not a limit point of $ E^c $ (otherwise it would be in $ E^c $, as $ E^c $ is closed). If $ x $ is not a limit point of, then there exists an $ N_r(x)\cap E^c=\emptyset $, giving $ N_r(x)\subset E $. Thus $ x\in E $ is an interior point, and $ E $ is open.  
+	\end{enumerate}
+\end{proof}
 \begin{corollary}
 	A set $ E $ is closed \textit{if and only if} its complement is open.
 \end{corollary}
+One practical consequence of these results, is that if you find it more difficult to check if a set is open or closed (or vice versa), you can always just work with the complement. 
+
 \begin{example}
-	content...
+Let $ X $ be any metric space. Recall from Example 3.14 that $ \emptyset $ is closed and open. This means that $ \emptyset^c=X $ is closed and open as well. This allows us to conclude that $ \R $ in $ \R $ is open and closed.
 \end{example}
+\begin{example}
+	The set $ [a,b]\subset \R $ is closed. This implies that $ [a,b]^c=(-\infty,a)\cup(b,\infty) $ is open.
+\end{example}
+We often define some set of interest as a union or intersection of a collection of sets. For instance, the proof of Theorem 1.2, the supremum of a set in $ \R $ was defined as the union of the Dedekind cuts that comprise the set. In Example 1.26, $ \Q $ was written as the countably infinite union of intervals. In situations like this, it is possible to know if a set is open or closed if the sets over which we take the union/intersection are open or closed. 
 \begin{theorem}
 	Let $ \{G_\alpha\} $ and $ \{F_\alpha\} $ be an arbitrary collection of open sets and closed sets respectively. Let $ G_1,\ldots,G_n $ and $ F_1,\ldots, F_n $ be a finite collection of open sets and closed sets respectively. In this case we have:
 	\begin{enumerate}
 		\item $ \bigcup_\alpha G_\alpha $ is open.
 		\item $ \bigcap_\alpha F_\alpha $ is closed.
-		\item $ \bigcup_{i=1}^n G_i$ is open.
-		\item $ \bigcap_{i=1}^n F_i$ is closed.
+		\item $ \bigcap_{i=1}^n G_i$ is open.
+		\item $ \bigcup_{i=1}^n F_i$ is closed.
 	\end{enumerate}
-\end{theorem}
-\begin{example}
 
+\end{theorem}
+
+\begin{proof}{\color{white}space}
+	\begin{enumerate}
+		\item Suppose $ G_\alpha $ is open for all $ \alpha $. Let $ x\in \bigcup_\alpha G_\alpha $. For some $ \alpha $, $ x\in G_\alpha $. There exists a neighborhood $ N_r(x) $ such that $ N_r(x)\subset G_\alpha $, because $ G_\alpha $ is open. Therefore $ \bigcup_\alpha G_\alpha $ is open, as $ N_r(x)\subset G_\alpha\subset \bigcup_\alpha G_\alpha $. 
+		\item Suppose $ F_\alpha $ is closed for all $ \alpha $. It suffices to show that $ (\bigcap_\alpha F_\alpha)^c $ is open using Theorem 2.1. By the aforementioned theorem, $ F_\alpha^c $ is closed for all $ \alpha $. Therefore the union of $ F_\alpha^c $ is open by part (1). This completes our proof, as De Morgan's Law gives $$ \left(\bigcap_\alpha F_\alpha\right)^c=\bigcap_\alpha F_\alpha^c.$$
+		\item Suppose the sets $ G_1,\ldots,G_n $ are open. Let $ x\in \bigcap_{i=1}^n G_i$. For all $ x\in\bigcap_{i=1}^n G_i $, there exists neighborhoods $ N_{r_i}(x) $ with radii $ r_i $, such that $ N_{r_i}(x)\subset G_i $ for all $ i $. Let $ r=\min\{r_1,\ldots,r_n\} $. This radius gives us $ N_r(x)\subset G_i $ for all $ i $, meaning $ N_r(x)\subset \bigcap_{i=1}^n G_i $. Therefore $ x $ is an interior point, and $ \bigcap_{i=1}^n G_i $ is open. (Figure 19)   
+		\begin{figure}[h!]
+			\centering
+			\begin{tikzpicture}
+				\filldraw[color=blue, fill=blue!15, thick, dashed, opacity=1] (0,0) circle (3cm);\filldraw[color=red, fill=red!15, thick, dashed, opacity=0.8] (3.5,0) circle (3cm);
+				\draw[color=blue] (-1,2.8)  node[anchor = south east] {$ G_1 $};
+				\draw[color=red] (4.8,2.8)  node[anchor = south east] {$ G_2 $};
+				\filldraw(1,0)  circle (1pt);
+				\draw (1.1,0) node[anchor = south east] {$ x $};
+				\draw[dashed, thick] (1,0) circle (1.8cm);
+				\draw[dashed, thick] (1,0) circle (0.4cm);
+				\draw(-0.5,1)  node[anchor = south east] {$ N_{r_1}(x) $};
+				\draw(2.5,0.4)  node[anchor = south east] {\tiny$ N_{r_2}(x)=N_r(x) $};
+			\end{tikzpicture}
+			\caption{In this simplified setting, we have two open sets: $ G_1 $, and $ G_2 $. By letting $ r=\min\{r_1,r_2\}=r_2 $, we find a neighborhood $ N_r(x) $ such that $ N_r(x)\subset G_1\cap G_2 $. }
+		\end{figure}
+		\item  Suppose the sets $ F_1,\ldots,F_n $ are closed. It suffices to show that $ (\bigcap_{i=1}^n F_i)^c $ is open using Theorem 2.1. By the aforementioned theorem, $ F_i^c $ is open for all $ i$. By part (2) the the intersection of all $ F_i^c $ is open This complete out proof, as De Morgan's Law gives 
+		 $$ \left(\bigcap_{i=1}^n F_i\right)^c=\bigcap_{i=1}^n F_n^c.$$
+	\end{enumerate}
+\end{proof}
+Part (2) and (4) of Theorem 2.2 require that the collection of sets is finite, otherwise the minimum over the finite number of radii of neighborhoods many not be well defined. The following two examples show that Theorem 2.2 does not hold if we take these collections to be infinite. 
+\begin{example}
+	Let $ G_n=(1/n,1+1/n) $ for all $ n\in\N $. The set $ G_n $ is open in $ \R $ for all $ n $. Taking the intersection gives $$\bigcap_n G_n=[0,1] .$$ The interval $ [0,1] $ is closed, despite each $ G_n $ being open.  
+\end{example}
+\begin{example}
+	Let $ F_n=[1/n,\infty) $ for all $ n\in\N $. The set $ F_n $ is closed in $ \R $ for all $ n $. Taking the union gives $$ \bigcup_{n}F_n=(0,\infty).$$ This interval is open in $ \R $, despited each $ F_n $ being closed.
 \end{example}
 \subsection{Closures, Interiors, Dense Sets, and Perfect Sets} 
 \begin{definition}
@@ -816,8 +1132,247 @@ Let $ X $ be a metric space. The \textit{\color{red}interior} of a set $ E\subse
 	Let $ X $ be a metric space. The set $ E\subset X $ is \textit{\color{red}dense in $ X $} if every point of $ X $ is a limit point of $ E $, or a point of $ E $. ($ \bar{E}=X $)  
 \end{definition}
 \subsection{Compact Sets}
-\subsection{Properties of Compact Sets}
+We have encountered infinity several times now. Sets can have an infinite number of element, in which case they are either countable or uncountable. A set can ``take up an infinite amount of space'' if it is unbounded. Each limit point of a set contains an infinite number of points in the set. These factors can result in sets that are difficult to work with. For example, suppose a set is unbounded. It can be hard to determine how functions or sequences behave on sets like this, because the distance between points can become arbitrarily large. What kind of headaches to limit points cause? Any neighborhood of a limit point will contain an infinite number of points in that set (Proposition 2.2). If the limit point is not in the set, this can also pose problems. As we will see later on, it could be possibly to get arbitrarily close to that limit point while never leaving the set. In a sense, we would be getting closer to a point in a set, where the destination is not even included in the set. To prevent this from happening, all limit points should be included in a set, i.e the set should be closed. Later on when working with sequences and continuous functions, two concepts intrinsically linked by the idea of getting arbitrarily close to a point, sets that are ``nice'', and will not illicit the two mentioned complications, will lead to nice results. Our goal now is to characterize these sets, and attempt to motivate their characterization.\footnote{Motivating the main definition of this subsection is infamously difficult, as it is not clear how it will be used in the future. It would be like explaining what a hammer is to someone who has no idea what a nail is. }   
 
+One somewhat trivial way to guarantee a set is both closed and bounded is by restricting out attention to finite sets. If $ E $ is finite, it has no limit points and is trivially closed. A finite set must also be bounded. While finite may have the nice properties we are looking for, they are not that interesting. Real analysis almost always involves the real numbers, an uncountably infinite set. So what criteria would guarentee an infinite set, whether it be countable or uncountable, will behave like a finite set?
+
+The way we will go about defining these sets is by looking how we can ``cover'' them with a collection of open sets. The idea is that a set may be infinite, but perhaps we can cover it with a finite collection of open sets. 
+\begin{definition}
+	Let $ X $ be a metric space. An \textit{\color{red}open cover} of a set $ E\subseteq X $ is a collection of open sets $ \mathcal\{G_\alpha\}\subseteq X $ such that $ E\subseteq\cup_\alpha G_\alpha $.  
+\end{definition}
+  \begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+	\draw[color=black, thick] (0,0) rectangle (12,6);
+	\filldraw[thick, fill=gray!15] (6,3) circle (2cm);
+	\draw (12.2,6.4) node {$ X $};
+	\draw (6,3) node {$ E $};
+	\draw[thick, dashed] (6,2) circle (1.5cm);
+	\draw (6,0.2) node {$ G_1 $};
+	\draw[thick, dashed] (7.8,3) circle (1.5cm);
+	\draw (9.6,3) node {$ G_2 $};
+	\draw (8.5,5) node {$ G_3 $};
+	\draw (4,5.4) node {$ G_4$};
+	\draw[thick, dashed] (7,4) circle (1.5cm);
+	\draw[thick, dashed] (5,3.5) circle (1.9cm);
+	\end{tikzpicture}
+	\caption{The collection of set $ \{G_1,\ldots G_4\} $ forms an open cover of $ E $.} 
+\end{figure}
+An open cover is a \textit{collection} of sets. Each element of an open cover is a single open set. This means that the cardinality of an open set has \textit{nothing} to do with the cardinality of the sets it is comprised of. The collection $ \{\R,(0,1),(0,2)\} $ is 3. We do not care whatsoever about the fact that each of the sets in the collection are uncountably infinite. The emphasis here is due to the fact that the cardinality of these covers (and a second type we will define soon) will be the bases of our criteria of what makes a set ``nice''.
+\begin{example}
+	Let $ E=N_r(x) $ be a subset of a metric space $ X $. One open cover of the set $ E $ is the single set $ N_{r+1}(x) $. Another would be $ N_{r+2}(x) $. 
+\end{example}
+\begin{example}
+	Let $ \R $ be the entire real line. We can cover this with the union of all sets of the form $G_n=(-n,n)$ for $ n\in\N $. $$ \R\subseteq\bigcup_{n\in \N}(-n,n)$$
+\end{example}
+It is not enough to require that a set has a finite open cover. Any set $ E $ can trivially be covered by itself, forming an open cover consisting of one element. We could require that every open cover is finite, but this could never be satisfied. For example, take the closed interval $ (a,b)\subset\R $. We could cover this with a finite open cover $ \{(a,b)\} $. We could also cover it with the infinite open cover $ \{(a,b),(-1,1),(-2,2),(-3,3),\ldots\} $. We can just take the cover $ \{(a,b)\} $ and throw in an infinite number of random intervals of $ \R $ and still end up with an open cover. This is complete ``overkill'' when it comes to covering $ (a,b) $! To address the fact that we will always have infinite open covers, we will introduce a new type of open cover that is both finite, and limits any redundant additions to the cover. 
+
+\begin{definition}
+Let $ X $ be a metric space, and $ E\subseteq X $. A \textit{\color{red}finite subcover} of an open cover $ \{G_\alpha\} $ of $ E $  is a collection of open sets $ \{G_{\alpha_1},\ldots,G_{\alpha_n}\} $ such that $$ E\subseteq \bigcup_{i=1}^nG_{\alpha_i}\subseteq\bigcup_\alpha G_\alpha. $$
+\end{definition}
+\begin{example}
+	Let $ X $ be a metric space and $ E\subset X $. The collection $ \{E\} $ is a trivial open cover. We also have a trivial finite open subcover in $ \{E\} $. 
+\end{example}
+\begin{example}
+	Let $ \{(a,b),(-1,1),(-2,2),(-3,3),\ldots\} $ be an open cover of $ (a,b)\subset \R $. One finite subcover of this open cover is $ \{(a,b)\} $. Another finite subcover is $ \{(a,b),(-1,1)\} $. In fact, any set $ \{(a,b),(-1,1),\ldots(-n,n)\} $ is a finite subcover. 
+\end{example}
+This simple example shows that some open covers actually have an infinite number of finite subcovers. The introduction of finite subcovers may be a bit confusing, so it is worth recapping what we have done before presenting the main definition of this subsection: 
+\begin{itemize}
+	\item We have some metric space $ X $ and some set $ E\subseteq X $. We can cover this set with a collection of sets $ \{G_\alpha\} $ called an open cover, the cardinality of which is determined by the number of sets in the collection $ \{G_\alpha\} $. We like the idea of finite open covers.
+	\item There exists an infinite number of open covers of a set. There also always exists a finite open cover of a set, so we need to do better than just having a finite open cover.  
+	\item A finite subcover $ \{G_{\alpha_1},\ldots,G_{\alpha_n}\} $ of the open cover $ \{G_\alpha\} $ is a subset of $ \{G_\alpha\} $, which also covers $ E $. The finite subcover of one open cover $ \{G_\alpha\} $ \textit{is not necessarily} a finite subcover of another open cover $ \{G'_\alpha\} $, so whenever we talk about finite subcovers, it is with respect to some fixed open cover. Some open covers of sets have an infinite number of finite subcovers (Example 2.29).
+\end{itemize} 
+We are now ready give a proper definition and name to the ``nice'' sets we want to characterize. In doing so, we will answer an important question about finite subcovers that may have arisen by now -- some open covers of sets have an infinite number of finite subcovers, but do \textit{all} open covers of a set have \textit{at least one} finite subcover? 
+\begin{definition}
+	Let $ X $ be a metric space, and $ K $ be a subset of $ X $. The set $ K $ is \textit{\color{red}compact} if \textit{every} open cover of $ K $ contains \textit{at least one} finite subcover. 
+\end{definition} 
+The answer to our question turns out to be no. If it were yes, then there would be no need to define compactness, because every set would be compact. Compact sets turn out to be the nice sets we were looking for. As we'll see, they can be infinite, but they do not cause the complications with infinity that we discussed at the open of this subsection. In some sense, compact sets are the next best thing to finite sets. 
+\begin{example}
+	The set $ (a,b)\subset\R $ is not compact. In order verify this, we just need to find a single open cover that has no finite subcover. Let $ \{G_n\} $ be an open cover where $ G_n=(a+1/n,b) $. We have that $$ (a,b)\subseteq\bigcup_{n\in \N} G_n=\bigcup_{n\in \N}(a+1/n,b)=(a,b).$$ No finite subset of $ \{G_n\} $ will be a finite subcover of $ (a,b) $. If we had a finite subset of $ \{G_n\} $ then there would exist some $ N\in\N $ such that $ (a,a+1/N) $ is ``uncovered''. Therefore any open interval in $ \R $ is not compact. 
+\end{example}
+\begin{example}
+	The real line $ \R $ is not compact. The open cover $ \{G_n\} $ where $ G_n=(-n,n) $ has no finite subcover. If we had a finite subset of $ \{G_n\} $, then there would exist some $ N\in\N $ such that $ (-\infty,-N)\cup(N,\infty) $ is ``uncovered''. Therefore the real line $ \R $ is not compact. 
+\end{example}
+
+These two examples should not be entirely surprising. When compactness was motivated, complications involving two types of sets were cited: unbounded sets, and sets that were not closed. $ (a,b) $ and $ \R $ both fall into exactly one of these categories.
+\begin{example}
+	Suppose $ X=\{x_1,\ldots,x_n\} $ is a finite metric space. The entire space $ X $ is compact. Let $ \{G_\alpha\} $ be an open cover of $ X $. For each $ x_i\in X $, there exists an $ G_{\alpha_i} $ such that $ x_i\in G_{\alpha_i} $. Therefore, the open cover has a finite subcover in $ \{G_{\alpha_1},\ldots ,G_{\alpha_n}\} $.    
+\end{example}
+Using the definition of compactness to verify that a set is not compact takes some creativity, but only requires one to find a single counterexample. This is opposed to verifying a set is compact. This requires we somehow verify that every single open cover has a finite subcover. This is prohibitively difficult to do in most cases. This is why we want to find conditions that are easy to verify and that imply compactness. Of chief concern, is doing this for subsets of $ \R^n $. 
+\subsection{Properties of Compact Sets}
+Before restricting our attention to $ \R^n $, we need to establish some properties of compact sets that will allow come in handy when working with them.
+\begin{proposition}
+	Suppose $ K\subseteq Y\subseteq X $, where $ Y $ and $ X $ are metric spaces. The subset $ K $ is compact relative to $ X $ \textit{if and only if} $ K $ is compact relative to $ Y $.  
+\end{proposition}
+\begin{example}
+	content...
+\end{example}
+
+The next two theorems establish that all compact sets are both closed and bounded. This should feel somewhat natural, as compactness can be interpreted as a generalization of closed and bounded sets.
+\begin{theorem}
+	Let $ X $ be a metric space, and $ K\subseteq X $ be compact. The set $ K $ is closed. 
+\end{theorem} 
+\begin{proof}
+Let $ K $ be a compact subset of a metric space $ X $. It suffices to show that $ K^c $ is open in $ X $. Suppose $ x\in K^c $, and $ y\in K $. For $ r<\frac{1}{2}d(x,y) $, let $ V_y=N_r(x) $ and $ W_y=N_r(y) $ (Figure 21). For our fixed $ x\in K^c $, we will repeat this process for multiple points in $ K $. By compactness, we know there exists a finite set of $ \{y_1,\ldots,y_n\} $ such that $ \{W_{y_1},\ldots,W_{y_n}\} $ is a finite subcover of $ K $. In constructing this subcover, we also constructed the corresponding sets $ \{V_{y_1},\ldots, V_{y_n}\} $ (Figure 22). If we let $ V=\cap_{i=1}^n V_{y_i} $, then we have $ x\in V\subset K^c $, making $ x $ an interior point of $ K^c $. Therefore $ K^c $ is open.
+ \begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+	\filldraw[color=black, thick, fill=red!15] (0,0) rectangle (12,6);
+	\filldraw[color=blue, thick, fill=blue!15] (3,3) circle (1.5cm);
+	\draw[thick, red, dashed, thick]  (3,3) circle (1.5cm);
+	\draw[blue] (3.5,4.7) node {$ K $};
+	\draw (12.2,6.4) node {$ X $};
+	\draw[red] (11,5) node {$ K^c $};
+	\filldraw (4,3) circle (1pt) node[anchor= south east] {$ y $};
+	\filldraw (8,3) circle (1pt) node[anchor= south east] {$ x $};
+	\draw[thick, dashed] (4,3) circle (1cm);
+	\draw[thick, dashed] (8,3) circle (1cm);
+	\draw[thick, dashed] (4,3) -- (8,3);
+	\draw[thick] (6,3.1)--(6,2.9);  
+	\draw[black] (6,3.2) node {\tiny$ \frac{1}{2}d(x,y) $};
+	\draw[black] (5,4) node {$ W_{y}$};
+	\draw[black] (7,4) node {$ V_{y}$};
+	\end{tikzpicture}
+	\caption{For some points $ x\in K^c $ and $ y\in K $, we construct neighborhoods $ W_y=N_r(y)$ and $ V_y=N_r(x) $ such that $ r<\frac{1}{2}d(x,y) $. This choice of radius ensures $ V_y\cap W_y=\emptyset $.}  
+\end{figure}
+ \begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+	\filldraw[color=black, thick, fill=red!15] (0,0) rectangle (12,6);
+	\filldraw[color=blue, thick, fill=blue!15] (3,3) circle (1.5cm);
+	\draw[thick, red, dashed, thick]  (3,3) circle (1.5cm);
+	\draw[blue] (3.5,4.7) node {$ K $};
+	\draw (12.2,6.4) node {$ X $};
+	\draw[red] (11,5) node {$ K^c $};
+	\filldraw (4,3) circle (1pt) node[anchor= south east] {$ y_1 $};
+	\filldraw (8,3) circle (1pt) node[anchor= south east] {$ x $};
+	\draw[thick, dashed] (4,3) circle (1cm);
+	\draw[thick, dashed] (8,3) circle (1cm);
+		\draw[thick, dashed] (8,3) circle (2cm);
+				\draw[thick, dashed] (8,3) circle (0.6cm);
+		\draw[thick, dashed] (3.8,2) circle (0.6cm);
+	\draw[thick, dashed] (8,3) circle (1.5cm);
+	\filldraw (3,4) circle (1pt) node[anchor= south east] {$ y_2 $}; 
+		\filldraw (2,3) circle (1pt) node[anchor= north east] {$ y_3 $}; 
+		\draw[thick, dashed] (2,3) circle (2cm);
+		\draw[thick, dashed] (3,4) circle (1.5cm);
+		\filldraw (3.8,2) circle (1pt) node[anchor= north west] {$ y_4 $};
+		\draw[black] (8.8,3) node {\tiny$ V_{y_4}$};
+		\draw[black] (9.3,3) node {\tiny$ V_{y_1}$};
+		\draw[black] (9.8,3) node {\tiny$ V_{y_2}$};
+		\draw[black] (10.3,3) node {\tiny$ V_{y_3}$};
+		\draw[black] (4,1.2) node {\tiny$ W_{y_4}$};
+		\draw[black] (5.4,3) node {\tiny$ W_{y_1}$};
+		\draw[black] (3,5.7) node {\tiny$ W_{y_2}$};
+		\draw[black] (2,0.7) node {\tiny$ W_{y_3}$};
+		
+	\end{tikzpicture}
+	\caption{For the fixed value $ x\in K^c $, repeat the process illustrated in Figure 21 until we have a finite subcover of $ K $, $ \{W_{y_1},\ldots,W_{y_4}\}.$ If we let $ V $ be the intersection of all $ V_{y_i} $, then $ x\in V\subset K^c $, rendering $x $ an interior point of $ K^c $.}  
+\end{figure}
+\end{proof}
+\begin{example}
+	The set $ \Q $ in $ \R $ is not closed (Example 2.18), so it is not compact in $ \R $. 
+\end{example}
+
+\begin{theorem}
+	Let $ X $ be a metric space, and $ K\subseteq X $ be compact. The set $ K $ is bounded. 
+\end{theorem}
+\begin{proof}
+Let $ x\in K $. The collection of neighborhoods $ \{N_r(x)\} $ for $ r\in\N $ forms an open cover of $ K $. By compactness, this open cover has a finite subcover $ \{N_{r_1}(x),\ldots,N_{r_n}\} $. If we take $ r^*=\max\{r_1,\ldots,r_n\} $, then $ K\subset N_{r^*}(x) $, and $ d(x,y)<r^* $ for all $ y\in K $. (Figure 23)
+  \begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+	\draw[color=black, thick] (0,0) rectangle (12,8);
+	\filldraw[thick, fill=gray!15] (6,4) circle (3.5cm);
+	\draw (12.2,6.4) node {$ X $};
+	\draw (6,5.4) node {$ K $};
+	\filldraw (6,4) circle (1pt) node[anchor = south east] {$ x $};
+	\draw[thick, dashed, red] (6,4) circle (1cm);
+	\draw[thick, dashed, red] (6,4) circle (2cm);
+	\draw[thick, dashed, red] (6,4) circle (3cm);
+	\draw[thick, dashed, green] (6,4) circle (4cm);	
+	\draw[red] (7.4,4) node {\footnotesize$ N_{1}(x) $};
+	\draw[red] (8.1,5) node {\footnotesize$ N_{2}(x) $};
+	\draw[red] (9,5.5) node {\footnotesize$ N_{3}(x) $};
+	\draw[green] (10.4,6.5) node {\footnotesize$ N_{4}(x)=N_{r^*}(x) $};
+	\end{tikzpicture}
+	\caption{We cover the set $ K $ with an infinite open cover comprised of neighborhoods of radii in $ \N $. By compactness there is an open subcover, such as $ \{N_1(x),\ldots,N_4(x)\} $. The set is bounded by the maximum radii $ r^*=4 $ in this finite collection.}  
+\end{figure}
+\end{proof}
+\begin{example}
+The set $ (0,\infty) $ in $ \R $ is not bounded so it is not compact in $ \R $. 
+\end{example}
+\begin{remark}
+	While compactness implies closed and bounded, the converse \textit{is not necessarily true}. Soon, we will see that the converse will hold in $ \R^n $, but in general, this is not the case. The next example illustrates this.
+\end{remark}
+\begin{example}
+	Let $ X=\{1/n\mid n\in\N\} $ be a metric space equipped with $$ d(x,y)=\begin{cases}
+	1\text{ if }x=y\\0\text{ if }x\neq y
+	\end{cases}.$$
+\end{example}
+\subsection{Compact Sets in $ \R^n $}
+\subsection{What Does ``Topology'' Even Mean?}
+\subsection{Exercises}
+\begin{ex}
+	Show that the set of all algebraic numbers is countably infinite.
+\end{ex}
+\begin{ex}
+	Show that the set of all binary numbers with infinite digits is uncountably infinite.
+\end{ex}
+\begin{ex}
+	Verify that the taxi-cab metric on $ \R^n $ is a valid metric space.
+\end{ex}
+\begin{ex}
+	Let $ X $ be an infinite set with the metric, $$d(x,y)=\begin{cases}
+		1\text{ if }x\neq y\\
+	0\text{ if }x=y
+	\end{cases} .$$ Prove that $ (X,d) $ is a metric space. Which subsets of $ X $ are open? Which are closed? 
+\end{ex}
+\begin{ex}
+	Prove that $ E^\circ $ is open.
+\end{ex}
+\begin{ex}
+	Prove that $ E $ is open \textit{if and only if} $ E=E^\circ $.
+\end{ex}
+\begin{ex}
+	If $ G\subset E $ and $ G $ is open, prove that $ G\subset E^\circ $
+\end{ex}
+\begin{ex}
+	Prove that $ (E^\circ)^c=\overline{E^c} $.
+\end{ex}
+\begin{ex}
+	Find an example of a set $ E  $ in a metric space such that $ E^\circ\neq(\bar{E} )^\circ$.
+\end{ex}
+\begin{ex}
+	Find an example of a set $ E  $ in a metric space such that $ \bar{E}\neq\overline{E^\circ}$.
+\end{ex}
+\begin{ex}
+	Prove that $ \partial E $ is closed.
+\end{ex}
+\begin{ex}
+	Prove that $ \partial(E^\circ)\subseteq \partial E  $, and $ \partial(\bar{E})\subseteq \partial E  $
+\end{ex}
+\begin{ex}
+	Prove that $ \partial E=\partial (E^c)  $.
+\end{ex}
+\begin{ex}
+	Suppose $ E $ is closed. Show that $ (\partial E)^\circ=\emptyset $. 
+\end{ex}
+\begin{ex}
+	Prove that $ \partial (\partial E)\subseteq \partial E $. When will the sets be equal? 
+\end{ex}
+\begin{ex}
+	Prove that $ E $ is closed \textit{if and only if} $ E\cap \partial E=\emptyset $.
+\end{ex}
+\begin{ex}
+	Prove that $ \partial E=\emptyset$ \textit{if and only if} $ E $ is closed and open.  
+\end{ex}
+\begin{ex}
+	Prove that $ \bar{E}=E\cup\partial E $.
+\end{ex}
+\begin{ex}
+	Prove that $ (\partial \bar{E})^\circ=\emptyset $. 
+\end{ex}
 \section{Sequences and Series}
 \subsection{Convergence}
 density
@@ -849,6 +1404,7 @@ density
 \subsection{Integration with Continuity and/or Monotonicity}
 \subsection{Riemann-Stieltjes Integral}
 \section{Sequences and Series of Functions}
+\subsection{Spaces of Functions}
 \subsection{Sequences}
 \subsection{Convergence}
 \subsection{Uniform Convergence}
