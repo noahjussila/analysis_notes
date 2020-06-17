@@ -11,6 +11,8 @@
 \usepackage{natbib}
 \usepackage{xcolor}
 \usepackage{graphicx}
+\usepackage{mathrsfs}
+
 \usepackage{tikz}
 \setcounter{subsection}{-1}
 \newcommand{\N}{\mathbb{N}}
@@ -27,6 +29,7 @@
 \theoremstyle{definition}
 \newtheorem{proposition}{Proposition}[section]
 \newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
 \newtheorem{definition}{Definition}[section]
 \newtheorem{corollary}{Corollary}[section]
 \newtheorem{ex}{Exercise}[section]
@@ -223,10 +226,10 @@ The statement $ ``x<y'' $ is read as ``$ x  $ is less than $ y $.''We could also
 \end{example}
 We can use the order relation on an ordered set to define bounds on sets.
 \begin{definition}
-	Suppose $ S $ is an ordered set, and $ E\subseteq S $. If there exists a $ \beta\in S $ such that $ x\le\beta $ for all $ x\in E $, $ E $ is \textit{\color{red}bounded above}, and $ \beta $ is an \textit{\color{red} upper bound} of $ E $. 
+	Suppose $ S $ is an ordered set, and $ E\subset S $. If there exists a $ \beta\in S $ such that $ x\le\beta $ for all $ x\in E $, $ E $ is \textit{\color{red}bounded above}, and $ \beta $ is an \textit{\color{red} upper bound} of $ E $. 
 \end{definition}
 \begin{definition}
-	Suppose $ S $ is an ordered set, and $ E\subseteq S $. If there exists a $ \beta\in S $ such that $ x\ge\beta $ for all $ x\in E $, $ E $ is \textit{\color{red}bounded below}, and $ \beta $ is a \textit{\color{red} lower bound} of $ E $. 
+	Suppose $ S $ is an ordered set, and $ E\subset S $. If there exists a $ \beta\in S $ such that $ x\ge\beta $ for all $ x\in E $, $ E $ is \textit{\color{red}bounded below}, and $ \beta $ is a \textit{\color{red} lower bound} of $ E $. 
 \end{definition}
 A subtlety in both definitions that is extremely important, is that upper and lower bounds must be elements of the ordered set $ S $. The next example highlights this. 
 \begin{example}
@@ -389,7 +392,7 @@ This cut uniquely represents $ 0\in\Q $, as no other cut can be defined in this 
 \end{example}
 Now that we have properly defined $ \R $, we can \textit{finally} refer to the quantity $ \sqrt{2} $! It is no longer a mysterious solution to an equation, and is well defined in $ \R $. This is a relatively small payoff, but the real rewards are the two following theorems. These are the main results of this section, and are of the utmost importance. The first will allow us to perform operations on $ \R $, and the second will play a key role in proving familiar theorems from calculus. The proof of the first result is rather long, and not very informative, so it is omitted. It is important to understand \textit{how} it would be proved though. Before the big reveal, we will define an order on $ \R $
 \begin{definition}
-	Given real numbers $ x=(A,B) $ and $ y=(C,D) $, we define the following order:$$x\le y\coloneqq A\subseteq C .$$ The inequality is strict if $ A\subset C $. 
+	Given real numbers $ x=(A,B) $ and $ y=(C,D) $, we define the following order:$$x\le y\coloneqq A\subset C .$$ The inequality is strict if $ A\subset C $. 
 \end{definition}
 \begin{example}
 	Let $ x=2=(A,B)=(\{y\in \Q \mid y<2\},\{y\in\Q\mid y\ge 2\})$, and $ y=3=(C,D)=(\{z\in \Q \mid z<3\},\{z\in\Q\mid z\ge 3\})$. It should come as no surprise that $ 2<3 $, but this is because $ A\subset C $.  
@@ -641,7 +644,7 @@ Now that we've seen which familiar sets are and are not countable, there are sev
 	The set $ \R $ is uncountable. We have that $ \Q\subset \R $ is countable. By Corollary 2.1, $ \R\backslash \Q $ (the set of irrational numbers) is uncountable. This means that in a certain sense, there are more gaps in $ \Q $ than there aren't! We are not even capable of counting all the gaps, whereas we can count $ \Q $. 
 \end{example}
 \begin{proposition}
-	Let $ X $ be a countable set. Any subset $ Y\subseteq X $ is countable
+	Let $ X $ be a countable set. Any subset $ Y\subset X $ is countable
 \end{proposition}
 \begin{proof}
 	There exists a bijection $ f:\N\to X $. If we restrict the codomain of $ f $ to be $ Y $, $ f $ is still a bijection. 
@@ -653,7 +656,7 @@ Now that we've seen which familiar sets are and are not countable, there are sev
 	Let $ \{E_n\} $, $ n\in\N $, be a sequence of countably infinite sets, and let $ E=\bigtimes\limits_{n\in N}E_n $ be a countable Cartesian product. The set $ E $ is countably infinite. 
 \end{proposition}
 \begin{proof}
-	It suffices to show the result for two sets $ E_1 $ and $ E_2 $, and then apply induction using the same argument used in the proof of Proposition 2.9. We have bijections $ f:E_1\to\N$ and $ g:E_2\to\N $. Define $ h:E_1\times E_2 $ as $$ h((a,b))=2^{f(a)}3^{g(a)},$$ where $ (a,b)\in E_1\times E_2 $. Each element in $ h(E_1\times E_2) $ is a whole number with a prime factorization comprised of only $ 2 $ and/or $ 3 $. Because each element of $ \N $ is uniquely determined by its prime factorization, $ h $ is injective. Unfortunately, $ h $ is no surjective, as there exist many elements of $ \N $ with prime factorizations that include more than $ 2 $ and/or $ 3 $. If we restrict the codomain of $ h $ to just its image, we have a bijection $ h':E_1\times E_2\to  h(E_1\times E_2) $  We do have that $ h(E_1\times E_2)\subseteq \N  $, so by Proposition 2.10, $ |h(E_1\times E_2)|=\aleph_0 $ . By transitivity, $ |E_1\times E_2|=\aleph_0 $. The aforementioned induction can be applied to conclude $ |E|=\aleph_0 $. 
+	It suffices to show the result for two sets $ E_1 $ and $ E_2 $, and then apply induction using the same argument used in the proof of Proposition 2.9. We have bijections $ f:E_1\to\N$ and $ g:E_2\to\N $. Define $ h:E_1\times E_2 $ as $$ h((a,b))=2^{f(a)}3^{g(a)},$$ where $ (a,b)\in E_1\times E_2 $. Each element in $ h(E_1\times E_2) $ is a whole number with a prime factorization comprised of only $ 2 $ and/or $ 3 $. Because each element of $ \N $ is uniquely determined by its prime factorization, $ h $ is injective. Unfortunately, $ h $ is no surjective, as there exist many elements of $ \N $ with prime factorizations that include more than $ 2 $ and/or $ 3 $. If we restrict the codomain of $ h $ to just its image, we have a bijection $ h':E_1\times E_2\to  h(E_1\times E_2) $  We do have that $ h(E_1\times E_2)\subset \N  $, so by Proposition 2.10, $ |h(E_1\times E_2)|=\aleph_0 $ . By transitivity, $ |E_1\times E_2|=\aleph_0 $. The aforementioned induction can be applied to conclude $ |E|=\aleph_0 $. 
 \end{proof}
 \begin{example}
 	The set of all pairs of rational numbers $ \Q^2 $ is countable.
@@ -738,7 +741,7 @@ We can combine these equations to conclude $$x-z=(x-y)+(y-z)=p^mr+p^ns. $$ If $ 
 \end{enumerate}
 \end{example}
 \begin{definition}
-	Let $ X $ be a metric space. A set $ E\subseteq X $ is \textit{\color{red} bounded} if there is a positive number $ M\in\R $ and a point $ x\in X $ such that $ d(x,y)<M $ for all $ x\in E $. If a set is no bounded, we say it is \textit{\color{red}unbounded}. 
+	Let $ X $ be a metric space. A set $ E\subset X $ is \textit{\color{red} bounded} if there is a positive number $ M\in\R $ and a point $ x\in X $ such that $ d(x,y)<M $ for all $ x\in E $. If a set is no bounded, we say it is \textit{\color{red}unbounded}. 
 \end{definition}
 Boundedness insures that a set doesn't ``go off to infinity''. 
 \begin{example}
@@ -820,12 +823,12 @@ Let $ d:\R^2\times\R^2\to[0,\infty] $ be the euclidean metric, and $ t:\R^2\time
 \end{figure}	
 \end{example}
 \begin{definition}
-	Let $ X $ be a metric space. A point $ x\in X $ is a \textit{\color{red}limit point} of the set $ E\subseteq X $ if \textit{every} neighborhood of $ x $ contains a point $ y\in E $, where $ y\neq x $. We will denote the \textit{\color{red} set of all limit points} of $ E $ as $ E'=\{x\in X\mid x\text{ is a limit point of }E \}=\{x\in X\mid \in (N_r(x)\cap E)\backslash\{x\}\neq\emptyset\ \forall r>0\} $.
+	Let $ X $ be a metric space. A point $ x\in X $ is a \textit{\color{red}limit point} of the set $ E\subset X $ if \textit{every} neighborhood of $ x $ contains a point $ y\in E $, where $ y\neq x $. We will denote the \textit{\color{red} set of all limit points} of $ E $ as $ E'=\{x\in X\mid x\text{ is a limit point of }E \}=\{x\in X\mid \in (N_r(x)\cap E)\backslash\{x\}\neq\emptyset\ \forall r>0\} $.
 \end{definition}
 \begin{note}
 	For the remainder of Section 2, we will use $ X $ to denote a metric space, and $ E $ as some subset of $ X $. 
 \end{note}
-A limit point of a set is in some sense always ``close'' to points of the set. If $ x $ is a limit point of $ E\subseteq X $, then $ N_r(x) $ will always include points other than $ x $, no matter what we take $ r $ to be! We could make $ r $ smaller and smaller, but the set $ N_r(x) $ will never just be $ x $. In this sense, a limit point can always be ``approximated'' by elements in $ E $.  
+A limit point of a set is in some sense always ``close'' to points of the set. If $ x $ is a limit point of $ E\subset X $, then $ N_r(x) $ will always include points other than $ x $, no matter what we take $ r $ to be! We could make $ r $ smaller and smaller, but the set $ N_r(x) $ will never just be $ x $. In this sense, a limit point can always be ``approximated'' by elements in $ E $.  
 \begin{remark}
 Definition $ 3.5 $ never specifically said that a limit point of some set belongs to the set. As the next example shows, being a limit point has nothing to do with whether or not a point is included in the set in question. 	
 \end{remark}
@@ -850,11 +853,11 @@ Lastly, the point $ z $ is not a limit point. If we took $ r $ to be sufficientl
 \end{example}
 
 \begin{definition}
-		Let $ X $ be a metric space. For a set $ E\subseteq X $, $ x\in E $ is an \textit{\color{red}isolated point} if it is not a limit point. That is, there exists an $ r>0 $ such that $ N_r(x)=\{x\} $. 
+		Let $ X $ be a metric space. For a set $ E\subset X $, $ x\in E $ is an \textit{\color{red}isolated point} if it is not a limit point. That is, there exists an $ r>0 $ such that $ N_r(x)=\{x\} $. 
 \end{definition}
 By the definition of an isolated point, it is the opposite of a limit point, rendering the two definitions mutually exclusive. This definition also means any point $ x\in X $ is \textit{either} a limit point \textit{or} an isolated point.  An isolated point of any set is also included in the set, which is not the case for limit points. 
 \begin{definition}
-Let $ X $ be a metric space. A point $ x\in X$ is an \textit{\color{red}interior point} of $ E\subseteq X $ if there exists \textit{a single} $ r>0 $ such that $ N_r(x)\subset E $. 
+Let $ X $ be a metric space. A point $ x\in X$ is an \textit{\color{red}interior point} of $ E\subset X $ if there exists \textit{a single} $ r>0 $ such that $ N_r(x)\subset E $. 
 \end{definition}
 \begin{example}
 	Again, let's look at an example in $ \R^2 $. Let $ E\subset \R^2 $ be a closed ball that is ``punctured'' at $ z\in\R^2 $ such that $ z\notin E$. This can be seen in figure 13. The point $ x $ is in an interior point, as we could find some small $ r $ for which $ N_r(x)\subset E $. The point $ y $ is not an interior point of $ E $, because every single $ N_r(y) $ will contain some point outside of $ E $, meaning $ N_r(y)\not\subset E $. Finally, the point $ z $ is not an interior point, as each neighborhood of $ N_r(z) $ contains $ z $, and $ z\notin\ E $. Even though we can make $ r $ small enough to guarantee the only point in $ N_r(z) $ which is not in $ E $ is $ z $ $ (N_r(z)\backslash E=\{z\}) $, this point is all it takes to guarantee $ N_r(z)\not\subset E $ for all $ r $. 
@@ -878,11 +881,11 @@ Let $ X $ be a metric space. A point $ x\in X$ is an \textit{\color{red}interior
 	1\text{ if }x\neq y\\
 	0\text{ if }x=y
 	\end{cases}.$$ 
-	For any $ x\in X $, $ N_{1/2}(x)=\{x\}\subseteq X $. We have that $ x $ is an interior point, but not a limit point. 
+	For any $ x\in X $, $ N_{1/2}(x)=\{x\}\subset X $. We have that $ x $ is an interior point, but not a limit point. 
 \end{example}
 We now briefly introduce the idea of an exterior point. The only difference between the  definition of an interior point and exterior point, will be that the neighborhood of a point will be in the complement of $ E $ for an exterior point. This small change in language will make a big difference in meaning. 
 \begin{definition}
-Let $ X $ be a metric space. A point $ x\in X$ is an \textit{\color{red}exterior point} of $ E\subseteq X $ if there exists \textit{a single} $ r>0 $ such that $ N_r(x)\subset E^c $.
+Let $ X $ be a metric space. A point $ x\in X$ is an \textit{\color{red}exterior point} of $ E\subset X $ if there exists \textit{a single} $ r>0 $ such that $ N_r(x)\subset E^c $.
 \end{definition}
 \begin{remark}
 Any point $ x\in X $ is \textit{either} an interior point \textit{or} an exterior point.
@@ -891,7 +894,7 @@ Any point $ x\in X $ is \textit{either} an interior point \textit{or} an exterio
 	Let $ [0,1]\in \R $. The point $ 2\in\R $ is an exterior point of $ [0,1] $. 
 \end{example} 
 \begin{remark}
-	Nearly every definition in this section specifies a metric space $ X $. This means the metric space we work in could affect how we classify a point (and later sets). If we have two metric spaces $ X $ and $ Y $ where $ X\subseteq Y $, a point $ x\in E\subseteq X $ may be a limit point/interior point/exterior point in $ X $ but not in $ Y $. 
+	Nearly every definition in this section specifies a metric space $ X $. This means the metric space we work in could affect how we classify a point (and later sets). If we have two metric spaces $ X $ and $ Y $ where $ X\subset Y $, a point $ x\in E\subset X $ may be a limit point/interior point/exterior point in $ X $ but not in $ Y $. 
 \end{remark}
 \begin{example}
 {\color{red}EXAMPLE }
@@ -899,10 +902,10 @@ Any point $ x\in X $ is \textit{either} an interior point \textit{or} an exterio
 
 We already generalized the idea of some open or closed interval in $ \R $ to the concept of an open or closed ball in $ \R^n $. Now we will go one step further, by bringing these concepts to any metric space. 
 \begin{definition}
-	Let $ X $ be a metric space. A set $ E\subseteq X $ is \textit{\color{red}open} if every point of $ E $ is an interior point.  
+	Let $ X $ be a metric space. A set $ E\subset X $ is \textit{\color{red}open} if every point of $ E $ is an interior point.  
 \end{definition}
 \begin{definition}
-	Let $ X $ be a metric space. A set $ E\subseteq X $ is \textit{\color{red}closed} if it contains all its limit points. That is, $ E'\subseteq E $. 
+	Let $ X $ be a metric space. A set $ E\subset X $ is \textit{\color{red}closed} if it contains all its limit points. That is, $ E'\subset E $. 
 \end{definition}
 \begin{example}
 	Let $ (a,b)\subset\R $. This set is open, as for all $ x\in(a,b) $, we can find an $ r $ such that $ N_r(x)\subset(a,b) $. If $ d(a,x)\ge d(x,b) $, let $ r=d(x,b)/2 $. If $ d(x,b)>d(a,x) $ let $ r=d(x,a)/2 $.  Figure 14 shows this neighborhood for $ x $ where $ d(a,x)\ge d(b,x) $.
@@ -929,7 +932,7 @@ By construction, our neighborhood will always be a proper subset of $ (a,b) $, s
 	Let $ [a,b]\subset\R $. This set is not open, as $ a $ and $ b $ are not interior points. For instance, $ a-r/2\in N_r(a) $ for all $ r>0 $. The number $ a-r/2\notin[a,b] $, so $ N_r(a)\not\subset[a,b] $ for all $ r $. While $ [a,b] $ is not open, it is closed. Every point in $ [a,b] $ is a limit point because $ \R $ is complete. The interval $ [a,b] $ trivially contains itself, so it contains all its limit points and is closed. 
 \end{example}
 \begin{example}
-Let $ X $ be a metric space, and $ E\subseteq X $. Any set with no limit points, $ E'=\emptyset $, is closed, because $ \emptyset\subseteq E $. This means any finite set is closed, as no finite set has limit points. Let $ X=\{x_1,\ldots, x_n\} $, and $ E\subseteq X $. If we let $ y\in E $, and set $ r=\min_{x\in X}d(x,y) $, then $ N_r(y)=\{y\} $. This means $ y $ fails to be a limit point for all $ y\in E $.
+Let $ X $ be a metric space, and $ E\subset X $. Any set with no limit points, $ E'=\emptyset $, is closed, because $ \emptyset\subset E $. This means any finite set is closed, as no finite set has limit points. Let $ X=\{x_1,\ldots, x_n\} $, and $ E\subset X $. If we let $ y\in E $, and set $ r=\min_{x\in X}d(x,y) $, then $ N_r(y)=\{y\} $. This means $ y $ fails to be a limit point for all $ y\in E $.
 \end{example}
 \begin{remark}
 	The definitions of open and closed sets never imply that a set is either closed or open. It is possible for a set to be both closed and open, or be neither closed nor open.
@@ -941,18 +944,18 @@ The set $ \emptyset $ in any metric space $ X $ is closed and open. This set has
 The set of rationals $ \Q $ is neither open nor closed in $ \R $. For all $ x\in\Q $, $ N_r(x) $ will contain irrational numbers for all $ r $, meaning $ N_r(x)\not\subset\Q $. Therefore no elements of $ \Q $ are interior points. The set $ \Q $ also does not contain all of its limit points, as any irrational number is a limit point as a result of Theorem 2.4. For example, any neighborhood of $ \sqrt{2} $ will contain elements of $ \Q $ (which are not $ \sqrt{2} $), making it a limit point. 
 \end{example}
 \begin{remark}
-	The point made in Remark 3.3 is especially relevant for open and closed sets. A set could be open in one metric space, but closed in another. In most cases it's clear what metric space we are working in, but sometimes it is not. In cases where it is vague, it's always best to say a set is \textit{open in $ X $} or \textit{closed in $ X $}. For this reason it is a good practice to either specify $ E\subseteq X $, or include ``in $ X $.'' Many topics in analysis concern the metric space $ \R^n $ or $ \R $, so if you say a set is closed or open in conversation, it is usually assumed the metric space is one of these spaces. For example, if you were to ask someone ``are the integers closed or open?", they would most likely assume you mean ``are the integers closed or open in $ \R $?" 
+	The point made in Remark 3.3 is especially relevant for open and closed sets. A set could be open in one metric space, but closed in another. In most cases it's clear what metric space we are working in, but sometimes it is not. In cases where it is vague, it's always best to say a set is \textit{open in $ X $} or \textit{closed in $ X $}. For this reason it is a good practice to either specify $ E\subset X $, or include ``in $ X $.'' Many topics in analysis concern the metric space $ \R^n $ or $ \R $, so if you say a set is closed or open in conversation, it is usually assumed the metric space is one of these spaces. For example, if you were to ask someone ``are the integers closed or open?", they would most likely assume you mean ``are the integers closed or open in $ \R $?" 
 \end{remark}
 
 \begin{example}
-	Suppose we want to determine if $ \Z $ is open or closed in $ \Z $. Every point is an interior point as $ N_{1/2}(x)={x}\subset\Z $ for all $ x\in\Z $, so $ \Z $ is open in $ \Z $. The set $ \Z $ has no limit points in $ \Z $, as $ N_{1/2}(x) $ does not include any points $ y\in\Z $ where $ y\neq x $. This gives that $ \Z'=\emptyset $,\footnote{This also means that every point of $ \Z $ is isolated.} so $ \Z\subseteq \Z' $, and $ \Z $ is closed in $ \Z $.
+	Suppose we want to determine if $ \Z $ is open or closed in $ \Z $. Every point is an interior point as $ N_{1/2}(x)={x}\subset\Z $ for all $ x\in\Z $, so $ \Z $ is open in $ \Z $. The set $ \Z $ has no limit points in $ \Z $, as $ N_{1/2}(x) $ does not include any points $ y\in\Z $ where $ y\neq x $. This gives that $ \Z'=\emptyset $,\footnote{This also means that every point of $ \Z $ is isolated.} so $ \Z\subset \Z' $, and $ \Z $ is closed in $ \Z $.
 	
 	 Now let our metric space be $ \R $. Is $ \Z $ open in $ \R $? Let $ x\in\Z $. For any $ N_r(x) $ such that $ r<1 $, $ x-r/2\in N_r(x) $, where $ x-r/2\notin\Z $. If $ r\ge 1 $, then $ x-1/2\in N_r(x) $, where $ x-1/2\notin\Z $.\footnote{The case where $ r\ge 1 $ handles the situation where $ r/2\in\Z $. If this were the case, then $ x-r/2\in\Z $. This is not a problem, as $ N_r(x) $ would still contain an uncountably infinite number of reals numbers, but it makes explicitly finding one of those reals a little tricky. It's easier to just add or subtract $ 1/2 $ from $ x $ and call it a day.} Therefore, there exists no $ r $ such that $ N_r(x)\subset \Z $, so $ \Z $ is not open in $ \R $. We have that $ \Z $ is closed in $ \R $, as each point of $ \Z $ is still isolated.  
 \end{example}
 
 Before proving some useful properties of open and closed sets, there is one more definition that can prove helpful at times. It formalizes the notion of points in a set that are just on the border of a set, like the endpoints of $ [a,b]\subset\R $.  
 \begin{definition}
-	Let $ X $ be a metric space, and $ E\subseteq X $. The \textit{\color{red}boundary} of $ E $, denoted $ \partial E $, is the set of points in $ X $ such that every neighborhood of $ p $ contains at least one point of $ E $ and at least one point not of $ E $. $$ \partial E=\{x\in X\mid N_r(x)\cap E\neq\emptyset\text{ and }N_r(x)\cap  E^c\neq\emptyset \ \forall r>0  \} $$ 
+	Let $ X $ be a metric space, and $ E\subset X $. The \textit{\color{red}boundary} of $ E $, denoted $ \partial E $, is the set of points in $ X $ such that every neighborhood of $ p $ contains at least one point of $ E $ and at least one point not of $ E $. $$ \partial E=\{x\in X\mid N_r(x)\cap E\neq\emptyset\text{ and }N_r(x)\cap  E^c\neq\emptyset \ \forall r>0  \} $$ 
 	Any element of $ \partial E $ is a \textit{\color{red}boundary point}.
 \end{definition}
 There are several equivalent definitions of $ \partial E $, many of which are more popular than this specific one. These other definitions use terms that we will cover in Section 3.4, so we will circle back then and discuss the boundary of a again. The first example one's mind should jump to are open and closed balls in $ \R^n $. 
@@ -1020,7 +1023,7 @@ Open set and closed sets will play a roll in many of the results and theorems to
 		\draw[color=red] (8.5,1.4)  node[anchor = south east] {$ N_{r'}(y) $};
 		\draw[color=red, thick, dashed] (8,0) circle (1.4cm); 
 		\end{tikzpicture}
-		\caption{The set $ E\subseteq X $. We constructed a neighborhood $ N_{r'}(y) $ for an arbitrary $ y\in N_r(x) $ such that $ N_{r'}(y)\subset E $. }
+		\caption{The set $ E\subset X $. We constructed a neighborhood $ N_{r'}(y) $ for an arbitrary $ y\in N_r(x) $ such that $ N_{r'}(y)\subset E $. }
 	\end{figure}
 \end{proof}
 
@@ -1028,7 +1031,7 @@ Open set and closed sets will play a roll in many of the results and theorems to
 	If $ x\in X $ is a limit point of $ E $ ($ x\in E' $), then every neighborhood of $ x $ contains infinitely many points of $ E $.
 \end{proposition}
 \begin{proof}
-	Let $ x\in X $. Suppose for contradiction, there exists some $ N_r(x) $ which contains only a finite number of points of $ E $. Let this finite set of points be $ \{y_1, \ldots, y_n\}\subseteq N_r(x)\cap E $. Pick the radius of $ N_r(x) $ to be the distance between $ x $ and the point to which it is closest in the finite set $ \{y_1,\ldots,y_n\} $: $$ r=\min_{1\le m\le n} d(x,y_m). $$ By construction, $ N_r(x) $ contains no point $ y\in E $ such that $ y\neq x $, so $ x $ is not a limit point of $ E $. This is a contradiction. (Figure 18)
+	Let $ x\in X $. Suppose for contradiction, there exists some $ N_r(x) $ which contains only a finite number of points of $ E $. Let this finite set of points be $ \{y_1, \ldots, y_n\}\subset N_r(x)\cap E $. Pick the radius of $ N_r(x) $ to be the distance between $ x $ and the point to which it is closest in the finite set $ \{y_1,\ldots,y_n\} $: $$ r=\min_{1\le m\le n} d(x,y_m). $$ By construction, $ N_r(x) $ contains no point $ y\in E $ such that $ y\neq x $, so $ x $ is not a limit point of $ E $. This is a contradiction. (Figure 18)
 	\begin{figure}[h]
 		\centering
 		\begin{tikzpicture}
@@ -1119,18 +1122,40 @@ Part (2) and (4) of Theorem 2.2 require that the collection of sets is finite, o
 	Let $ F_n=[1/n,\infty) $ for all $ n\in\N $. The set $ F_n $ is closed in $ \R $ for all $ n $. Taking the union gives $$ \bigcup_{n}F_n=(0,\infty).$$ This interval is open in $ \R $, despited each $ F_n $ being closed.
 \end{example}
 \subsection{Closures, Interiors, Dense Sets, and Perfect Sets} 
+There are a handful of other definitions related to open set and closed sets that deserve a bit of attention.
 \begin{definition}
-Let $ X $ be a metric space. The \textit{\color{red}interior} of a set $ E\subset X $, denoted $ E^\circ $, is the set of all interior points of $ E $. 
+Let $ X $ be a metric space. The \textit{\color{red}interior} of a set $ E\subset X $, denoted $ E^\circ $, is the set of all interior points of $ E $. $$ E^\circ=\{x\in X\mid x\text{ is an interior point of }E \} $$
 \end{definition}
+The set $ E^\circ $ is clearly open, as by definition it is comprised only of interior points. Because interior points of $ E $ must be in $ E $, we have $ E^\circ \subset E $. Informally, we can think of $ E^\circ $ as the smallest open set contained within $ E $. This interpretation leads to the conclusion that if $ E $ is open, then $ E=E^\circ $.
+\begin{example}
+	Let $ [a,b]\subset\R $. The interior of this set is $ (a,b) $. 
+\end{example}
 \begin{definition}
 	Let $ X $ be a metric space. The \textit{\color{red}closure} of a set $ E\subset X $ is $ \bar{E}=E\cup E' $. 
 \end{definition}
-\begin{definition}
-	Let $ X $ be a metric space. The set $ E\subset X $ is \textit{\color{red}perfect} if every point of $ E $ is a limit point of $ E $. 
-\end{definition}
+The closure $ \bar{E} $ is the opposite of the interior in a certain sense. The closure can be though of as the smallest closed set that $ E $ is contained in. If $ E $ is closed, then $ E'\subset E $, and $ E=\bar{E} $.
+\begin{example}
+	Let $ (a,b)\subset\R $. The closure of this set is $ [a,b] $. 
+\end{example}
 \begin{definition}
 	Let $ X $ be a metric space. The set $ E\subset X $ is \textit{\color{red}dense in $ X $} if every point of $ X $ is a limit point of $ E $, or a point of $ E $. ($ \bar{E}=X $)  
 \end{definition}
+
+Informally, if $ E $ is dense in $ X $, then we can approximate any point of $ X $ with a point in $ E $ arbitrarily well. This follow from the fact that any point in $ X $ is either in $ E $, or a limit point of $ E' $, or both.  We have already seen one example of this with Theorem 1.4.
+\begin{example}
+	The set $ \Q $ is dense in $ \R $, that is $ \bar{\Q}=\R $. One implication of this fact is that the irrational numbers $ \R\backslash\Q $ are limit points of $ \Q $. 
+\end{example}
+Many results involving approximation can be stated in terms of dense sets. One of these is the Weierstrass Approximation Theorem. This will be formally treated and proved in Section 7, but for now we will give the result as an example of a dense set.
+\begin{example}[Weierstrass Approximation Theorem]
+	Let $ \mathscr{C}([a,b])=\{f\mid f:[a,b]\to \R\text{ and } f\text{ continuous}\} $ be the set of real valued continuous functions with domain $ [a,b] $. Now let $ \mathscr{P}([a,b]) $ be the set of all real valued polynomials with domain $ [a,b] $.\footnote{This set is traditionally denoted as $ \R[x] $ in abstract algebra.} The set $ \mathscr{P}([a,b])  $ is dense in $ \mathscr{C}([a,b]) $. We will always be able to approximate a continuous function on a bounded interval arbitrarily well with polynomials. This result, and spaces of functions, will be discussed again in Section 7. 
+\end{example}
+\begin{definition}
+	Let $ X $ be a metric space. The set $ E\subset X $ is \textit{\color{red}perfect} if every point of $ E $ is a limit point of $ E $ $ (E=E') $. 
+\end{definition}
+If $ E $ is perfect, every point in $ E $ can be approximated arbitrarily well by other points in $ E $. 
+\begin{example}
+	The real line $ \R $ is a perfect set. 
+\end{example}
 \subsection{Compact Sets}
 We have encountered infinity several times now. Sets can have an infinite number of element, in which case they are either countable or uncountable. A set can ``take up an infinite amount of space'' if it is unbounded. Each limit point of a set contains an infinite number of points in the set. These factors can result in sets that are difficult to work with. For example, suppose a set is unbounded. It can be hard to determine how functions or sequences behave on sets like this, because the distance between points can become arbitrarily large. What kind of headaches to limit points cause? Any neighborhood of a limit point will contain an infinite number of points in that set (Proposition 2.2). If the limit point is not in the set, this can also pose problems. As we will see later on, it could be possibly to get arbitrarily close to that limit point while never leaving the set. In a sense, we would be getting closer to a point in a set, where the destination is not even included in the set. To prevent this from happening, all limit points should be included in a set, i.e the set should be closed. Later on when working with sequences and continuous functions, two concepts intrinsically linked by the idea of getting arbitrarily close to a point, sets that are ``nice'', and will not illicit the two mentioned complications, will lead to nice results. Our goal now is to characterize these sets, and attempt to motivate their characterization.\footnote{Motivating the main definition of this subsection is infamously difficult, as it is not clear how it will be used in the future. It would be like explaining what a hammer is to someone who has no idea what a nail is. }   
 
@@ -1138,7 +1163,7 @@ One somewhat trivial way to guarantee a set is both closed and bounded is by res
 
 The way we will go about defining these sets is by looking how we can ``cover'' them with a collection of open sets. The idea is that a set may be infinite, but perhaps we can cover it with a finite collection of open sets. 
 \begin{definition}
-	Let $ X $ be a metric space. An \textit{\color{red}open cover} of a set $ E\subseteq X $ is a collection of open sets $ \mathcal\{G_\alpha\}\subseteq X $ such that $ E\subseteq\cup_\alpha G_\alpha $.  
+	Let $ X $ be a metric space. An \textit{\color{red}open cover} of a set $ E\subset X $ is a collection of open sets $ \mathcal\{G_\alpha\}\subset X $ such that $ E\subset\cup_\alpha G_\alpha $.  
 \end{definition}
   \begin{figure}[h]
 	\centering
@@ -1163,12 +1188,12 @@ An open cover is a \textit{collection} of sets. Each element of an open cover is
 	Let $ E=N_r(x) $ be a subset of a metric space $ X $. One open cover of the set $ E $ is the single set $ N_{r+1}(x) $. Another would be $ N_{r+2}(x) $. 
 \end{example}
 \begin{example}
-	Let $ \R $ be the entire real line. We can cover this with the union of all sets of the form $G_n=(-n,n)$ for $ n\in\N $. $$ \R\subseteq\bigcup_{n\in \N}(-n,n)$$
+	Let $ \R $ be the entire real line. We can cover this with the union of all sets of the form $G_n=(-n,n)$ for $ n\in\N $. $$ \R\subset\bigcup_{n\in \N}(-n,n)$$
 \end{example}
 It is not enough to require that a set has a finite open cover. Any set $ E $ can trivially be covered by itself, forming an open cover consisting of one element. We could require that every open cover is finite, but this could never be satisfied. For example, take the closed interval $ (a,b)\subset\R $. We could cover this with a finite open cover $ \{(a,b)\} $. We could also cover it with the infinite open cover $ \{(a,b),(-1,1),(-2,2),(-3,3),\ldots\} $. We can just take the cover $ \{(a,b)\} $ and throw in an infinite number of random intervals of $ \R $ and still end up with an open cover. This is complete ``overkill'' when it comes to covering $ (a,b) $! To address the fact that we will always have infinite open covers, we will introduce a new type of open cover that is both finite, and limits any redundant additions to the cover. 
 
 \begin{definition}
-Let $ X $ be a metric space, and $ E\subseteq X $. A \textit{\color{red}finite subcover} of an open cover $ \{G_\alpha\} $ of $ E $  is a collection of open sets $ \{G_{\alpha_1},\ldots,G_{\alpha_n}\} $ such that $$ E\subseteq \bigcup_{i=1}^nG_{\alpha_i}\subseteq\bigcup_\alpha G_\alpha. $$
+Let $ X $ be a metric space, and $ E\subset X $. A \textit{\color{red}finite subcover} of an open cover $ \{G_\alpha\} $ of $ E $  is a collection of open sets $ \{G_{\alpha_1},\ldots,G_{\alpha_n}\} $ such that $$ E\subset \bigcup_{i=1}^nG_{\alpha_i}\subset\bigcup_\alpha G_\alpha. $$
 \end{definition}
 \begin{example}
 	Let $ X $ be a metric space and $ E\subset X $. The collection $ \{E\} $ is a trivial open cover. We also have a trivial finite open subcover in $ \{E\} $. 
@@ -1178,7 +1203,7 @@ Let $ X $ be a metric space, and $ E\subseteq X $. A \textit{\color{red}finite s
 \end{example}
 This simple example shows that some open covers actually have an infinite number of finite subcovers. The introduction of finite subcovers may be a bit confusing, so it is worth recapping what we have done before presenting the main definition of this subsection: 
 \begin{itemize}
-	\item We have some metric space $ X $ and some set $ E\subseteq X $. We can cover this set with a collection of sets $ \{G_\alpha\} $ called an open cover, the cardinality of which is determined by the number of sets in the collection $ \{G_\alpha\} $. We like the idea of finite open covers.
+	\item We have some metric space $ X $ and some set $ E\subset X $. We can cover this set with a collection of sets $ \{G_\alpha\} $ called an open cover, the cardinality of which is determined by the number of sets in the collection $ \{G_\alpha\} $. We like the idea of finite open covers.
 	\item There exists an infinite number of open covers of a set. There also always exists a finite open cover of a set, so we need to do better than just having a finite open cover.  
 	\item A finite subcover $ \{G_{\alpha_1},\ldots,G_{\alpha_n}\} $ of the open cover $ \{G_\alpha\} $ is a subset of $ \{G_\alpha\} $, which also covers $ E $. The finite subcover of one open cover $ \{G_\alpha\} $ \textit{is not necessarily} a finite subcover of another open cover $ \{G'_\alpha\} $, so whenever we talk about finite subcovers, it is with respect to some fixed open cover. Some open covers of sets have an infinite number of finite subcovers (Example 2.29).
 \end{itemize} 
@@ -1188,7 +1213,7 @@ We are now ready give a proper definition and name to the ``nice'' sets we want 
 \end{definition} 
 The answer to our question turns out to be no. If it were yes, then there would be no need to define compactness, because every set would be compact. Compact sets turn out to be the nice sets we were looking for. As we'll see, they can be infinite, but they do not cause the complications with infinity that we discussed at the open of this subsection. In some sense, compact sets are the next best thing to finite sets. 
 \begin{example}
-	The set $ (a,b)\subset\R $ is not compact. In order verify this, we just need to find a single open cover that has no finite subcover. Let $ \{G_n\} $ be an open cover where $ G_n=(a+1/n,b) $. We have that $$ (a,b)\subseteq\bigcup_{n\in \N} G_n=\bigcup_{n\in \N}(a+1/n,b)=(a,b).$$ No finite subset of $ \{G_n\} $ will be a finite subcover of $ (a,b) $. If we had a finite subset of $ \{G_n\} $ then there would exist some $ N\in\N $ such that $ (a,a+1/N) $ is ``uncovered''. Therefore any open interval in $ \R $ is not compact. 
+	The set $ (a,b)\subset\R $ is not compact. In order verify this, we just need to find a single open cover that has no finite subcover. Let $ \{G_n\} $ be an open cover where $ G_n=(a+1/n,b) $. We have that $$ (a,b)\subset\bigcup_{n\in \N} G_n=\bigcup_{n\in \N}(a+1/n,b)=(a,b).$$ No finite subset of $ \{G_n\} $ will be a finite subcover of $ (a,b) $. If we had a finite subset of $ \{G_n\} $ then there would exist some $ N\in\N $ such that $ (a,a+1/N) $ is ``uncovered''. Therefore any open interval in $ \R $ is not compact. 
 \end{example}
 \begin{example}
 	The real line $ \R $ is not compact. The open cover $ \{G_n\} $ where $ G_n=(-n,n) $ has no finite subcover. If we had a finite subset of $ \{G_n\} $, then there would exist some $ N\in\N $ such that $ (-\infty,-N)\cup(N,\infty) $ is ``uncovered''. Therefore the real line $ \R $ is not compact. 
@@ -1200,20 +1225,60 @@ These two examples should not be entirely surprising. When compactness was motiv
 \end{example}
 Using the definition of compactness to verify that a set is not compact takes some creativity, but only requires one to find a single counterexample. This is opposed to verifying a set is compact. This requires we somehow verify that every single open cover has a finite subcover. This is prohibitively difficult to do in most cases. This is why we want to find conditions that are easy to verify and that imply compactness. Of chief concern, is doing this for subsets of $ \R^n $. 
 \subsection{Properties of Compact Sets}
-Before restricting our attention to $ \R^n $, we need to establish some properties of compact sets that will allow come in handy when working with them.
+Before restricting our attention to $ \R^n $, we need to establish some properties of compact sets that will allow come in handy when working with them. Unfortunately, we still do not have any nontrivial examples of compact sets, so some of these results will not have examples presented alongside them. Once we are able to identify compact sets in $ \R^n $ by means other then the definition of compactness, these results can be verified. 
+\begin{lemma}
+	Suppose $ Y\subset X $. A subset $ E\subset Y$ is open in $ Y $ \textit{if and only if} $ E=Y\cap G $ for some open $ G\subset X $. 
+\end{lemma}
+\begin{proof}{\color{white}space}
+	\begin{enumerate}
+		\item[$ (\Longrightarrow) $] Suppose $ E\subset Y $ is open in $ Y $. For each $ x\in E $, there exists a $ r_x $ such that $ N_{r_x}(x)\subset E $. By the definition of a neighborhood, for all $ y\in Y $ satisfying $ d(x,y)<r_x $, we have $ y\in E $. Denote $ N_{r_x}(x)=V_x $ for all $ x\in E $, and define $$G=\bigcup_{x\in E}V_x .$$ The set $ G $ is a union of open sets, so it is open (Figure 21). I now claim that $ E=G\cap Y $, which is our desired result. For $ x\in E $, we have $ x\in V_x $ for all $ x\in X $, so $ x\in E $ and $ x\in Y $. This gives $ E\subset G\cap Y $. Now let $ x\in G\cap Y $. For the corresponding $ V_x $, $ V_x\cap Y\subset E $. This implies $ G\cap Y\subset E $.    
+		\item[$ (\Longleftarrow) $] Suppose $ E=Y\cap G $ for some open $ G $ in $ X $. The set $ G $ is open, so for all $ x\in E $ there exists a neighborhood $ N_r(x)\subset E $. This gives $ N_r(x)\subset G $, as $ E=Y\cap G\subset G $. Intersecting $ N_r(x) $ with $ Y $ yields $ N_r(x)\cap Y\subset E $, so $ E $ is open in $ Y $.  
+	\end{enumerate}	
+ \begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+	\draw[color=black, thick] (0,0) rectangle (12,6);
+	\draw[color=black, thick] (0.5,0.5) rectangle (7,5.5);
+	\draw[black] (7.5,5.5) node {$ Y $};
+	\draw (12.2,6.4) node {$ X $};
+	\filldraw[color=blue, thick, dashed, fill=blue!15]  (4,3) circle (2cm);
+	\draw[blue] (4,5.3) node {$ E $};
+	\draw[thick, dashed]  (4.5,3) circle (1.4cm);
+	\filldraw (4.5,3) circle (1pt) node[anchor= south east] {${x_1}  $}; 
+	\draw (4.5,4.6) node {$V_{x_1} $};
+	
+	\draw[thick, dashed]  (3,2) circle (.4cm);
+	\filldraw (3,2) circle (1pt) node[anchor= south east] {${x_2}  $}; 
+	\draw (2.8,2.6) node {$V_{x_2} $};
+		\draw[thick, dashed]  (3.5,4) circle (.8cm);
+	\filldraw (3.5,4) circle (1pt) node[anchor= south east] {${x_3}  $}; 
+	\draw (2.6,3.6) node {$V_{x_3} $};
+
+	\end{tikzpicture}
+	\caption{We take $ V_x $ to be the neighborhood of $ x $ contained in $ E $. We will always be able to find such a neighborhood because $ E $ is open in $ Y $. In this case, we have shown only three such neighborhoods. The (possibly infinite) union of all such neighborhoods is $ G $, which itself is open.}  
+\end{figure}
+\end{proof}
 \begin{proposition}
-	Suppose $ K\subseteq Y\subseteq X $, where $ Y $ and $ X $ are metric spaces. The subset $ K $ is compact relative to $ X $ \textit{if and only if} $ K $ is compact relative to $ Y $.  
+	Suppose $ K\subset Y\subset X $, where $ Y $ and $ X $ are metric spaces. The subset $ K $ is compact in $ X $ \textit{if and only if} $ K $ is compact in $ Y $.  
 \end{proposition}
+\begin{proof}{\color{white}space}
+	\begin{enumerate}
+		\item[$ (\Longrightarrow) $] Suppose $ K $ is compact in $ X $. Let $ \{V_\alpha\} $ be an arbitrary collection of open sets in $ Y $ which cover $ K $. By Lemma 2.1, there exist sets $ G_\alpha $, open in $ X $, such that $ V_\alpha=Y\cap G_\alpha $ for all $ \alpha $. By the compactness of $ K $, there exists a finite subcover $ \{G_{\alpha_1},\ldots,G_{\alpha_1}\} $. We have $$ K\subset\bigcup_{i=1}^n G_{\alpha_i} ,$$ but $ K\subset Y $, so $$ K\subset\bigcup_{i=1}^n V_{\alpha_i} . $$ This makes $ \{V_{\alpha_1},\ldots,V_{\alpha_1}\} $ a finite subcover, so $ K $ is compact in $ X $. 
+		\item[$ (\Longleftarrow) $] Suppose $ K $ is compact in $ Y $. Let $ \{G_\alpha\} $ be an open cover of $ K $ in $ X $. If we let $ V_\alpha=G_\alpha\cap Y $, then $ \{V_\alpha\} $ is an open cover of $ K $ in $ Y $. By the compactness of $ K $ we have a finite subcover $ \{V_{\alpha_1},\ldots,V_{\alpha_n}\} $ in $ Y $. Since $ V_\alpha\subset G_\alpha $ for all $ \alpha $, then $ \{G_\alpha\} $ has a finite subcover in $ \{G_{\alpha_1},\ldots,G_{\alpha_n}\} $, so $ K $ is compact in $ X $. 
+	\end{enumerate}
+	
+\end{proof}
+This result does not seem particularly interesting, but it is novel if you consider open and closed sets. We gave several examples of sets that may be open or closed in some intermediate space, but not a larger space. For instance, $ \Z $ is open in $ \Z $, but it is not open in $ \R $. This result tells us that results like this are not possible with compactness!
 \begin{example}
-	content...
+	Suppose $ E\subset \Z $ is compact in $ \Z $. This implies that $ E $ is compact in $ \Q $ and $ \R $. If we had another compact set $ F\subset\R $ which is compact in $ \R $, then it is compact in $ \Z $ and $ \Q $ as well. 
 \end{example}
 
 The next two theorems establish that all compact sets are both closed and bounded. This should feel somewhat natural, as compactness can be interpreted as a generalization of closed and bounded sets.
 \begin{theorem}
-	Let $ X $ be a metric space, and $ K\subseteq X $ be compact. The set $ K $ is closed. 
+	Let $ X $ be a metric space, and $ K\subset X $ be compact. The set $ K $ is closed. 
 \end{theorem} 
 \begin{proof}
-Let $ K $ be a compact subset of a metric space $ X $. It suffices to show that $ K^c $ is open in $ X $. Suppose $ x\in K^c $, and $ y\in K $. For $ r<\frac{1}{2}d(x,y) $, let $ V_y=N_r(x) $ and $ W_y=N_r(y) $ (Figure 21). For our fixed $ x\in K^c $, we will repeat this process for multiple points in $ K $. By compactness, we know there exists a finite set of $ \{y_1,\ldots,y_n\} $ such that $ \{W_{y_1},\ldots,W_{y_n}\} $ is a finite subcover of $ K $. In constructing this subcover, we also constructed the corresponding sets $ \{V_{y_1},\ldots, V_{y_n}\} $ (Figure 22). If we let $ V=\cap_{i=1}^n V_{y_i} $, then we have $ x\in V\subset K^c $, making $ x $ an interior point of $ K^c $. Therefore $ K^c $ is open.
+Let $ K $ be a compact subset of a metric space $ X $. It suffices to show that $ K^c $ is open in $ X $. Suppose $ x\in K^c $, and $ y\in K $. For $ r<\frac{1}{2}d(x,y) $, let $ V_y=N_r(x) $ and $ W_y=N_r(y) $ (Figure 24). For our fixed $ x\in K^c $, we will repeat this process for multiple points in $ K $. By compactness, we know there exists a finite set of $ \{y_1,\ldots,y_n\} $ such that $ \{W_{y_1},\ldots,W_{y_n}\} $ is a finite subcover of $ K $. In constructing this subcover, we also constructed the corresponding sets $ \{V_{y_1},\ldots, V_{y_n}\} $ (Figure 23). If we let $ V=\cap_{i=1}^n V_{y_i} $, then we have $ x\in V\subset K^c $, making $ x $ an interior point of $ K^c $. Therefore $ K^c $ is open.
  \begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}
@@ -1275,11 +1340,11 @@ Let $ K $ be a compact subset of a metric space $ X $. It suffices to show that 
 \end{example}
 
 \begin{theorem}
-	Let $ X $ be a metric space, and $ K\subseteq X $ be compact. The set $ K $ is bounded. 
+	Let $ X $ be a metric space, and $ K\subset X $ be compact. The set $ K $ is bounded. 
 \end{theorem}
 \begin{proof}
-Let $ x\in K $. The collection of neighborhoods $ \{N_r(x)\} $ for $ r\in\N $ forms an open cover of $ K $. By compactness, this open cover has a finite subcover $ \{N_{r_1}(x),\ldots,N_{r_n}\} $. If we take $ r^*=\max\{r_1,\ldots,r_n\} $, then $ K\subset N_{r^*}(x) $, and $ d(x,y)<r^* $ for all $ y\in K $. (Figure 23)
-  \begin{figure}[h]
+Let $ x\in K $. The collection of neighborhoods $ \{N_r(x)\} $ for $ r\in\N $ forms an open cover of $ K $. By compactness, this open cover has a finite subcover $ \{N_{r_1}(x),\ldots,N_{r_n}\} $. If we take $ r^*=\max\{r_1,\ldots,r_n\} $, then $ K\subset N_{r^*}(x) $, and $ d(x,y)<r^* $ for all $ y\in K $. (Figure 24)
+  \begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}
 	\draw[color=black, thick] (0,0) rectangle (12,8);
@@ -1307,11 +1372,225 @@ The set $ (0,\infty) $ in $ \R $ is not bounded so it is not compact in $ \R $.
 \end{remark}
 \begin{example}
 	Let $ X=\{1/n\mid n\in\N\} $ be a metric space equipped with $$ d(x,y)=\begin{cases}
-	1\text{ if }x=y\\0\text{ if }x\neq y
+	0\text{ if }x=y\\1\text{ if }x\neq y
 	\end{cases}.$$
+The set $ X $ is closed, as it is the whole space. It is also bounded, as $ d(x,y)\le 1 $ for all $ x,y\in X $. Let $ G_n=\{1/n\} $. Each $ G_n $ is open, as $ N_{1/2}(1/n)\subset G_n $. This makes $ G_n $ an open cover of $ X $, as $ X\subset\bigcup_{n\in \N} G_n=X $. The set $ X $ fails to be compact, because this open cover has no finite subcover. Any finite cover $ \{G_{1},\ldots,G_{N}\} $ would not ``cover''  $ \{1/(N+1),1/(N+2),\ldots\}\subset X $.	
 \end{example}
+
+We often restrict our attention to subsets of compact sets, so it would be nice to know if subsets of compact sets are compact. Unfortunately, this is not true in general, but it becomes true if we require the subset satisfy one condition. 
+\begin{proposition}
+	Closed subsets of compact sets are compact.
+\end{proposition}
+\begin{proof}
+	Suppose $ K $ in $ X $ is compact, and $ F\subset K $ is closed in $ X $. Let $ \{V_\alpha\} $ be an arbitrary open cover of $ F $. If we add $ F^c $ to this collection of open sets, we have an open cover $ \Omega=\{V_{\alpha_1},V_{\alpha_2},\ldots,F^c\} $ of $ K $, because $ K=F\cup F^c $. $$ K\subset\left(\bigcup_\alpha V_\alpha\right)\cup F^c.$$ The set $ K $ is compact, so there exists a finite open cover of $ \Omega $, $ \Phi=\{V_{\alpha_1},\ldots,V_{\alpha_n}, F^c\} $. We can now remove $ F^c $ from $ \Phi $, resulting in a finite subcover for $ \{V_\alpha\} $. 
+\end{proof}
+\begin{corollary}
+	If $ F $ is closed and $ K $ is compact, $ F\cap K $ is compact. 
+\end{corollary}
+An interesting property of compact sets is that if we have a decrease sequence of nested compact intervals, than their intersection is nonempty. This result follows as a corollary of a more general result.
+\begin{proposition}
+	If $ \{K_\alpha\} $ is a collection of compact subsets of a metric space $ X $ such that the intersection of every finite subcollection of $ \{K_\alpha\} $ is nonempty, then $ \cap_\alpha K_\alpha\neq\emptyset $. 
+\end{proposition}
+\begin{proof}
+For the sake of contradiction, assume that $ \cap_\alpha K_\alpha=\emptyset $. This means there is some fixed $K_1\in \{K_\alpha\}$ such that no point of $ K_1 $ belongs to every $ K_\alpha $. Let $ G_\alpha= K_\alpha^c $. The collection $ \{G_\alpha\} $ forms an open cover of $ K_1$. Since $ K_1 $ is compact, there exists a finite subcover $ \{G_{\alpha_1},\ldots,G_{\alpha_n}\} $. $$ K\subset\bigcup_{i=1}^nG_{\alpha_i}$$ This inclusion, along with the definition of $ G_\alpha $ implies that $ K_1\cap\left(\bigcap_{i=1}^nK_{\alpha_i}\right)=\emptyset $. This contradicts our assumption that every finite subcollection of $ \{K_\alpha\} $ is nonempty. 
+\end{proof}
+\begin{corollary}[Cantor's Intersection Theorem]
+If $ \{K_\alpha\} $ is a sequence of nonempty compact sets such $ K_{n}\supset K_{n+1} $ for $ n\in\N $, then $ \cap_{i=1}^\infty K_n $ is not empty.
+\end{corollary}
+\begin{example}
+	Recall that open intervals in $ \R $ are not compact (Example 2.35), and do not satisfy the requirement of Cantor's Intersection Theorem. Let $ G_{n}=(0,1/n) $. We have $ G_{n+1}\subset G_{n} $ for all $ n\in\N $, so $ \{G_n\} $ is a decreasing nested sequence of intervals. $$ \cdots\subset \left(0,\frac{1}{4}\right)\subset\left(0,\frac{1}{3}\right)\subset\left(0,\frac{1}{4}\right)\subset\left(0,\frac{1}{2}\right)\subset(0,1)$$  
+The intersection of these sets is empty.	
+\end{example}
+\begin{proposition}[Bolzano-Weierstrass Property]
+	If $ E $ is an infinite subset of a compact set $ K $, then $ E $ has a limit point in $ K $. 
+\end{proposition}
+\begin{proof}
+	For the sake of contradiction, assume that no point of $ K $ is a limit point of $ E $. For each $ x\in K $, there exists some $ r $ such that $ V_x=N_r(x)=\{x\}  $ if $ x\in E $, or $ V_x=N_r(x)=\emptyset $ if $ x\notin E $. The collection $ \{V_x\} $ is an open cover of $ E $. The set $ E $ is infinite, so we cannot find a finite subcover for $ \{V_x\} $, as each set is at most a singleton. Because $ E\subset K $, the same is true with respect to $ K $, which contradicts the assumption that $ K $ is compact. 
+\end{proof}
+Informally, the Bolzano-Weierstrass Property tells us that we can approximate some point of $ K $ with points in an infinite subset $ E $. Right now, this may not seem significant, but it will become important when we work in $ \R^n $. 
+\begin{remark}
+	The Bolzano-Weierstrass Property is often referred to as \textit{\color{red}limit point compactness}. In the context of metric spaces, limit point compactness and compactness are equivalent\footnote{Proving this requires some concepts that are beyond this treatment of metric spaces.}, so in most real analysis texts the prior is never even given a name. As we'll see \textit{much} later on, the two are not equivalent when we explore point-set topology in general (Section 19).   
+\end{remark} 
 \subsection{Compact Sets in $ \R^n $}
-\subsection{What Does ``Topology'' Even Mean?}
+Now we can start working towards sufficient conditions for compactness in $ \R^n $. This will culminate in the famed Heine-Borel Theorem. This theorem establishes sufficient conditions for compactness in $ \R^n $. Specifically, the converses of Theorem 2.3 and Theorem 2.4 will hold in $ \R^n $.  
+
+In order to make the proof of this result a bit more clear, we will show a series of results beforehand which build to the Heine-Borel Theorem.
+\begin{lemma}
+	If $ \{I_n\} $ is a sequence of closed intervals in $ \R $, such that $ I_n\supset I_{n+1} $  for $ n\in\N $, then $ \cap_{i=1}^n I_n\neq\emptyset$.
+\end{lemma}  
+		\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+	\draw[very thick, <->] (-8,0) -- (8,0);
+	\filldraw[fill=red, color=red] (-6,0)circle (2pt);
+	\filldraw[fill=red, color=red] (6,0) circle (2pt);
+	\draw[very thick, color = red] (-6,0)--(6,0);
+	\draw[red] (-5,.3) node {$ I_1$};
+		\filldraw[fill=blue, color=blue] (-4,0)circle (2pt);
+	\filldraw[fill=blue, color=blue] (4,0) circle (2pt);
+	\draw[very thick, color = blue] (-4,0)--(4,0);
+	\draw[blue] (-3,.3) node {$ I_2$};
+		\filldraw[fill=green, color=green] (-2,0)circle (2pt);
+	\filldraw[fill=green, color=green] (2,0) circle (2pt);
+	\draw[very thick, color = green] (-2,0)--(2,0);
+	\draw[green] (-1,.3) node {$ I_3$};
+	\end{tikzpicture}
+	\caption{The first three intervals in the type of sequence $ \{I_n\} $ described in Proposition 2.7.}
+\end{figure}
+\begin{proof}
+	Suppose $ I_n=[a_n,b_n] $. Define $ E $ to be the set of all the $ a_n $. The set $ E $ is nonempty and bounded above by $ b_1 $, because $$\cdots a_3\le a_2\le a_1\le b_1\le b_2\le b_3\le \cdots .$$ We have $ E\subset \R $ and is bounded, so it has a supremum in $ \R $. Let $ x=\sup E $. For all $ m,n\in\N $, $$a_n\le a_{m+n}\le b_{m+n}\le b_m ,$$ so $ x\le b_m $ for all $ m $. By the definition of $ \sup E $, $ a_m\le x $. If $ x\le b_m $ and $ a_m\le x $, then $ x\in[a_m,b_m]=I_m $ for all $ m\in\N $. Therefore $ x\in\cap_{n\in\N} I_n $.
+\end{proof}
+\begin{example}
+	If we modify Example 2.42 so the open intervals are closed, then we have a sequence $ \{I_n\} $ where $ I_n=[0,1/n] $. This gives $ \cap_{n\in\N} I_n=\{0\}\neq\emptyset $. If we worked through the proof of Lemma 2.2 with this particular example, we would find that $ 0 $ is the supremum of the set of lower bounds of $ I_n $. 
+\end{example}
+This result should look familiar. Cantor's Intersection Theorem states a similar result for compact sets. This in and of itself does not show that closed intervals are compact, but it should catch our attention, as closed intervals and compact sets share a noteworthy property. It should also be noted that this property of closed intervals follows from the least-upper-bound property of $ \R $. This is one of the magical results we get because $ \R $ is complete.  We can generalize Proposition 2.7 to \textit{\color{red}$ k $-cells} in $ \R^k $. An  $ k $-cell is the set of all points $ \x=(x_1,\ldots,x_k)\in\R^k $ which satisfy $ a_i\le x_i\le b_i $ for $ i=1,\ldots,k $, where $ a_i,b_i\in\R $, and $ a_i\le b_i $. 
+\begin{lemma}
+	Let $ k\in\N $. If $ \{I_n\} $ is a sequence of $ k- $cells such that $ I_n\supset I_{n+1} $ for all $ n\in\N $, then $ \cap_{n\in\N} I_n\neq\emptyset $. 
+\end{lemma}
+		\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+\draw[thick] (0,0) rectangle (7,9);
+\draw (7.3,9.3) node {$ I_1$};
+\draw[thick] (0.5,1) rectangle (6,8);
+\draw (6.3,8.3) node {$ I_2$};
+\draw[thick] (2,2) rectangle (5.5,5);
+\draw (5.8,5.3) node {$ I_3$};
+\draw[thick] (3,3) rectangle (4,4);
+\draw (4.3,4.3) node {$ I_4$};
+	\end{tikzpicture}
+	\caption{The first four $ 2- $cells in the type of sequence $ \{I_n\} $ described in Proposition 2.8.}
+\end{figure}
+\begin{proof}
+	Let $ I_n $ be the set of points $ \x=(x_1,\ldots,x_k) $ such that $ a_{n,j}\le x_j\le b_{n,j} $ for $ j=1,\ldots, k $ and $ n\in\N $, and write $ I_{n,j}=[a_{n,j},a_{b,j}] $. By Lemma 2.2, for each $ I_{n,j} $, $ \cap_{n\in\N}I_{n,j}\neq\emptyset $, so there is some $ x_j^*\in\cap_{n\in\N} I_{n,j} $ which satisfies $$ a_{n,j}\le x_j^*\le b_{n,j}$$ for $j=1,\ldots, k $ and $ n\in\N $. If we set $ \x^*=(x_1^*,\ldots,x_k^*) $, then $ \x^*\in I_n $ for all $ n\in\N $. Therefore  $ \cap_{n\in\N} I_n\neq\emptyset $. 
+\end{proof}
+We will now prove that each $ k -$cell is compact. The definition of a $ k -$cell is equivalent to a closed and bounded set in $ \R $, so this result will give us our sufficient conditions for compactness in $ \R^n $. This result will give rise to the Heine-Borel Theorem which is an equivalence result, which will follow immediately from the compactness of $ k $-cells, Theorem 2.3, and Theorem 2.4. That being said, the proof that each $ k -$cell is compact is not immediate, and is on the more difficult side for a proof in an introductory analysis course.    
+\begin{lemma}
+	Every $ k -$cell is compact. 
+\end{lemma}
+\begin{proof}
+	Let $ I=\{\x\in\R^k\mid a_j\le x_j\le b_j\ j=1,\ldots,k\} $ be a $ k- $cell. Let $ \delta $ be the maximum distance between any two points in $ I $.
+	$$ \max\limits_{\x,\y\in I}d(\x,\y)=\delta=\left(\sum_{j=1}^k(b_j-a_j)^2\right)^{1/2}$$
+	For all $ \x,\y\in I $, $ |\x-\y|\le\delta $ (Figure 27 shows this for $ k=2 $). 
+			\begin{figure}[h!]
+		\centering
+		\begin{tikzpicture}
+	
+		\draw[step=1cm,gray!15,very thin] (0,0) grid (8,9);
+		\filldraw[thick, fill = gray!15] (1,1) rectangle (7,8);
+		\draw (7.3,8) node {$ I$};	
+		\draw[thick,->] (0,0) -- (0,9);
+		\draw[thick,->] (0,0) -- (8,0);
+		\draw[thick] (1,0.2) -- (1,-0.2);
+		\draw[thick] (7,0.2) -- (7,-0.2);
+		\draw[thick] (-0.2,1) -- (0.2,1);
+		\draw[thick] (-0.2,8) -- (0.2,8);
+		\draw (1,-0.4) node {$ a_1$};	
+		\draw (7,-0.4) node {$ b_1$};
+		\draw (-0.4,1) node {$ a_2$};
+		\draw (-0.4,8) node {$ b_2$};
+		\draw[thick, dashed] (1,8) -- (7,1) ;
+		\draw (4,4) node {$ \delta $};
+		\end{tikzpicture}
+		\caption{If $ I $ is a 2-cell.}
+	\end{figure}
+
+For the sake of contradiction, assume that there exists some arbitrary open cover $ \{G_\alpha\} $ of $ I $ which contains no finite subcover of $ I $. Let $ c_j=(a_j+b_j)/2 $. The intervals $ [a_j,c_j] $ and $ [c_j,b_j] $ give rise to $ 2^k $ $ k $-cells $ Q_i $ whose union is $ I $. If each of these cells $ Q_i $ could be covered by a finite subcollection of $ \{G_\alpha\} $, then $ I $ could be covered by the union of all these finite subcollections, which is finite. Since we've assumed $ K $ is not compact, then it must be that there exists at least one $ Q_i $, call it $ I_1 $, that cannot be covered by any finite subcollection of $ \{G_\alpha\} $.  
+	\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+	
+	\draw[step=1cm,gray!15,very thin] (0,0) grid (8,9);
+	\filldraw[thick, fill = gray!15] (1,1) rectangle (7,8);
+	\draw (7.3,8) node {$ I$};	
+	\draw[thick,->] (0,0) -- (0,9);
+	\draw[thick,->] (0,0) -- (8,0);
+	\draw[thick] (1,0.2) -- (1,-0.2);
+	\draw[thick] (7,0.2) -- (7,-0.2);
+	\draw[thick] (-0.2,1) -- (0.2,1);
+	\draw[thick] (-0.2,8) -- (0.2,8);
+	\draw (1,-0.4) node {$ a_1$};
+	\draw (4,-0.4) node {$ c_1$};	
+	\draw (7,-0.4) node {$ b_1$};
+	\draw (-0.4,1) node {$ a_2$};
+	\draw (-0.4,8) node {$ b_2$};
+	\draw (-0.4,4.5) node {$ c_2$};
+	\draw[thick] (-0.2,4.5) -- (0.2,4.5);
+	\draw[thick] (4,0.2) -- (4,-0.2);
+	\draw[thick] (1,4.5)-- (7,4.5);
+	\draw[thick] (4,1)-- (4,8);
+	\draw (2.5,3) node {$ Q_3$};
+	\draw (5.5,3) node {$ Q_4$};
+	\draw (2.5,6) node {$ Q_1=I_1$};
+	\draw (5.5,6) node {$ Q_2$};
+	\end{tikzpicture}
+	\caption{We partition $ I $ into $ 2^k $ cells $ Q_i $. If $ I $ is not compact, then there is some $ Q_i $ which is not compact. Suppose in this case $ Q_1 $ is not compact, and call it $ I_1 $. }
+\end{figure}
+Now we divide $ I_1 $ into $ 2^k $ $ k -$cells and repeat this process indefinitely, giving us a sequence $ \{I_n\} $ (Figure 29). 
+	\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+	
+	\draw[step=1cm,gray!15,very thin] (0,0) grid (8,9);
+	\filldraw[thick, fill = gray!15] (1,1) rectangle (7,8);
+	\draw (7.3,8) node {$ I$};	
+	\draw[thick,->] (0,0) -- (0,9);
+	\draw[thick,->] (0,0) -- (8,0);
+	\draw[thick] (1,0.2) -- (1,-0.2);
+	\draw[thick] (7,0.2) -- (7,-0.2);
+	\draw[thick] (-0.2,1) -- (0.2,1);
+	\draw[thick] (-0.2,8) -- (0.2,8);
+
+	\draw[thick, dashed] (1,8) -- (7,1) ;
+
+	\draw (4,4) node {$ \delta $};
+	\draw[thick] (-0.2,4.5) -- (0.2,4.5);
+	\draw[thick] (4,0.2) -- (4,-0.2);
+	\filldraw[thick, fill = gray!15] (1,4.5) rectangle (4,8);	
+	\draw[thick, dashed, red] (1,8) -- (4,4.5) ;
+	\filldraw[thick, fill = gray!15] (1,6.25) rectangle (2.5,8);
+	\draw[thick, dashed, blue] (1,8) -- (2.5,6.25) ;
+	\filldraw[thick, fill = gray!15](1,7.125) rectangle (1.75,8);
+	\draw[thick, dashed, green] (1,8) -- (1.75,7.125) ;
+	\draw (4.3,7.7) node {$ I_1$};
+	\draw (2.8,7.7) node {$ I_2$};
+	\draw (2.05,7.7) node {$ I_3$};
+	\draw[red] (3,5) node {$ \delta/2 $};
+\draw[blue] (1.5,6.7) node {$ \delta/4 $};
+\draw[green] (1.25,7.3) node {\scriptsize$ \delta/8 $};
+	\end{tikzpicture}
+	\caption{The first three $ 2 $-cells in the sequence $ \{I_n\} $.}
+\end{figure}
+This sequence of $ k $-cells was constructed to have three properties:
+\begin{enumerate}
+	\item $ I\supset I_1\supset I_2\supset I_3\supset\cdots $
+	\item $ I_n $ cannot be covered by any finite subcollection of $ \{G_\alpha\} $, otherwise $ K $ would not be compact.\footnote{This follows from the same reasoning applied to the $ 2^k $ $ k $-cells $ Q_i $ we initially chose $ I_1 $ from.}
+	\item If $ \x,\y\in I_n $, then $ |\x-\y|\le \delta/2^n $.\footnote{When we divided $ I $, the length of the diagonal for $ I_1 $ became half of $ \delta $. When we divide $ I_1 $, the length of the diagonal of $ I_2 $ became half of that of $ I_1 $. This means we can always write the diagonal of $ I_n $ in terms of powers of $ 1/2 $ and $ \delta $.  }
+\end{enumerate}
+By the first property of this sequence, we can invoke Lemma 2.3 to determine $ \cap_{n\in\N} I_n\neq\emptyset $. This means there exists some $ \x^*\in\R^k $ such that $ \x^*\in I_n $ \textit{for all} $ n\in\N $. There must be some $ \alpha $ such that $ \x^*\in G_\alpha $, otherwise $ \{G_\alpha\} $ would not be an open cover of $ I $. Since $ G_\alpha $ is open, there exists some $ r>0 $ such that $ N_r(x)\subset G_\alpha $. Alternatively, we could say that $ |\y-\x^*|<r $ implies $ y\in G_\alpha $ by the definition of $ N_r(x) $. If we take $ n $ to be so large that $ \delta/2^n<r $, then $ I_n\subset G_\alpha $, but this would mean $ I_n $ has a finite subcover. This contradicts property $ 2 $ of our sequence $ \{I_n\} $, thereby contradicting the assumption that $ K $ is not compact. 
+\end{proof}
+We have now shown that every $ k $-cell is compact. The proof is made more manageable with illustrations, but is still rather technical. Our contradiction came from the fact that as $ n $ becomes large, $ I_n $ becomes small. Eventually $ I_n $ will be so small, that it must have a finite open subcover. This contradicts the assumption that $ I $ is not compact. 
+\begin{theorem}[Heine-Borel Theorem]
+	A set $ E $ in $ \R^n $ is compact \textit{if and only if} it is closed and bounded.
+\end{theorem} 
+\begin{proof}{\color{white}space}
+\begin{enumerate}
+	\item [$ (\Longrightarrow) $] All compact sets are closed and bounded by Theorems 2.3 and 2.4. 
+	\item [$ (\Longleftarrow) $] If $ E $ is closed and bounded then $ E\subset I $ for some $ n -$cell. Any closed subset of a compact set is compact by Proposition 2.4, so $ E $ is compact.
+\end{enumerate}
+\end{proof}
+\begin{example}
+	Any closed interval $ [a,b]\subset \R$ is compact. 
+\end{example}
+\begin{theorem}[Bolzano–Weierstrass Theorem]
+	Every bounded infinite subset of $ \R^n $ has a limit point in $ R^k $. 
+\end{theorem}
+\begin{proof}
+	Let $ E\subset\R^n $ be bounded and infinite. There is some $ n $-cell $ I\subset\R^k $, such that $ E\subset I $. By Lemma 2.4 $ I $ is compact. We know apply Proposition 2.6 to conclude that $ E $ has a limit point in $ I $, which is also in $ \R^k $.
+\end{proof}
+\begin{example}
+	The set $ (a,b)\subset\R^n $ is infinite and bounded. It has an infinite number of limit points in $ \R^n $,\footnote{In fact, the set of limit points is $ [a,b]\subset\R^n $} including $ a $ and $ b $.
+\end{example}
 \subsection{Exercises}
 \begin{ex}
 	Show that the set of all algebraic numbers is countably infinite.
@@ -1350,7 +1629,7 @@ The set $ (0,\infty) $ in $ \R $ is not bounded so it is not compact in $ \R $.
 	Prove that $ \partial E $ is closed.
 \end{ex}
 \begin{ex}
-	Prove that $ \partial(E^\circ)\subseteq \partial E  $, and $ \partial(\bar{E})\subseteq \partial E  $
+	Prove that $ \partial(E^\circ)\subset \partial E  $, and $ \partial(\bar{E})\subset \partial E  $
 \end{ex}
 \begin{ex}
 	Prove that $ \partial E=\partial (E^c)  $.
@@ -1359,7 +1638,7 @@ The set $ (0,\infty) $ in $ \R $ is not bounded so it is not compact in $ \R $.
 	Suppose $ E $ is closed. Show that $ (\partial E)^\circ=\emptyset $. 
 \end{ex}
 \begin{ex}
-	Prove that $ \partial (\partial E)\subseteq \partial E $. When will the sets be equal? 
+	Prove that $ \partial (\partial E)\subset \partial E $. When will the sets be equal? 
 \end{ex}
 \begin{ex}
 	Prove that $ E $ is closed \textit{if and only if} $ E\cap \partial E=\emptyset $.
@@ -1459,7 +1738,14 @@ density
 \subsection{Inequalities}
 \section{Radon Measures}
 \section{Foundations of Fourier Analysis}
-\section{Convex Analysis}
+\section{Point-Set Topology}
+\subsection{Topological Spaces}
+\subsection{Nets}
+\subsection{Filters}
+\subsection{Various Notions of Compactness}
+\subsection{Continuity}
+\subsection{The Product Topology}
+\subsection{Pointwise and Uniform Convergence}
 \newpage
 \bibliography{analysis}{} 
 \end{document}
