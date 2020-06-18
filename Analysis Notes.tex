@@ -712,7 +712,7 @@ Geometrically, this is equivalent to saying that the length of any side of a tri
 The real line $ \R $ is a metric space when equipped with the metric $ d(x,y)=|x-y| $. 
 \end{example}
 \begin{example}[Euclidean Metric]
-Euclidean space $ \R^n $ is a metric space when equipped with the metric $$ d(\mathbf{x},\mathbf{y})=|\x-\y|=\sqrt{(x_1-y_1)^2+\cdots+(x_n-y_n)^2} .$$ The Euclidean metric is sometimes refered to as the $ \ell^2 $-metric. The Euclidean metric is intimately linked to the concept of a \textit{\color{red}norm}. Recall from linear algebra that Euclidean space is a vector space where vectors are elements of $ \R^n $, and scalers are elements of $ \R $. This space is equipped with function $ \norm{}_2:\R^n\to\R $ that measures the length of vectors. $$ \norm{\x}_2=\sqrt{x_1^2+\cdots+x_n^2}$$ We can write the $ \ell^2 -$metric as $ d(\x,\y)=\norm{\x-\y}_2 $. We'll come back to the concept of a norm throughout, and will discuss it at length when treating functional analysis.
+Euclidean space $ \R^n $ is a metric space when equipped with the metric $$ d(\mathbf{x},\mathbf{y})=|\x-\y|=\sqrt{(x_1-y_1)^2+\cdots+(x_n-y_n)^2} .$$ The Euclidean metric is sometimes refered to as the $ \ell^2 $-metric. The Euclidean metric is intimately linked to the concept of a \textit{\color{red}norm}. Recall from linear algebra that Euclidean space is a vector space where vectors are elements of $ \R^n $, and scalers are elements of $ \R $. This space is equipped with function $ \norm{\cdot}_2:\R^n\to\R $ that measures the length of vectors. $$ \norm{\x}_2=\sqrt{x_1^2+\cdots+x_n^2}$$ We can write the $ \ell^2 -$metric as $ d(\x,\y)=\norm{\x-\y}_2 $. Right now, don't worry too much about norms.\footnote{I admittedly am not certain of when it is best to introduce the concept of a norm. I don't like how \cite{rudin1964principles} talks about it in passing in when reviewing Euclidean space. Introducing it latter on when covering functional analysis is also problematic, because we're going to use the $ \sup $-norm before that to measure the distance between two functions.} 
 \end{example}
 \begin{example}[Taxi-Cab Metric]
 If our set is $ \R^2 $ we can let $ d(\mathbf{x},\mathbf{y})=|x_1-y_1|+|x_2-y_2| $. This is often referred to as the taxi-cab metric, as it is how you would measure distance if driving a car on a grid. We can extend to $ \R^n $ and let $ d(\mathbf{x},\mathbf{y})=\sum_{i=1}^{n}|x_i-y_i| $. This metric is also called the $ \ell^1 -$metric.    
@@ -807,7 +807,7 @@ As the name implies, a neighborhood centered at $ x $ is simply all the points `
 \end{example} 
  
 \begin{example}
-Let $ d:\R^2\times\R^2\to[0,\infty] $ be the euclidean metric, and $ t:\R^2\times\R^2\to[0,\infty] $ be the taxi-cab metric. A neighborhood in $ (\R^2,d) $ may have a different ``shape'' then it would in $ (\R^2,t) $. We will denote $ N_{3}(\mathbf{0})\in \R^2 $ as $ E $ and $ F $, in $ (X,d) $ and $ (X,t) $ respectively. These neighboorhoods are shown in Figure 11.     
+Let $ d_{\ell^2}:\R^2\times\R^2\to[0,\infty] $ be the euclidean metric, and $ d_{\ell^1}:\R^2\times\R^2\to[0,\infty] $ be the taxi-cab metric. A neighborhood in $ (\R^2, d_{\ell^1}) $ may have a different ``shape'' then it would in $ (\R^2, d_{\ell^2}) $. We will denote $ N_{3}(\mathbf{0})\in \R^2 $ as $ E $ and $ F $, in $ (X,d_{\ell^2}) $ and $ (X,d_{\ell^1}) $ respectively. These neighborhoods are shown in Figure 11.     
 	\begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}
@@ -819,7 +819,7 @@ Let $ d:\R^2\times\R^2\to[0,\infty] $ be the euclidean metric, and $ t:\R^2\time
 	\draw[color = red] (2.5,2.5) node {$ F $};
 	\draw[color = blue] (4.5,4.5) node {$ E $};
 	\end{tikzpicture}
-	\caption{$ N_{3}(\mathbf{0})\in \R^2 $ in $ (\R^2,d) $ and $ (\R^2,t) $. }
+	\caption{$ N_{3}(\mathbf{0})\in \R^2 $ in $ (\R^2, d_{\ell^2}) $ and $ (\R^2, d_{\ell^1}) $. }
 \end{figure}	
 \end{example}
 \begin{definition}
@@ -893,11 +893,17 @@ Any point $ x\in X $ is \textit{either} an interior point \textit{or} an exterio
 \begin{example}
 	Let $ [0,1]\in \R $. The point $ 2\in\R $ is an exterior point of $ [0,1] $. 
 \end{example} 
-\begin{remark}
+\begin{remark}[VERY IMPORTANT THEME]
 	Nearly every definition in this section specifies a metric space $ X $. This means the metric space we work in could affect how we classify a point (and later sets). If we have two metric spaces $ X $ and $ Y $ where $ X\subset Y $, a point $ x\in E\subset X $ may be a limit point/interior point/exterior point in $ X $ but not in $ Y $. 
+	
+	We will see this come up again, and again. How a set/point behaves or is classified is contingent on what space we are in. A small change, whether it be the inclusion of some additional points, or changing the metric, can make a big difference. This means it is important to specify what space we're in if it is ever unclear. On the bright side, this all makes for great examples!   
 \end{remark}
 \begin{example}
-{\color{red}EXAMPLE }
+The set $ \R $ has no limit points when equipped with the discrete metric $$ d(x,y)=\begin{cases}
+1\text{ if }x\neq y\\
+0\text{ if }x=y
+\end{cases}.$$  
+
 \end{example}
 
 We already generalized the idea of some open or closed interval in $ \R $ to the concept of an open or closed ball in $ \R^n $. Now we will go one step further, by bringing these concepts to any metric space. 
@@ -1567,8 +1573,13 @@ This sequence of $ k $-cells was constructed to have three properties:
 	\item $ I_n $ cannot be covered by any finite subcollection of $ \{G_\alpha\} $, otherwise $ K $ would not be compact.\footnote{This follows from the same reasoning applied to the $ 2^k $ $ k $-cells $ Q_i $ we initially chose $ I_1 $ from.}
 	\item If $ \x,\y\in I_n $, then $ |\x-\y|\le \delta/2^n $.\footnote{When we divided $ I $, the length of the diagonal for $ I_1 $ became half of $ \delta $. When we divide $ I_1 $, the length of the diagonal of $ I_2 $ became half of that of $ I_1 $. This means we can always write the diagonal of $ I_n $ in terms of powers of $ 1/2 $ and $ \delta $.  }
 \end{enumerate}
-By the first property of this sequence, we can invoke Lemma 2.3 to determine $ \cap_{n\in\N} I_n\neq\emptyset $. This means there exists some $ \x^*\in\R^k $ such that $ \x^*\in I_n $ \textit{for all} $ n\in\N $. There must be some $ \alpha $ such that $ \x^*\in G_\alpha $, otherwise $ \{G_\alpha\} $ would not be an open cover of $ I $. Since $ G_\alpha $ is open, there exists some $ r>0 $ such that $ N_r(x)\subset G_\alpha $. Alternatively, we could say that $ |\y-\x^*|<r $ implies $ y\in G_\alpha $ by the definition of $ N_r(x) $. If we take $ n $ to be so large that $ \delta/2^n<r $, then $ I_n\subset G_\alpha $, but this would mean $ I_n $ has a finite subcover. This contradicts property $ 2 $ of our sequence $ \{I_n\} $, thereby contradicting the assumption that $ K $ is not compact. 
+By the first property of this sequence, we can invoke Lemma 2.3 to determine $ \cap_{n\in\N} I_n\neq\emptyset $. This means there exists some $ \x^*\in\R^k $ such that $ \x^*\in I_n $ \textit{for all} $ n\in\N $. There must be some $ \alpha $ such that $ \x^*\in G_\alpha $, otherwise $ \{G_\alpha\} $ would not be an open cover of $ I $. Since $ G_\alpha $ is open, there exists some $ r>0 $ such that $ N_r(x)\subset G_\alpha $. Alternatively, we could say that $ |\y-\x^*|<r $ implies $ y\in G_\alpha $ by the definition of $ N_r(x) $. If we take $ n $ to be so large that $ \delta/2^n<r $,\footnote{We can always find such an $ n $. If not, $ 2^n\le\delta /r $ for all $ n \in\N$. This can't be though because $ \R $ has the Archimedean property (Theorem 1.3).} then $ I_n\subset G_\alpha $, but this would mean $ I_n $ has a finite subcover. This contradicts property $ 2 $ of our sequence $ \{I_n\} $, thereby contradicting the assumption that $ K $ is not compact. 
 \end{proof}
+\begin{example}
+	In order to make this proof a bit more concrete we'll walk through it with the $ 2 $-cell define by $ I=[0,1]\times[0,1] $, and a specific open cover.\footnote{In order to give such an example, we need to specify an open cover to work with. In doing so, we're sort of shooting ourselves in the foot. The whole point of compactness is that \textit{every} open cover has a finite subcover. What we're really proving in this example, is this specific open cover has no finite subcover.} Let our open cover $ G_\alpha=N_{0.01}(\alpha)  $ for $ \alpha\in I $. $$ I\subset \bigcup_{\alpha\in I} G_\alpha=\bigcup_{\alpha\in I}N_{0.01}(\alpha)$$  Assume that this open cover has no finite subcover. We have $$ \delta=((1-0)^2+(1-0)^2)^{1/2}=\sqrt{2} .$$ We divide $ I $ into four $ 2 $-cells: $ Q_1=[0,1/2]\times[0,1/2] $, $Q_2=[0,1/2]\times[1/2,1]$, $ Q_3=[0.5,1]\times[0,1/2] $, and $ Q_4=[1/2,1]\times[1/2,1] $. If $ \{G_\alpha\} $ has no finite subcover for $ I $, then the same can be said for one of these $ Q_i $. Suppose this is the case for $ Q_1 $, and let $ I_1=Q_1=[0,1/2]\times[0,1/2] $. Repeat this process seven times until we arrive at $ I_7=[0,1/256]\times[0,1/256] $. The maximum distance between any two points in $ I_7 $ is $$ \left((1/256-0)^2+(1/256-0)^2\right)^{1/2}\approx0.0055<0.01.$$ Therefore, we can cover $ I_7 $ with a single $ N_{0.01}(\alpha) \in\{G_\alpha\}$ for any $ \alpha\in I_7 $. But this means we can cover $ I_6 $ with four elements in $ \{G_\alpha\} $,\footnote{I'm playing a little fast and loose here with which exact elements, because I'm not specifying where the neighborhoods are centered.}  and cover $ I_5 $ with $ 4^2 $ elements in $ \{G_\alpha\}  $, etc. We can cover $ I $ with $ 4^7 $ elements in $ \{G_\alpha\} $. This contradicts the assumption that $ \{G_\alpha\} $ has no finite subcover. 
+	
+	One of the subtler, but nevertheless important, parts of this process is that we could repeatedly divide the cells until we found a cell that fit in a neighborhood of radius $ 0.01 $. We will always be able to do this because of the Archimedean property as discussed in Footnote 20. It is important, that you do not associate this particular ``trick'' with the fact that $ I $ is a subset of $ \R^2 $. We are discussing the Archimedean property in the context of distances and radii, so we're actually using the fact that $ \R^2  $ is equipped with a distance function $ d:\R^2\times\R^2\to[0,\infty] $. We're using the fact that the codomain of $ d $ has the Archimedean property!  
+\end{example}
 We have now shown that every $ k $-cell is compact. The proof is made more manageable with illustrations, but is still rather technical. Our contradiction came from the fact that as $ n $ becomes large, $ I_n $ becomes small. Eventually $ I_n $ will be so small, that it must have a finite open subcover. This contradicts the assumption that $ I $ is not compact. 
 \begin{theorem}[Heine-Borel Theorem]
 	A set $ E $ in $ \R^n $ is compact \textit{if and only if} it is closed and bounded.
@@ -1652,9 +1663,201 @@ We have now shown that every $ k $-cell is compact. The proof is made more manag
 \begin{ex}
 	Prove that $ (\partial \bar{E})^\circ=\emptyset $. 
 \end{ex}
+\newpage
 \section{Sequences and Series}
+Now that we are intimately familiar with the behavior of metric spaces, we can discuss a topic that may be familiar from calculus -- sequences and series. Metric spaces will allow us to rigorously define convergence, and the properties related to the convergence os sequences and series.    
 \subsection{Convergence}
-density
+\begin{definition}
+	Let $ X $ be a metric space. A \textit{\color{red}sequence $ \{x_n\} $} is a function from $ f:\N\to X $. We will sometimes refer to an entire sequence as $  x_n=f(n)$. 
+\end{definition}
+Using an arbitrary metric space $ X $ in this definition means that we, once again, always need to pay attention to what metric space we are in. We saw this with open sets, closed sets, and compact sets, and we will see it again. It will become especially relevant when determining if sequences converge. 
+\begin{example}
+	Let $ x_n=1/n$ be a sequence in $ \R $. The first several terms in this sequence are $$ 1,\frac{1}{2},\frac{1}{3},\frac{1}{4},\ldots.$$
+	This set is also a sequence in $ \Q $. This sequence is not defined in $ \Z $ or $ \N $, as neither of these sets has fractions.  
+\end{example}
+\begin{example}
+ Let $ x_n=2 $ be a sequence in $ \R $. This constant sequence always takes on the value $ 2$. This sequence is also a sequence in $ \N,\Z $, and $ \Q $.
+\end{example}
+\begin{example}
+Let $ x_n=(-1)^n $ be a sequence in $ \R $. This sequence alternates between $ -1 $ and $ 1 $ for all values in $ \N $.  
+\end{example}
+
+Now we are ready to formalize what it means for a sequence to converge. When the idea of convergence is first introduced, you often hear phrases like ``arbitrarily close''. If a sequence converges to some point $ x\in X $, we can \textit{always} get closer to $ x $. For any value in $ \{x_n\}$, we can find other points ``later'' in the sequence $ \{x_n\} $ that is even closer. If convergence is a recipe, then these are the ingredients:  
+\begin{enumerate}
+	\item No matter how ``close'' we get, we can always get closer with another point in $ \{x_n\} $. Fortunately, we're in a metric space $ (X,d) $, so we can use $ d $ to determine how close we are.
+	\item Well actually, it cannot be \textit{any} other points ``later'' in $ \{x_n\} $. For instance, suppose we have the following sequence: $$ 1, \frac{1}{2}, 2, \frac{1}{3}, 3, \frac{1}{4}, 4,\ldots . $$ The even terms of this series are getting closer to $ 0 $, while the odd terms are growing. The latter fact means this sequence doesn't converge. This happens because not \textit{all} the points ``later'' in $ \{x_n\} $ are closer.  
+\end{enumerate} 
+These two ingredients will correspond to the $ \varepsilon $ and $ N $ in our definition.
+\begin{definition}
+	A sequence $ \{x_n\} $ in a metric space $ X $ \textit{\color{red}converges (in $ X $)} if there exists an $ x\in X $ such that \textit{for all }$ \varepsilon>0 $, there is an $ N\in\N $ such that $ d(x_n,x)<\varepsilon $ \textit{for all} $ n\ge N $. We will call $ x $ the \textit{\color{red}limit} of $ \{x_n\} $, and write either $ x_n\to x $, or $$\lim\limits_{n\to\infty} x_n=x. $$
+\end{definition}
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+	\draw (-.3,9) node {$ \R$};
+	\draw (16,-0.3) node {$ \N$};		
+	\draw[thick,->] (0,0) -- (0,9);
+	\draw[thick,->] (0,0) -- (16,0);
+	\draw[thick,dashed] (0,4.5) -- (16,4.5);
+	\draw (-.3,4.5) node {$ x$};
+		\draw[red] (5,1) node {$ n<N$};
+		\draw[green] (12,1) node {$ n\ge N$};
+	\draw[thick,dashed] (0,5) -- (16,5);
+	\draw[thick,dashed] (0,4) -- (16,4);
+	\draw (-.5,4) node {$ x-\varepsilon$};
+	\draw (-.5,5) node {$ x+\varepsilon$};
+	\filldraw[red] (0.4,1) circle (2pt);
+	\filldraw[red] (0.8,8) circle (2pt);
+	\filldraw[red] (1.2,1.5) circle (2pt);
+	\filldraw[red] (1.6,7.5) circle (2pt);
+	\filldraw[red] (2.0,2) circle (2pt);
+	\filldraw[red] (2.4,7) circle (2pt);
+	\filldraw[red] (2.8,2.2) circle (2pt);
+	\filldraw[red] (3.2,6.8) circle (2pt);
+	\filldraw[red] (3.6,2.4) circle (2pt);
+	
+	\filldraw[red] (4,6.6) circle (2pt);
+	\filldraw[red] (4.4,2.6) circle (2pt);
+	\filldraw[red] (4.8,6.4) circle (2pt);
+	\filldraw[red] (5.2,2.8) circle (2pt);
+	\filldraw[red] (5.6,6.2) circle (2pt);
+	
+	\filldraw[red] (6,3.0) circle (2pt);
+	\filldraw[red] (6.4,6) circle (2pt);
+	\filldraw[red] (6.8,3.2) circle (2pt);
+	\filldraw[red] (7.2,5.8) circle (2pt);
+	\filldraw[red] (7.6,3.4) circle (2pt);
+	\filldraw[red] (8,5.6) circle (2pt);
+	
+	\filldraw[red] (8.4,3.6) circle (2pt);
+	\filldraw[red] (8.8,5.4) circle (2pt);
+	\filldraw[red] (9.2,3.8) circle (2pt);
+	\filldraw[red] (9.6,5.2) circle (2pt);
+	\filldraw[red] (10,4) circle (2pt);
+	\filldraw[red] (10.4,5) circle (2pt);				
+	\draw[thick,dashed] (10.8,0) -- (10.8,9);
+	\draw (10.8,-0.3) node {$ N$};			
+	\filldraw[green] (10.8,4.2) circle (2pt);
+	\filldraw[green] (11.2,4.8) circle (2pt);
+	\filldraw[green] (11.6,4.4) circle (2pt);
+	\filldraw[green] (12,4.6) circle (2pt);
+	\filldraw[green] (12.4,4.6) circle (2pt);
+	\filldraw[green] (12.8,4.4) circle (2pt);
+	\filldraw[green] (13.2,4.4) circle (2pt);
+	\filldraw[green] (13.6,4.6) circle (2pt);
+	\filldraw[green] (14,4.6) circle (2pt);
+	\filldraw[green] (14.4,4.4) circle (2pt);	
+	\filldraw[green] (14.8,4.45) circle (2pt);
+	\filldraw[green] (15.2,4.55) circle (2pt);
+	\filldraw[green] (15.6,4.475) circle (2pt);
+	\filldraw[green] (16,4.525) circle (2pt);
+
+
+	\end{tikzpicture}
+	\caption{A convergent sequence $ \{x_n\} $ in $ \R $. No matter how small we take $ \varepsilon $ to be, we can always find some $ N $ such that all $ d(x_n,x)=|x_n-x|<\varepsilon $ for all $ n\ge N $. We could also write $ x_n\in N_\varepsilon(x)=(x-\varepsilon,x+\varepsilon) $. }
+\end{figure}
+We can think of the convergence of a sequence in the context of a hypothetical game. Suppose you and a friend have some convergent sequence $ \{x_n\} $ in $ X $. Your friend says some small number $ \varepsilon $, and challenges you to find an $ N $ such that $ d(x_n,x)<\varepsilon $ for all $ n\ge N $. By the definition of convergence, you can do this. This frustrates your friend, so he demands you do it for an even smaller value of $ \varepsilon $. Unfortunately for him, you will always be able to find such an $ N $. No matter how small $ \varepsilon $ is, you will be able to do this. 
+\begin{remark}
+	We can formulate an equivalent definition of convergence using neighborhoods. If for all  $ \varepsilon>0 $, $ d(x_n,x)<\varepsilon $ whenever $ n\ge N $, then we could also say $ x_n\in N_\varepsilon(x) $ for all $ n\ge N $. 
+\end{remark}
+
+\begin{example}
+	The sequence $ x_n=1/n $ converges to $ 0 $ in $ \R $. Suppose your friend lets $ \varepsilon=0.01 $, and asks you to find an $ N\in\N $ such that $$ d(1/n,0)=|1/n-0|=1/n<\varepsilon=0.01 $$ for all $ n\ge N $. If you let $ N=101 $, then you have done this. \begin{align*}
+		1/101&<0.01\\1/102&<0.01\\1/103&<0.01\\&\vdots
+	\end{align*} 
+	Your friend then gives you $ \varepsilon=0.001 $. In this case, let $ N=1001 $.
+	\begin{align*}
+	1/1001&<0.01\\1/1002&<0.01\\1/1003&<0.01\\&\vdots
+	\end{align*} 
+	You're already bored of this game, so you get an idea. Maybe you can find some function of $ \varepsilon $ that will give you your value of $ N $. In order to do this, you just manipulate the inequality you must satisfy.
+	\begin{align*}
+		d(1/n,0)&<\varepsilon\\|1/n-0|&<\varepsilon\\1/n&<\varepsilon\\n&>\varepsilon^{-1}		
+	\end{align*}
+	We just let $ N=\varepsilon^{-1}+1 $. This way, for all $ n\ge N $, we have $ n>\varepsilon^{-1} $, which implies $ d(1/n,0)<\varepsilon $. 
+\end{example}
+\begin{remark}
+	The definition of convergence has two inequalities. The inequality $ d(x_n,x)<\varepsilon $ is strict, while $ n\ge N $ is not. In the grand scheme of things, it doesn't matter if these are strict or not. If we instead had $ d(x_n,x)\le\varepsilon $, then we could just have taken $ N=\varepsilon^{-1} $ in the previous example. Alternatively, if we had $ d(x_n,x)<\varepsilon $ and $ n>N $, then $ N=\varepsilon^{-1} $ would work as well. I'm going to try very hard to stick with the inequalities in the definition, but I may make a mistake. Just know that it doesn't change the results of proofs at all. It does mean we need to be a little careful when using neighborhoods though, because they are open set.   
+\end{remark}
+\begin{example}
+	We can verify that the sequence $ x_n=(n+1)/(n-1) $ converges to $ 1 $ in $ \R $. Let $ \varepsilon>0 $. We want to find the value of $ N $ in terms of $ \varepsilon $ that satisfies $ d(x_n,x)<\varepsilon $ for all $ n\ge N $. First notice that $$d(x_n,x)=\left\lvert\frac{n-1}{n+1}-1\right\rvert=\left\lvert\frac{-2}{n+1}\right\rvert=\frac{2}{n+1} .$$
+	We can satisfy $ \frac{2}{n+1}<\varepsilon $ with $ N=2/\varepsilon-1 $.\footnote{You may be thinking that it isn't always true that this $ N $ will be in $ \N $. That's fine. We could just round the answer to get a whole number that satisfies the inequality. Generally, we're not too worried about this.} We have that $ d(x_n,x)<\varepsilon $ for all $ n\ge 2/\varepsilon-1 $. 
+\end{example}
+\begin{example}
+	The series $ x_n=(1+1/n)^n $ converges to $ e $ in $ \R $. This series does not converge in $ \Q $, because $ e\notin\Q $. 
+\end{example}
+\begin{example}
+	Let $ X=(0,1] $ be equipped with the Euclidean metric. The sequence $ x_n=1/n $ does not converge in $ X $, because $ 0\notin X $. 
+\end{example}
+\begin{remark}[Where's My Limit?!]
+	These last two examples really emphasize the fact that the limit must be in the same metric space as our sequence. If our sequence is defined by some $ f:\N\to X $, we need $ x\in X $! Note that this is different from requiring that the value $ x $ is actually realized by our sequence. That is, it needn't be the case that $ f $ is in the image of $ X $. We just need it to be in the codomain of $ X $. In Example 3.4, $ 0\notin f(\N) $ (the image/range of $ \N $), but it is in $ \R $, and that's all that matters. 
+\end{remark}
+\subsection{Properties Related to Convergence}
+Now we'll cover some basic properties of sequences and convergence. We will also prove several results that are specific to sequences in $ \R $, many of which should be familiar from calculus. 
+\begin{proposition}
+	Let $ \{x_n\} $ be a sequence in a metric space $ X $. The sequence $ \{x_n\} $ converges to $ x\in X $ \textit{if and only if} every neighborhood of $ p $ contains $ x_n $ for all but finitely many $ n $.  
+\end{proposition}
+\begin{proof}{\color{white}space}
+	\begin{enumerate}
+		\item [$ (\Longrightarrow) $] Suppose $ x_n\to\ x $, and let $ N_r(x) $ be some neighborhood of $ x $. For some $ \varepsilon=r>0 $, $ x_n\in N_r(x) $ for all $ n\ge N $ (see Remark 3.1). Therefore $ N_r(x) $ contains $ x_n $ for all but finitely $ n $, those being $ \{x_1,\cdots x_{N-1}\} $.  
+		\item [$ (\Longleftarrow) $] Suppose every neighborhood of $ x $ contains all but finitely many $ x_n $. Fix $ \varepsilon >0 $, and observe $ N_\varepsilon(x) $. By our assumption, there exists an $ N $ such that $ x_n\in N_\varepsilon(x) $ for $ n\ge N $. Therefore we have $ d(x_n,x)<\varepsilon $ if $ n\ge N $, so $ x_n\to x $.   
+	\end{enumerate}
+\end{proof}
+\begin{example}
+Let $ x_n=1/n $ be a sequence in $ \R $. Example 3.4 showed that $ x_n\to 0 $. For the neighborhood $ N_{0.01}(0) $ we have: $$ N_{0.01}(0)=\left\{\frac{1}{101},\frac{1}{102},\frac{1}{103},\ldots\right\}, $$ where our finite set of points not in $ N_{0.01}(0) $ is $$\{x_n\}\backslash N_{0.01}(0)=\left\{1,\frac{1}{2},\ldots, \frac{1}{100}\right\}.$$
+\end{example}
+\begin{proposition}[Uniqueness of Limits]
+	Let $ \{x_n\} $ be a sequence in a metric space $ X $. If $ x,x'\in X $, and if $ \{x_n\} $ converges to $ x $ and $ x' $, then $ x=x' $.
+\end{proposition}
+\begin{remark}[Playing with $ \varepsilon $]
+	Before we prove this, we should highlight a ``trick'' we will use. It is the most common technique used in proofs involving $ \varepsilon $. If we know for all $ \varepsilon>0 $, $ d(x_n,x)<\varepsilon $ for all $ n\ge N $, then we can use \textit{any} $ \varepsilon\in(0,\infty] $. This means we have $ d(x_n,x)<f(\varepsilon) $ for all $ n\ge N $, where $ f:(0,\infty]\to(0,\infty] $. Return to the hypothetical game you are playing with your friend. At first, your friend wants to let $ \varepsilon=0.01 $, but then he thinks ``no that's too big, let me cut it in half'', and he uses $ \varepsilon/2=0.005 $. The number $ \varepsilon/2>0 $ so it still is valid. He could even say ``let me square it, divide it by 4, and then add $ \pi $''. In this case $ f:(0,\infty]\to(0,\infty] $ is define as $ f(\varepsilon)=\varepsilon^2/4+\pi $, and is still valid because $ f(\varepsilon)>0 $. 
+	
+	Why would we want to do this? We may want to show something converges, and do so using inequalities we already know that involve $ \varepsilon $. We want our end result to show that $ d(x_n,x)<\varepsilon $, so we need to choose our initial inequalities involving $ \varepsilon $ such that they yield a single $ \varepsilon $. This probably isn't too clear right now, but this next proof, and that for Theorem 3.2 will hopefully make this more clear.  
+\end{remark}
+\begin{proof}
+Assume that $ x_n\to x $, and $ x_n\to x' $. Let $ \varepsilon >0 $. There exists $ N',N''\in\N $ such that \begin{align*}
+	n\ge N&\implies d(x_n,x)<\varepsilon/2,\\
+	n\ge N'&\implies d(x_n,x')<\varepsilon/2.
+\end{align*} 
+If we let $ N=\max\{N',N''\} $, then using the triangle inequality gives $$d(x,x')\le d(x,x_n)+d(x_n,x')<\frac{\varepsilon}{2}+\frac{\varepsilon}{2}=\varepsilon,\footnote{Becuase we picked $ \varepsilon/2 $, they added to the desired $ \varepsilon $. If we hadn't done this, then we would have $ d(x,x')<2\varepsilon $. Sometimes, people are fine with this would just argue ``well $ 2\varepsilon\to0 $ as $ \varepsilon\to 0 $'' . This isn't wrong, but it's not exactly kosher. It's best to just satisfy the definition without having to use a limiting process with $ \varepsilon $. }$$ for all $ n\ge N $. If this holds for all $ \varepsilon>0 $, then it must be that $ d(x,x')=0 $, so $ x=x' $. 
+\end{proof}
+\begin{proposition}
+	Let $ \{x_n\} $ be a sequence in a metric space $ X $. If $ \{x_n\} $ converges, then $ \{x_n\} $ is bounded
+\end{proposition}
+\begin{proof}
+	content...
+\end{proof}
+\begin{example}
+	content...
+\end{example}
+\begin{example}
+	Converse is not true
+\end{example}
+Recall that in Section 2, we sometimes discussed approximating a limit point of some set $ E $ with elements in $ E $. This was not the most formal of discussions, but our next theorem will make this fact explicit. The theorem is a statement about existence, and does not provide an actual construction of the sequence in claims exists. It's \textit{very} important to be able to distinguish when a result does one of these, but not the other. It can often have practical implications for problem solving. 
+\begin{theorem}
+	Let $ \{x_n\} $ be a sequence in a metric space $ X $. If $ E\subset X $ and if $ x $ is a limit point of $ E $, then there is a sequence $ \{x_n\} $ in $ E $ such that $ x_n\to x $ in $ X $. 
+\end{theorem}
+\begin{proof}
+\end{proof}
+\begin{example}
+	Let $ E=(0,1]\subset\R $ and, $ x_n=1/n $ in $ E $. The point $ 0\in\R $ is a limit point of $ E $. The sequence $ \{x_n\} $ converges to $ 0 $ in $ X $. Note that $ \{x_n\} $ does not converge in $ E $ (Example 3.7).   
+\end{example}
+\begin{corollary}
+	Let $ E $ be a subset of a metric space $ X $. If $ E $ is dense in $ X $, then there for all $ x\in X $, there exists some sequence $ \{x_n\} $ in $ E $ such that $ x_n\to x $. 
+\end{corollary}
+Corollary 3.1 is an amazingly useful result once we become more comfortable with limits (and continuity). We may want to prove that some set $ X $ has a certain property, which could require we verify some condition for each $ x\in X $. If $ X $ has some dense subset $ Y $, then we could just prove that the property exists for a limit of a sequence in $ E $, because each point in $ X $ is a limit of such a sequence! This sounds like it would be more a more complicated method of proof, but that is because we are just starting to build the toolkit required to work with limits. If points in $ E $ are easier to work with than those in $ X $,\footnote{Nealy every time it's actually the points in $ X\backslash E $ that are the ones that are harder to work with.} then it may just be easier to take limits of them. 
+\begin{example}
+	The set $ \Q $ is dense in $ \R $. This means that every number in $ \R $ is the limit of a sequence in $ \Q $, including irrational numbers. We saw this already in Example 3.6. In this specific case, we actually can write down the sequence. Even if we do not know the explicit form of the sequence, we still know it at least exists.\footnote{This could be considered a drawback of this proof. It is not a proof via construction, so we don't have some blueprint that tells us how to find the sequence.} You probably don't know any sequence in $ \Q $ that converges to $ \pi $, but you do know that such a sequence exists because of Corollary 3.1.\footnote{I cannot think of a sequence that does this off the top of my head, but the series $ \sum_{n=0}^{\infty}\frac{4(-1)^k}{2k+1} $ will. We'll prove this in Section 7.} 
+\end{example}
+\begin{theorem}
+	Suppose $ \{x_n\} $ and $ \{y_n\} $ are sequences in $ \R $, $ \lim_{n\to\infty}x_n=x $, and $ \lim_{n\to\infty}y_n=y $. Then
+	\begin{enumerate}
+		\item $ \lim\limits_{n\to\infty}(x_n+y_n)=x+y $;  
+		\item $ \lim\limits_{n\to\infty}cx_n=cx $, for all $ c\in\R $; 
+		\item $ \lim\limits_{n\to\infty}(c+x_n)=c+x $, for all $ c\in\R $;
+		\item $ \lim\limits_{n\to\infty}(x_ny_n)=xy $, for all $ c\in\R $;
+		\item $ \lim\limits_{n\to\infty}1/x_n=1/x$, provided $ s_n\neq 0 $ for all $ n\in \N $, and $ s\neq 0 $.
+	\end{enumerate}
+\end{theorem}
 \subsection{Subsequences}
 \subsection{Cauchy Sequences}
 \subsection{Extending $ \R $}
@@ -1671,9 +1874,12 @@ density
 \subsection{Monotonicity}
 \section{Differentiation}
 \subsection{The Definition of a Derivative}
-\subsection{Properties of the Derivative}
+\subsection{Higher Order Derivatives}
+
+\subsection{Properties of and Related to the Derivative}
+uniform continuity
 \subsection{The Chain Rule}
-\subsection{Mean Value Theorem}
+\subsection{Mean Value Theorems}
 \subsection{L'H\^{o}pital's Rule}
 \section{Riemann Integration}
 \subsection{Partitions}
