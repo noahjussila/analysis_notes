@@ -18,7 +18,7 @@ One of the reasons I want to organize all my notes is because they pull from fou
 - Chpaters 1-7, first semester undergrad course
 - Chapters 8-12, second semester undergrad course
 - Chapters 12 - 17 , first semester PhD course
-- Chapters 18- Beyond, second semester PhD Course, PhD field course in functional analysis
+- Chapters 18- Beyond, second semester PhD Course, PhD field course in functional analysis, topics used in economic theory 
 
 # Style and Selection of Content
 As stated before, I am hoping to make the material as approachable as possible, and stay constant in tone throughout. One of the best ways to learn math is working through a very concise text, drawing your own illustrations, and coming up with your own examples. Unfortunately, people who are very comfortable with formal math take it for granted that students don't know this. Unless you happen to stumble upon this unusually insightful [amazon review](https://www.amazon.com/review/R23MC2PCAJYHCB), a first pass at analysis using Baby Rudin can be torture (mine was at least). I'm trying to create the type of guide I would have wanted when I first learned basic analysis. That means frequent illustrations, digressions about motivation, footnotes, and not-so-concise proofs. Furthermore, I want to treat more advanced topics with this approach as well, because measure theory and functional analysis are not as scary as graduate textbooks make them look.  
