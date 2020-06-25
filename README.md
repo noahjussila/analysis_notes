@@ -13,6 +13,8 @@ One of the reasons I want to organize all my notes is because they pull from fou
 7. Royden and Fitzpatrick, *Real Analysis*
 8. Aliprantis, *Infinite Dimensional Analysis: A Hitchhiker's Guide*
 9. Munkres, *Analysis on Manifolds*
+10. Axler, *Measure, Integration, & Real Analysis*
+11. Grafako, *Classical Fourier Analysis*
 
 # Tentative Outline
 - Chpaters 1-7, first semester undergrad course
