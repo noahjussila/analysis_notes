@@ -13,8 +13,15 @@
 \usepackage{graphicx}
 \usepackage{pgfplots}
 \usepackage{mathrsfs}
+\def\upint{\mathchoice%
+	{\mkern13mu\overline{\vphantom{\intop}\mkern7mu}\mkern-20mu}%
+	{\mkern7mu\overline{\vphantom{\intop}\mkern7mu}\mkern-14mu}%
+	{\mkern7mu\overline{\vphantom{\intop}\mkern7mu}\mkern-14mu}%
+	{\mkern7mu\overline{\vphantom{\intop}\mkern7mu}\mkern-14mu}%
+	\int}
+\def\lowint{\mkern3mu\underline{\vphantom{\intop}\mkern7mu}\mkern-10mu\int}
 
-
+\usepackage{hyperref}
 \usepackage{tikz}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\R}{\mathbb{R}}
@@ -37,7 +44,7 @@
 \newtheorem{definition}{Definition}[section]
 \newtheorem{corollary}{Corollary}[section]
 \newtheorem{ex}{Exercise}[section]
-\newtheorem{note}{Notation}
+\newtheorem{note}{Notation}[section]
 \newtheorem{example}{Example}[section]
 \newtheorem{remark}{Remark}[section]
 \usepackage{cleveref}
@@ -53,14 +60,16 @@
 \section{Introduction}
 This collection of notes is an ongoing project that aims to combine four semesters of real analysis notes into one document. My goal in doing so is to not only stave off the boredom resulting from quarantining due to Covid-19, but also pick and choose from different presentations of standard material in real analysis. 
 \subsection{Prerequisites}
-These notes will assume familiarity with differential and integral calculus, linear algebra, multivariable calculus, basic set theory, and properties of functions (image, preimage, injectivity, etc.) At times, some material, particularly concepts in linear algebra, will be reviewed. Two very good video series that serve as reviews for calculus and linear algebra can be found at this amazing YouTube channel.
+These notes will assume familiarity with differential and integral calculus, linear algebra, multivariable calculus, basic set theory, and properties of functions (image, preimage, injectivity, etc.) At times, some material, particularly concepts in linear algebra, will be reviewed. Two very good video series that serve as reviews for calculus and linear algebra can be found at this amazing \href{https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw}{YouTube channel}.
 
 I also will assume familiarity with basic styles of proof (contradiction, contrapositive, etc.). I will try \textit{very hard} to be as detailed as possible with every proof though. 
 \subsection{Organization and Sources}
-If these notes are ever finished (which is unlikely), they will span about four semesters worth of real analysis: two at an honors undergraduate level, and two at a introductory PhD level. The following table gives a brief overview of the topics, and what sources I'm pulling from for each part:
+If these notes are ever finished (which is unlikely), they will span about four semesters worth of real analysis: two at an honors undergraduate level, and two at a introductory PhD level. 
 
 
 My selection of sources is motivated not only by the books I really enjoy, but also those that are considered standard. For material presented in an undergraduate course, I absolutely love \cite{tao2006analysis} and \cite{tao2009analysis}. Tao starts at the most basic level of arithmetic and numbers are works all the way up to Lebesgue Integration in his two part series. He motivates nearly every topic, provides examples, and gives the reader a big picture of the subject. That being said, his approach left me confused at times when I first read his books. In the first volume, Tao eschews point-set topology entirely and opts to work exclusively in $ \R $. This is great because most people who learn real analysis only ever care about $ \R $, but it also makes some concepts overly technical. For instance, I think that seuqences and continuity are easier to present and motivate in general metric spaces. My hunch is that I'm in the minority here, as Terry Tao went the other direction, and he has one more Fields Medal than I do. Tao also doesn't include any figures. Another text that is awesome is the infamous ``Baby'' \cite{rudin1964principles}. This book is so widely used for a reason.\footnote{My uneducated hypothesis about this is that \cite{rudin1964principles} really only perfect makes sense if you already know all the material well, so professors who do not remember what it is like to learn analysis just assume everyone understands this book.} It's concise, clear, and presents the material with no frills. It makes a great textbook if you have a professor who motivates the material, provides examples, and draws the occasional illustration. If you do not have such a professor, than \cite{rudin1964principles} becomes pure torture. This book is very much the outline of the first 7 sections of these notes. Sections 8-11 pull mostly from...
+
+
 \subsection{Presentation}
 Many standard math textbooks assume the reader can create their own novel examples, fill in the blanks purposefully left in proofs, understand the motivation for the material, and pick up on the subtle ``tricks'' used in proofs. A good professor will help students do this during a lecture. I want my presentation to do this. In doing this, I'm very much inspired by a professor I had for a second semester honors analysis course I took at Boston College. His presentation of some of the material that will be treated not only will be replicated here, but also motivates how I approach other topics. This means lots of illustrations, footnotes, remarks, and asking hypothetical questions to motivate material. It may seem very pedantic if you're familiar with analysis, but in that case just read Rudin's books. 
 \newpage
@@ -73,7 +82,7 @@ First, a cursory overview of several sets of numbers is in order. It is given fo
 Define the set $ \N\coloneqq\{0,1,2,\ldots\} $ to be the \textit{{\color{red} natural numbers}}. 
 \end{definition}
 \noindent The operations of addition and multiplication are well defined on $ \N $, in that when adding or multiplying natural numbers, the result is a natural number. A more succinct way of putting this is saying that $ \N $ is \textit{closed} under addition and multiplication. While the natural numbers are great for things such as counting (a fact we will return to), it fails to be useful for much more. In particular, two basic operations we are familiar with are not well defined on $ \N $.
-\begin{example}\label{ex1}
+\begin{example}
 	Suppose we want to find the difference in $ 2 $ and $ 5 $, both elements in $ \N $. The difference in question would be $ 2-5 $, but this is not an element of $ \N $! 
 \end{example}
 
@@ -124,7 +133,7 @@ We now begin where the canonical \cite{rudin1964principles} opens. Our goal has 
 	\caption{The natural numbers and integers ordered number lines.}
 \end{figure}
 Clearly the natural numbers and integers are not ``comprehensive'' in that they have many gaps. This is what led us to define the rational numbers $ \Q $. It isn't immediate just how well the rationals do at covering the holes in the integers. We can get a sense of this by introducing a property of the rationals. 
-\begin{proposition}{(Interspersing of integers by rationals)}\label{prop1}
+\begin{proposition}{(Interspersing of integers by rationals)}
 	For any $ x,y\in\Q $ where $ x<y $, there exists a third rational number $ z\in\Q $ such that $ x<z<y $.
 \end{proposition}
 \begin{proof}
@@ -137,7 +146,8 @@ Clearly the natural numbers and integers are not ``comprehensive'' in that they 
 	x&<y\\\frac{x}{2}&<\frac{y}{2}\\\frac{x}{2}+\frac{x}{2}&<\frac{y}{2}+\frac{x}{2}\\x&<z
 	\end{align*} 
 \end{proof}
-\begin{example}\label{ex3}
+\begin{example}
+
 Take the rational numbers $ 0 $ and $ 1 $. Using the construction given in the previous proof we have $$ \frac{0+1}{2}=\frac{1}{2}$$ is between 0 and 1. We can now repeat this process using the pairs $ (0,1/2) $ and $ (1/2,1) $. \begin{align*}
 	\frac{0+1/2}{2}=\frac{1}{4}\\\frac{1/2+1}{2}=\frac{3}{4}
 \end{align*}
@@ -176,11 +186,11 @@ We could repeat this process an infinite number of times, in effect ``filling in
 \end{figure}\\
 The key question is whether or not this fills \textit{all} the gaps in the integers.
 \end{example}
-While \cref{ex3}, and more formally \cref{prop1}, may lead us to believe that the rational numbers have no gaps, this is unfortunately not the case. There are two classic examples that arise from two of the most basic geometric constructions. 
-\begin{example}\label{ex4}
+While , and more formally , may lead us to believe that the rational numbers have no gaps, this is unfortunately not the case. There are two classic examples that arise from two of the most basic geometric constructions. 
+\begin{example}
 	Suppose we have a circle with diameter $ d $ and circumference $ c $. In this case, the ratio give by $ c/d $ is not an element of the rational numbers. This familiar ratio is written as $ \pi $. For the moment, we can take this as fact. We have not yet developed the tools required to proof that $ \pi\notin\Q $, but we will return to this.  
 \end{example}
-\begin{example}\label{ex5}
+\begin{example}
 	Suppose there is an isosceles right triangle with legs of length 1, as shown in Figure 3. We want to find the length of the hypotenuse $ x $. 
 	\begin{figure}[h]
 		\centering
@@ -309,11 +319,11 @@ To prove this, we will first establish that $ 2 $ is an upper bound of the set d
 	\begin{enumerate}
 		\item Suppose for contradiction that $ 2 $ is not an upper-bound of $ E $. Then there exists an $ x\in E $ such that $ x>2 $. This would imply that $ x^2>4 $, which contradicts the assumption that $ x \in E $. 
 		\item Suppose for contradiction that $ E $ has a supremum, and that $ \sup E=\alpha $ for $ \alpha\in\Q $. Define a new rational number $ y\in \Q $ as 
-		\begin{equation}\label{key}
+		\begin{equation}
 		y=\alpha-\frac{\alpha^2-2}{x+2}=\frac{2(\alpha+1)}{\alpha+2}.
 		\end{equation}
 		Squaring this and subtracting $ 2 $ gives 
-		\begin{equation}\label{key}
+		\begin{equation}
 		y^2-2=\frac{4(\alpha+1)^2}{(\alpha+2)^2}-\frac{2(\alpha+2)^2}{(\alpha+2)^2}=\frac{2(\alpha^2-2)}{(\alpha+2)^2}.
 		\end{equation} We can use $ y $ to reach a contradiction in each possible case, those being: $ \alpha^2<2 $, $ \alpha^2=2 $, $ \alpha^2>2 $.
 		\begin{enumerate}
@@ -349,7 +359,7 @@ We will now construct the real numbers using only $ \Q $. First, we will define 
 		$$ x(y+z)=xy+xz$$
 	\end{enumerate}
 \end{definition}
-The study of fields is its own entire subject in math, and lives within the discipline if abstract algebra. For more details about fields, see \cite{dummit2004abstract}. These axioms can be used to reach several familiar conclusions about arithmetic in fields, and can be found as formal propositions in \cite{rudin}. A more specific type of field is that which is also an ordered set.
+The study of fields is its own entire subject in math, and lives within the discipline if abstract algebra. For more details about fields, see \cite{dummit2004abstract}. These axioms can be used to reach several familiar conclusions about arithmetic in fields, and can be found as formal propositions in \cite{rudin1964principles}. A more specific type of field is that which is also an ordered set.
 \begin{definition}
 	An \textit{\color{red} ordered field} is a field $ F $ such that
 	 \begin{enumerate}
@@ -417,7 +427,7 @@ Now that we have properly defined $ \R $, we can \textit{finally} refer to the q
 	The set $ \R $ is an ordered field containing $ \Q $.
 \end{theorem}
 \begin{proof}
-	See the appendix of chapter 1 in \cite{rudin}. The idea is that addition and multiplication of cuts must be define, and the all the axioms of fields and ordered fields must be verified using the cut definition of a real number. 
+	See the appendix of chapter 1 in \cite{rudin1964principles}. The idea is that addition and multiplication of cuts must be define, and the all the axioms of fields and ordered fields must be verified using the cut definition of a real number. 
 \end{proof}
 \begin{theorem}[Completeness of the real numbers]
 	The set $ \R $ has the least-upper-bound property.
@@ -451,6 +461,7 @@ Finally, we will adopt the familiar notation of intervals in $ \R $, and add mak
 		(a,b]=\{x\in\R\mid a<x\le b\}\\
 		[a,b]=\{x\in\R\mid a\le x\le b\}
 	\end{align*}
+	for $ a<b $. 
 \end{definition}
 \begin{definition}
 	The \textit{\color{red}extended real number system} consists of the real field $ \R $ and two symbols: $ \infty $, and $ -\infty $. The original order of $ \R $ is preserved, and we define $$ -\infty <x<\infty$$ for all $ x\in\R $. We will denote the extended real numbers as $ \overline{\R} $.  
@@ -478,14 +489,14 @@ For $ x,y\in \R $ where $ x<y $, there exists a $ p\in\Q $ such that $ x<p<y $.
 \end{theorem}  
 \begin{proof}
 We have $ x<y $, giving $ y-x>0 $. By the Archimedean property (Theorem 2.3), there exists an $ n\in\N $ such that 
-\begin{equation}\label{key}
+\begin{equation}
 n(y-x)>1.
 \end{equation}
 We can use Theorem 2.3 to find $ m_1,m_2\in\N $ for which:
 \begin{align*}
 	m_1>nx,\\m_2>-nx.
 \end{align*}
-We can combine these two inequalities to conclude $ -m_2<nx<m_1 $. This implies there exists an $ m\in\N $ (with $ -m_2\le m\le m_1 $) such that \begin{equation}\label{key}
+We can combine these two inequalities to conclude $ -m_2<nx<m_1 $. This implies there exists an $ m\in\N $ (with $ -m_2\le m\le m_1 $) such that \begin{equation}
 m-1\le nx<m.
 \end{equation}  
 If we combine $ (3) $ and $ (4) $ we get $$ nx<m\le 1+nx<ny.$$ Dividing by $ n $ (which is positive) gives $ x<\frac{m}{n}<y$. 
@@ -684,7 +695,10 @@ Now that we've seen which familiar sets are and are not countable, there are sev
 	Show that $ \sqrt{3} $ is irrational.
 \end{ex}
 \begin{ex}
-	Let $ (S,<) $ be an ordered set, and $ T $ be a nonempty subset of $ T $. Verify that $ T $ has at most one supremum.
+	Let $ (S,<) $ be an ordered set, and $ T $ be a nonempty subset of $ S $. Verify that $ T $ has at most one supremum.
+\end{ex}
+\begin{ex}
+	Let $ (S,<) $ be an ordered set,  and $ A $ and $ B $ be nonempty subsets of $ T $. Show that if $ A\subset B $, then $ \sup A\le B $ and $ \inf B\le\inf A $.
 \end{ex}
 \begin{ex}
 	Let $ E $ be a nonempty subset of an ordered set; suppose $ \alpha $ is a lower bound of $ E $ and $ \beta $ is an upper bound of $ E $. Prove that $ \alpha\le\beta $. 
@@ -1686,7 +1700,7 @@ We have now shown that every $ k $-cell is compact. The proof is made more manag
 Now that we are intimately familiar with the behavior of metric spaces, we can discuss a topic that may be familiar from calculus -- sequences and series. Metric spaces will allow us to rigorously define convergence, and the properties related to the convergence os sequences and series. While we will derive some results and examples in general metric spaces, we will also start introducing results specific to $ \R $.       
 \subsection{Convergence}
 \begin{definition}
-	Let $ X $ be a metric space. A \textit{\color{red}sequence $ \{x_n\} $} is a function from $ f:\N\to X $. We will sometimes refer to an entire sequence as $  x_n=f(n)$. 
+	Let $ X $ be a metric space. A \textit{\color{red}sequence $ \{x_n\} $} is an function from $ f:\N\to X $. We will sometimes refer to an entire sequence as $  x_n=f(n)$. 
 \end{definition}
 Using an arbitrary metric space $ X $ in this definition means that we, once again, always need to pay attention to what metric space we are in. We saw this with open sets, closed sets, and compact sets, and we will see it again. It will become especially relevant when determining if sequences converge. 
 \begin{example}
@@ -1949,7 +1963,7 @@ The next two results pertain only to sequences in $ \R^n $. The first is a set o
 \end{enumerate}
 \end{proof}
 \begin{remark}
-	Part 1 of Theorem 3.2  allow us immediately to perform subtraction using limits. Parts 3 and 4 allow us to do the same with division. 
+	Part 1 and 2 of Theorem 3.2  allow us immediately to perform subtraction using limits. Parts 3 and 4 allow us to do the same with division. 
 \end{remark}
 \begin{remark}[Linearity of Limits]
 	The first two parts of Theorem 3.2 allow us to conclude that limits are linear. This shouldn't be news, as it comes up in any standard calculus course, but it has powerful implication. We will use limiting processes to define differentiation and integration, so the linearity of limits will give rise to the linearity of these two operations as well.
@@ -2731,11 +2745,11 @@ This definition seems much more complicated than that given for convergence, but
 	\filldraw[color=blue, fill=white] (6,6) circle (2pt);
 	\filldraw[color=white, fill=blue] (6,2) circle (2pt);
 	\draw (6,-0.3) node {$ x_0$};
-	\draw (5,-0.3) node {$ x_0-\delta/2$};
-	\draw (7,-0.3) node {$ x_0+\delta/2$};
+	\draw (5,-0.3) node {$ x_0-\delta$};
+	\draw (7,-0.3) node {$ x_0+\delta$};
 	\draw[blue] (10,8.3) node {$ f(x)$};
-	\draw (-0.9,5.35) node {$ L-\varepsilon/2$};
-	\draw (-0.9,6.55) node {$ L+\varepsilon/2$};
+	\draw (-0.9,5.35) node {$ L-\varepsilon$};
+	\draw (-0.9,6.55) node {$ L+\varepsilon$};
 	\draw (-0.8,6) node {$ L$};
 	\end{tikzpicture}
 	\caption{We have $ \lim_{x\to x_0}f(x)=L $ for a real function. No matter how small $\varepsilon $ gets, we can find a $ \delta $ such that $ |f(x)-L|<\varepsilon $ for all $ x $ satisfying $ |x-x_0|<\delta $. }
@@ -2824,11 +2838,11 @@ Go back and review Remark 2.4. This issue came up with sequences. We saw sequenc
 	\draw[thin, dashed] (0,5.35) -- (5,5.35);
 	\draw[thin, dashed] (0,6.55) -- (7,6.55);
 	\draw (6,-0.3) node {$ x_0$};
-	\draw (5,-0.3) node {$ x_0-\delta/2$};
-	\draw (7,-0.3) node {$ x_0+\delta/2$};
+	\draw (5,-0.3) node {$ x_0-\delta$};
+	\draw (7,-0.3) node {$ x_0+\delta$};
 	\draw[blue] (11,8.5) node {$ f(x)$};
-	\draw (-0.9,5.35) node {$ f(x_0)-\varepsilon/2$};
-	\draw (-0.9,6.55) node {$ f(x_0)+\varepsilon/2$};
+	\draw (-0.9,5.35) node {$ f(x_0)-\varepsilon$};
+	\draw (-0.9,6.55) node {$ f(x_0)+\varepsilon$};
 	\draw (-0.5,6) node {$ f(x_0)$};
 	\draw[thin, dashed] (13,0) -- (13,8.75);
 		\draw[thin, dashed] (0,8.8) -- (13,8.8);
@@ -2838,7 +2852,7 @@ Go back and review Remark 2.4. This issue came up with sequences. We saw sequenc
 			\draw (-.5,3.6) node {$ f(x_2)$};
 			\draw (3,-0.3) node {$ x_2$};
 	\end{tikzpicture}
-	\caption{The function $ f $ is continuous at $ x_0 $, $ x_1 $, and $ x_2 $. Given some $ \varepsilon>0 $, there exist a delta such that $ |f(x)-f(y)|<\varepsilon $ for all $ |x-y|<\delta $. Each green box has height of $ \varepsilon $, and the width for the $ \delta $ at the corresponding point. Note that the value of $ \delta $ is the same for $ x_0 $ and $ x_1 $, but different for $ x_2 $. For a fixed $ \varepsilon $, the delta for one point may differ depending on the value of $ x $. If some value of $ \delta $ is too large, then the box would be too wide, and the function $ f(x) $ would ``escape'' from the top and/or bottom of the box. This graphical feature would imply a violation of continuity, so we need to shrink $ \delta $ until the function ``escapes'' from the sides (which is what we did for $ x_2 $).   }
+	\caption{The function $ f $ is continuous at $ x_0 $, $ x_1 $, and $ x_2 $. Given some $ \varepsilon>0 $, there exist a delta such that $ |f(x)-f(y)|<\varepsilon $ for all $ |x-y|<\delta $. Each green box has height of $ 2\varepsilon $, and the width for the $ 2\delta $ at the corresponding point. Note that the value of $ \delta $ is the same for $ x_0 $ and $ x_1 $, but different for $ x_2 $. For a fixed $ \varepsilon $, the delta for one point may differ depending on the value of $ x $. If some value of $ \delta $ is too large, then the box would be too wide, and the function $ f(x) $ would ``escape'' from the top and/or bottom of the box. This graphical feature would imply a violation of continuity, so we need to shrink $ \delta $ until the function ``escapes'' from the sides (which is what we did for $ x_2 $).   }
 \end{figure}
 \begin{example}
 	Suppose we define $ f:\R\to\R $ as some linear function $ f(x)=mx+b $. Let $ p\in\R $. We can mimic our work in Example 4.1 to show this function is continuous on all of $ \R $. For $ p\in\R $ satisfying $ |x-p|<\varepsilon/|m| $, we have$$ d_\R(f(x),f(p)=|mx+b-(my+b)|=|m(x-p)|=|m||x-p|=|m|\cdot d_\R(x,p)<|m|\cdot\frac{\varepsilon}{|m|}=\varepsilon .$$ Therefore $ f $ is continuous at $ p $, for all $ p\in\R $
@@ -3046,8 +3060,8 @@ It cannot be emphasized enough how much stronger uniform continuity is than cont
 	\filldraw (10,7.88) circle (1pt);
 	\filldraw (12,8.52) circle (1pt);
 	\draw[blue] (14,9.3) node {$ f(x)=\sqrt{x}$};
-	\draw[black] (13.3,2.48) node {$ \varepsilon$};
-	\draw[black] (14,1.38) node {$ \delta$};
+	\draw[black] (13.3,2.48) node {$ 2\varepsilon$};
+	\draw[black] (14,1.38) node {$ 2\delta$};
 	\end{tikzpicture}
 	\caption{Let $ f:(0,1]\to\R $ be defined as $ f(x)=\sqrt{x} $. The function is uniformly continuous. For each fixed $ \varepsilon $, we can center a box of height $ \varepsilon $ at a point $ (x,f(x)) $. We can find some width of the box $ \delta $ such that the function will never ``escape'' from the top or bottom of the box, no matter the point $ (x,f(x)) $.}
 \end{figure}
@@ -3133,7 +3147,7 @@ This result is similar to Theorem 4.5, but they ``go in different directions''. 
 	Let $ f:(0,\infty)\to\R $ be the continuous function $ f(x)=1/x $. The set $ (1,\infty) $ is neither closed nor bounded, so $ f^{-1}((1,\infty))=(0,1) $ is neither closed nor bounded. 
 \end{example}
 Our next theorem proves useful in many applications, as it allows us to determine when a function has a maximum and minimum on an intervals. 
-\begin{theorem}[Weierstrass]
+\begin{theorem}[Extreme Value Theorem]
 	Suppose $ f $ is a continuous real function on a compact metric space $ X $, and \begin{align*}
 		M&=\sup\limits_{x\in X}f(x),\\
 		m&=\inf\limits_{x\in X}f(x).
@@ -3247,7 +3261,7 @@ The Intermediate Value Theorem may seem like a parlor trick, but it is useful in
 \subsection{Discontinuities}
 We've used the word discontinuous several times, but now we'll take the time to define it, and classify two types of discontinuities. A function that is discontinuous at a point is simply not continuous at the point. The formal definition we will present negates the statement given in Definition 4.2
 \begin{definition}
-	Let $ X $ and $ Y $ be metric spaces,  $ E\subset X $, $ p\in E $, and $ f:E\to Y $. Then $ f $ is \textit{\color{red}discontinuous at p} if for all $ \delta>0 $, there exists a single $ \varepsilon>0 $ such that $$ d_Y(f(x),f(p))\ge\varepsilon $$ for a single $ x\in E $ which satisfies $ d_X(x,p)<\delta $. If $ f $ is discontinuous at least one point in $ E $, then $ f $ is {\color{red}discontinuous (on $ E $)}. 
+	Let $ X $ and $ Y $ be metric spaces,  $ E\subset X $, $ p\in E $, and $ f:E\to Y $. Then $ f $ is \textit{\color{red}discontinuous at p} if for all $ \delta>0 $, there exists a single $ \varepsilon>0 $ such that $$ d_Y(f(x),f(p))\ge\varepsilon $$ for a single $ x\in E $ which satisfies $ d_X(x,p)<\delta $. If $ f $ is discontinuous at least one point in $ E $, then $ f $ is \textit{\color{red}discontinuous (on $ E $)}. 
 \end{definition}
 We can classify three different types of discontinuities if we introduce the notion of a right-hand limit and a left-hand limit for a real function. 
 \begin{definition}
@@ -3256,7 +3270,7 @@ We can classify three different types of discontinuities if we introduce the not
 \begin{definition}
 	Let $ f $ be a real function defined on $ (a,b) $, and consider any point $ p $ such that $ a< p\le b $. If for all sequence $ \{p_n\} $ in $ (a,p) $ such that $ p_n\to p $, we have $ f(p_n)\to L $, then we write $f(p-)=L $, or $$\lim\limits_{x\to p^-}f(x)=p. $$ We say that $ L $ \textit{\color{red}is the left-hand limit} of $ f(x) $ as $ x\to p $.
 \end{definition}
-Both of these definitions can be cast in terms of $ \varepsilon $ and $ \delta $, but that is not quite necessary, as they only serve as a means to define various types of discontinuity. It also can be proven that if $ f(x+)=f(x-) $, then $ \lim_{x\to p}f(x)=p $. The first type of discontinuity is the type we saw in Figure 37. This type it special, as it does not prohibit the existence of a limit at a point.
+An alternate definition of these limits would use $ \varepsilon $ and $ \delta $. For example, $ f(p-)=L $ if for all $ \varepsilon>0 $, we have $|f(p)-L|<\varepsilon $ for all $ x\in(a,b) $ satisfying $ p-\delta<x<p $. The only difference between this and the definition of a limit is we restrict our attention to the $ x $ that are within a distance of $ \delta $ to the left of $ p $. The definition for the right hand limit would be the same, except we look at the interval $ p<x<x+\delta $It  can be proven that if $ f(x+)=f(x-) $, then $ \lim_{x\to p}f(x)=p $. The first type of discontinuity is the type we saw in Figure 37. This type it special, as it does not prohibit the existence of a limit at a point.
 \begin{definition}
 	Let $ f $ be a real function defined on $ (a,b) $. If $ f $ is discontinuous at a point $ x $, and if $ f(x+)=f(x-) $, then we say $ f $ has a \textit{\color{red}removable discontinuity} at $ x $. 
 \end{definition}
@@ -3276,8 +3290,8 @@ With removable discontinuities, it's important to remember that $ f$ still needs
 	\draw[blue] (11,7.5) node {$ f(x)$};
 	\filldraw[color=white, fill=blue] (8,7) circle (2pt);
 	\draw (8,-0.3) node {$ x_0$};
-	\draw (7,-0.3) node {$ x_0-\delta/2$};
-	\draw (9,-0.3) node {$ x_0+\delta/2$};
+	\draw (7,-0.3) node {$ x_0-\delta$};
+	\draw (9,-0.3) node {$ x_0+\delta$};
 	\draw[thin, dashed] (8,0) -- (8,7);
 	\draw[thin, dashed] (7,0) -- (7,7);
 	\draw[thin, dashed] (9,0) -- (9,7);
@@ -3330,7 +3344,9 @@ Finally, we'll discuss a special group of functions that are either always weakl
 \begin{definition}
 	Let $ f $ be a real function defined on $ (a,b) $. The function $ f $ is \textit{\color{red}monotonically decreasing} on $ (a,b) $ if $ a<x<y<b $ implies $ f(x)\ge f(y) $. 
 \end{definition}
-
+\begin{example}
+	The following real functions are monotonically increasing on the entirety of their domains: $ f(x)=e^x $, $ f(x)=\ln x $, $ f(x)=x $, $ f(x)=\sqrt{x} $. The following functions are monotonically decreasing on the entirety of their domains: $ f(x)=-x $, $ f(x)=1/x $, $ f(x)=\arccos(x) $.\footnote{You should avoid writing $ \cos^{-1}(x) $, as it is not clear if that either means $ \arcsin(x) $ or $ 1/\cos(x) $.} 
+\end{example}
 \begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}
@@ -3366,11 +3382,63 @@ Finally, we'll discuss a special group of functions that are either always weakl
 	\filldraw[color=white, fill=blue] (8,8) circle (2pt);
 	\filldraw[color=blue, fill=white] (9,8) circle (2pt);
 	\filldraw[color=white, fill=blue] (9,9) circle (2pt);
-	
 	\end{tikzpicture}
 	\caption{We have two real functions, $ f:\R\to\R $, and $ g:\R\to\R $. The function $ f $ is monotonically decreasing, whereas the function $ f(x) $ is monotonically increasing. Note that $ g $ is not continuous on $ \R $. }
 \end{figure}
 If a function is either monotonically increasing or monotonically decreasing, we may just refer to it as \textit{\color{red}monotonic}. Neither Definition 4.11 nor Definition 4.12 make any mention of continuity. As Figure 47 shows, monotonicity does not imply continuity. In fact, neither of the presented definitions seem to have anything whatsoever to do with continuity. Monotonicity alone is not a strong enough condition for us to make meaningful statements about continuity, \textit{but} it does provide us with information about discontinuities. If a function is monotonic, we can deduce three facts about any discontinuities it may have.  
+\begin{proposition}
+	Let $ f $ be a monotonically increasing real function on $ (a,b) $. The limits $ f(x+) $ and $ f(x-) $ exist at every point of $ (a,b) $. Furthermore, $$\sup\limits_{a<t<x}f(t)=f(x-)\le f(x)\le f(x+)=\inf\limits_{x<t<b}f(t) .$$ We also will have $f(x+)\le f(y-) $ for all $ a<x<y<b $.
+\end{proposition}
+An analogous result holds for monotonically decreasing functions, and the proof is similar. 
+\begin{proof}
+	The range $ f((a,x))\subset\R $ has an upper bound in $ f(x) $. By the completeness of $ \R $, there exists some $ A=\sup f((a,x)) $. By the definition of the supremum, $ A\le f(x) $. We will show that $ A=f(x-) $.
+	
+	Fix $ \varepsilon>0 $. By the definition of $ A $ as a least-upper-bound, there exists some $ \delta>0 $ such that $ a<x-\delta<x $ and $$ A-\varepsilon<f(x-\delta)\le A.\footnote{We found a value $ x-\delta $ such that $ f(x-\delta) $ is in $ f((a,x)) $, but just barely below the set's supremum or equal to it. It's so close to that supremum, that $f(x-\delta)\in(A-\varepsilon,A]$ for our arbitrarily small $ \varepsilon$.}$$ The function $ f $ is monotonic, so for all $ t $ satisfying $ x-\delta<t<x $, we have $$f(x-\delta)\le f(t)\le A.$$ These two inequalities imply that for all $ t\in(a,b) $ satisfying $ x-\delta<t<x $, we have $$|f(t)-A|<\varepsilon ,$$ so $$ A=\sup f((a,b))=\sup\limits_{a<t<x} f(t)=f(x-) $$ as desired. To show that $ \sup\limits_{x<t<b}f(t)=f(x+) $, we let $ B=\inf f((x,b))  $, and repeat this process. This gives the inequality presented in the proposition. 
+	
+	If we now let $ a<x<y<b $, then we can apply the presented inequality to the point $ x\in(a,y) $ and write $$ f(x+)=\inf\limits_{x<t<y} f(t) .$$ Applying it to $ y\in(x,b) $ gives $$f(y-)=\sup\limits_{x<t<y}f(t) .$$ This infimum and supremum are taken over the same set, so the infimum is less that the supremum, which gives the second desired inequality, $$f(x+)=\inf\limits_{x<t<y} f(t)\le \sup\limits_{x<t<y}f(t)=f(y-).$$
+\end{proof}
+The first inequality of Proposition 4.1 is shown in Figure 48. Perhaps more useful than Proposition 4.1, is one of its immediate consequences. The $ \sup $ and $ \inf $ in question will always exist, implying the existence of both $ f(x-) $ and $ f(x+) $. In light of definition 4.10, we arrive at a corollary. 
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+	\draw (-.3,10) node {$ \R$};
+	\draw (-.5,8.8) node {$ $};
+	\draw (14,-0.3) node {$ \R$};		
+	\draw[thick,->] (0,0) -- (0,10);
+	\draw[thick,->] (0,0) -- (14,0);	
+	\draw[thick, blue] (1,5) -- (8,5);
+	\filldraw[color=blue, fill=white] (8,5) circle (2pt);
+	\draw[blue] (11,7.5) node {$ f(x)$};
+	\filldraw[color=white, fill=blue] (8,7) circle (2pt);
+	\draw[thick, blue] (8,7) -- (12,7);
+	\filldraw[color=blue, fill=blue] (8,7) circle (1.5pt);
+	\draw[thick] (1,-0.2) -- (1,0.2);
+	\draw[thick] (12,-0.2) -- (12,0.2);
+	\draw[black] (1,-.5) node {$ a $};
+	\draw[black] (12,-.5) node {$ b $};
+	\draw (8,-0.3) node {$ x$};
+	\draw[thin, dashed] (8,0) -- (8,7);
+		\draw[thick] (-0.2,5) -- (0.2,5);
+	\draw[thick] (-0.2,7) -- (0.2,7);
+	\draw[black] (-1.8,4.9) node {$ \sup\limits_{a<t<x}f(t)=f(x-) $};
+	\draw[black] (-1.8,6.9) node {$ \inf\limits_{x<t<b}f(t)=f(x+) $};
+	\end{tikzpicture}
+	\caption{The first inequality of Proposition 4.1 illustrated.}
+\end{figure}
+\begin{corollary}
+	A monotonic function in $ \R $ has no essential discontinuous. 
+\end{corollary}
+This result makes sense if we think about Figure 46. For a function to have an essential discontinuity like this, we need it to increase to infinity from the left or right. This means the function must decrease once we move past the discontinuity. This would contradict monotonicity because the function would increase for certain values of its domain, and then decrease for others.  
+
+Perhaps the most interesting result pertaining to discontinuities of monotonic functions, is that they will always form a countable set. We saw functions with an uncountable number of discontinuities (Example 4.26), but we'll see that monotonicity does not allow for this. This fact will become especially useful when we develop the theory of Riemann integration.
+\begin{proposition}
+	Let $ f $ be a monotonic function on $ (a,b) $.The set of points $ (a,b) $ at which $ f $ is discontinuous is at most countable. 
+\end{proposition}
+\begin{proof}
+	We will prove this result for a monotonically increasing function. Let $ E $ be the set of points at which $ f $ is discontinuous. To show $ E $ is countable, it suffices to show that we can write a bijection from $ E $ to some countable set.\footnote{This works because sets having equal cardinality is transitive. See Proposition 1.5.}
+	
+	The rationals are dense in $ \R $, so we can always find a rational in number in between $ f(x-) $ and $ f(x+) $. For all $ x\in r(x) $ we can associate a rational number $ r(x) $ such that $$  f(x-)<r(x)<f(x+).$$ Since $ x_1<x_2 $ implies $ f(x_1+)\le f(x_2-)  $ by Proposition 4.1, $ r(x_1)\neq r(x_2) $ if $ x_1=x_2 $. We therefore have a bijection from $ E $ to a subset of $ \Q $ which is countable.\footnote{We used the density of $ \Q $ in $ \R $ to make the mapping surjective, and then used Proposition 4.1 to insure injectivity.}
+\end{proof}
 \subsection{Exercises}
 min and max continuous
 
@@ -3385,19 +3453,238 @@ left and right limits equal
 \section{Differentiation}
 We now will treat the first of two major topics in calculus -- differentiation. For this whole section, we will be dealing with real functions of a single variable. Most of the results should be very familiar, and as such the number of examples will be limited. For the most part, differentiation as you saw it in calculus is rigorously defined. The only things that should be new are the proofs of results, and the emphasis put on certain topics. When people first take calculus, most of it is just learning how to take derivatives. That won't be so important here. The emphasis will instead be placed on the theorems, and how to use them to prove certain results.    
 \subsection{The Definition of a Derivative}
-higher order derivatives
-
-
-
-
-
+We begin by defining the rate of change of a function between two points.
+\begin{definition}
+	Let $ f $ be a real function defined on $ X\subset \R$. For any $ x\in  X $ we define the \textit{\color{red}difference quotient} $\phi(t) $ as $$\phi(t)=\frac{f(t)-f(x)}{t-x} $$ where $ t\in  X $ and $ t\neq 0 $. 
+\end{definition} 
+For a fixed value $ x $, the difference quotient captures the rate of change of a function between points $ x $ and $ t $. If $ X $ is an open interval, then $ \varphi $ will not be defined at the endpoints of $ X $, as there are excluded from the set. We arrive at the definition of a derivative by letting $ t $ tend towards $ x $, thereby let $ |x-t| $ going to 0.
+\begin{definition}
+	Let $ f $ be a real function defined on $ X $. If $ \lim_{t\to x}\phi(t) $ exists, then we write $$ f'(x)=\lim_{t\to x}\phi(t),$$ and call $ f' $ the \textit{\color{red}derivative of $ f $}. The derivative $ f' $ is a function defined at every point where $ \lim_{t\to x}\phi(t) $ exists. If $ f' $ exists at a point $ x $ we say $ f $ is \textit{differentiable at $ x $\color{red}}. If $ f' $ exists at every point of $ E\subset X $, we say $ f $ is \textit{\color{red}differentiable on $ E $}. 
+\end{definition}
+We will sometimes refer to $ f'(x) $ as the ``instantaneous rate of change'' of $ f(x) $ at $ x $. 
+\begin{remark}[Is the Derivative a Paradox?]
+	As \href{https://www.youtube.com/watch?v=9vKqVkMQHKk&list=PLZHQObOWTQDMsr9K-rj53DwVRMYO3t5Yr&index=2}{this video} points out, calling the derivative the ``instantaneous rate of change'' can be interpreted as a paradox. The phrase ``rate of change'' implies that something actually changes over a time period. The derivative correspond to a single point. Does something change at one given point in time? The phrase ``instantaneous rate of change'' should be meaningless. In using it in reference to the derivative, we are giving it a definition that it would otherwise not have in the physical world.  
+\end{remark}
+\begin{remark}[An Equivalent Definition]
+	The definition of $ f'(x) $ as given in Definition 5.2, may not be the way you first saw the derivative defined in calculus. Instead, you may have seen $$f'(x)=\lim\limits_{h\to 0}\frac{f(x+h)-f(x)}{h} .$$ This is \textit{perfectly valid}, and the \textit{exact same definition}. We arrive at this equation by letting $ t-x=h $, and taking $ h\to 0 $. The variable $ h $ just represents the ``distance'' (or displacement) over which we are calculating the rate of change. The choice of presenting it as an alternative is based off the fact that \cite{rudin1964principles} and \cite{tao2006analysis} give the definition of $ f'(x) $ in terms of the difference quotient. While all the results will hold regardless of what definition we use, sometimes one definition more be more suitable for a proof or example. In all these cases, we could simply take Definition 5.1, let $ t-x=h $, and take $ h\to 0 $. This step won't be explicitly shown after this, so make sure this sits well. As we'll see later, using the definition where $ h\to 0 $ will help us build intuition when using the derivative to approximate functions. Much later on when we consider differentiation with multiple variables, we will also opt to use a definition with $ h\to 0 $.
+\end{remark}
+\begin{note}
+	There are many different ways to notate the derivative, the two most common being Lagrange's notation of $ f' $, and Leibniz's notation of $ \frac{df}{dx} $. We will exclusively use Lagrange's notation for real functions of a single variable. This decision is motivated by the fact that $ f' $ does not make reference to the variable used to denote the input of $ f $. We are free to write $ f(x) $, $ f(t) $, $ f(\theta) $, etc. If we use $ \frac{df}{dx} $, then we must always write $ f(x) $. This is a matter of purely notational flexibility. Another reason to shy away from $ \frac{df}{dx} $, is that it encourages one to interpret $ df $ and $ dx $ as infinitesimally small numbers. Historically, this is how Leibniz interpreted the derivative, but it was never formal in this context. We will make it formal when treating differential forms. 
+\end{note}
+\begin{example}[The Power Rule]
+	Let $ f:\R\to\R $ be defined as $ f(x)=x^n $. We will show that $ f'(x)=nx^{n-1} $ for all $ x\in\R $. First, we should point out that $$(t-x)^n=(t-x)\left[x^{n-1}+tx^{n-2}+\cdots +t^{n-2}x+t^{n-1}\right]=(t-x)\displaystyle\sum_{k=0}^{n-1}t^kx^{(n-1)-t} .$$ We will need to use this to rewrite the denominator of the difference quotient.
+	\begin{align*}
+		f'(x)&=\lim\limits_{t\to x}\frac{f(t)-f(x)}{t-x}\\
+			&=\lim\limits_{t\to x}\frac{t^n-x^n}{t-x}\\
+			&=\lim\limits_{t\to x}\frac{(t-x)\left[x^{n-1}+tx^{n-2}+\cdots +t^{n-2}x+t^{n-1}\right]}{t-x}\\&=\lim\limits_{t\to x}\left[x^{n-1}+tx^{n-2}+\cdots +t^{n-2}x+t^{n-1}\right]\\&=x^{n-1}+x\cdot x^{n-2}+\cdots +x^{n-2} \cdot x\\&=nx^{n-1}
+	\end{align*}
+\end{example}
+\begin{example}
+	Let $ f:\R\to\R $ be defined as $ e^x $. What is $ f'(x)? $
+	\begin{align*}
+		f'(x)=\lim\limits_{h\to 0}\frac{f(x+h)-f(x)}{h}=\lim\limits_{h\to 0}\frac{e^{x+h}-e^x}{h}=\lim\limits_{h\to 0}\frac{e^{x}e^h-e^x}{h}=e^x\cdot \lim\limits_{h\to 0}\frac{e^{h}-1}{h}.
+	\end{align*}
+	At this point we will let $ u=e^h-1 $ and perform a substitution, noting that $ h=\ln(u+1) $.\footnote{I find substitutions like this very unsettling. It feels like another ``trick'' used in proofs that you would only know if you've proved the result before. I also could be very alone in this regard, and just don't think ``maybe I should try substitution'' as much as I should.} We also have $ u\to 0 $ as $ h\to 0 $.\footnote{The limit of $ u=e^h-1$ as $ h\to0 $ is $ e^0-1=0$ because $ e^x $ is continuous. This gives $ u\to 0 $ as $ h\to 0 $.}
+	$$ 	f'(x)=e^x\cdot\lim\limits_{u\to 0}\frac{e^{h}-1}{h}=e^x\cdot\lim\limits_{u\to 0}\frac{u}{\ln(u+1)}=e^x\cdot\lim\limits_{u\to 0}\frac{1}{\frac{1}{u}\cdot\ln(u+1)}=e^x\cdot\lim\limits_{u\to 0}\frac{1}{\left[\ln(u+1)^\frac{1}{u}\right]}=e^x\cdot\frac{1}{\ln\left[\lim\limits_{u\to 0}(u+1)^\frac{1}{u}\right]}$$ Why are we able to pass the limit into the natural log?\footnote{Because the natural log is continuous, and you can bring limits into continuous functions, as continuity preserves limits.} Finally note that $$ \lim_{u\to 0}(u+1)^{1/u}=\lim_{n\to\infty}(1+1/n)^{1/n}=e ,$$ which we first took as a fact in Example 3.7. $$ 	f'(x)=e^x\cdot\frac{1}{\ln\left[\lim\limits_{u\to 0}(u+1)^\frac{1}{u}\right]}=e^x\cdot\frac{1}{\ln(e)}=e^x\cdot \frac{1}{1}=e^x$$ We have that the derivative of $ e^x$ is $e^x $. 
+\end{example}
+\begin{theorem}[Differentiability implies Continuity]
+	Let $ f $ be defined on $  X $. If $ f $ is differentiable at $ x\in  X $, then $ f $ is continuous at $ x $.  
+\end{theorem}
+\begin{proof}
+	We can use Theorem 4.3, and show $ \lim_{t\to x}f(t)=f(x) $ if $ f $ is differentiable at $ x $. We have
+	\begin{align*}
+	f(t)-f(x)&=\frac{f(t)-f(x)}{t-x}(t-x)\\
+	\lim\limits_{t\to x}[f(t)-f(x)]&=\lim\limits_{t\to x}\phi(t)(t-x)\\\lim\limits_{t\to x}f(t)-f(x)&=f'(x)\cdot 0\\&=0.
+	\end{align*}
+	If $ \lim\limits_{t\to x}f(t)-f(x)=0 $, then $ \lim\limits_{t\to x}f(t)=f(x) $. 
+\end{proof}
+Where would this proof go wrong if we did not know $ f $ is differentiable at $ x $?\footnote{ If $ \lim\limits_{t\to x}\phi(t) $ did not exist, then there would have been no way to calculate $ (\lim\limits_{t\to x}\phi(t))\cdot 0 $. } It is quite easy to come up with examples where the converse of Theorem 5.1 fails. 
+\begin{example}
+	Let $ f:\R\to\R $ be defined as $ f(x)=|x| $. This function is continuous at $ 0 $ (and all of $ \R $), but is not differentiable at $ 0 $. We have $$\phi(t)=\frac{f(t)-f(0)}{t-0}=\frac{|t|}{t} .$$ If we take the left-hand limit and right-hand limit of the difference quotient, we will find they do not agree.
+	\begin{align*}
+		\lim\limits_{t\to 0^+}\phi(t)=\lim\limits_{t\to 0^+}\frac{|t|}{t}=\lim\limits_{t\to 0^+}\frac{t}{t}=\lim\limits_{t\to 0^+}1=1\\\lim\limits_{t\to 0^-}\phi(t)=\lim\limits_{t\to 0^-}\frac{|t|}{t}=\lim\limits_{t\to 0^-}\frac{-t}{t}=\lim\limits_{t\to 0^-}1=-1
+	\end{align*}
+	These two limits agreeing is both a necessary and sufficient condition for the limit existing. We therefore have that $ \lim_{t\to 0}\phi(t) $ does not exist, so $ f' $ is undefined at $ 0 $. Note that $ f $ is still differentiable on $ \R\backslash\{0\} $. 
+\end{example} 
 \subsection{Familiar Properties of the Derivative}
+We will now prove the rules of differentiation that are presented in a calculus course. After proving the most basic properties, we will introduce the Chain Rule, and a basic version of the Inverse Function Theorem, two results that are not immediately obvious.  
+\begin{theorem}
+Suppose $ f $ and $ g $ are defined on $  X $, and are differentiable at $ x\in  X $.
+\begin{enumerate}
+	\item If $ f(x)=c $ for some constant $ c\in\R $, then $ f'(x)=0 $.
+	\item $ (cf)'(x)=cf'(x) $.
+	\item (Sum Rule) $ (f+g)'(x)=f'(x)+g'(x)$.
+	\item (Product Rule) $(fg)'(x)=f'(x)g(x)+g'(x)f(x) $.
+	\item (Quotient Rule) $\left(\frac{f}{g}\right)'(x)=\frac{f'(x)g(x)-g'(x)f(x)}{g(x)^2} $.
+\end{enumerate}
+\end{theorem}
+\begin{proof} The functions $ f $ and $ g $ are differentiable at $ x $. By Theorem 5.1, these functions are continuous at $ x $, so we will have $ \lim_{t\to x}g(t)=g(x) $ and $ \lim_{t\to x}f(t)=f(x) $ by Theorem 4.3. We will use these equalities in the proof of the Product Rule and the Quotient Rule.
+	\begin{enumerate}
+	\item $$\lim\limits_{t\to x}\phi(t)=\lim\limits_{t\to x}\frac{f(t)-f(x)}{t-x}=\lim\limits_{t\to x}\frac{c-c}{t-x}=\lim\limits_{t\to x}\frac{0}{t-x}=\lim\limits_{t\to x}0=0 $$
+	\item $$\lim\limits_{t\to x}\phi(t)=\lim\limits_{t\to x}\frac{cf(t)-cf(x)}{t-x}=\lim\limits_{t\to x}c\cdot\frac{f(t)-f(x)}{t-x}=c\cdot\lim\limits_{t\to x}\frac{f(t)-f(x)}{t-x}=cf'(x) $$
+	\item \begin{align*}
+		\lim\limits_{t\to x}\phi(t)&=\lim\limits_{t\to x}\frac{(f+g)(t)-(f+g)(x)}{t-x}\\&=\lim\limits_{t\to x}\frac{[f(t)+g(t)]-[f(x)+g(x)]}{t-x}\\
+						&=\lim\limits_{t\to x}\frac{f(t)-f(x)+g(t)-g(x)}{t-x}\\
+						&=\lim\limits_{t\to x}\frac{f(t)-f(x)}{t-x}+\lim\limits_{t\to x}\frac{g(t)-g(x)}{t-x}\\
+						&=f'(x)+g'(x)
+	\end{align*}
+	\item \begin{align*}
+	\lim\limits_{t\to x}\phi(t)&=\lim\limits_{t\to x}\frac{(fg)(t)-(fg)(x)}{t-x}\\&=\lim\limits_{t\to x}\frac{f(t)g(t)-f(x)g(x)+0}{t-x}\\
+	&=\lim\limits_{t\to x}\frac{f(t)g(t)-f(x)g(x)+[f(t)g(x)-f(t)g(x)]}{t-x}\\
+		&=\lim\limits_{t\to x}\frac{g(x)[f(t)-f(x)]+f(t)[g(t)-g(x)]}{t-x}\\
+	&=g(x)\cdot\lim\limits_{t\to x}\frac{f(t)-f(x)}{t-x}+\lim\limits_{t\to x}f(t)\cdot\frac{g(t)-g(x)}{t-x}\\&=g(x)f'(x)+\lim\limits_{t\to x}f(t)\cdot \lim\limits_{t\to x}\frac{g(t)-g(x)}{t-x}\\&=f'(x)g(x)+g'(x)f(x)
+	\end{align*}
+	\item 
+	\begin{align*}
+		\lim\limits_{t\to x}\phi(t)&=\lim\limits_{t\to x}\frac{(f/g)(t)-(f/g)(x)}{t-x}\\
+		&=\lim\limits_{t\to x}\frac{\frac{f(t)}{g(t)}-\frac{f(x)}{g(x)}+0}{t-x}\\
+		&=\lim\limits_{t\to x}\frac{\frac{f(t)}{g(t)}-\frac{f(x)}{g(x)}+\left[\frac{f(x)}{g(t)}-\frac{f(x)}{g(t)}\right]}{t-x}\\&=\lim\limits_{t\to x}\frac{\frac{f(t)}{g(t)}-\frac{f(x)}{g(t)}+\frac{f(x)}{g(t)}-\frac{f(x)}{g(x)}}{t-x}\\
+		&=\lim\limits_{t\to x}\frac{\frac{1}{g(x)}\left[\frac{f(t)g(x)}{g(t)}-\frac{f(x)g(x)}{g(t)}\right]-\left[\frac{f(x)g(t)}{g(x)g(t)}-\frac{f(x)g(x)}{g(t)g(x)}\right]}{t-x}\\	&=\lim\limits_{t\to x}\frac{\frac{g(x)}{g(x)g(t)}\left[f(t)-f(x)\right]-\frac{f(x)}{g(x)g(t)}\left[g(t)-g(x)\right]}{t-x}\\
+		&=\lim\limits_{t\to x}\frac{1}{g(x)g(t)}\left[g(x)\cdot\lim\limits_{t\to x}\frac{f(t)-f(x)}{t-x}-f(x)\cdot\lim\limits_{t\to x}\frac{g(t)-g(x)}{t-x}\right]\\&=\frac{1}{g(x)g(x)}[g(x)f'(x)-f(x)g'(x)]\\&=\frac{f'(x)g(x)-g'(x)f(x)}{g(x)^2}
+	\end{align*}
+	
+\end{enumerate}
+\end{proof}
 
-\subsection{The Chain Rule}
+\begin{example}[Linearity of Derivatives] If we combine the Sum Rule and Part 2 of Theorem 5.2, we have that the operation of differentiation is linear. If $ f $ and $ g $ are defined on $ [a,b] $ and are differentiable at $ x\in[a,b] $, then for constants $ c,d\in\R $ we have
+$$ (cf+dg)'(x)=cf'(x)+dg'(x).$$
+\end{example}
+\begin{example}[Difference Rule]
+Suppose $ f $ and $ g $ are defined on $ [a,b] $, and are differentiable at $ x\in[a,b] $. We can derive\footnote{Pun intended.} the Difference Rule by using the linearity of differentiation.
+$$(f-g)'(x)=(f+(-1)g)'(x)=f'(x)+(-1)g'(x)=f'(x)-g'(x) $$
+\end{example}
+\begin{example}[Polynomials]
+	If $ \mathscr{P}(\R) $ is the set of all polynomials with real coefficients, then every element of $ \mathscr{P}(\R) $ is differentiable on all of $ \R $. We can show this using the Power Rule, Sum Rule, and Part 2 of Theorem 5.2. We can write $ p(x)\in\mathscr{P}(\R) $ as $$p(x)=a_0+a_1x+\cdots+a_{n-1}x^{n-1}+a_nx^n=\sum_{k=0}^{n}a_kx^k $$ for $ a_k\in\R $ for all $ k $. We have $$p'(x)=a_1+2a_2x+\cdots+(n-1)a_{n-1}x^{n-2}+na_nx^{n-1}=\sum_{k=1}^{n}ka_kx^{k-1}. $$ This is define for all $ x\in\R $. The ease at which we can differentiate polynomials is one of the reasons we like working with them.
+\end{example}
+One of the benefits of composition preserving the continuity of two functions (Theorem 4.4) is that it means most function we work with are continuous. If you were tasked with writing down some random function, it could most likely would be the result of a composition of simpler functions. The ubiquity of functions composed via other functions makes it useful to know how to differentiate such functions. This is where the Chain Rule comes in. Before formally stating and proving the Chain Rule, it's worth building a \textit{\textbf{non-technical}}\footnote{I'll explain why my explanation is technically wrong afterwards.} intuition as to why it works. 
+
+Suppose you have a real function $ g(y) $, and you want to find the rate of change with. We know that this rate is given as $ g'(y) $. Now let there be a second function $ f(x) $. You're now challenged with finding the rate of change of $ g $ with respect to $ x $, after taking $ y=f(x) $ to be an input of $ g $. That is, we need to find $ h'(x) $ for $ h(x)=g(f(x)) $. We have two pieces of information:  $ g'(y) $ (how $ g $ changes with respect to its input), and $ f'(x) $ (how $ f $ changes with respect to its input). To measure the change of $ g $ at $ f(x) $ with respect to $ x $, we need to somehow convert a measure of change in $ y=f(x) $ to a change in $ x $. This can be achieved by using the change in $ y $ with respect to $ x $ as an exchange rate. If we think of this as a problem related to converting between two measures of change, then it seems the logical thing to do would be multiply $ g $'s change with respect to $ y=f(x) $ by the conversion rate of $ y=f(x) $'s change with respect to $ x $. 
+$$g'(y)\cdot f'(x)=\frac{\text{change in }g}{{\text{change with respect to }y=f(x)}}\times \frac{\text{change in }y=f(x)}{\text{change with respect to }x}=\frac{\text{change in }g}{\text{change with respect to }x} $$ Writing everything in terms of $ x $ gives us $ g'(f(x))f'(x)$.
+\begin{remark}[I Broke the Rules]
+	Okay so this explanation of the Chain Rule is kind of wrong. In Notation 5.1, I said that I would be avoiding the notation of $ \frac{dy}{dx} $, as it encourages people to think of $ dy $ and $ dx $ as their own numbers which form a fraction. This is not what derivatives are, but I just treated them as fractions when explaining the Chain Rule. In fact, had I used Leibniz's notation, the Chain Rule becomes very aesthetically pleasing and easy to remember: $$ \frac{dg}{dx}=\frac{dg}{dy}\frac{dy}{dx} .$$ Contrary to what it looks like, we aren't multiplying fractions when we write this. Treating $ dx $ and $ dy $ like their own numbers can lead to problems and at this point lacks the rigor that analysis aims to achieve. Remark 10.1.17 in \cite{tao2006analysis} makes similar points about this issue. 
+\end{remark}
+\begin{theorem}[The Chain Rule]
+Let $ X $ and $ Y $ be subsets of $ \R $. If $ f:X\to\R $ is continuous on $ X $, $ f'(x) $ exists at some point $ x\in X $, and $ g:Y\to \R $ is differentiable at $ f(x) $. If we define $h(t)=g(f(t)) $, then $ h $ is differentiable at $ x $, and $$ h'(x)=g'(f(x))f'(x).$$
+\end{theorem}
+\begin{proof}
+	Let $ y=f(x) $. The functions $ f $ and $ g $ are differentiable at $ x $ and $ y $ respectively. 
+	\begin{align*}
+		f'(x)=\lim_{t\to x}\frac{f(t)-f(x)}{t-x}\\g'(y)=\lim_{s\to y}\frac{g(s)-g(y)}{s-y}
+	\end{align*}
+	Define $ u(t) $ and $ v(s) $ as 
+	\begin{align*}
+		u(t)=\begin{cases}
+		\frac{f(t)-f(x)}{t-x}-f'(x)\text{ if }t\neq x\\
+		0\text{ if }t=x
+		\end{cases},\\
+			v(s)=\begin{cases}
+		\frac{g(s)-g(y)}{s-y}-g'(s)\text{ if }s\neq y\\
+		0\text{ if }s=y
+		\end{cases},
+	\end{align*}
+for $ t\in X $ and $ s\in Y $. We have $ \lim_{t\to x}u(t)=0 $ and $ \lim_{s\to y}v(s)=0 $. These functions allow to rewrite the derivatives of $ g $ and $ f $ as \begin{align}
+	f(t)-f(x)=(t-x)[f'(x)+u(t)],\\g(s)-g(y)=(s-y)[g'(y)+v(s)],
+\end{align}
+\textit{as we take the limits} $ t\to x $ and $ s\to y $.\footnote{Equation (78) is simply $ f(t)-f(x)=(t-x)\left[f'(x)+\frac{f(t)-f(x)}{t-x}-f'(x)\right] $ when $ t\neq x $. When we let $ t\to x $ we have $ u(t)\to 0 $, and we arive at $ f(t)-f(x)=(t-x)f'(x) $ as $ t\to x  $. In other words, $ f'(x)=\lim_{t\to x}\frac{f(t)-f(x)}{t-x} $, which is true. Equation (7) is therefore perfectly valid. The same argument works for Equation (7).}
+If we let $ f(t)=s $ in (8), we can use (7) and $ (8) $ to write
+\begin{align*}
+	h(t)-h(x)&=g(f(t))-g(f(x))\\&=[f(t)-f(x)][g'(y)+v(s)]\\&=(t-x)[f'(x)+u(t)][g'(y)+v(f(t))]\\\frac{h(t)-h(x)}{(t-x)}&=[f'(x)+u(t)][g'(y)+v(f(t))]
+\end{align*}
+for $ t\neq x $. If we let $ t\to x $, then 
+\begin{align*}
+h'(x)&=\lim_{t\to x}\frac{h(t)-h(x)}{(t-x)}\\&=\lim_{t\to x}[f'(x)+u(t)][g'(y)+v(f(t))]	\\ &=\left[f'(x)+\lim_{t\to x}u(t)\right]\left[g'(y)+\lim_{t\to x}v(f(t))
+\right]\\ &=\left[f'(x)\right]\left[g'(y)+v(y)\right]\\&=f'(x)g'(y)\\&=g'(f(x))f'(x).\end{align*}
+Note that to conclude $ \lim_{t\to x}v(f(t))=v(y) $, it must be the case that $ \lim_{t\to x}f(t)=f(x)=y $. This follows by the assumed continuity of $ f $ on $ X $. 
+\end{proof}
+Our last rule concerning the calculation of derivatives pertains to the inverse of a function. If we let $ X $ and $ Y $ be subsets of $ \R $, we may want to know the derivative of $ f^{-1}:Y\to X $ at a point $ y=f(x) $, but only know the derivative of $ f^:X\to Y $ at $ x $. If we know that $ f^{-1} $ is differentiable, then this is a straightforward application of the chain rule and composition of $ f^{-1} $ and $ f $. 
+\begin{align*}
+	(f^{-1}\circ f)'(x)&=(f^{-1})'(f(x))f'(x)\\
+	1&=(f^{-1})'(y)f'(x)\\
+	(f^{-1})'(y)&=\frac{1}{f'(x)}
+\end{align*} 
+There is one shortcoming in this approach. In order to use the Chain Rule, we needed to assume that $ f^{-1} $ was differentiable. If we do not know beforehand that $ f^{-1} $ is invertible, then perhaps we cannot conclude $ (f^{-1})'(y)=\frac{1}{f'(x)}  $. As it turns out, we still can by The Inverse Function Theorem, which says that knowing $ f^{-1} $ is continuous suffices to conclude $ (f^{-1})'(y)=\frac{1}{f'(x)}  $. This result is rarely given this name in the context of a single variable, and in fact it may not show up in an analysis course to begin with. It's not very special for functions in $ \R $. A far more general version of the Inverse Function Theorem will hold with functions in several variables. The introduction here is just to give some early exposure to the idea of the theorem (which I'm calling a proposition here as an allusion to it not being the full-fledged Inverse Function Theorem).  
+\begin{proposition}[The Inverse Function Theorem]
+ Let $ X $ and $ Y $ be subsets of $ \R $, and $ f:X\to Y $ be an invertible function with inverse $ f^{-1}:Y\to X $. Suppose $ x\in X $ and $ y\in Y $ such that $ f(x)=y $. If $ f $ is differentiable at $ x_0 $, $ f^{-1} $ is continuous at $ y_0 $, and $ f'(x_0)\neq 0 $, then $ f^{-1} $ is differentiable and $$ (f^{-1})'(y)=\frac{1}{f'(x)}.$$
+\end{proposition}
+\begin{proof}
+	We need to show that $$\lim\limits_{s\to y}\frac{f^{-1}(s)-f^{-1}(y)}{s-y}=\frac{1}{f'(x)} .$$ By the assumed continuity of $ f^{-1} $, we can show  $$\lim\limits_{n\to \infty}\frac{f^{-1}(s_n)-f^{-1}(y)}{s_n-y}=\frac{1}{f'(x)},$$ for a sequence $ \{s_n\} $ in $ Y $ which converges to $ s $. Let $ t_n=f^{-1}(s_n) $ be a sequence in $ X $.By continuity, we have $$\lim_{n\to\infty} t_n=\lim_{n\to\infty} f^{-1}(s_n)=  f^{-1}\left(\lim_{n\to\infty}s_n \right)=f^{-1}(s)=t.$$ Because $ f $ is differentiable (and therefore continuous) at $ x $, we have $$\lim\limits_{t\to x}\frac{f(t)-f(x)}{t-x}=\lim_{n\to\infty}\frac{f(t_n)-f(x)}{t_n-x}=f'(x) .$$ This difference quotient is not zero since $ t_n\neq x $, and $ f(t_n)\neq f(x) $ ($ f $ is a bijection after all). We can use the limit laws of Theorem 3.2 to invert the difference quotient and arrive at $$ \lim_{n\to\infty}\frac{t_n-x}{f(t_n)-f(x)}=\frac{1}{f'(x)}.$$ But since $  t_n=f^{-1}(s_n) $ and $ x=f^{-1}(y) $, we have $ \lim\limits_{n\to \infty}\frac{f^{-1}(s_n)-f^{-1}(y)}{s_n-y}=\lim\limits_{s\to y}\frac{f^{-1}(s)-f^{-1}(y)}{s-y}=\frac{1}{f'(x)} .$
+\end{proof}
+\subsection{Local Extrema}
+The derivative gives us a useful tool for finding \textit{local} minima and maxima of a function. 
+\begin{definition}
+	Let $ X $ be a subset of $ \R $. The function $ f:X\to Y $ has a \textit{\color{red}local maximum} at a point $ p\in X $ if there exists $ \delta>0 $ such that $ f(x)\le f(p) $ for all $ x\in X $ with $ d(p,x)<\delta $.
+\end{definition}
+\begin{definition}
+	Let $ X $ be a subset of $ \R $. The function $ f:X\to Y $ has a \textit{\color{red}local minimum} at a point $ p\in X $ if there exists $ \delta>0 $ such that $ f(x)\ge f(p) $ for all $ x\in X $ with $ d(p,x)<\delta $.
+\end{definition}
+We use the word local to emphasize the fact that local extrema need not be \textit{the} maximum or \textit{the} minimum on $ X $. We see this in Figure 49, $ f $ has a local maximum at $ p_0 $, despite not having a \textit{global} maximum at $ p_0 $. All we care about is that there is some small neighborhood of $ X $ over $ f $ attains a maximum at $ p_0 $. This neighborhood is the set of all $ x\in X $ such that $ d(p_0,x)<\delta $ for $ \delta>0 $, which can also be written as $ N_\delta(p_0)\subset X $. 
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+\draw (-.3,9) node {$ \R$};
+\draw (15,-0.3) node {$ \R$};		
+\draw[thick,->] (0,0) -- (0,9);
+\draw[thick,->] (0,0) -- (15,0);
+\draw [blue, thick] plot [smooth, tension=1] coordinates { (1,8) (4.25, 4) (7.5,6) (10.75, 4) (14,8) };
+\draw[thin, dashed] (0,6) -- (12.88,6);
+\draw[thin, dashed] (7.5,0) -- (7.5,6);
+\draw[thin, dashed] (2.12,0) -- (2.12,6);
+\draw[thin, dashed] (12.88,0) -- (12.88,6);
+\draw[thin, dashed] (4.7,0) -- (4.7,4);
+\draw[thin, dashed] (10.3,0) -- (10.3,4);
+\draw[black] (-.7,6) node {$ f(p_0) $};
+\draw[black] (7.5,-.5) node {$ p_0 $};
+\draw[black] (4.7,-.5) node {$ p_1 $};
+\draw[black] (10.3,-.5) node {$ p_2 $};
+\draw[black] (12.88,-.5) node {$ p_0+\delta $};
+\draw[black] (2.12,-.5) node {$ p_0-\delta $};
+\draw[blue] (12,5.5) node {$ f(x) $};
+\end{tikzpicture}
+\caption{The function has a local maximum at $ p_0 $, and local minima at $ p_1 $ and $ p_2 $. The points $ p_0-\delta $ and $ p_0+\delta $ correspond to the endpoints of the interval $ (p_0-\delta,p_0+\delta) $. We have $ f(x)\le f(p_0) $ for all $ x\in(p_0-\delta,p_0+\delta) $, as prescribed in Definition 5.3.}
+\end{figure}
+We can relate the local extrema of a function to its derivative. Note that the proposition will present is a necessary condition for local extrema, but not a sufficient condition. Our main use for this will be proving other theorems. In many applied settings which rely on optimization, this result is assigned more significance. 
+\begin{proposition}[Fermat's Theorem for Extrema]
+Let $ X=[a,b] $ be a subset set of $ \R $. If $ f:X\to\R $ has a local extrema at a point $ p\in(a,b) $, and if $ f'(p) $ exists, then $ f'(p)=0 $.  
+\end{proposition} 
+\begin{proof}
+	We will prove the case for local maxima. Let $ p\in (a,b) $ be a local maximum. There exists some $ \delta $ such that $ f(p)\ge f(x) $ for all $ x $ satisfying $$ x<p-\delta<x<p+\delta<b .$$
+	If $ p-\delta<t<p $, then $$ \frac{f(t)-f(p)}{t-p}\ge 0$$ as $ f(p)\ge f(t)  $, and $ p>t $. This means $$ \lim_{t\to p}\frac{f(t)-f(p)}{t-p}=f'(p)\ge 0 .$$ 	If instead $ p<t<p+\delta $, then $$ \frac{f(t)-f(p)}{t-p}\le 0$$ as $ f(p)\ge f(t)  $, and $ p<t $. This means $$ \lim_{t\to p}\frac{f(t)-f(p)}{t-p}=f'(p)\le 0 .$$ If $ f'(p)\le 0 $ and $ f'(p)\ge 0 $, then $ f'(p)=0 $.
+\end{proof}
+As the next three examples show, there are several drawbacks to Fermat's Theorem.
+\begin{example}[Saddle Point]
+Let $ f:\R\to\R $ be the function $ f(x)=x^3 $. We have $ f'(0)=0 $, but the point $ 0 $ is neither a local minimum nor a local maximum. This follows from the fact that Lemma 5.1 is a necessary condition, but not a sufficient condition. 
+\end{example}
+\begin{example}[Endpoints]
+Let $ f:[0,1]\to\R $ be the function $ f(x)=x $. This function has a local maximum at $ 1 $ and local minimum at $ 0 $. Lemma 5.1 does not hold in this case, because it assumes that $ p\in (a,b) $.
+\end{example} 
+\begin{example}[Not Differentiable]
+Let $ f:\R\to\R $ be the function $ f(x)=|x| $. This function has a local minimum at $ 0 $, but $ f'(0)$ is undefined. Lemma 5.1 does not hold in this case, as it assumes that $ f'(p) $ exists.
+\end{example} 
+ 
 \subsection{Mean Value Theorems}
-MVT
-MVT General
-Roll
+As far as analysis is concerned, the Mean Value Theorem is the most important result involving differentiation. When discussing the Intermediate Value Theorem, it was noted that it gave us a way to ``convert'' information about $ f $ to information about the domain of $ f $. A similar metaphor holds for the Mean Value Theorem, as it allows us to gather some information about $ f' $ is we know information about $ f $ (or vice-versa). If we know that $ f $ is differentiable on some interval $ [a,b] $, then the Mean Value Theorem tells use the value of $ f'(c) $ for $ c\in[a,b] $, namely it is $$f'(c)=\frac{f(b)-f(a)}{b-a} $$ 
+
+We will present three versions of the Mean Value Theorem, each more general than the last. 
+\begin{theorem}[Rolle's Theorem]
+Let $ a<b $, and let $ f:[a,b]\to R $ be a continuous function which is differentiable on $ (a,b) $. Suppose also that $ g(a)=g(b) $. Then there exists an $ x\in(a,b) $ such that $ g'(x)=0 $.
+\end{theorem}
+\begin{proof}
+	We have that $ f $ is continuous on $ [a,b] $. By the Extreme Value Theorem (Theorem 4.7), $ f  $ attains a maximum $ M $ at some point $ x\in[a,b] $, and a minimum $ m $ at some point $ y\in[a,b] $.  
+	\begin{enumerate}
+		\item [Case 1.]	If $ x,y\in\{a,b\} $,\footnote{That is, they are the endpoints of the interval $ [a,b] $.} then $ f $ is constant on $ [a,b] $ because $ f(a)=f(b) $, so $ f'(z)=0 $ for all $ z\in(a,b)$.   
+		\item [Case 2.] Suppose $ x $ is not an endpoint of $ [a,b] $. We have a local maximum of $ f $ at $ x $, so by Fermat's Theorem (Proposition 5.2), $ f'(x)=0 $.
+		\item [Case 3.] Suppose $ y $ is not an endpoint of $ [a,b] $. We have a local minimum of $ f $ at $ y $, so by Fermat's Theorem (Proposition 5.2), $ f'(y)=0 $.
+	\end{enumerate}
+\end{proof}
+\begin{corollary}[Mean Value Theorem] Let $ a<b $, and let $ f:[a,b]\to R $ be a continuous function which is differentiable on $ (a,b) $. Then there exists an $ c\in(a,b) $ such that $$ f'(c)=\frac{f(b)-f(a)}{b-a}.$$
+\end{corollary}
+\begin{proof}
+	Define a new function as $$h(x)=f(x)-\frac{f(b)-f(a)}{b-a}\cdot x .$$ The function $ h $ is continuous on $ [a,b] $, differentiable on $ (a,b) $,\footnote{The continuity and differentiability of $ h $ follow immediately from $ f $.} and was defined so $ h(a)=h(b) $. By Rolle's Theorem, there exists a $ c\in(a,b) $ such that $ h'(c)=0 $. 
+	\begin{align*}
+		h'(c)=f'(c)-\frac{f(b)-f(a)}{b-a}=0\implies f'(c)=\frac{f(b)-f(a)}{b-a}
+	\end{align*}
+\end{proof}
+A geometric interpretation of the Mean Value Theorem is found in Figure 50.
 \begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}
@@ -3422,8 +3709,17 @@ Roll
 	\draw[red] (9,7) node {rate of change $ =f'(c) $};
 	\draw[red] (9,3) node {rate of change $ =\frac{f(b)-f(a)}{b-a} $};	
 	\end{tikzpicture}
-	\caption{. }
+	\caption{The Mean Value Theorem.}
 \end{figure}
+The Mean Value Theorem can be extended to the case of parametric curves. 
+\begin{proposition}[Cauchy's Mean Value Theorem]
+Let $ a<b $, and let $ f:[a,b]\to R $ and $ g:[a,b]\to \R $ be continuous functions which are differentiable on $ (a,b) $. Then there exists an $ c\in(a,b) $ such that $$ \frac{f'(c)}{g'(c)}=\frac{f(b)-f(a)}{g(b)-g(a)}.$$
+\end{proposition}
+\begin{proof}
+	Like we did while proving the Mean Value Theorem, define a function $$h(x)=f(x)-\frac{f(b)-f(a)}{g(b)-g(a)}\cdot g(x) .$$ If we apply Rolle's Theorem, the result follows. 
+\end{proof}
+Figure 51 illustrates Cauchy's Mean Value Theorem.
+
 \begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}
@@ -3440,35 +3736,116 @@ Roll
 	\draw[red] (7.5,4) node {\scriptsize rate of change $ =\frac{f(b)-f(a)}{g(b)-g(a)} $};
 	\draw[red] (2.8,8) node {\scriptsize rate of change $ =\frac{f'(c)}{g'(c)} $};
 	\end{tikzpicture}
-	\caption{. }
+	\caption{Cauchy's Mean Value Theorem. Note that the parameterization begins at $ (f(a),g(a)) $ and then is orientated clockwise.}
 \end{figure}
-\subsection{Local Extrema}
-Fermat's Theorem for Extrema
-\begin{figure}[h!]
-	\centering
-	\begin{tikzpicture}
-	\draw (-.3,9) node {$ \R$};
-	\draw (15,-0.3) node {$ \R$};		
-	\draw[thick,->] (0,0) -- (0,9);
-	\draw[thick,->] (0,0) -- (15,0);
-	\draw [blue, thick] plot [smooth, tension=1] coordinates { (1,8) (4.25, 4) (7.5,6) (10.75, 4) (14,8) };
-	\draw[thin, dashed] (0,6) -- (7.5,6);
-	\draw[thin, dashed] (7.5,0) -- (7.5,6);
-	\draw[thin, dashed] (4.7,0) -- (4.7,4);
-	\draw[thin, dashed] (10.3,0) -- (10.3,4);
-	\draw[thin, dashed] (0,3.92) -- (10.3,3.92);
-	\draw[black] (-.7,6) node {$ f(x_0) $};
-	\draw[black] (-1.4,4) node {$ f(x_1)=f(x_2) $};
-	\draw[black] (7.5,-.5) node {$ x_0 $};
-	\draw[black] (4.7,-.5) node {$ x_1 $};
-	\draw[black] (10.3,-.5) node {$ x_2 $};
-	\draw[blue] (12,5.5) node {$ f(x) $};
-	\end{tikzpicture}
-	\caption{. }
-\end{figure}
+\begin{example}
+	Let $ f(t)=\cos (t) $ and $ g(t)=\sin t $. If we let $ a=0 $ and $ b=\pi/2 $. Then we can find a value of $ c\in(0,\pi/2) $ such that $$ \frac{f'(c)}{g'(c)}=\frac{-\sin c}{\cos c}=\frac{0-1}{1-0}=-1.$$ You can verify that $ c=\pi /4 $ works. 
+\end{example}
+\subsection{L'H\^{o}pital's Rule}
+Now we will prove a classic result from calculus that allows us to calculate a limit using derivatives.
+\begin{proposition}[L'H\^{o}pital's Rule]
+	Suppose $ f $ and $ g $ are real and differentiable in $ (a,b) $, and $ g'(x)\neq 0 $ for all $ x\in(a,b) $, where $ -\infty\le a< b\le\infty $. Suppose we have $$\lim_{x\to a}\frac{f'(x)}{g'(x)}=A .$$ If $ \lim_{x\to a}f(x)=0 $ and $ \lim_{x\to a}g(x)=0$, or if $ \lim_{x\to a}g(x)=\infty $, then $$\lim_{x\to a}\frac{f(x)}{g(x)}=A . $$ 
+\end{proposition} 
+\begin{proof}
+	{\color{red}FINISH}
+\end{proof}
+\subsection{Higher Order Derivatives}
+The derivative $ f' $ is a function in its own right. This means we could not only differentiate $ f' $ itself, but differentiate the resulting function. This idea gives rise to derivatives of higher order.
+\begin{definition}
+	If $ f $ has a derivative $ f' $ on an interval, and if $ f' $ is itself differentiable, we write $  (f')'=f''$, and call $ f'' $ the \textit{\color{red}second derivative of $ f $}. Continuing in this manner gives $$ f,f',f'',f^{(3)},\ldots,f^{(n)},$$ where $ f^{(n)} $ is the \textit{\color{red}$ n $th derivative of $ f $}.  
+\end{definition}
+\begin{remark}[Smoothness]
+	For $ f^{(n)}(x) $ to exist at a point $ x $, we need to be able to take the limit $$\lim_{t\to x}\frac{f^{(n-1)}(t)-f^{(n-1)}(x)}{t-x}. $$ This means that not only is a requirement that $ f^{(n-1)}(t) $ is differentiable at $ x $, but also we need $ f^{(n-1)}(t) $ to be defined in some neighborhood of $ x $. What does it mean for $ f^{(n-1)}(t) $ to exist in s neighborhood of $ x $? It would mean that $ f^{(n-2)} $ is differentiable in that neighborhood. This reasoning follows for all $ f^{(n-2)},\ldots, f $. For this reason, the highest order derivative you are able to take of a function $ f $ is often associated with how ``smooth'' it is.
+	
+	A continuous function is ``nice'', but it doesn't need to be smooth.\footnote{Think of $ |x| $ at the points $ x=0 $} A function that is differentiable is smooth. A function that is twice differentiable is even smoother, as it means that $ f' $ is differentiable, and therefore continuous! To be formal we say that $ f $ is a \textit{\color{red}smooth function} if it has continuous derivatives up to some desired order. Having a continuous derivative of order $ n-1 $, is implied by being $ n $ times differentiable.  In many applied setting this becomes important. For example, you may see theorems assume that a certain function has a continuous second derivative.\footnote{For example, in statistics and econometrics there is a method of estimation known as maximum likelihood estimation. This method is only ``efficient'' if we assume that a probability distribution is three times differentiable, i.e it's second derivative is continuous.} The smoothest functions are those which are infinitely differentiable. 
+\end{remark}
+\begin{example}
+	Every real polynomial $ p(x) $ is infinitely differentiable. Let 
+	$$p(x)=a_0+a_1x+\cdots+a_{n-1}x^{n-1}+a_nx^n=\sum_{k=0}^{n}a_kx^k $$ for $ a_k\in\R $ be a polynomial of degree $ n $.
+	We have \begin{align*}
+		p'(x)&=a_1+2a_2x+\cdots+(n-1)a_{n-1}x^{n-2}+na_nx^{n-1}\\
+		p''(x)&=2a_2+\cdots+(n-1)(n-2)a_{n-1}x^{n-3}+n(n-1)a_nx^{n-2}\\
+		&\vdots\\
+		p^{(n-1)}(x)&=n!a_nx\\
+		p^{(n)}(x)&=n!a_n\\
+		p^{(n+1)}(x)&=0\\
+		&\vdots
+	\end{align*} 
+	The polynomial is still infinitely differentiable even if we keep getting zero, as the zero function is differentiable.
+\end{example}
+\begin{example}
+	The functions $ f(x)=\sin x $ and  $g(x)=\cos x $ are infinitely differentiable, and each of their derivatives are given by 
+	\begin{align*}
+	f^{(n)}(x)=\begin{cases}
+	\cos x \text{ if }n=1,5,9,\ldots\\
+	-\sin x \text{ if }n=2,6,10,\ldots\\
+	-\cos x \text{ if }n=3,7,11,\ldots\\
+	\sin x \text{ if }n=4,8,12,\ldots\\
+	\end{cases} \ \ \ \ \ 	g^{(n)}(x)&=\begin{cases}
+	-\sin x \text{ if }n=1,5,9,\ldots\\
+	-\cos x \text{ if }n=2,6,10,\ldots\\
+	-\sin x \text{ if }n=3,7,11,\ldots\\
+	\cos x \text{ if }n=4,8,12,\ldots\\
+	\end{cases}
+	\end{align*}
+\end{example}
+\begin{remark}[Polynomials and Trig Functions]
+	Polynomials, $ \cos $, and $ \sin $ are not only infinitely differentiable, but they're also reall easy to differentiate. This makes working with them preferable. If we have a complicated function, it would be nice if we could find some way to express it as a polynomial or in terms of $ \sin $ and $ \cos $. This is more of a longterm goal we will return to later. 
+\end{remark}
 \subsection{Approximation}
-Linear approx
-Taylor's theorem 
+We now turn to a subject involving differentiation that will return several times -- approximation. First we will discuss the derivative in the context of linear approximation of a function, then we will explore how we can get increasingly accurate approximations of a function by using higher order derivatives.
+
+In Remark 5.2, an alternate definition of the derivative was presented. $$f'(x_0)=\lim\limits_{h\to 0}\frac{f(x_0+h)-f(x_0)}{h}$$ A reformulation of this allows us to write the derivative as the difference quotient (with $ h $) if we introduce some ``remainder term''. 
+\begin{align}
+f'(x_0)+hr(h)=\frac{f(x_0+h)-f(x_0)}{h}
+\end{align}
+As long the ratio $ r(h)/h\to 0 $ as $ h\to 0 $, then this is a valid equation, as \begin{align*}
+	f'(x_0)&=\frac{f(x_0+h)-f(x_0)}{h}+\frac{r(h)}{h}\\
+	f'(x_0)&= \lim\limits_{h\to 0}\left[\frac{f(x_0+h)-f(x_0)}{h} + \frac{r(h)}{h}\right]\\
+	f'(x_0)&= \lim\limits_{h\to 0}\frac{f(x_0+h)-f(x_0)}{h}+0.
+\end{align*}
+A valid question is, why do we the ratio $ r(h)/h $ goes to zero and not just that $ r(h)\to 0 $? We need the remainder $ r(h) $ to ``shrink'' faster than $ h $, otherwise $ r(h)/h\not\to $ as $ h\to 0 $. In fact, $ r(h)/h $ could very well ``blow up'' if we don't stipulate $ r(h)/h\to 0 $ as $ h\to 0 $!\footnote{This would happen if $ h\to 0 $ ``faster'' than $ r(h)\to 0 $.} If this where to happen, then we would not end up with the definition of the derivative. If we multiply by $ h $ and rearrange some terms, (9) becomes 
+\begin{align}
+	f(x_0+h)=f(x_0)+f'(x_0)h+hr(h).
+\end{align}
+Equation (10) may seem random, but it's \textit{very} interesting. We know that $ hr(h) $ is going to be small, so we could be informal and write $$ f(x_0+h)\approx f(x_0)+f'(x_0)h. $$ For a given $ x_0 $, this tells us that $ f(x_0)+f'(x_0)h $ is an approximation for $ f(x_0+h) $ ($ f $ near some point $ x_0 $). Furthermore, this approximation is linear, as $ f(x_0) $ and $ f'(x_0) $ are constants, $ f(x_0)+f'(x_0)h $ is a linear function of $ h $. Not only is this a linear approximation, it is the \textit{best} linear approximation we are able to achieve, a fact we can prove.
+\begin{note}[``Little $ o $'']
+We say that $ f(h)=o(g(h)) $ (read as \textit{\color{red}``$ f(h) $ is little $ o $ of $ g(h) $ as $ h\to 0 $''}) if $$ \lim\limits_{h\to 0} \frac{f(h)}{g(h)}=0.$$ This means that $ f(h) $ tends to zero faster than $ g(h) $ as $ h\to 0 $. For example, $$\lim\limits_{h\to 0}\frac{h^3}{h}=0 ,$$ so we could write $ o(h^3)=o(h) $.   
+\end{note}
+When we noted that $ r(h)/h\to 0 $, what we really were saying was $ r(h)=o(h) $.\footnote{One of the weird things about little $ o $ notation is we use ``$ = $'' as a stand in for ``is''. There is no actual equality when we write $ o(h) $ instead of $ r(h) $. In general this means when you se $ o(h) $ you should think ``something here is $ o(h) $, the particular form of which is not that important because it is going to zero.''} In the case of linear approximation, having a remainder which is $ o(h) $ is as good as it gets, because $ h $ enters the equation linearly. For example, we cannot end up with some $ h^nr(h) $ that vanishes in (10), giving $ r(h)=o(h^n) $, because (10) would no longer be a linear function of $ h $. We now can state and prove the result we have been building to.  
+\begin{theorem}[Best Linear Approximation]
+	If $ f $ is differentiable at $ x_0 $, then $$f(x_0+h)=f(x_0)+f'(x_0)h+o(h) .$$ Conversely, if there exists some linear approximation $$ f(x_0+h)=B+Ah+o(h) ,$$ then not only is $ f $ differentiable at $ x_0 $, but also $ B=f(x_0) $ and $ A=f'(x_0) $. 
+\end{theorem}
+\begin{proof}
+	While we did not use the phrase ``if and only if'' in Theorem 5.5, this theorem is a biconditional statement. A function will have a best linear approximation if and only if it is differentiable.
+	\begin{enumerate}
+		\item [$ (\Longrightarrow) $] Suppose $ f $ is differentiable at $ x_0 $. While building up to this theorem, we have already shown that $ f(x_0+h)=f(x_0)+f'(x_0)h+o(h) $, as $ r(h)=o(h) $ in (10).
+		\item [$ (\Longleftarrow) $] Suppose $ f $ has a (best) linear approximation of $ f(x_0+h)=B+Ah+o(h)$, for scalers $ A,B\in\R $. Setting $ h=0 $ gives $f(x_0)=B $. We therefore have  $$f'(x)=\lim_{h\to0}\frac{f(x_0+h)-f(x_0)}{h}=\lim_{h\to0}\frac{f(x_0+h)-B}{h}=\lim_{h\to0}\frac{Ah+o(h)}{h}=\lim_{h\to0}\left[A+\frac{o(h)}{h}\right]=A .$$ 
+	\end{enumerate}
+
+\end{proof}
+The first part of Theorem 5.5 tells us that (10) is a good approximation, while the second part tells us that if such a good approximation exists, $ f $ is differentiable, and the approximation is given by (10). There is no other way to say it -- the second part of this theorem is \textit{****ing} amazing. The simple concept of approximating any function with a line, gives rise to the concept of the derivative.\footnote{In fact, this is how the derivative is introduced to many people in calculus courses.} Is this a surprise though? 
+
+If you want to approximate a nonlinear function $ f $ with a line at a point $ x_0 $, you have two degrees of freedom: a point on the line, and the slope of the line.\footnote{Any point and slope uniquely define a line, hence point-slope form from middle school: $ y-y_1=m(x-x_1) $.} The choice of point is easy. You want to approximate $ f $ at $ x $, so you should pick $ (x_0,f(x_0)) $. Now you have an infinite choice of slopes, which one do you pick? Pick the slope to be the rate of change at that point! This is just $ f'(x_0) $ though. You literally\footnote{And I mean the definition of the word ``literally'', not ``figuratively''.} cannot make a better choice of point and slope. 
+\begin{remark}[Another Alternate Definition]
+	Theorem 5.5 inspires yet another equivalent definition of differentiation. We can say that $ f $ is differentiable at a point $ x $ if there exists some scaler $ A\in\R $ such that $$ \lim\limits_{h\to 0}\frac{f(x+h)-f(x)-A\cdot h}{h}=0.$$ In this case we write $ f'(x)=A $. You sometimes hear the phrase ``locally linear'' associated with the existence of the derivative, and it comes from this definition. All we did was subtract $ f(x) $ from both sides of the definition given in Remark 5.2. We now are expressing $ f'(x) $ as some linear map where $ h\mapsto f'(x)h $. This coincides with (10).
+\end{remark}
+\begin{example}
+	We can show that $ f(x)=|x| $ is not differentiable at $ x_0=0 $ using Theorem 5.5 and Remark 5.4. Suppose we had some linear approximation of $ |x| $ at the point $ 0 $. 
+	\begin{align*}
+		f(x_0+h)&=B+Ah+r(h)\\
+		|0+h|&=B+Ah+r(h)\\
+		|h|&=B+Ah+\underbrace{(|h|-B-Ah)}_{r(h)}
+	\end{align*}
+	But do we have $ r(h)=o(h) $? $$\lim_{h\to0}\frac{r(h)}{h}=\lim_{h\to0}\frac{(|h|-B-Ah)}{h}=\lim_{h\to0}\frac{(|h|-B-A)}{h}\neq 0 $$ This limit is undefined, as $ |h|/h $ has no limit as $ h\to 0 $. This is the \textit{exact} same limit we attempted to take in Example 5.3, but could not, render $ |x| $ not differentiable at $ 0 $. 
+\end{example}
+\begin{example}
+	The equation of the line given in Theorem 5.5 looks a little strange. In calculus, the equation for a tangent line looks a bit like this, but something is off. For a fixed $ x_0 $, it's a function of $h$, where $ x_0+h $ is a point close to $ x_0 $.  Instead, we can write write this nearby point as $ x=x_0+h $. Equation $ (10) $ now becomes 
+	\begin{align*}
+		f(x)&=f(x_0)+f'(x_0)(x-x_0)+r(h)\\f(x)&\approx f(x_0)+f'(x_0)(x-x_0).
+	\end{align*}
+	This final equation is what most people see in calculus. Figure 52 shows the approximation for $ x_0+h $ and $ x $.
+\end{example}
 \begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}
@@ -3480,118 +3857,965 @@ Taylor's theorem
 	\draw[red, thick] (1,5.23) -- (14,7.23);
 	\draw[thick] (6,-0.2) -- (6,0.2);
 	\draw[thick] (-0.2,6.01) -- (0.2,6.01);
-	\draw[black] (-.6,6.01) node {$ f(a) $};
-	\draw[black] (6,-.5) node {$ a $};
-	\draw[blue] (12,5) node {$ f(x) $};	
+	\draw[black] (-.6,6.01) node {$ f(x_0) $};
+	\draw[black] (6,-.5) node {$ x_0 $};
+	\draw[thick] (9,-0.2) -- (9,0.2);
+	\draw[black] (9,-.5) node {$ x=x_0+h $};
+	\draw[blue] (12,5) node {$ f $};	
 	\filldraw[black] (6,6.01) circle (2pt);
-	\draw[red] (8,7) node{$ f(a)+f'(a)(x-a) $};	
+	\draw[red] (10,7.6) node{\scriptsize $ f(x_0)+f'(x_0)(x-x_0)=f(x_0)+f'(x_0)h $};
+	\filldraw (9,5.7) circle (1pt) node[anchor = north east] {\scriptsize$ f(x)=f(x_0+h) $};	
+	\filldraw (9,6.46) circle (1pt);
+	\draw[thick, dashed] (9,5.7) -- (9,6.46);
+	\draw (9.6,6.05) node{\scriptsize $ r(h) $};
 	\end{tikzpicture}
-	\caption{. }
+	\caption{The equation of a tangent line to $ f $ at point $ x_0 $ is given as $ f(x_0)+f'(x_0)(x-x_0) $ or $f(x)+f'(x)h $. The difference between the value of the function and the value of the approximation at a nearby point $ x=x_0+h $ is given by $ r(h) $. If we add $ r(h) $ to the approximation, then we have an equation for $ f $ as given in Equation (10).}
 \end{figure}
 
+Our next example not only calculates the best linear approximation for a function at a point, but also serves as motivation for our next theorem. 
+\begin{example}
+Suppose we want to approximate $ e^x $ at the point $ x_0=0 $ using Theorem 5.5 (which we can do because $ e^x $ is differentiable). Note in this case $ x=h+x_0=h+0=h $
+	\begin{align*}
+	f(x_0+h)&=f(x_0)+f'(x_0)h+r(h)\\
+	e^{0+h}&=e^0+e^0h+r(h)\\
+	e^h&=1+h+(e^h-1-h)\\
+	e^h&\approx 1+h\\
+	e^x&\approx 1+x.
+	\end{align*}
+We won't be able to get a better \textit{linear} approximation than this, but can we get a better approximation? 
 
+The linear approximation for $ f $ at $ x_0 $ is a result of picking the best point and slope to define the approximation. It makes sense that we should pick the point $ (x_0,f(x_0)) $ and the slope $ f'(x_0) $. This is all the information about $ f $ we can incorporate into our approximation as far as derivatives go, because the equation of a line \textit{must} have a second derivative of zero.\footnote{All subsequent derivatives will also be $ 0 $.} What if we allowed our approximation to have a nonzero second derivative? For $ e^x $, such an approximation would be quadratic. It would look like $$ e^x\approx 1+x+C x^2,$$ for a scaler $ C $. We can now incorporate more information about $ e^x $ into our approximation, namely we can pick a value of $ C $ such that the second derivative of our approximation matches the second derivative of $ e^x $ at our point of interest $ x_0=0 $. For $ f(x)=e^x $, we have $ f''(x)=e^x $, giving $ f''(x_0)=f''(0)=1 $. Perhaps we should try $ C=1 $. 
+\begin{align*}
+	e^x&\approx 1+x+C x^2\\
+	e^x&\approx 1+x+x^2
+\end{align*}
+But if we differentiate our approximation, then we have $ (1+x+x^2)''(0)=2\neq 1 $. Letting $ C=f''(x_0) $ failed to account for the power rule, so we need to scale it by $ 1/2 $ to account for this. Our updated quadratic approximation is
+$$ e^x\approx1+x+\frac{1}{2}x^2.$$
+This approximation has the same value, derivative, and second derivative as $ e^x $ at $ x_0=0 $. But in what sense is this better than our linear approximation? We can address this with $ r(h) $.
+$$ e^x\approx1+x+\frac{1}{2}x^2+\underbrace{(e^x-1-x-\frac{1}{2}x^2)}_{r(h)}$$
+Because $ h=x $ in this case, we have $r(h)=e^h-1-h-\frac{1}{2}h^2 $. Not only do we have $ r(h)=o(h) $, but we have $ r(h)=o(h^2) $!
+$$ \lim_{h\to 0}\frac{r(h)}{h^2}=\lim_{h\to 0}\frac{e^h-1-h-\frac{1}{2}h^2}{h^2}=0$$ The remainder is moving to $ 0 $ faster than $ h^2 $. In a sense, it's shrinking \textit{twice} as fast as $ h $.  This makes our quadratic approximation superior to our linear approximation, as our quadratic remainder converges to $ 0 $ even faster than that of the linear approximation. But why stop at quadratic, why not cubic, or quartic, \textit{or} quintic? If we repeated this process we would arrive at the following equations:
+\begin{align*}
+	e^x&=1+x+o(x)\\
+	e^x&=1+x+\frac{1}{2}x^2+o(x^2)\\
+	e^x&=1+\frac{1}{2}x^2+\frac{1}{6}x^3+o(h^3)\\
+	e^x&=1+\frac{1}{2}x^2+\frac{1}{6}x^3+\frac{1}{24}x^4+o(h^4)\\
+	e^x&=1+\frac{1}{2}x^2+\frac{1}{6}x^3+\frac{1}{24}x^4+\frac{1}{120}x^5+o(x^5)\\
+\end{align*}
+Each time we increase the degree of our polynomial approximation, we can incorporate the information given by a higher order derivative of $ f $. 
+\end{example}
+The idea of approximating a differentiable function with a polynomial of some fixed degree is formalized in Taylor's Theorem. For this theorem, we will opt to use $ (x-x_0) $ instead of $ h $.
+\begin{theorem}[Taylor's Theorem]
+Suppose $ f $ is a real function on $ [a,b] $, $ n $ is a positive integer, and $ f $ is $ n $ times differentiable at a point $ x_0 $. Then we have $$ f(x)=f(x_0)+f'(x_0)(x-x_0)+\frac{f''(x_0)}{2!}(x-x_0)+\ldots+\frac{f^{(n)}(x_0)}{n!}(x-x_0)^n+o((x-x_0)^n).$$ We refer to the polynomial (excluding the remainder term) as the \textit{\color{red}$ n $-th order Taylor Polynomial of $ f $ at $ x_0 $}, and write $$ P_n(x)=\sum_{k=0}^{n}\frac{f^{(k)}(0)}{k!}(x-x_0) .$$
+\end{theorem}
+The proof just amounts to applying L'H\^{o}pital's Rule $ n-1 $ tines
+\begin{proof}
+We just need to show that the remainder term is in fact $ o((x-x_0)^n) $. If $$ r((x-x_0))=f(x)-P_n(x) $$ is our remainder term, then we need to verify that $$ \lim\limits_{(x-x_0)\to 0}\frac{f(x)-P_n(x)}{(x-x_0)^n}=0.$$ By construction, $ f^{(k)}(x_0)=P_n^{(k)}(x_0) $ for $ k=0,1,\ldots n $. This means that our desired limit will give the indeterminate form of $ 0/0 $, so we must use L'H\^{o}pital's Rule.\footnote{You should verify that we meet the conditions required of Proposition 5.4.} But if we use it once, we still get an indeterminate form of $ 0/0 $. We in fact must apply it $ n-1 $ times before we do not end up with $ 0/0 $:
+\begin{align*}
+\lim\limits_{(x-x_0)\to 0}\frac{f(x)-P_n(x)}{(x-x_0)^n}&=\lim\limits_{(x-x_0)\to 0}\frac{f'(x)-P_n'(x)}{n(x-x_0)^{n-1}}\\
+&=\cdots\\
+&=\lim\limits_{(x-x_0)\to 0}\frac{f^{(n-1)}(x)-P_n^{(n-1)}(x)}{n!(x-x_0)}\\
+&=\frac{1}{n!}\lim\limits_{x\to x_0}{f^{(n)}(x)-P_n^{(n)}(x)}\\
+&=\frac{1}{n!}f^{(n)}(x_0)-P_n^{(n)}(x_0)\\
+&=0
+\end{align*}
+Therefore we have  $ o((x-x_0)^n) $. 
+\end{proof}
+\begin{remark}[Taylor's Theorem and the MVT]
+	The presentation of Taylor's Theorem \cite{rudin1964principles} is slightly different. I suspect his (equally valid) treatment was motivated by the connection between the Mean Value Theorem and Taylor's Theorem. \cite{rudin1964principles} explicitly writes ``For $ n=1 $, the [Taylor's Theorem] is just the mean value theorem.'' If we use Taylor's Theorem to find $ P_n(x_0) $ for an $ n+1 $ differentiable function, we have $$ f(x)=\underbrace{f(x_0)+f'(x_0)(x-x_0)+\frac{f''(x_0)}{2!}(x-x_0)+\ldots+\frac{f^{(n)}(x_0)}{n!}(x-x_0)^n}_{P_n(x)}+\underbrace{\frac{f^{(n+1)}(x_0)}{(n+1)!}(x-x_0)^{n+1} }_{R_n(x)},$$ where $ R_n(x) $ is a remainder term. Rudin's version says that under stronger conditions, we can always find some value between $ \xi\in(x,x_0) $ which satisfies $$ f(x)=P_n(x)+R_n(\xi).$$ If we do this for $ P_0(x) $ and $ R_0(x) $, we get $$ f(x)=f(x_0)+f'(\xi)(x-x_0)\implies f'(\xi)=\frac{f(x)-f(x_0)}{x-x_0},$$ which is the Mean Value Theorem.  
+\end{remark}
 
-\subsection{L'H\^{o}pital's Rule}
+A natural question that arises with Taylor's Theorem is what happens when we let the $ n\to\infty $. If $ f $ is infinitely differentiable at $ x_0 $, then what is stopping us from writing the Taylor Polynomial as an infinite series? If we do this, will the series have any remainder? If it has no remainder does that mean it simply equals the function at every point it is defined? We will answer all these questions in Section 7! 
 \subsection{Exercises}
-uniform continuity
+uniform continuity and second derivative
+
+derivative of $ x^n $ using $ h $ definition
+
+derivative of $ a^x $
+
+taylor approx is best
 \newpage
 \section{Riemann Integration}
-\subsection{Partitions}
-\subsection{Simple Functions}
-\subsection{Upper and lower Riemann Integrals}
-\begin{figure}[h!]
-	\centering
-	\begin{tikzpicture}
-	\definecolor{green(ncs)}{rgb}{0.0, 0.62, 0.42}
-	\draw (-.3,10) node {$ \R$};
-	\draw (16,-0.3) node {$ \R$};		
-	\draw[thick,->] (0,0) -- (0,10);
-	\draw[thick,->] (0,0) -- (16,0);
-	\draw[thick] (1,-0.2) -- (1,0.2);
-	\draw[thick] (14,-0.2) -- (14,0.2);
-	\draw[thick] (13,-0.2) -- (13,0.2);
-	\draw[thick] (5,-0.2) -- (5,0.2);
-	\draw[blue] (14,5.5) node {$ f(x) $};	
-	\draw[black] (1,-.5) node {$ a $};
-	\draw[black] (14,-.5) node {$ b $};	
-	\draw[black] (5,-.5) node {$ x_{i-1} $};
-	\draw[black] (13,-.5) node {$ x_i $};	
-	\draw[dashed,thin] (0,1) -- (10.5,1);
-	\draw (-0.3,1) node {$ m_i$};
-	\draw (-0.3,6) node {$ M_i$};
-	\draw[color=red, fill=red!15, thick, opacity=1] (5,0) rectangle (13,6);
-	\draw[color=green, fill=green!15, thick, opacity=0.6] (5,0) rectangle (13,1);
-	\draw[dashed,thin] (0,6) -- (7,6);
-	\draw [blue, thick] plot [smooth, tension=1] coordinates { (1,1) (7,6) (10.5,1) (14,5) };
-	\draw[red] (10,5.5) node {$ M_i\Delta x_i $};
-	\draw[green] (10,0.5) node {$ m_i\Delta x_i $};
-	\end{tikzpicture}
-	\caption{  }
-\end{figure}
-\begin{figure}[h!]
-	\centering
-	\begin{tikzpicture}
-	\draw (-.3,10) node {$ \R$};
-	\draw (16,-0.3) node {$ \R$};		
-	\draw[thick,->] (0,0) -- (0,10);
-	\draw[thick,->] (0,0) -- (16,0);
-	\draw[thick] (1,-0.2) -- (1,0.2);
-	\draw[thick] (14,-0.2) -- (14,0.2);
-	\draw[blue] (14,5.5) node {$ f(x) $};	
-	\draw[black] (1,-.5) node {$ a $};
-	\draw[black] (14,-.5) node {$ b $};	
-	\draw[fill=gray!15, thick, opacity=0.6] (1,0) rectangle (2,1);
-	\draw[fill=gray!15, thick, opacity=0.6] (2,0) rectangle (3,2.35);
-	\draw[fill=gray!15, thick, opacity=0.6] (3,0) rectangle (4,3.5);
-	\draw[fill=gray!15, thick, opacity=0.6] (4,0) rectangle (5,4.5);
-	\draw[fill=gray!15, thick, opacity=0.6] (5,0) rectangle (6,5.25);
-	\draw[fill=gray!15, thick, opacity=0.6] (6,0) rectangle (7,5.77);
-	\draw[fill=gray!15, thick, opacity=0.6] (7,0) rectangle (8,5.69);
-	\draw[fill=gray!15, thick, opacity=0.6] (8,0) rectangle (9,3.55);
-	\draw[fill=gray!15, thick, opacity=0.6] (9,0) rectangle (10,1.2);
-	\draw[fill=gray!15, thick, opacity=0.6] (10,0) rectangle (11,0.98);
-	\draw[fill=gray!15, thick, opacity=0.6] (11,0) rectangle (12,1);
-	\draw[fill=gray!15, thick, opacity=0.6] (12,0) rectangle (13,1.6);
-	\draw[fill=gray!15, thick, opacity=0.6] (13,0) rectangle (14,2.9);
-	\draw [blue, thick] plot [smooth, tension=1] coordinates { (1,1) (7,6) (10.5,1) (14,5) };
-	\end{tikzpicture}
-	\caption{  }
-\end{figure}
-\begin{figure}[h!]
-	\centering
-	\begin{tikzpicture}
-	\draw (-.3,10) node {$ \R$};
-	\draw (16,-0.3) node {$ \R$};		
-	\draw[thick,->] (0,0) -- (0,10);
-	\draw[thick,->] (0,0) -- (16,0);
-	\draw[thick] (1,-0.2) -- (1,0.2);
-	\draw[thick] (14,-0.2) -- (14,0.2);
-	\draw[blue] (14,5.5) node {$ f(x) $};	
-	\draw[black] (1,-.5) node {$ a $};
-	\draw[black] (14,-.5) node {$ b $};	
-	\draw[fill=gray!15, thick, opacity=0.6] (1,0) rectangle (2,2.35);
-	\draw[fill=gray!15, thick, opacity=0.6] (2,0) rectangle (3,3.5);
-	\draw[fill=gray!15, thick, opacity=0.6] (3,0) rectangle (4,4.5);
-	\draw[fill=gray!15, thick, opacity=0.6] (4,0) rectangle (5,5.25);
-	\draw[fill=gray!15, thick, opacity=0.6] (5,0) rectangle (6,5.77);
-	\draw[fill=gray!15, thick, opacity=0.6] (6,0) rectangle (7,6);
-	\draw[fill=gray!15, thick, opacity=0.6] (7,0) rectangle (8,6);
-	\draw[fill=gray!15, thick, opacity=0.6] (8,0) rectangle (9,5.6);
-	\draw[fill=gray!15, thick, opacity=0.6] (9,0) rectangle (10,3.55);
-	\draw[fill=gray!15, thick, opacity=0.6] (10,0) rectangle (11,1.2);
-	\draw[fill=gray!15, thick, opacity=0.6] (11,0) rectangle (12,1.6);
-	\draw[fill=gray!15, thick, opacity=0.6] (12,0) rectangle (13,2.9);
-	\draw[fill=gray!15, thick, opacity=0.6] (13,0) rectangle (14,5);
-	\draw [blue, thick] plot [smooth, tension=1] coordinates { (1,1) (7,6) (10.5,1) (14,5) };
-	\end{tikzpicture}
-	\caption{  }
-\end{figure}
+The theory of differentiation may at times have seemed painless. It's eerily similar to calculus. Isn't analysis supposed to be hard and confusing? Fear not, because here comes integration to bring us back to reality! The definition of Riemann integration cannot be given immediately like that of the derivative, as we need to do some prep work. Even once it is defined, proofs involving the Riemann integral are a bit more sophisticated than the average proof up until this point. This is a constant theme in math -- integration is \textit{way} harder than differentiation. Our goal is to develop a form of integration that works reasonably well for real functions. Fortunately, this simplifies things, as we're comfortable with real functions. There is good news. The Riemann integral mostly achieves our goal!\footnote{There is a reason that it is the only form of integration most people ever need to know and use.} Nevertheless, there will be some drawbacks of Riemann integration, and we will only be able to go so far with it. For this reason, we will return to integration again in Sections 12-18. Consider this a first pass at what turns out to be a much more sophisticated problem. 
 
-\subsection{Properties of the Riemann Integral}
-\subsection{Integration with Continuity and/or Monotonicity}
-\subsection{Riemann-Stieltjes Integral}
+Why are we even interested in integration though? Many problems are concerned with accumulation over time, which is captured by the area underneath a curve. For example, the probability of a certain event can be interpreted as the area under a probability distribution function. Similar problems exist in nearly every field of science, so it's important that we have some tool for measuring area under the curve of some function. 
+
+First, we should ask, when is it even possible to calculate the area under the curve of a function? Is it possible to measure the area over some infinite interval, such as all of $ \R $? It is not immeadetly clear how to do this, as we have not yet developed a way of measuring the length of $ \R $,\footnote{We'll do this in Section 12.} so we should stick to some bounded interval $ [a,b]\subset\R $. We also want $ f $ to be bounded on $ \R $, otherwise the area under the curve would not be well defined. For these reasons, \textbf{we will restrict our attention to bounded real functions on an interval $ \textbf{[a,b] }$} for this whole section. 
+\subsection{Partitions}
+First we need to develop some notation about partitioning an interval of the real line into smaller intervals. 
+\begin{definition}
+	Let $ [a,b]\subset\R $. A \textit{\color{red}partition} $ P $ of $ [a,b] $ is a finite set of points $ P=\{x_0,x_1,\ldots,x_n\} $ such that $$a=x_0\le x_1\le\ldots\le x_{n-1}\le x_n=b .$$ We will write $ \delta x_i=x+i-x_{i-1} $ for $ i=1,\ldots,n $. We will denote the set of all partitions of $ [a,b] $ as $ \textbf{P}([a,b]) $.\footnote{$ \textbf{P}([a,b]) $ is \textit{not} standard notation.} 
+\end{definition}
+Figure 53 shows a partition of the interval $ [a,b] $. Contrary to what this figure shows, the points which comprise a partition need not be evenly spaced out along $ [a,b] $. We can refine a partition by adding more points to $ P=\{x_0,x_1,\ldots,x_n\} $.
+
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+	\draw (16,-0.3) node {$ \R$};		
+	\draw[thick,<->] (0,0) -- (16,0);
+	\draw[thick] (1,-0.2) -- (1,0.2);
+	\draw[thick] (2,-0.2) -- (2,0.2);
+	\draw[thick] (3,-0.2) -- (3,0.2);
+	\draw[thick] (4,-0.2) -- (4,0.2);
+	\draw[thick] (5,-0.2) -- (5,0.2);
+	\draw[thick] (6,-0.2) -- (6,0.2);
+	\draw[thick] (7,-0.2) -- (7,0.2);
+	\draw[thick] (8,-0.2) -- (8,0.2);
+	\draw[thick] (10,-0.2) -- (10,0.2);
+	\draw[thick] (11,-0.2) -- (11,0.2);
+	\draw[thick] (12,-0.2) -- (12,0.2);
+	\draw[thick] (13,-0.2) -- (13,0.2);
+	\draw[thick] (14,-0.2) -- (14,0.2);
+	\draw[thick] (9,-0.2) -- (9,0.2);	
+	\draw[black] (1,-.5) node {$ a=x_0 $};
+	
+	\draw[black] (7,-.5) node {$ x_{6} $};
+	\draw[black] (8,-.5) node {$ x_{7} $};
+	\draw[black] (7.5,.3) node {$ \Delta x_7 $};
+	\draw[black] (12.5,.5) node {$ P $};
+	\draw[black] (14,-.5) node {$ b=x_{13} $};	
+	\end{tikzpicture}
+	\caption{A Partition $ P=\{x_0,x_1,\ldots,x_{13}\} $ of the interval $ [a,b] $.}
+\end{figure}
+\begin{definition}
+	A partition $ P^* $ is \textit{\color{red}refinement} of $ P $ if $ P\subset P^* $. Given two partitions, $ P_1 $ and $ P_2 $, we say $ P^* $ is their \textit{\color{red}common refinement} if $ P^*=P_1\cup P_2 $. 
+\end{definition}
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+	\draw (16,-0.3) node {$ \R$};		
+	\draw[thick,<->] (0,0) -- (16,0);
+	\draw[thick](1,-0.2) -- (1,0.2);
+	\draw[thick](2,-0.2) -- (2,0.2);
+	\draw[thick](3,-0.2) -- (3,0.2);
+	\draw[thick](4,-0.2) -- (4,0.2);
+	\draw[thick](5,-0.2) -- (5,0.2);
+	\draw[thick](6,-0.2) -- (6,0.2);
+	\draw[thick](7,-0.2) -- (7,0.2);
+	\draw[thick](8,-0.2) -- (8,0.2);
+	\draw[thick](10,-0.2) -- (10,0.2);
+	\draw[thick](11,-0.2) -- (11,0.2);
+	\draw[thick](12,-0.2) -- (12,0.2);
+	\draw[thick](13,-0.2) -- (13,0.2);
+	\draw[thick](14,-0.2) -- (14,0.2);
+	\draw[thick](9,-0.2) -- (9,0.2);	
+	\draw[black] (1,-.5) node {$ a $};
+	\draw[black] (14,-.5) node {$ b $};	
+	\draw (16,-1.8) node {$ \R$};		
+	\draw[thick,<->] (0,-1.5) -- (16,-1.5);
+	\draw[thick](1,-1.7) -- (1,-1.3);
+	\draw[thick](1.5,-1.7) -- (1.5,-1.3);
+	\draw[thick](3,-1.7) -- (3,-1.3);
+	\draw[thick](4.4,-1.7) -- (4.4,-1.3);
+	\draw[thick](2.4,-1.7) -- (2.4,-1.3);
+	\draw[thick](6.1,-1.7) -- (6.1,-1.3);
+	\draw[thick](6.8,-1.7) -- (6.8,-1.3);
+	\draw[thick](7.5,-1.7) -- (7.5,-1.3);
+	\draw[thick](10.4,-1.7) -- (10.4,-1.3);
+	\draw[thick](9.3,-1.7) -- (9.3,-1.3);
+	\draw[thick](11.2,-1.7) -- (11.2,-1.3);
+	\draw[thick](11.6,-1.7) -- (11.6,-1.3);
+	\draw[thick](12.7,-1.7) -- (12.7,-1.3);
+	\draw[thick] (14,-1.7) -- (14,-1.3);	
+	\draw[black] (1,-2) node {$ a $};
+	\draw[black] (14,-2) node {$ b $};	
+	
+	
+		\draw (16,-3.3) node {$ \R$};
+	
+		\draw[thick](2,-2.8) -- (2,-3.2);
+		\draw[thick](3,-2.8) -- (3,-3.2);
+		\draw[thick](4,-2.8) -- (4,-3.2);
+		\draw[thick](5,-2.8) -- (5,-3.2);
+		\draw[thick](6,-2.8) -- (6,-3.2);
+		\draw[thick](7,-2.8) -- (7,-3.2);
+		\draw[thick](8,-2.8) -- (8,-3.2);
+		\draw[thick](10,-2.8) -- (10,-3.2);
+		\draw[thick](11,-2.8) -- (11,-3.2);
+		\draw[thick](12,-2.8) -- (12,-3.2);
+		\draw[thick](13,-2.8) -- (13,-3.2);
+		\draw[thick](9,-2.8) -- (9,-3.2);		
+	\draw[thick,<->] (0,-3) -- (16,-3);
+	\draw[thick](1,-2.8) -- (1,-3.2);
+	\draw[thick](1.5,-2.8) -- (1.5,-3.2);
+	\draw[thick](3,-2.8) -- (3,-3.2);
+	\draw[thick](4.4,-2.8) -- (4.4,-3.2);
+	\draw[thick](2.4,-2.8) -- (2.4,-3.2);
+	\draw[thick](6.1,-2.8) -- (6.1,-3.2);
+	\draw[thick](6.8,-2.8) -- (6.8,-3.2);
+	\draw[thick](7.5,-2.8) -- (7.5,-3.2);
+	\draw[thick](10.4,-2.8) -- (10.4,-3.2);
+	\draw[thick](9.3,-2.8) -- (9.3,-3.2);
+	\draw[thick](11.2,-2.8) -- (11.2,-3.2);
+	\draw[thick](11.6,-2.8) -- (11.6,-3.2);
+	\draw[thick](12.7,-2.8) -- (12.7,-3.2);
+	\draw[thick] (14,-2.8) -- (14,-3.2);	
+	\draw[black] (1,-3.5) node {$ a $};
+	\draw[black] (14,-3.5) node {$ b $};
+	\draw[black] (7.5,-.5) node {$ P_1 $};
+	\draw[black] (7.5,-2) node {$ P_2 $};
+	\draw[black] (7.5,-3.5) node {$ P^*=P_1\cup P_2 $};
+	\end{tikzpicture}
+	\caption{The partition $ P^* $ is a common refinement of $ P_1 $ and $ P_2 $.  }
+\end{figure}
+\subsection{Upper and Lower Riemann Integrals}
+We will now use partitions to approximate the area under a curve. This will be nearly identical to the method developed in calculus, but with one small difference. Calculus courses normally use left and right Riemann sums, which use the points of a partition to determine the height of the rectangles use to approximate the area under a function. We will instead determine the height of the rectangles using the infimum and supremum of a function.
+\begin{definition}
+	Suppose $ f $ is a bounded real function defined on $ [a,b] $. Corresponding to each partition $ P $ of $ [a,b] $, we have \begin{align*}
+		M_i&=\sup_{x\in[x_{i-1},x_i]} f(x)\\
+		m_i&=\inf_{x\in[x_{i-1},x_i]} f(x)\\
+		U(P,f)&=\sum_{i=1}^{n}M_i\Delta x_i,\\
+		L(P,f)&=\sum_{i=1}^{n}m_i\Delta x_i,
+	\end{align*} 
+	 We call $ U(P,f) $ an \textit{\color{red}upper Riemann sum} and $ L(P,f) $ a \textit{\color{red}lower Riemann sum}.
+\end{definition}
+Figure 55 shows what $ m_i\Delta x_i $ and $ M_i\Delta x_i $ may look like for a given function and partition. 
+ \begin{figure}[h!]
+ 	\centering
+ 	\begin{tikzpicture}
+ 	\definecolor{green(ncs)}{rgb}{0.0, 0.62, 0.42}
+ 	\draw (-.3,7) node {$ \R$};
+ 	\draw (16,-0.3) node {$ \R$};		
+ 	\draw[thick,->] (0,0) -- (0,7);
+ 	\draw[thick,->] (0,0) -- (16,0);
+ 	\draw[thick] (1,-0.2) -- (1,0.2);
+ 	\draw[thick] (14,-0.2) -- (14,0.2);
+ 	\draw[thick] (13,-0.2) -- (13,0.2);
+ 	\draw[thick] (5,-0.2) -- (5,0.2);
+ 	\draw[blue] (14,5.5) node {$ f(x) $};	
+ 	\draw[black] (1,-.5) node {$ a $};
+ 	\draw[black] (14,-.5) node {$ b $};	
+ 	\draw[black] (5,-.5) node {$ x_{i-1} $};
+ 	\draw[black] (13,-.5) node {$ x_i $};	
+ 	\draw[dashed,thin] (0,1) -- (10.5,1);
+ 	\draw (-0.3,1) node {$ m_i$};
+ 	\draw (-0.3,6) node {$ M_i$};
+ 	\draw[color=red, fill=red!15, thick, opacity=1] (5,0) rectangle (13,6);
+ 	\draw[color=green, fill=green!15, thick, opacity=0.6] (5,0) rectangle (13,1);
+ 	\draw[dashed,thin] (0,6) -- (7,6);
+ 	\draw [blue, thick] plot [smooth, tension=1] coordinates { (1,1) (7,6) (10.5,1) (14,5) };
+ 	\draw[red] (10,5.5) node {$ M_i\Delta x_i $};
+ 	\draw[green] (10,0.5) node {$ m_i\Delta x_i $};
+ 	\end{tikzpicture}
+ 	\caption{ The particular values  $ m_i\Delta x_i $ and $ M_i\Delta x_i $  for some function $ f $ and partition of $ [a,b] $.}
+ \end{figure}
+Figure 56 and Figure 57 show the upper Riemann sum and lower Riemann sum  for the partition of $ [a,b] $ that was shown in Figure 53, respectively. \begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+	\draw (-.3,7) node {$ \R$};
+	\draw (16,-0.3) node {$ \R$};		
+	\draw[thick,->] (0,0) -- (0,7);
+	\draw[thick,->] (0,0) -- (16,0);
+	\draw[thick] (1,-0.2) -- (1,0.2);
+	\draw[thick] (14,-0.2) -- (14,0.2);
+	\draw[blue] (14,5.5) node {$ f(x) $};	
+	\draw[black] (1,-.5) node {$ a $};
+	\draw[black] (14,-.5) node {$ b $};	
+	\draw[fill=gray!15, thin, opacity=0.6] (1,0) rectangle (2,1);
+	\draw[fill=gray!15, thin, opacity=0.6] (2,0) rectangle (3,2.35);
+	\draw[fill=gray!15, thin, opacity=0.6] (3,0) rectangle (4,3.5);
+	\draw[fill=gray!15, thin, opacity=0.6] (4,0) rectangle (5,4.5);
+	\draw[fill=gray!15, thin, opacity=0.6] (5,0) rectangle (6,5.25);
+	\draw[fill=gray!15, thin, opacity=0.6] (6,0) rectangle (7,5.77);
+	\draw[fill=gray!15, thin, opacity=0.6] (7,0) rectangle (8,5.69);
+	\draw[fill=gray!15, thin, opacity=0.6] (8,0) rectangle (9,3.55);
+	\draw[fill=gray!15, thin, opacity=0.6] (9,0) rectangle (10,1.2);
+	\draw[fill=gray!15, thin, opacity=0.6] (10,0) rectangle (11,0.98);
+	\draw[fill=gray!15, thin, opacity=0.6] (11,0) rectangle (12,1);
+	\draw[fill=gray!15, thin, opacity=0.6] (12,0) rectangle (13,1.6);
+	\draw[fill=gray!15, thin, opacity=0.6] (13,0) rectangle (14,2.9);
+	\draw [blue, thick] plot [smooth, tension=1] coordinates { (1,1) (7,6) (10.5,1) (14,5) };
+	\draw[black] (7,2) node {$ L(P,f)=\displaystyle\sum_{i=1}^{n}m_i\Delta x_i $};
+	\end{tikzpicture}
+	\caption{A lower Riemann sum.}
+\end{figure}
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+	\draw (-.3,7) node {$ \R$};
+	\draw (16,-0.3) node {$ \R$};		
+	\draw[thick,->] (0,0) -- (0,7);
+	\draw[thick,->] (0,0) -- (16,0);
+	\draw[thick] (1,-0.2) -- (1,0.2);
+	\draw[thick] (14,-0.2) -- (14,0.2);
+	\draw[blue] (14,5.5) node {$ f(x) $};	
+	\draw[black] (1,-.5) node {$ a $};
+	\draw[black] (14,-.5) node {$ b $};	
+	\draw[fill=gray!15, thin, opacity=0.6] (1,0) rectangle (2,2.35);
+	\draw[fill=gray!15, thin, opacity=0.6] (2,0) rectangle (3,3.5);
+	\draw[fill=gray!15, thin, opacity=0.6] (3,0) rectangle (4,4.5);
+	\draw[fill=gray!15, thin, opacity=0.6] (4,0) rectangle (5,5.25);
+	\draw[fill=gray!15, thin, opacity=0.6] (5,0) rectangle (6,5.77);
+	\draw[fill=gray!15, thin, opacity=0.6] (6,0) rectangle (7,6);
+	\draw[fill=gray!15, thin, opacity=0.6] (7,0) rectangle (8,6);
+	\draw[fill=gray!15, thin, opacity=0.6] (8,0) rectangle (9,5.6);
+	\draw[fill=gray!15, thin, opacity=0.6] (9,0) rectangle (10,3.55);
+	\draw[fill=gray!15, thin, opacity=0.6] (10,0) rectangle (11,1.2);
+	\draw[fill=gray!15, thin, opacity=0.6] (11,0) rectangle (12,1.6);
+	\draw[fill=gray!15, thin, opacity=0.6] (12,0) rectangle (13,2.9);
+	\draw[fill=gray!15, thin, opacity=0.6] (13,0) rectangle (14,5);
+	\draw [blue, thick] plot [smooth, tension=1] coordinates { (1,1) (7,6) (10.5,1) (14,5) };
+	\draw[black] (7,2) node {$ U(P,f)=\displaystyle\sum_{i=1}^{n}M_i\Delta x_i $};
+	\end{tikzpicture}
+	\caption{An upper Riemann sum.}
+\end{figure}
+So far, this is fairly similar to the way integration was developed in calculus, but now we're going to do something a little different. Instead of taking a limit of Riemann sums, we will simply say a function is Riemann integrable if the supremum of all possible upper Riemann sums coincides with the infimum of all the possible lower Riemann sums. 
+\begin{definition}
+	Suppose $ f $ is a bounded real function  on the interval $ [a,b] $. Define the values $$\lowint_a^b f(x)\ dx=\sup\limits_{P\in\textbf{P}([a,b])} L(P,f), \ \ \ \ \upint_a^b f(x)\ dx =\inf\limits_{P\in\textbf{P}([a,b])} U(P,f). $$ 
+	We refer to these as the \textit{\color{red}lower Riemann integral of $ f $ over $ [a,b] $} and \textit{\color{red}upper Riemann integral of $ f $ over $ [a,b] $} respectively.
+\end{definition}
+The upper and lower Riemann integral will \textit{always} exist for any bounded function on $ [a,b] $. The set $ \mathbf{P}([a,b])\neq\emptyset$, as any interval $ [a,b] $ has a trivial partition of $ \{x_0=a,x_1=b\} $. The set is also bounded, as for all $ P\in\mathbf{P}([a,b]) $, $$\inf_{x\in[a,b]}f(x)\cdot(b-a)\le L(P,f)\le U(P,f)\le \sup_{x\in[a,b]}f(x)\cdot(b-a) .$$ We know the infimum and supremum of $ f $ exist on $ [a,b] $, because $ f $ is bounded. This gives us two nonempty bounded subsets of $ \R $ in the form of $ \{U(P,f)\}_{P\in\textbf{P}([a,b])} $ and $ \{L(P,f)\}_{P\in\textbf{P}([a,b])} $. The supremum and infimum of these sets are guaranteed to exist by the completeness of $ \R $. 
+
+We define the Riemann integral using these upper and lower integrals.
+\begin{definition}
+	Suppose $ f $ is a bounded real function  on the interval $ [a,b] $. If $$ \lowint_a^b f(x)\ dx=\upint_a^b f(x)\ dx,$$ then we say $ f $ is \textit{\color{red}Riemann integrable (on $ [a,b] $)} and we write the common value of the upper and lower Riemann integral as $$ \int_{a}^{b}f(x)\ dx.$$ We refer to this common value as the \textit{\color{red}Riemann integral of $ f $ on [a,b]}. 
+\end{definition}
+Figure 58 shows a Riemann integrable function, and the value of the integral on $ [a,b] $. 
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+	\draw (-.3,7) node {$ \R$};
+	\draw (16,-0.3) node {$ \R$};		
+	\draw[thick,->] (0,0) -- (0,7);
+	\draw[thick,->] (0,0) -- (16,0);
+	\draw[thick] (1,-0.2) -- (1,0.2);
+	\draw[thick] (14,-0.2) -- (14,0.2);
+	\draw[blue] (14,5.5) node {$ f(x) $};	
+	\draw[black] (1,-.5) node {$ a $};
+	\draw[black] (14,-.5) node {$ b $};	
+	\fill[fill=gray!15] (1,1)  to[out=45,in=180]  (7,6) to[out=0,in=180] (10.5,1) to[out=0,in=230] (14,5) -- (14,0) -- (1,0) -- (1,1);
+	\draw[thick, blue] (1,1)  to[out=45,in=180]  (7,6) to[out=0,in=180] (10.5,1) to[out=0,in=230] (14,5);
+	\draw[black] (5.5,2) node {$\displaystyle\lowint_{a}^{b}f(x)\ dx = \displaystyle\upint_{a}^{b}f(x)\ dx =\displaystyle\int_{a}^{b}f(x)\ dx $};
+	\end{tikzpicture}
+	\caption{ The function $ f $ is Riemann integrable on $ [a,b] $.}
+\end{figure}
+While Definition 6.5 may make sense on a theoretical level, it's not at all practical to use it to verify a function is actually integrable. How are we supposed to possibly find the supremum of all possible lower Riemann sums, and find the infimum of all possible upper Riemann sums?! A simple example will be presented, but it will be the only time we actually use Definition 6.5 to verify integrability. We will therefore need to find some alternate criterion for Riemann integrability.    
+\begin{example}
+	Let $ f(x)=c $ on $ [a,b] $ for some constant $ c\in\R  $. Suppose $ P=\{0,x_1,\ldots,x_{n-1},1\} $ is a partition of $ [a,b] $. We have  \begin{align*}
+			M_i&=\sup_{x\in[x_{i-1},x_i]} f(x)=c,\\
+		m_i&=\inf_{x\in[x_{i-1},x_i]} f(x)=c,\\
+	\end{align*} 
+	For $ i=1,\ldots, n $. The lower and upper Riemann sums will agree, as $ M_i=m_i $ for $ i=1,\ldots, n $. $$ U(P,f)=L(P, f)=\sum_{i=1}^{n}i\cdot(x_k-x_{k-1})=(x_n-x_{n-1})+(x_{n-1}+x_{n-2})+\ldots (x_2-x_1)+(x_1-x_0)=x_n-x_0=b-a.$$ We let $ P $ be arbitrary, so these sums will always be $ 1 $.
+	\begin{align*}
+		\lowint_a^b f(x)\ dx=\sup\limits_{P\in\textbf{P}([a,b])} L(P,f)=\sup\{c\}=c\\ \upint_a^b f(x)\ dx =\inf\limits_{P\in\textbf{P}([a,b])} U(P,f)=\inf\{c\}=c.
+	\end{align*}  
+	These values agree, so $ f $ is Riemann integrable, and $$\int_{a}^{b} c\ dx=c(b-a) .$$
+\end{example}
+\subsection{An Alternative Interpretation: Simple Functions (Very Optional)}
+Before we explore the properties of Riemann integration and develop a way to verify we can integrate a function, we can give an alternate formulation of the upper and lower Riemann integral. Not only is this  how \cite{tao2006analysis} opts to introduce the Riemann integral, but it is how we will go about defining a superior form of integration in Section 13. The general idea is that we define the Riemann integral for for very ``simple'' functions, and then relate the integration of these functions to bounded real functions on $ [a,b] $. \textbf{Disclaimer}: this introduction to simple functions is slightly informal for reasons that will be acknowledged afterwards. 
+
+We begin by defining a special type of step function.
+\begin{definition}
+	Let $ X $ be a subset of $ \R $, and $ E\subset X $. We define the \textit{\color{red}characteristic function on E} as $ \chi_E:X\to\{0,1\} $, where 
+	$$ \chi_E(x)=\begin{cases}
+	1\text{ if }x\in E\\
+	0\text{ if }x\notin E
+	\end{cases} $$
+\end{definition}
+This function is sometimes called the indicator function, as it indicates whether or not an element of $ X $ is in the subset $ E $. We will be interested in characteristic functions in $ \R $, and an example of such a function is seen Figure 59.
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+	\draw (-.3,3) node {$ \R$};
+	\draw (16,-0.3) node {$ \R$};		
+	\draw[thick,->] (0,0) -- (0,3);
+	\draw[thick,->] (0,0) -- (16,0);	
+	\draw[thick, blue] (0,0) -- (8,0);
+	\draw[thick, blue] (12,0) -- (16,0);
+	\draw[thick] (-0.2,1) -- (0.2,1);
+	\draw (12, -0.3) node {$ b$};	
+	\draw (8,-0.3) node {$ a$};	
+		\draw (10,1.3) node {$ \chi_{[a,b]}$};			
+	\draw[thick, blue] (8,1) -- (12,1);
+	\filldraw[color=blue, fill=white] (8,0) circle (2pt);
+	\filldraw[color=blue, fill=white] (12,0) circle (2pt);
+	\filldraw[color=white, fill=blue] (8,1) circle (2pt);
+		\filldraw[color=white, fill=blue] (12,1) circle (2pt);
+	\end{tikzpicture}
+	\caption{The characteristic function $ \chi_{[a,b]}:\R\to\{0,1\} $.}
+\end{figure}
+We can use characteristic functions to write \textit{any} step function. Step functions written this way will be the ``simple'' functions which we are interested in.
+\begin{definition}
+	Let $ X $ be a subset of $ \R $. A \textit{\color{red}simple function} $ \varphi: X \to\R $ is a function which can be written as a \textit{finite} linear combination of characteristic functions on $ E\subset X $. That is there exists a set of finite scalers $ \{c_1,\ldots, c_n\}\subset\R $ and finite sets $ E_1,\ldots\,E_n\subset X $ such that $$ \varphi(x)=\sum_{k=1}^nc_k\chi_{E_k}(x).$$ 
+\end{definition}
+A simple functions domain will always be $ X $, even if the sets on which the characteristic functions are defined do not cover $ X $, i.e $ X\not\subset\bigcup_{k=1}^nE_k $. We simply have $ \varphi(x)=0 $ on the set $ X\backslash\bigcup_{k=1}^nE_k $. The codomain of a simple function will \textit{always} be $ \R $, as the output of a simple function is determined by the set of real scalers $ \{c_1,\ldots,c_n\} $. Where the function attains each value $ c_k $ in the range is determined by the set $ E_k $. A concrete example where $ X\subset \R $ may make things clearer. 
+\begin{example}
+	Let $ \varphi:\R\to\R $ be the simple function $$ \varphi(x)=2\chi_{[1,3.5)}+5\chi_{[3.5,4)}-2\chi_{[4,7)}+4\chi_{[7,8)}-\chi_{[8,10)}+\chi_{[10,14)}+2\chi_{[14,15]}$$ on $ \R $, where each $ \chi_E $ is defined on a subset $ E\subset[1,15]$. This function is shown in Figure 60. In this case, $ E_1\cup\ldots\cup E_8\neq\R $, but $ \varphi(x) $ is still defined on all of $ \R $. The function takes on the value $ 0 $ outside of $ E_1\cup\ldots\cup E_7 $, but is still defined there. We could also define $ \varphi:[1,15]\to\R $ in a similar fashion. The only difference would be that $ \varphi $ would not be defined as zero on $ (-\infty,1)\cup(15,\infty) $. 
+	\begin{figure}[h!]
+		\centering
+		\begin{tikzpicture}
+		\draw (-.3,6) node {$ \R$};
+		\draw (16,-0.3) node {$ \R$};	
+		\draw (15,-0.3) node {$ 15$};
+		\draw (1,-0.3) node {$ 1$};	
+		\draw[blue] (11,1.3) node {$ \varphi(x)$};		
+		\draw[thick,->] (0,-3) -- (0,6);
+		\draw[thick,->] (0,0) -- (16,0);
+		\draw[thick, blue] (0,0) -- (1,0);	
+		\draw[thick, blue] (1,2) -- (3.5,2);
+		\draw[thick, blue] (3.5,5) -- (4,5);
+		\draw[thick, blue] (4,-2) -- (7,-2);	
+		\draw[thick, blue] (7,4) -- (8,4);
+		\draw[thick, blue] (8,-1) -- (10,-1);
+		\draw[thick, blue] (10,1) -- (14,1);
+		\draw[thick, blue] (14,2) -- (15,2);
+		\draw[thick, blue] (15,0) -- (16,0);
+		\filldraw[color=blue, fill=white] (1,0) circle (2pt);
+		\filldraw[color=white, fill=blue] (1,2) circle (2pt);
+		\filldraw[color=blue, fill=white] (3.5,2) circle (2pt);
+		\filldraw[color=white, fill=blue] (3.5,5) circle (2pt);
+		\filldraw[color=blue, fill=white] (4,5) circle (2pt);
+		\filldraw[color=white, fill=blue] (4,-2) circle (2pt);
+		\filldraw[color=blue, fill=white] (7,-2) circle (2pt);
+		\filldraw[color=white, fill=blue] (7,4) circle (2pt);
+		\filldraw[color=blue, fill=white] (8,4) circle (2pt);
+		\filldraw[color=white, fill=blue] (8,-1) circle (2pt);
+		\filldraw[color=blue, fill=white] (10,-1) circle (2pt);
+		\filldraw[color=white, fill=blue](10,1) circle (2pt);
+			\filldraw[color=blue, fill=white] (14,1) circle (2pt);
+		\filldraw[color=white, fill=blue] (14,2) circle (2pt);
+					\filldraw[color=white, fill=blue] (15,2) circle (2pt);
+		\filldraw[color=blue, fill=white] (15,0) circle (2pt);
+		\end{tikzpicture}
+		\caption{A simple function $ \varphi:\R\to\R $. }
+	\end{figure}
+\end{example}
+In this particular case the set $ \{E_k\} $ are piecewise disjoint. This need not be the case. Just know that if the intervals are not piecewise disjoint, we can always rewrite $ \varphi(x) $ so they are. We will prove this later on when we treat simple functions with a bit more care. 
+
+Simple functions get their name, as in the context of integration they are simple. Because a simple function is written as a finite linear combination, it is bounded on the entirety of its domain.\footnote{The function is bounded by $ \max\{|c_1|,\ldots|c_n|\} $.} If $ \varphi $ is only defined on some interval $ [a,b] $, then every set $ E_k\subset[a,b] $ is bounded for all $ k $. These facts allow us to appeal directly to geometry to calculate the Riemann integral of a simple function. 
+\begin{definition}
+	Suppose $ \varphi:[a,b]\to\R $ is a simple function which can be expressed as $ \sum_{k=1}^nc_k\chi_{E_k}(x) $ for $ E_k=(a_k,b_k)\subset[a,b] $ and $ c_k\in\R $. Then we define the \textit{\color{red}Riemann integral of a simple function (on $ [a,b] $)} as $$\int_{a}^{b}\varphi(x)\ dx=\sum_{k=1}^{n}c_k\cdot(b_k-a_k) .$$
+\end{definition}
+For each ``step'' of the simple function, we multiply the width  of the interval, $ (b_k-a_k) $, by the height the function achieves on that interval, $ c_k $. Adding the area of these rectangles up gives the integral. In Definition 6.8, $ E_k $ is open, but it really does not matter. It could be closed, or half-open. We will freely interchange them in this section, as it won't make a difference. The length of the interval would still be $ b_k-a_k $. 
+\begin{example}
+	Define $ \varphi:[1,15]\to\R $ as $$ \varphi(x)=2\chi_{[1,3.5)}+5\chi_{[3.5,4)}-2\chi_{[4,7)}+4\chi_{[7,8)}-\chi_{[8,10)}+\chi_{[10,14)}+2\chi_{[14,15]}.$$ Definition 6.8 gives \begin{align*}
+		\int_{1}^{15}\varphi(x)\ dx&=\sum_{k=1}^7c_k\cdot(b_k-a_k)\\
+							&=2(3.5-1)+5(4-3.5)-2(7-4)+4(8-7)-(10-8)+(14-10)+2(15-14)\\
+							&=9.5.
+	\end{align*}
+	This integral can be seen in Figure 61.
+		\begin{figure}[h!]
+		\centering
+		\begin{tikzpicture}
+		\draw (-.3,6) node {$ \R$};
+		\draw (16,-0.3) node {$ \R$};	
+		\draw[blue] (11,1.3) node {$ \varphi(x)$};		
+		\draw[thick,->] (0,-3) -- (0,6);
+		\draw[thick,->] (0,0) -- (16,0);
+				\draw (15,-0.3) node {$ 15$};
+		\draw (1,-0.3) node {$ 1$};		
+		\draw[thick, blue] (1,2) -- (3.5,2);
+		\draw[thick, blue] (3.5,5) -- (4,5);
+		\draw[thick, blue] (4,-2) -- (7,-2);	
+		\draw[thick, blue] (7,4) -- (8,4);
+		\draw[thick, blue] (8,-1) -- (10,-1);
+		\draw[thick, blue] (10,1) -- (14,1);
+		\draw[thick, blue] (14,2) -- (15,2);
+		
+		\draw[fill=gray!15, thin, opacity=0.6] (1,0) rectangle (3.5,2);
+		\draw[fill=gray!15, thin, opacity=0.6] (3.5,0) rectangle (4,5);
+		\draw[fill=gray!15, thin, opacity=0.6] (4,0) rectangle (7,-2);
+			\draw[fill=gray!15, thin, opacity=0.6] (7,0) rectangle (8,4);
+			\draw[fill=gray!15, thin, opacity=0.6] (8,0) rectangle (10,-1);
+			\draw[fill=gray!15, thin, opacity=0.6] (10,0) rectangle (14,1);	
+				\draw[fill=gray!15, thin, opacity=0.6] (14,0) rectangle (15,2);
+		\filldraw[color=white, fill=blue] (1,2) circle (2pt);
+		\filldraw[color=blue, fill=white] (3.5,2) circle (2pt);
+		\filldraw[color=white, fill=blue] (3.5,5) circle (2pt);
+		\filldraw[color=blue, fill=white] (4,5) circle (2pt);
+		\filldraw[color=white, fill=blue] (4,-2) circle (2pt);
+		\filldraw[color=blue, fill=white] (7,-2) circle (2pt);
+		\filldraw[color=white, fill=blue] (7,4) circle (2pt);
+		\filldraw[color=blue, fill=white] (8,4) circle (2pt);
+		\filldraw[color=white, fill=blue] (8,-1) circle (2pt);
+		\filldraw[color=blue, fill=white] (10,-1) circle (2pt);
+		\filldraw[color=white, fill=blue](10,1) circle (2pt);
+		\filldraw[color=blue, fill=white] (14,1) circle (2pt);
+		\filldraw[color=white, fill=blue] (14,2) circle (2pt);
+		\filldraw[color=white, fill=blue] (15,2) circle (2pt);
+		\end{tikzpicture}
+		\caption{The integral of a simple function $ \varphi:[1,15]\to\R $}
+	\end{figure}
+\end{example}
+\begin{example}
+	Let $ \varphi:[a,b]\to\R $ be the trivial simple function of $ \varphi(x)=\chi_{[a,b] }.$ We have $$\int_{a}^b\varphi(x)\ dx=b-a .$$
+\end{example}
+Now we that we can integrate simple functions, how do we extend this to any bounded real function on $ [a,b] $? 
+\begin{definition}
+	Let $ X $ be a set, $ Y $ be an ordered set, $ f:X\to Y $, and $ g:X\to Y  $. We say \textit{\color{red}$ f  $ is greater than or equal to $ g $ (on X)} if $ f(x)\ge g(x) $ for all $ x\in X $, and write $ f\ge g $. Similarly, we say \textit{\color{red}$ f  $ is less than or equal to $ g $ (on X)} if $ f(x)\le g(x) $ for all $ x\in X $, and write $ f\le g $. 
+\end{definition}
+Like many of the definitions that have been introduced, it will be important to specify a domain when we say a function is greater than or less than another. It should always be specified if it is unclear.
+
+Let there be some real valued function $ f $ that is bounded on the interval $ [a,b] $. Suppose for two simple functions defined on $ [a,b] $, call them $ \varphi $ and $ \psi $, we have $ \varphi\le f\le \psi $ on $ [a,b] $, as seen in Figure 62.
+	\begin{figure}[h!]
+		\centering
+		\begin{tikzpicture}
+		\draw (-.3,7) node {$ \R$};
+		\draw (16,-0.3) node {$ \R$};		
+		\draw[thick,->] (0,0) -- (0,7);
+		\draw[thick,->] (0,0) -- (16,0);
+		\draw[thick] (1,-0.2) -- (1,0.2);
+		\draw[thick] (14,-0.2) -- (14,0.2);
+		\draw[blue] (14,5.5) node {$ f(x) $};	
+		\draw[red] (8,6.4) node {$ \psi(x) $};
+		\draw[green] (8,4) node {$ \varphi(x) $};
+		\draw[black] (1,-.5) node {$ a $};
+		\draw[black] (14,-.5) node {$ b $};	
+		\draw[red, thick] (1,2.35)--(2,2.35);
+		\draw[red, thick] (2,3.5)--(3,3.5);
+		\draw[red, thick] (3,4.5)--(4,4.5);
+		\draw[red, thick] (4,5.25)--(5,5.25);
+		\draw[red, thick] (5,5.77)--(6,5.77);
+		\draw[red, thick] (6,6)--(7,6);
+		\draw[red, thick] (7,6)--(8,6);
+		\draw[red, thick] (8,5.7)--(9,5.7);
+		\draw[red, thick] (9,3.55)--(10,3.55);
+		\draw[red, thick] (10,1.2)--(11,1.2);
+		\draw[red, thick] (11,1.6)--(12,1.6);
+		\draw[red, thick] (12,2.9)--(13,2.9);
+		\draw[red, thick] (13,5)--(14,5);
+		\draw[green, thick] (1,1)--(2,1);
+		\draw[green, thick] (2,2.35)--(3,2.35);
+		\draw[green, thick] (3,3.5)--(4,3.5);
+		\draw[green, thick] (4,4.5)--(5,4.5);
+		\draw[green, thick] (5,5.25)--(6,5.25);
+		\draw[green, thick] (6,5.77)--(7,5.77);
+		\draw[green, thick] (7,5.69)--(8,5.69);
+		\draw[green, thick] (8,3.55)--(9,3.55);
+		\draw[green, thick] (9,1.2)--(10,1.2);
+		\draw[green, thick] (10,0.98)--(11,0.98);
+		\draw[green, thick] (11,1)--(12,1);
+		\draw[green, thick] (12,1.6)--(13,1.6);
+		\draw[green, thick] (13,2.9)--(14,2.9);
+		\draw [blue, thick] plot [smooth, tension=1] coordinates { (1,1) (7,6) (10.5,1) (14,5) };
+		\end{tikzpicture}
+		\caption{The function $ f $ is real and bounded on the interval $ [a,b] $. We have $ \varphi\le f\le\psi $ on $ [a,b] $ for two simple functions defined on that interval. }
+	\end{figure}
+Can we somehow use the well defined integrals of $ \varphi $ and $ \psi $ to approximate that of $ f $? If you compare Figure 62 to Figure 56 and Figure 57, then things become clearer. The integrals of $ \varphi $ and $ \psi $ on $ [a,b] $ coincide with the lower and upper Riemann sums shown in Figure 56 and Figure 57! In fact, we can think of a Riemann sum as the integral of a simple function. For a partition $ P=\{x_0,\ldots,x_n\} $ of $ [a,b] $ we may write
+\begin{align*}
+	\varphi(x)=\sum_{i=1}^{n-1}m_i\chi_{[x_{i-1},x_i)}+m_n\chi_{[x_{n-1},x_n]},\\\psi(x)=\sum_{i=1}^{n-1}M_i\chi_{[x_{i-1},x_i)}+M_n\chi_{[x_{n-1},x_n]},
+\end{align*} 
+which gives
+\begin{align*}
+\int_{a}^{b}\varphi(x)\ dx&=\sum_{i=1}^nm_i\Delta x_i,\\
+\int_{a}^{b}\psi(x)\ dx&=\sum_{i=1}^nM_i\Delta x_i.	
+\end{align*}
+Thus we have established the following set inclusions:
+\begin{align}
+	\{L(P,f)\}_{P\in\textbf{P}([a,b])}&\subset \left\{\int_a^b\varphi(x)\ dx\mid \varphi\le f\text{ on }[a,b]\text{, } \varphi\text{ simple}\right\},\\
+	\{U(P,f)\}_{P\in\textbf{P}([a,b])}&\subset \left\{\int_a^b\varphi(x)\ dx\mid \varphi\ge f\text{ on }[a,b]\text{, } \varphi\text{ simple}\right\}.
+\end{align} 
+I'm now going to make what may seem like a bold claim, but is certainly corroborated by Figure 62 and our geometric understanding of the area under a curve:
+\begin{align*}
+\lowint_a^b f(x)\ dx=\sup\{L(P,f)\}_{P\in\textbf{P}([a,b])}&=\sup \left\{\int_a^b\varphi(x)\ dx\mid \varphi\le f\text{ on }[a,b]\text{, } \varphi\text{ simple}\right\},\\
+\upint_a^b f(x)\ dx=\inf\{U(P,f)\}_{P\in\textbf{P}([a,b])}&=\inf\left\{\int_a^b\varphi(x)\ dx\mid \varphi\ge f\text{ on }[a,b]\text{, } \varphi\text{ simple}\right\}.
+\end{align*} 
+Let's provide an informal proof sketch as to why this works for the lower Riemann integral.\footnote{The case for the upper Riemann integral is similar.}
+
+We know that $ \sup A\le \sup B $, for $ A\subset B $, so (11) gives us the first half of the result. We just need to show that
+$$\sup\{L(P,f)\}_{P\in\textbf{P}([a,b])}\ge\sup \left\{\int_a^b\varphi(x)\ dx\mid \varphi\le f\text{ on }[a,b]\text{, } \varphi\text{ simple}\right\} .$$ We can show that any integral of such a simple function is less than or equal to a lower Riemann sum, implying that the supremum of the set must take the form of a lower Riemann sum. Suppose $ \varphi\le f$ on $ [a,b]  $ and is writen as $$\varphi(x)=\sum_{i=k}^{n}c_k\chi_{E_k}=\sum_{k=1}^{n}c_k\chi_{[a_k,b_k)} $$ for $ c_k\in\R $ and $ a_k,b_k\in [a,b] $. Assume that $ a_{k+1}=b_{k} $, so $ \cup_{k=1}^n[a_k,b_k)=[a,b] $. We have $ \varphi\le f $, so $ c_k\le\inf_{x\in[a_k,b_k)}f(x) $. Therefore 
+$$\int_{a}^{b}\varphi(x)\ dx=\sum_{k=1}^{n}c_k(b_k-a_k)\le \sum_{k=1}^{n} \inf\limits_{x\in[a_k,b_k)}f(x)(b_k-a_k) .$$ But this final sum is just the integral of a simple function corresponding to a lower Riemann sum. Therefore for any integral of a simple function $ \varphi\le f $, there exists lower Riemann sum that is greater than or equal to it. 
+
+This all justifies the following alternate definition of the upper and lower Riemann integrals:
+\begin{align*}
+\lowint_a^b f(x)\ dx=\sup \left\{\int_a^b\varphi(x)\ dx\mid \varphi\le f\text{ on }[a,b]\text{, } \varphi\text{ simple}\right\},\\
+\upint_a^b f(x)\ dx=\inf\left\{\int_a^b\varphi(x)\ dx\mid \varphi\ge f\text{ on }[a,b]\text{, } \varphi\text{ simple}\right\}.
+\end{align*} 
+\textbf{\color{red}If this makes no sense}, that is fine. For the rest of this section, we will use the definitions presented in Subsection 6.1. In fact, we will never formally use any proofs involving Riemann integrals. We will however use simple functions in certain examples. This was only presented in an effort to make Section 13 easier. When we return to the idea of simple functions then, it will actually be even clearer than this case, as Section 12 will develop a formal concept of measuring an interval.  
+\begin{remark}[About That Disclaimer]
+	Before the introduction of simple functions, I warned that it would not be totally formal. I made a very strong assumption that the length of an interval $ [a,b] $ is $ b-a $, and I made many assumptions about the properties of this length, and the length of the analogous open interval $ (a,b) $. Once again, we haven't defined any notion of length on $ \R $, so this was careless. \cite{tao2006analysis} does a very good job of introducing the basic idea of length on $ \R $ when discussing partitions and simple functions. 
+\end{remark}
+\subsection{Verifying Riemann Integrability}
+Okay, that detour is now over. We return to the more pressing problem of us not having any easy way of verifying a bounded real function on $ [a,b] $ is Riemann integrable. After intorudcing a series of lemmas, we will arrive at a familiar criterion that we will use to verify Riemann integrability.
+\begin{lemma}
+	Let $ P $ be a partition of the interval $ [a,b] $. If $ P^* $ is a refinement of $ P $, then\begin{align*}
+		L(P,f)\le L(P^*,f)\\
+		U(P^*,f)\le U(P,f)
+	\end{align*} 
+\end{lemma}
+\begin{proof}
+	We will show the result for the first inequality, as the proof for the second is analogous. Suppose that $ P^* $ contains exactly one more point than $ P^* $, call it $ x^* $. There are two consecutive points of $ P $, $ x_{i-1} $ and $ x_i $, such that $x_{i-1}<x^*<x_i $. Define 
+	\begin{align*}
+		w_1&=\inf\limits_{x\in[x_{i-1},x^*]}f(x),\\w_2&=\inf\limits_{x\in[x^*,x_i]}f(x).
+	\end{align*}
+	For $ m_i=\inf_{x\in[x_{i-1},x_i]}f(x) $, we have $ w_1\ge m_i $ and $ w_2\ge m_i $.\footnote{The bound $ m_i $ is the original infimum on the interval $ [x_{i-1},x_i] $. When we add $ x^* $ to our partition, this interval gets split into two intervals: $ [x_{i-1},x^*] $, and $ [x^*,x_i] $. We're saying that the infima of these two new subintervals are weakly greater than that of the original interval. Drawing a picture of this can be helpful!} We therefore have 
+	\begin{align*}
+		L(P^*,f)-L(P,f)&=w_1(x^*-x_{i-1})+w_2(x_i-x^*)-m_i[x_i-x_{i-1}]\\&=(w_1-m_1)(x^*-x_{i-1})+(w_2-m_2)(x_i-x^*)
+	\end{align*}
+	This is the desired result if $ P^* $ only has one additional point.\footnote{How did we end up with such a simple expression for $ L(P^*,f)-L(P,f) $? Well the only difference between $ P^* $ and $ P $ is that $ P^* $ has the intervals  $ [x_{i-1},x^*] $, and $ [x^*,x_i] $ \textit{instead of} $ [x_{i-1},x_i]  $. All the other intervals are the same and cancel out. We're left with the two additional intervals, and need to subtract the interval which they replaced.} If instead $ P^* $ contains $ k $ more points that $ P $, we simply repeat this process $ k $ times to arrive at our result.  
+\end{proof}
+\begin{example}
+	Let $ f $ be the bounded real function on $ [0,1] $ defined as $ f(x)=x^2 $. Suppose $ P={0,1} $, and $ P^*={0,1/2,1} $. We have \begin{align*}
+		L(P,f)&=\inf\limits_{x\in[0,1]}x^2=0\\
+		L(P^*,f)&=\inf\limits_{x\in[0,1/2]}x^2+\inf\limits_{x\in[1/2,1]}x^2=0+\frac{1}{4}=\frac{1}{4}\\
+	\end{align*}
+	This agrees with Lemma 6.1 (as it should).
+\end{example}
+Our next lemma provides an inequality we would hope holds for the upper and lower Riemann integral.
+\begin{lemma}
+	Let $ f $ be a bounded real function on $ [a,b] $. We have 
+	$$\lowint_{a}^bf(x)\ dx\le \upint_{a}^bf(x)\ dx.$$
+\end{lemma}
+\begin{proof}
+	Let $ P_1 $ and $ P_2 $ be partitions of $ [a,b] $, and $ P^* $ be a common refinement of $ P_1 $ and $ P_2 $. By Lemma 6.1,
+	$$ L(P_1,f)\le L(P^*,f)\le U(P^*,f)\le U(P_2,f).$$ If we fix $ P_1 $ and $ P_2 $, we can take the supremum and infimum over all of $ \mathbf{P}([a,b]) $. 
+	\begin{align*}
+	\sup\limits_{P_1\in\textbf{P}([a,b])}	L(P_1,f)&\le \inf\limits_{P_2\in\textbf{P}([a,b])}U(P_2,f)\\\lowint_{a}^bf(x)\ dx&\le \upint_{a}^bf(x)\ dx
+	\end{align*}
+\end{proof}
+When does Lemma 6.2 hold with equality? By Definition 6.5, this occurs precisely when $ f $ is Riemann integrable, because this is how we defined Riemann integrability. This would imply that we have $$\lowint_{a}^bf(x)\ dx< \upint_{a}^bf(x)\ dx $$ if and only if $ f $ is \textit{not} Riemann integrable. At the end of this section, we will see some examples of this.
+
+We are able to present the first of several results that will allow us to determine if a function is Riemann integrable. This theorem not only gives us sufficient conditions for integration, but it also gives a necessary condition for integrability. This gives it much more bite. 
+\begin{theorem}[Riemann's Criterion]
+	Suppose $ f $ is a bounded real function on $ [a,b] $. The function $ f $ is Riemann integrable \textit{if and only if} for all $ \varepsilon>0 $ there exists a partition such that $$ U(P,f)-L(P,f)<\varepsilon.$$
+\end{theorem} The proof of this crucial theorem amounts to just shuffling around inequalities. It only looks so long due to liberal typesetting.  
+\begin{proof}{\color{white}a}
+		\begin{enumerate}
+		\item [$ (\Longrightarrow) $] Suppose $ f $ is Riemann integrable, and let $ \varepsilon>0 $. By the completeness of the real numbers and properties of the supremum, there exists a partition $ P_1 $ such that \begin{align*}
+			U(P_1,f)-\sup\limits_{P\in\textbf{P}([a,b])}U(P,f)&<\frac{\varepsilon}{2},\\
+			U(P_1,f)-\upint_a^b f(x)\ dx&<\frac{\varepsilon}{2},\\
+			U(P_1,f)-\int_a^b f(x)\ dx&<\frac{\varepsilon}{2}.
+		\end{align*} 
+		Similarly, there exists a partition $ P_2 $ such that $$\int_a^bf(x)\ dx-L(P_2,f)<\frac{\varepsilon}{2}. $$ If we choose $ P^* $ to be the common refinement of $ P_1 $ and $ P_2 $,\footnote{Remember all the proofs with convergent sequences where we had two values $ N_1 $ and $ N_2 $, and took $ N=\max\{N_1,N_2\} $ (see the proof of Proposition 3.2 for the first example of this)? This is essentially what we're doing by taking the common refinement of $ P_1 $ and $ P_2 $. We know that the all the $ \varepsilon $ inequalities will hold simultaneously by Lemma 6.1, allowing us to combine them.} then by Lemma 6.1, \begin{align*}
+U(P^*,f)-\int_a^b f(x)\ dx&<U(P_1,f)-\int_a^b f(x)\ dx<\frac{\varepsilon}{2},\\\int_a^bf(x)\ dx-L(P^*,f)&<\int_a^bf(x)\ dx-L(P_2,f)<\frac{\varepsilon}{2}.
+		\end{align*}
+		Combining these two inequalities for $ P^* $ yields
+		\begin{align*}
+U(P^*,f)-L(P^*,f)&=U(P^*,f)-L(P^*,f)+0\\&=U(P^*,f)-L(P^*,f)+\left[-\int_a^b f(x)+\int_a^bf(x)\ dx\right]\\&=\left[U(P^*,f)-\int_a^b f(x)\right]+\left[\int_a^bf(x)\ dx-L(P^*,f)\right]\\&<\frac{\varepsilon}{2}+\frac{\varepsilon}{2}\\&=\varepsilon.
+		\end{align*}
+		\item [$ (\Longleftarrow) $] Suppose for all $ \varepsilon>0 $ there exists a partition such that $ U(P,f)-L(P,f)<\varepsilon $. By the definition of supremum and infimum we have 
+		\begin{align*}
+				L(P,f)\le\sup\limits_{P\in\textbf{P}([a,b])}U(P,f)=\lowint_{a}^b f(x)\ dx,\\
+				\upint_{a}^b f(x)\ dx\le \inf\limits_{P\in\textbf{P}([a,b])}U(P,f)\le U(P,f),
+		\end{align*}
+		for all $ P\in\mathbf{P}([a,b]) $. Combining this inequalities with Lemma 6.2 gives $$ L(P,f)\le\lowint_{a}^b f(x)\ dx\le\upint_{a}^b f(x)\ dx\le U(P,f).$$ This implies that $$0\le\lowint_{a}^b f(x)\ dx- \upint_{a}^b f(x)\ dx \le \varepsilon,$$ but if this holds for all $ \varepsilon>0 $, $$ \lowint_{a}^b f(x)\ dx = \upint_{a}^b f(x)\ dx.$$ Therefore $ f $ is Riemann integrable. 
+	\end{enumerate}
+\end{proof}
+Riemann's Criterion should not catch us off guard. If $ f $ is integrable then the lower and upper Riemann integrals are equal. By the definition of those values, we need that the upper and lower Riemann sums become arbitrarily close to each other. We've seen this type of behavior with sequences, limits, and continuity. This time instead of some $ n $ or $ \delta $ term which correspond to $ \varepsilon $, we have a partition $ P $ that corresponds to $ \varepsilon $. As we take $ \varepsilon $ to be smaller and smaller, we will need to find finer and finer partitions $ P $, but we will always be able to do this in order to satisfy $ U(P,f)-L(P,f)<\varepsilon $.  
+\begin{remark}[Riemann Criterion and Cauchy Criterion]
+The Riemann Criterion may have nothing to do with sequences, but it shares one important similarity with the Cauchy Criterion. Recall that the Cauchy Criterion is so useful because it does not require us to know the limit of a sequence. The same is true with the Riemann Criterion. We don't need to know the integral of $ f $ on $ [a,b] $ to prove it exists! 
+\end{remark}
+\begin{example}
+Let $ f:[0,1]\to \R $ be $$f(x)=\begin{cases}
+1/n\text{ if }x=1/n\\0\text{ otherwise}
+\end{cases}. $$ We can use the Riemann Criterion to show this function is integrable on $ [0,1] $. Let $ \varepsilon>0 $. The sequence $ \{1/n\} $ converges to $ 0 $, so for all $ \varepsilon/2>0 $ there exists an $ N $ such that $ 1/n\in[0,\varepsilon/2] $ for all $ n\ge N $. Only a finite number of values of the form $ 1/n $ are in the interval $ [\varepsilon/2,1] $ (Proposition 3.1). We can cover these finite values by intervals $ [x_1,x_2],\ldots,[x_{m-1},x_m] $ such that $ x_i\in[\varepsilon/2,1] $ for all $ i=1,\ldots,m $. The finite length of these $ m $ intervals is less than $ \varepsilon/2 $. Let $ P=\{0,\varepsilon,x_1,\ldots,x_m\} $. We have $$U(P,f)-L(P,f)=(\varepsilon/2-0)+\underbrace{(x_2-x_1)+\ldots+(x_m-x_{m-1}) }_{<\varepsilon/2}<\varepsilon.$$ The function is Riemann integrable.\footnote{If you keep going with this example, you can verify that $ \int_{0}^{1}f(x)\ dx=0 $.} 
+\end{example}
+The Riemann Criterion gives way to several related results that put integrability in conversation with limitings processes. 
+\begin{proposition}
+	Suppose $ f $ is a bounded real function on the interval $ [a,b] $.
+	\begin{enumerate}
+	\item If $ U(P,f)-L(P,f)<\varepsilon $ for some $ P $, then it holds for every refinement of $ P $.
+	\item If $ U(P,f)-L(P,f)<\varepsilon $ for some $ P=\{x_0,\ldots,x_n\} $, and if $ s_i,t_i\in[x_{i-1},x_{i}] $, then $$ \sum_{i=1}^n|f(s_i)-f(t_i)|\Delta x_i<\varepsilon.$$
+	\item If $ f $ is Riemann integrable, $ U(P,f)-L(P,f)<\varepsilon $ for some $ P=\{x_0,\ldots,x_n\} $, and $ t_i\in[x_{i-1}-x_{i}]$, then $$ \left\lvert \sum_{i=1}^nf(t_i)\Delta x_i-\int_{a}^{b}f(x)\ dx\right\rvert<\varepsilon.$$
+	\end{enumerate}
+\end{proposition}
+\begin{proof}{\color{white}a}
+\begin{enumerate}
+	\item Let $ P^* $ be a refinement of $ P $. By Lemma 6.1, $$U(P^*,f)-L(P^*,f)<U(P,f)-L(P,f)<\varepsilon .$$ 
+	\item We have $ f(s_i),f(t_i)\in[m_i,M_i] $, as $ f $ is bounded on any interval by the supremum and infimum on that interval. This means that $$|f(s_i)-f(t_i)|\le M_i-m_i .$$ Therefore $$\sum_{i=1}^n|f(s_i)-f(t_i)|\Delta x_i\le\sum_{i=1}^n(M_i-m_i)\Delta x_i=\sum_{i=1}^n M_i\Delta x_i-\sum_{i=1}^n m_i\Delta x_i=<U(P,f)-L(P,f)<\varepsilon. $$
+	\item We will always have the two following inequalities:
+	\begin{align*}
+		L(P,f)\le\sum_{i=1}^nf(t_i) \Delta x_i\le U(P,f),\\
+		L(P,f)\le\int_{a}^{b}f(x)\ dx\le U(P,f).
+	\end{align*}
+	These combine to give $$  \left\lvert \sum_{i=1}^nf(t_i)\Delta x_i-\int_{a}^{b}f(x)\ dx\right\rvert\le U(P,f)-L(P,f)<\varepsilon. $$
+\end{enumerate}
+\end{proof}
+This proposition seems like a random string of inequalities,\footnote{To be honest, most of real analysis seems like a random string of inequalities sometimes.} but...
+\subsection{Properties of Riemann Integration}
+Now we can present some familiar properties of the integral. Just like when we did this with limits and derivatives, most of these may be familiar, so examples won't be furnished for every single possible property. 
+\begin{theorem}
+Suppose $ f $ and $ g $ are both bounded real functions on $ [a,b] $ which are integrable. Then 
+\begin{enumerate}
+	\item $ f+g $ is integrable, and $$ \int_{a}^{b}f(x)+g(x)\ dx=\int_{a}^{b}f(x)\ dx+\int_{a}^{b}g(x)\ dx;$$
+	\item $ cf $ is integrable for $ c\in\R $, and $$\int_{a}^{b}cf(x)\ dx=c\int_{a}^{b}f(x)\ dx; $$
+	\item (Monotonicity) if $ f\le g $ on $ [a,b] $ we have $$\int_{a}^{b}f(x)\ dx\le \int_{a}^{b}g(x)\ dx.$$
+	\item (Additivity) for $ c\in[a,b] $, $ f $ is integrable on $ [a,c] $ and $ [c,b] $, and $$\int_{a}^{c}f(x)\ dx+\int_{c}^{b}f(x)\ dx=\int_{a}^{b}f(x)\ dx $$
+	\item if $ |f(x)|\le M $ on $ [a,b] $ we have $$ \left\lvert\int_{a}^{b}f(x)\ dx \right\rvert\le M(b-a)$$
+\end{enumerate}
+The proofs of these are all really similar and monotonous, so fair warning.\footnote{There is a reason that \cite{rudin1964principles} omits most of them.}
+\begin{proof}{\color{white}a}
+
+	\begin{enumerate}
+	\item Let $ P $ be a partition of $ [a,b] $. We have 
+	\begin{align}
+	L(P,f)+L(P,g)\le L(P,f+g)\le U(P,f+g)\le U(P,f)+U(P,g).
+	\end{align}
+	For $ \varepsilon>0 $ there are partitions $ P_1 $ and $ P_2 $ such that\begin{align*}
+	U(P_1,f)-L(P_1,f)<\frac{\varepsilon}{2},\\
+	U(P_2,g)-L(P_2,g)<\frac{\varepsilon}{2}.
+	\end{align*}
+	If we take $ P^* $ to be the common refinement of $ P_1 $ and $ P_2 $, then 
+	\begin{align*}
+	U( P^*,f)-L( P^*,f)<\frac{\varepsilon}{2},\\
+	U( P^*,g)-L( P^*,g)<\frac{\varepsilon}{2}.
+	\end{align*}
+	These inequalities combined with (13) gives $U(P^*,f+g)-L(P^*,f+g)<\frac{\varepsilon}{2}+\frac{\varepsilon}{2}=\varepsilon ,$ so $ f+g $ is Riemann integrable.
+	For this same $ P^* $, \begin{align*}
+		U(P^*,f)&<\int_{a}^{b} f(x)\ dx +\frac{\varepsilon}{2},\\
+		U(P^*,g)&<\int_{a}^{b} g(x)\ dx +\frac{\varepsilon}{2}.
+	\end{align*}
+	Again by (13), $$ \int_{a}^{b}f(x)+g(x)\ dx\le U(P^*,f+g)\le U(P^*,f)+U(P^*,g)<\int_{a}^{b} f(x)\ dx +\int_{a}^{b} g(x)\ dx +\varepsilon.$$ This holds for all $ \varepsilon>0 $, so $$\int_{a}^{b}f(x)+g(x)\ dx\le\int_{a}^{b} f(x)\ dx +\int_{a}^{b} g(x)\ dx. $$ Now for the reverse direction all at once: 
+	\begin{align*}
+	L(P^*,f)&>\int_{a}^{b} f(x)\ dx -\frac{\varepsilon}{2},\\
+	L(P^*,g)&>\int_{a}^{b} g(x)\ dx -\frac{\varepsilon}{2},\\
+	\int_{a}^{b}f(x)+g(x)\ dx\ge L(P^*,f+g)\ge L(P^*,f)&+L(P^*,g)>\int_{a}^{b} f(x)\ dx +\int_{a}^{b} g(x)\ dx -\varepsilon\\\int_{a}^{b}f(x)+g(x)\ dx&\ge\int_{a}^{b} f(x)\ dx +\int_{a}^{b} g(x)\ dx.
+	\end{align*}
+	Therefore we have $$\int_{a}^{b}f(x)+g(x)\ dx=\int_{a}^{b} f(x)\ dx +\int_{a}^{b} g(x)\ dx. $$
+ 	\item 	First suppose $ c\ge 0 $. For any set $ A\subset [a,b] $, \begin{align*}
+ 		\sup\limits_{x\in A} cf(x)=c\sup\limits_{x\in A} f(x),\\\inf\limits_{x\in A} cf(x)=c\inf\limits_{x\in A} f(x).
+ 	\end{align*}
+ 	This gives
+ 	\begin{align*}
+ 		\upint_a^bf(x)\ dx= \inf\limits_{P\in\textbf{P}([a,b])}U(P,cf)=c\inf\limits_{P\in\textbf{P}([a,b])}U(P,f)=c\upint_a^bf(x)\ dx,\\\lowint_a^bf(x)\ dx= \sup\limits_{P\in\textbf{P}([a,b])}L(P,cf)=c\inf\limits_{P\in\textbf{P}([a,b])}L(P,f)=c\lowint_a^bf(x)\ dx.
+ 	\end{align*}
+ 	 Since $ f $ is Riemann integrable, its upper and lower Riemann integrals are equal. This establishes the integrability of $ f $, as $$ c\lowint_a^bf(x)\ dx=c\upint_a^bf(x)\ dx=c\int_a^bf(x)\ dx.$$
+ 	 
+ 	 Now let $ c=-1 $. In this case, we can't ``factor'' out a constant from a supremum and infimum. Instead, for any $ A\subset[a,b] $, we have
+ 	 \begin{align*}
+ 	 \sup\limits_{x\in A} -f(x)=-\inf\limits_{x\in A} f(x),\\\inf\limits_{x\in A} -f(x)=-\sup\limits_{x\in A} f(x).
+ 	 \end{align*}
+ 	 We will have $ U(P,-f)=-L(P,f) $ and $ L(P,-f)=-U(P,f) $ for any partition. This gives
+ 	 \begin{align*}
+ 	 \upint_a^b-f(x)\ dx= \inf\limits_{P\in\textbf{P}([a,b])}U(P,-f)=\inf\limits_{P\in\textbf{P}([a,b])}-L(P,f)=-\sup\limits_{P\in\textbf{P}([a,b])}L(P,f)=-\lowint_a^bf(x)\ dx,\\\lowint_a^b-f(x)\ dx= \sup\limits_{P\in\textbf{P}([a,b])}L(P,-f)=\sup\limits_{P\in\textbf{P}([a,b])}-U(P,f)=-\inf\limits_{P\in\textbf{P}([a,b])}U(P,f)=-\upint_a^bf(x)\ dx. 	 \end{align*}
+ 	 Since $ f $ is Riemann integrable, its negative upper and lower Riemann integrals are equal, so $$ \lowint_a^b-f(x)\ dx=c\upint_a^b-f(x)\ dx=c\int_a^b-f(x)\ dx. $$
+ 	 In general, if $ c<0 $, we can write it as $ -1\cdot|c| $ and apply the first two cases. 
+	\item By the two previous parts, we can show that the integral of $ g-f $ is not negative, as $$ \int_{a}^{b}g(x)\ dx+\int_{a}^{b}-f(x)\ dx=\int_{a}^{b}g(x)-f(x)\ dx.$$ We know $ g-f\ge 0 $, so $ \inf_{x\in A}(f(x)-g(x))\ge 0 $ for any $ A\subset [a,b] $.  This means that for any $ P $, $ L(P,f)\ge 0 $, so $$ \int_{a}^{b}g(x)-f(x)\ dx\ge L(P,f)\ge 0.$$
+	\item For all $ \varepsilon>0 $, there exists a partition $ P $ such that $ U(P,f)-L(P,f)<\varepsilon $. Define $ P^*=P\cup\{c\} $ to be the refinement of $ P $ which results from adding $ c $.\footnote{It could be the case that $ c\in P $. This would just mean that $ P^*=P $.} Let $ Q=P^*\cap[a,c] $ and $ R=P^*\cap[c,b] $ be partitions of $ [a,b] $ and $ [c,b] $ respectively. For these partitions 
+	\begin{align*}
+		U(P^*,f)=U(Q,f)+U(R,f),\\
+		L(P^*,f)=L(Q,f)+L(R,f).
+	\end{align*}
+	We can conclude \begin{align*}
+		U(Q,f)-L(Q,f)=U(P^*,f)-L(P^*,f)-[U(R,f)-L(R,f)]\le U(P,f)-L(P,f)<\varepsilon,\\
+			U(R,f)-L(R,f)=U(P^*,f)-L(P^*,f)-[U(Q,f)-L(Q,f)]\le U(P,f)-L(P,f)<\varepsilon.
+	\end{align*}
+	This shows that $ f $ is integrable on $ [a,c] $ and $ [c,b] $ by Riemann's Criterion.
+	
+	We have 
+	\begin{align*}
+		\int_{a}^{b}f(x)\ dx\le U(P,f)=U(Q,f)+U(R,f)< L(Q,f)+L(R,f)+\varepsilon< \int_{a}^{c}f(x)\ dx+\int_{c}^{b}f(x)\ dx+\varepsilon,\\
+		\int_{a}^{b}f(x)\ dx\ge U(P,f)=U(Q,f)+U(R,f)> U(Q,f)+U(R,f)-\varepsilon> \int_{a}^{c}f(x)\ dx+\int_{c}^{b}f(x)\ dx-\varepsilon,
+	\end{align*}
+	which combine to give
+	$$ \int_{a}^{c}f(x)\ dx+\int_{c}^{b}f(x)\ dx-\varepsilon<\int_{a}^{b}f(x)\ dx< \int_{a}^{c}f(x)\ dx+\int_{c}^{b}f(x)\ dx+\varepsilon.$$ If this for all $ \varepsilon>0 $, then $$\int_{a}^{b}f(x)\ dx=\int_{a}^{c}f(x)\ dx+\int_{c}^{b}f(x)\ dx $$
+	\item Treat $ M $ as a constant function on $ [a,b] $. Example 6.1 showed that $$\int_{a}^{b}M\ dx=M(b-a). $$ If $ |f(x)|\le M $, then $ -M\le f(x)\le M $. By monotonicity, $$-M(b-a)=\int_{a}^{b}-M\ dx\le \int_{a}^{b}f(x)\ dx\le \int_{a}^{b}M\ dx=M(b-a), $$ which can be written as $$ \left\lvert\int_{a}^{b}f(x)\ dx \right\rvert\le M(b-a) .$$
+	\end{enumerate}
+
+\end{proof}
+\end{theorem}
+\begin{example}[Linearity]
+The first 2 parts of Theorem 6.2 give that Riemann integration is linear. For any $ c,d\in\R $, we will have $$\int_{a}^{b}cf(x)+dg(x)\ dx=c\int_{a}^{b}f(x)+d\int_{a}^{b}g(x)\ dx .$$ This will turn out to be \textit{very very} important in later sections. We will not be working with the Riemann integral than, but we'll see that integration in general is intrinsically linked to linearity. 
+\end{example}
+
+While \textit{the } Mean Value Theorem deals with derivatives, a similar result holds for integrals. It asserts that a continuous function must take on its average value on an interval.
+\begin{proposition}[Mean Value Theorem for Integrals I]
+Let $ f $ be a bounded real function on $ [a,b] $. If $ f $ is continuous, then there exists a $ c\in[a,b] $ such that $$f(c)=\frac{1}{b-a}\int_{a}^{b}f(x)\ dx.$$	
+\end{proposition}
+\begin{proof}
+	Since $ f $ is continuous, we can use the Extreme Value Theorem. The function $ f $ must attain a maximum $ M $ and minimum $ m $ on $ [a,b] $. By monotonicity, 
+	\begin{align*}
+		\int_{a}^{b}f(m)\ dx\le &\int_{a}^{b}f(x)\ dx\le \int_{a}^{b}f(M)\ dx,\\
+		f(m)(b-a)\le &\int_{a}^{b}f(x)\ dx\le f(M)(b-a),\\
+		f(m)\le \frac{1}{b-a}&\int_{a}^{b}f(x)\ dx\le f(M).
+	\end{align*}
+	By the Intermediate Value Theorem, $ f $ takes on every value in $ [m,M] $, so there must be some $ c $ such that $$f(c)=\frac{1}{b-a}\int_{a}^{b}f(x)\ dx.$$
+\end{proof}
+The integral in Proposition 6.2 corresponds to the average value attained by the function on $ [a,b] $. This proposition has a nice geometric interpretation if the equality is written as $$ f(c)(b-a)=\int_{a}^{b}f(d)\ dx.$$ As shown in Figure 63, we can find some rectangle of height $ f(c) $ on the interval $ [a,b] $ that equals the area under $ f $. 
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+	\fill[fill=blue!10, opacity=0.8] (1,1)  to[out=45,in=180]  (7,6) to[out=0,in=180] (10.5,1) to[out=0,in=230] (14,5) -- (14,0) -- (1,0) -- (1,1);
+	\fill[fill=red!20, opacity=0.8] (1,0) rectangle (14,3);
+	\draw (-.3,7) node {$ \R$};
+	\draw (16,-0.3) node {$ \R$};		
+	\draw[thick,->] (0,0) -- (0,7);
+	\draw[thick,->] (0,0) -- (16,0);
+	\draw[thick] (1,-0.2) -- (1,0.2);
+	\draw[thick] (14,-0.2) -- (14,0.2);
+	\draw[thick] (-0.2,3) -- (0.2,3);
+	\draw (-.6,3) node {$ f(c)$};
+	\draw[thick] (2.7,-0.2) -- (2.7,0.2);
+	\draw[blue] (14,5.5) node {$ f(x) $};	
+	\draw[blue] (6,4) node {$ \displaystyle\int_{a}^{b}f(x) $};
+	\draw[red] (10.5,2) node {$ f(c)(b-a) $};
+	\draw[black] (1,-.5) node {$ a $};
+	\draw[black] (14,-.5) node {$ b $};	
+	\draw[black] (2.7,-.5) node {$ c $};
+	\draw[thick, blue] (1,1)  to[out=45,in=180]  (7,6) to[out=0,in=180] (10.5,1) to[out=0,in=230] (14,5);
+	
+	\end{tikzpicture}
+	\caption{ The Mean Value Theorem for Integrals says that we can find a value $ c\in[a,b] $ such that the red rectangle is equal in area to the integral shown in blue.}
+\end{figure}
+A second form of the Mean Value Theorem for Integrals is even more useful, as it allows us to find a value in $ [a,b] $ that allows us to ``factor'' a function out of the integral of a product.
+\begin{proposition}[Mean Value Theorem for Integrals II]
+Let $ f $ be a bounded real function on $ [a,b] $. If $ f $ is continuous, and $ g $ is integrable function $ [a,b] $ and does not change signs,  then there exists a $ c\in[a,b] $ such that $$\int_{a}^{b}f(x)g(x)\ dx=f(c)\int_{a}^{b}g(x)\ dx.$$
+\end{proposition}
+\begin{proof}
+	If $ g(x)=0 $ for all $ x\in[a,b] $, then the result holds trivially. Assume instead that $ g(x)>0 $. Since $ f $ is continuous, we can use the Extreme Value Theorem. The function $ f $ must attain a maximum $ M $ and minimum $ m $ on $ [a,b] $. 
+	\begin{align*}
+		f(m)\le &f(x)\le f(M),\\f(m)g(x)\le &f(x)g(x)\le f(M)g(x).
+	\end{align*} 
+	Multiply by $ g(x) $ will not change the inequality, as $ g(x)>0 $ for all $ x\in[a,b] $.\footnote{The other case where $g(x)<0$ would reverse the order of the inequality, but that is fine. What's important is that we have an upper and lower bound on $ f(x)g(x) $, not what those bounds happen to be.} By monotonicity and the linearity of integration, 
+	\begin{align*}
+f(m)g(x)\le &f(x)g(x)\le f(M)g(x),\\\int_{a}^{b}f(m)g(x)\ dx\le \int_{a}^{b}&f(x)g(x)\ dx\le \int_{a}^{b}f(M)g(x)\ dx,\\f(m)\int_{a}^{b}g(x)\ dx\le \int_{a}^{b}&f(x)g(x)\ dx\le f(M)\int_{a}^{b}g(x)\ dx.
+	\end{align*} 
+	If we divide by the integral of $ g $, then $$f(m)\le\frac{\int_{a}^{b}f(x)g(x)\ dx}{\int_{a}^{b}g(x)\ dx}\le f(M). $$ By the continuity of $ f $ and the Intermediate Value Theorem, there exists a $ c\in\R $ such that $$f(c)=\frac{\int_{a}^{b}f(x)g(x)\ dx}{\int_{a}^{b}g(x)\ dx} ,$$ which can be expressed as $$\int_{a}^{b}f(x)g(x)\ dx=f(c)\int_{a}^{b}g(x)\ dx. $$
+	As mentioned in Footnote 99, the case where $ g<0 $ is virtually the same. The only difference is that all the inequalities are reversed, but we're still able to apply the Intermediate Value Theorem. 
+\end{proof}
+\begin{example}
+	For Proposition 6.3, let $ g(x)=1$ on $ [a,b] $. In this case we recover Proposition 6.2.
+	\begin{align*}
+		\int_{a}^{b}f(x)g(x)\ dx&=f(c)\int_{a}^{b}g(x)\ dx,\\
+		\int_{a}^{b}f(x)\cdot 1\ dx&=f(c)\int_{a}^{b} 1\ dx,\\
+		\int_{a}^{b}f(x)g(x)\ dx&=f(c)(b-a).
+	\end{align*}
+	This observation shows that Proposition 6.3 is a generalized version of its predecessor.  
+\end{example}
+\begin{example}[What if $ g $ Changes Sign?]
+	Proposition 6.3 stipulates that the function $ g $ cannot change sign on $ [a,b] $. This is essential. If this is not the case, then the inequality  
+	$$f(m)g(x)\le f(x)g(x)\le f(M)g(x)$$ will not hold for all $ x\in [a,b] $. Suppose $ g(x)=x $ on $ [-1,1] $, and $ f(x)=x $. In this case $$f(x)\int_{-1}^{1}g(x)\ dx=0 $$ for all $ x $, but $ f(x)g(x)=x^2 $, so $$ \int_{-1}^{1}f(x)g(x)\ dx\neq 0 .$$ Therefore Proposition 6.3 does not hold. 
+\end{example}
+\subsection{Riemann Integration and Continuity}
+With the Riemann Criterion in hand, we're able to prove that a function is integrable. We will now use it to show that two very general classes of functions are integrable, the first being continuous functions.
+
+The fact that all continuous functions (on $ [a,b] $) are integrable should not come as a surprise. Not only is nearly every function integrated in a calculus course continuous, but continuity and integrability are both the results of limiting behavior with an arbitrary $ \varepsilon>0 $ (the latter being the case as a result of Riemann's Criterion). 
+\begin{theorem}[Continuity implies Integrability]
+If $ f $ is a real continuous function on $ [a,b] $, then $ f $ is Riemann integrable on $ [a,b] $.
+\end{theorem}
+\begin{proof}
+	First note that a continuous function on $ [a,b] $ is in fact bounded on $ [a,b] $ by the Extreme Value Theorem.\footnote{This is important to point out because we only can define the Riemann integral for bounded real functions.} Furthermore, $ [a,b] $ is compact (Heine-Borel), so $ f $ is uniformly continuous on $ [a,b] $ (Theorem 4.8). For all $ \varepsilon>0 $, there exists a $ \delta $ such that $$|f(x)-f(y)|<\frac{\varepsilon}{n(b-a)} ,$$ for all $ x,y\in[a,b] $ which satisfy $ |x-y|<\delta $. Choose a partition  $ P $ of $ [a,b] $ such that $|x_i-x_{i-1}|<\delta $ for $ i=1,\ldots, n$.\footnote{For example, you could take form $ P $ with $ n $ intervals of length $ (b-a)/n $ for $ n>(b-a)/\delta $} 
+	
+	Our function is continuous, so it achieves its maximum and minimum on each $ [x_{i-1},x_{i}]\subset P $, but in this case those are $ M_i $ and $ m_i $. We therefore have $$|f(s_i)-f(t_i)|<|M_i-m_i|<\frac{\varepsilon}{b-a} $$ for $ |s_i-t_i|<\delta $, where $ f(s_i)=M_i $ and $ f(t_i)=m_i $.\footnote{That is, $ s_i $ and $ t_i $ are where the function acheives its maximum $ M_i $ and minimum $ m_i $ respectively.} This allows us to verify that the Riemann Criterion holds for the partitions $ f $: $$ U(P,f)-L(P,f)=\sum_{i=1}^nM_i\Delta x_i-\sum_{i=1}^nm_i\Delta x_i=\sum_{i=1}^n(M_i-m_i)\Delta x_i<n\cdot\frac{\varepsilon}{n(b-a)}\cdot(b-a)<\varepsilon.$$
+\end{proof}
+\begin{example}[Integrable But Not Continuous]
+	The converse of Theorem 6.3 \textit{is not true}. Example 6.6 showed a function that failed to be continuous on $ [0,1] $ but is still integrable on $ [0,1] $. 
+\end{example}
+\begin{proposition}[Continuous Composition Preserves Integrability]
+Suppose $ f $ is a bounded real function on $ [a,b] $, $ m\le f\le M $, $ \phi $ is continuous on $ [m,M] $, and $ h(x)=\phi\circ f(x)=\phi(f(x)) $ on $ [a,b] $. Then $ h $ is integrable on $ [a,b] $.
+\end{proposition}
+For the proof of this result, it's important to remember that the domain of $ \phi $ is the range of $ f $. It can be easy to get bogged down with the notation in this one. This also will be the most intense proof involving $ \varepsilon $ yet. 
+\begin{proof}
+	Let $ \varepsilon>0 $. The function $ \phi $ is continuous on the compact set $ [a,b] $, so it is uniformly continuous. There exists a $ \varepsilon>0 $ such that $ \delta<\varepsilon $ and $$ |\phi(s)-\phi(t)|<\frac{\varepsilon}{(b-a)+2\sup_{v\in[m,M]}|\phi(v)|} $$ whenever $ |s-t|<\delta $ for $ s,t\in[m,M] $.\footnote{Woah, what is up with us saying $ \delta<\varepsilon $!? Well if the inequalities hold for $ \delta $, then it should hold for any number less than $ \delta'=\min\{\delta,\varepsilon\} $. If we have $ \delta'<\varepsilon $, then $ \delta'=\delta $. Therefore we lost no generality in saying $ \delta'<\varepsilon $. We simply introduce it as $ \delta $ instead of explicitly going through this though process with $ \delta' $.}
+	
+	Since $ f $ is integrable, there is a partition $ P=\{x_0,\ldots,x_n\} $ on $ [a,b] $ for which
+	\begin{align}
+		U(P,f)-L(P,f)<\delta^2
+	\end{align} by Riemann's Criterion. This partition gives a partition of $ [m,M] $ in $ P^*=\{m=f(x_0),f(x_1),\ldots,f(x_n)=M\} $.\footnote{This is the partition that we will use with $ \phi:[m,M]\to\R $.} Let \begin{align*}
+		M_i=\sup_{x\in[x_{i-1},x_i]} f(x),\ \ \ \
+		m_i=\inf_{x\in[x_{i-1},x_i]} f(x),\ \ \ \
+		M_i^*=\sup_{t\in[f(x_{i-1}),f(x_i)]} \phi (t),\ \ \ \ m_i^*=\inf_{t\in[f(x_{i-1}),f(x_i)]} \phi(t).
+	\end{align*}
+Figure 64 shows what a partition $ M_i^* $ and $ m_i^* $ will look like.
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+	
+	\draw (-.3,7) node {$ \R$};
+	\draw (16,-0.4) node {$ f([a,b])$};		
+	\draw[thick,->] (0,0) -- (0,7);
+	\draw[thick,->] (0,0) -- (16,0);
+	\draw[thick] (1,-0.2) -- (1,0.2);
+	\draw[thick] (14,-0.2) -- (14,0.2);
+
+	\draw[thick,dashed] (3,0)-- (3,3.5);
+	\draw[thick, dashed] (7,6) -- (0,6);
+	\draw[thick, dashed] (13,0) -- (13,3.2);
+	\draw[thick, dashed] (10.5,1) -- (0,1);
+	\draw[blue] (14,5.5) node {$ \phi(f(x)) $};	
+	\draw (-.3,6) node {$ M_i^*$};
+	\draw (-.3,1) node {$ m_i^*$};
+	\draw[black] (3,-.5) node {$ f(x_{i-1}) $};
+	\draw[black] (13,-.5) node {$ f(x_{i}) $};
+	\draw[black] (1,-.5) node {$ m $};
+	\draw[black] (14,-.5) node {$ M $};	
+	\draw[thick, blue] (1,1)  to[out=45,in=180]  (7,6) to[out=0,in=180] (10.5,1) to[out=0,in=230] (14,5);
+	\end{tikzpicture}
+	\caption{An interval $ [f(x_{i-1}),f(x_{i})]\subset P^* $, and the values $ M_i^* $  and $ m_i^* $.}
+\end{figure}
+ We can divide the indices for the partition $ P $ into two sets \begin{align*}
+A&=\left\{i\mid M_i-m_i<\delta \right\},\\
+B&=\left\{i\mid M_i-m_i\ge\delta \right\}.
+\end{align*} 
+If $ i\in A $, then by the uniform continuity of $ \phi $, $$|\phi(M_i)-\phi(m_i)|=|M_i^*-m_i^*|<\varepsilon .$$ If $ i\in B $ then $$|M_i^*-m_i^*|\le 2K ,$$ for $ K=\sup|\phi(t)| $ and $ m\le t\le M $.\footnote{In the context of Figure 64, this inequality makes a bit more sense. The distance between the $ \sup $ and $ \inf $ of $ \phi(t) $ on the interval $ [f(x_{i-1}),f(x_{i})] $ must be less than twice the absolute value of the $ \sup $ and of $ \phi $ on the whole domain being partitioned $ [m,M] $. If $ m_i^*=-M_i^* $, then $ |M_i^*-m_i^*|=2M_i^* $. If $ M_i^* $ happens to be the supremum on all of $ [m,M] $, that is $ K=M_i^* $, then we have the equality $ |M_i^*-m_i^*|=2K $. Understanding this inequality may be the toughest part of this proof, and it's worth drawing some pictures if it is not clear.} 	By (14), \begin{align*}
+	&U(P,f)-L(P,f)=\sum_{i=1}^nM_i\Delta x_i-\sum_{i=1}^nm_i\Delta x_i=\sum_{i=1}^n(M_i-m_i)\Delta x_i<\delta^2\\\implies&\sum_{i\in A}(M_i-m_i)\Delta x_i+\sum_{i\in B}(M_i-m_i)\Delta x_i<\delta^2\\\implies&\sum_{i\in B}\underbrace{(M_i-m_i)}_{\ge\delta}\Delta x_i<\delta^2\\\implies& \delta \sum_{i\in B}\Delta x_i\le\sum_{i\in B}(M_i-m_i)\Delta x_i<\delta^2\\\implies& \sum_{i\in B}\Delta x_i<\delta.
+\end{align*}
+This final inequality allows us to show the Riemann condition holds for $ \phi(f(x)) $, as required:
+\begin{align*}
+	U(P,\phi(f))-L(P,\phi(f))&=\sum_{i\in A}\underbrace{(M_i^*-m_i^*)}_{<\varepsilon}\Delta x_i+\sum_{i\in B}\underbrace{(M_i^*-m_i^*)}_{2K}\underbrace{\Delta x_i}_{<\delta}\\&<\frac{\varepsilon}{(b-a)+\sup|\phi(t)|}(b-a)+2K\underbrace{\delta}_{<\frac{\varepsilon}{(b-a)+2\sup|\phi(t)|}}\\&<\frac{\varepsilon}{(b-a)+2K}[(b-a)+2K]\\&=\varepsilon.
+\end{align*}
+\end{proof}
+Along with keeping track of if we're working in $ [a,b] $ or $ [m,M] $, I think another part of this proof that is not clear is how to handle the case where $ M_i-m_i\ge\delta $. Splitting the partition of $ [a,b] $ into two parts, one corresponding to the case where $  M_i-m_i<\delta $ (indexed by $ A $), the other where $  M_i-m_i\ge\delta $ (indexed by $ B $), is a pretty clear answer, but it goes against a lot on the instincts developed when doing analysis. Many proofs require you to show some inequality holds in every possible case, so if you were trying to develop this proof on your own, when you realize $  M_i-m_i\ge\delta $ for some $ i $, it may seem like you're doing something wrong.
+
+Proposition 6.4 allows us to prove two additional properties of integration.
+\begin{proposition}
+	Suppose $ f $ and $ g $ are both bounded real functions on $ [a,b] $ which are integrable. Then $ fg $ is integrable on $ [a,b] $.
+\end{proposition}
+\begin{proof}
+	By Theorem 6.2, $ f\pm g $ is integrable. Proposition 6.4 tells us that $ \phi(f\pm g) $ and will be integrable as long as $ \phi $ is continuous. If we let $ \phi(t)=t^2 $, then \begin{align*}
+		\phi(f-g)=(f-g)^2,\\\phi(f+g)=(f+g)^2,
+	\end{align*} are integrable. Again by Theorem 6.2, their difference scaled should be integrable. $$fg=\frac{(f+g)^2+(f-g)^2}{4} $$ This gives that $ fg $ is integrable. 
+\end{proof}
+The converse of Proposition 6.5 is not true. Being able to factor an integrable function does not guarantee the factors are integrable as the next example shows.
+\begin{example}
+	Define $ f:\R\to\R $ as $$f(x)=\begin{cases}
+	1\text{ if }x\in\Q\\-1\text{ if }x\notin\Q
+	\end{cases}. $$ 
+This function is not integrable on $ [0,1] $ (see Subsection 6.11), but $ f^2 $ is, as $ f^2(x)=1 $ for all $ x\in\R $. 	
+\end{example}
+\begin{proposition}
+	Suppose $ f $ is bounded real functions on $ [a,b] $ which is integrable. Then $ |f| $ is integrable on $ [a,b] $, and $$\left\lvert\int_{a}^{b}f(x)\ dx \right\rvert\le \int_{a}^{b}|f|\ dx. $$
+\end{proposition}
+\begin{proof}
+	Proposition 6.4 tells us that $ \phi(f) $ and will be integrable as long as $ \phi $ is continuous, so let $ \phi(t)=|t| $. This shows that $ \phi(f)=|f| $ is integrable. Chose $ c\in\{-1,1\} $ such that $$c\int_{a}^{b}f(x)\ dx\ge 0 .$$ We have $ cf\le|f| $, so by the monotonicity and linearty of integration, $$\left\lvert\int_{a}^{b}f(x)\ dx\right\rvert =c\int_{a}^{b}\ f \ dx =\int_{a}^{b}\ cf\ dx \le \int_{a}^{b}|f|\ dx. $$ 
+\end{proof}
+\begin{example}[Which Direction is the Inequality?]
+	If you need to cram for an exam, you're not too concerned with having a deep understanding of propositions and theorems, so remembering the direction of the inequality of Proposition 6.6 may come down to memorization.\footnote{This \textit{may} be slightly autobiographical.} In this case just remember the simple examples of $ f(x)=x $ on the interval $ [-1,1] $. In this case we have \begin{align*}
+		\left\lvert\int_{-1}^{1}x\ dx \right\rvert=0\le 1=\int_{-1}^{1}|x|\ dx =0.
+	\end{align*}
+\end{example}
+\subsection{Riemann Integration and Monotonicity}
+
+ 
+\subsection{The Riemann-Stieltjes Integral (Optional)}
+\subsection{The Fundamental Theorem Of Calculus and Consequences}
+Wait...how do we actually calculate these things? 
+\subsection{Change of Variables}
+Change of variables may be something you first saw explicitly in multivariable calculus when working with polar or spherical coordinates, but you actually learned a basic form of it earlier. In the case functions of a single variable it is often called $ u $-substitution. For the sake of generalization later on, we'll refer to it as change of variables, but just keep in mind that all it is, is $u$-substitution. 
+
+The general idea of change of variables is that it is the opposite of the Chain Rule. 
+
+$$ \int_{a}^{b}f(x)\ dx=\int_{\phi(a)}^{\phi(b)}f(\phi(y))\phi'(y)\ dy$$
+
+
+
+\subsection{Shortcomings of Riemann Integration}
+We conclude this section by giving several examples of functions that are either not integrable, or we have no means of evaluating the integral of. From now until section 13,\textbf{ when we write ``integral'', we will mean ''Riemann integral''}, but you should keep these examples in the back of your head. They allude to the fact that we have only scratched the surface of integration.
+\begin{example}[Dirichlet Function]
+	Define $ f:\R\to\R $ as $$f(x)=\begin{cases}
+	1\text{ if }x\in\Q\\0\text{ if }x\notin\Q
+	\end{cases} .$$ As we say in Example 4.26, this function is nowhere continuous. This function also fails to be integrable on any interval. Without loss of generality, we can show that $ f $ is not integrable on $ [0,1] $. By the density of $ \Q $ in $ \R $, any $ [x_{i-1},x_i] $ will contain both a rational and irrational number for all $ [x_{i-1},x_i]\subset P $. This gives $ M_i=1 $ and $ m_i=0 $ for all $ i $. Therefore $$U(P,f)-L(P,f)=\sum_{i=1}^{n}(M_i-m_i)\Delta x_i=1-0=1 ,$$ for any $ P $. The Riemann Criterion does not hold, so $ f $ is not integrable on $ [0,1] $. While it is hard to argue one would ever need to integrate a nowhere continuous function, this is still dissatisfying. We know that $ \Q $ is countable, where as $ \R $ is not. This means that an uncountably infinite number of points of $ f(x)=0 $ an uncountable number of times, where as $ f(x)=1 $ a countable number of times. Is it crazy to think that the integral on $ [0,1]$ should just be zero then? Regardless of what we think it should be, it still is not Riemann integrable.
+\end{example}
+
+\begin{example}[Unbounded Function]
+	Let $ f(x)=1/x $. This function cannot be integrated on $ [0,1] $, as it is unbounded on this interval, because $ f(x-)=\infty $.  
+\end{example}
+\begin{example}[Integral Over All of $ \R $]
+	Suppose we want to integrate some function over all of $ \R $. The whole real line is unbounded, so how do we measure the length of an infinite set and find upper and lower Riemann sums? Integration this way is not possible in this case. 
+\end{example}
+\begin{remark}[But What About Improper Integrals?]
+	You've likely seen improper integrals that allow us to evaluate integrals of functions on unbounded sets, but these technically are not Riemann integrals. They are limits of Riemann integrals. This is another topic we will take up in Section 13. 
+\end{remark}
+\begin{example}[Discontinuities]
+While the Fundamental Theorem of Calculus allows us to evaluate integrals for continuous functions, but how do we evaluate discontinuous functions? We know a function with a finite number of discontinuous can be integrated, but we never specified how those discontinuities contribute to the area. If we follow the reasoning from Example 6.11, we would hope that they contribute nothing to area, as there are an uncountably infinite number of continuous points on $ [a,b] $ that greatly out number the discontinuous ones. 
+\end{example}
+
+
+
+
+
 \section{Sequences and Series of Functions}
-\subsection{Spaces of Functions}
+\subsection{Metric Spaces of Functions}
 \subsection{Sequences}
 \subsection{Pointwise Convergence}
 \begin{figure}[h!]
@@ -3656,8 +4880,8 @@ uniform continuity
 	\draw[black] (15.5,8.7) node {\scriptsize $ f-\varepsilon $};
 	\draw[dashed] (0.5,-0.5)  to[out=90,in=180]  (7.5,4);
 	\draw[dashed] (7.5,4) to[out=0,in=270] (15.5, 8.5) ;
-	\filldraw[white] (-0.52,0.5) rectangle (-0.01,5);
-	\filldraw[white] (0,-0.52) rectangle (5,-0.01);
+	\filldraw[white] (-0.52,0.5) rectangle (-0.03,5);
+	\filldraw[white] (0,-0.52) rectangle (5,-0.03);
 	\draw [red] plot [smooth, tension=1] coordinates { (0,0) (6,6) (15,3) };
 	\draw [red] plot [smooth, tension=1] coordinates { (0,0) (4,5) (8,3) (12,7) (15,9)};
 	\draw [thick, green] plot [smooth, tension=1] coordinates { (0,0) (2,3) (4,4) (6,4.8) (8,4.3) (12,5) (14, 6.7) (15, 8)};
@@ -3732,25 +4956,32 @@ uniform continuity
 	\draw [very thin, black, rotate around={90:(11,4)}] (7,1) sin (8,1.5) cos (9,1) sin (10,.5) cos (11,1) sin (12,1.5) cos (13,1);
 	\draw[thick,->] (7.6,3) -- (14.4,3);
 	\draw[thick,->] (11,-0.4) -- (11,6.4);
-	\draw [thick, red] (6.5,0) -- (11,6);
-	\draw [thick, red] (6.95,0) -- (11.45,6);
-	\draw [thick, red] (7.4,0) -- (11.9,6);
-	\draw [thick, red] (7.85,0) -- (12.35,6);
-	\draw [thick, red] (8.3,0) -- (12.8,6); 
-	\draw [thick, red] (8.75,0) -- (13.25,6); 
-	\draw [thick, red] (9.2,0) -- (13.7,6); 
-	\draw [thick, red] (9.65,0) -- (14.15,6);
-	\draw [thick, red] (10.1,0) -- (14.60,6);
-	\draw [thick, red] (10.55,0) -- (15.05,6);
-	\draw [thick, red] (11,0) -- (15.60,6);
-	\draw [thick, red] (8.3,0) -- (12.8,6); 
-	\draw [thick, red] (13.5,0) -- (11,6);
-	\draw [thick, red] (12.87,0) -- (10.37,6);
-	\draw [thick, red] (12.24,0) -- (9.74,6);
+	\draw [ red, opacity=0.8] (6.5,0) -- (11,6);
+	\draw [red, opacity=0.8] (6.95,0) -- (11.45,6);
+	\draw [red, opacity=0.8] (7.4,0) -- (11.9,6);
+	\draw [red, opacity=0.8] (7.85,0) -- (12.35,6);
+	\draw [ red, opacity=0.8] (8.3,0) -- (12.8,6); 
+	\draw [ red, opacity=0.8] (8.75,0) -- (13.25,6); 
+	\draw [red, opacity=0.8] (9.2,0) -- (13.7,6); 
+	\draw [red, opacity=0.8] (9.65,0) -- (14.15,6);
+	\draw [ red, opacity=0.8] (10.1,0) -- (14.60,6);
+	\draw [ red, opacity=0.8] (10.55,0) -- (15.05,6);
+	\draw [ red, opacity=0.8] (11,0) -- (15.60,6);
+	\draw [ red, opacity=0.8] (8.3,0) -- (12.8,6); 
+	\draw [ red, opacity=0.8] (15.39,0) -- (12.89,6);
+		\draw [ red, opacity=0.8] (14.76,0) -- (12.26,6);
+		\draw [ red, opacity=0.8] (14.13,0) -- (11.63,6);
+	\draw [ red, opacity=0.8] (13.5,0) -- (11,6);
+	\draw [ red, opacity=0.8] (12.87,0) -- (10.37,6);
+	\draw [ red, opacity=0.8] (12.24,0) -- (9.74,6);
+	\draw [red, opacity=0.8] (11.61,0) -- (9.11,6);
+	\draw [red, opacity=0.8] (10.98,0) -- (8.48,6);
+	\draw [red, opacity=0.8] (10.35,0) -- (7.85,6);
+	\draw [ red, opacity=0.8] (9.72,0) -- (7.23,6);
 	\filldraw (4,4) circle (2pt) node[anchor = south east] {$ \mathbf{x} $};
 	\filldraw (11.65,4.5) circle (2pt) node[anchor = south west] {$ \mathbf{f(x)} $};
 	\draw[thick, ->,red] (6.4,2) to[out=-30,in=-150] (7.4,2);	
-	\draw[red] (6.9,1.5) node {$ \mathbf{J(f)}$};
+	\draw[red] (6.9,1.5) node {$ \mathbf{f'(x)}$};
 	\end{tikzpicture}
 	\caption{derivative linear map.}
 \end{figure}
@@ -3770,6 +5001,9 @@ uniform continuity
 \subsection{Manifolds}
 \subsection{Stokes' Theorem}
 \section{Measures}
+questions I need to answer: length in $ \R $
+
+How do discontinuities play with integration
 \subsection{Motivation}
 \subsection{$ \sigma $-Algebras}
 \subsection{Measures}
@@ -3808,9 +5042,8 @@ $ \ell^p $, $ L^p $
 \section{Riesz Representation Theorem}
 \section{Foundations of Fourier Analysis}
 \subsection{Convolutions}
-\section{Correspondences}
-\section{Convex Analysis}
-\section{Optimization}
+\section{Distributions}
+\section{Basic Probability Theory}
 \newpage
 \bibliography{analysis}{} 
 \end{document}
