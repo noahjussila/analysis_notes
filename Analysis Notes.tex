@@ -4161,7 +4161,7 @@ Figure 56 and Figure 57 show the upper Riemann sum and lower Riemann sum  for th
 \end{figure}
 So far, this is fairly similar to the way integration was developed in calculus, but now we're going to do something a little different. Instead of taking a limit of Riemann sums, we will simply say a function is Riemann integrable if the supremum of all possible upper Riemann sums coincides with the infimum of all the possible lower Riemann sums. 
 \begin{definition}
-	Suppose $ f $ is a bounded real function  on the interval $ [a,b] $. Define the values $$\lowint_a^b f(x)\ dx=\sup\limits_{P\in\textbf{P}([a,b])} L(P,f), \ \ \ \ \upint_a^b f(x)\ dx =\inf\limits_{P\in\textbf{P}([a,b])} U(P,f). $$ 
+	Suppose $ f $ is a bounded real function  on the interval $ [a,b] $. Define the values  
 	We refer to these as the \textit{\color{red}lower Riemann integral of $ f $ over $ [a,b] $} and \textit{\color{red}upper Riemann integral of $ f $ over $ [a,b] $} respectively.
 \end{definition}
 The upper and lower Riemann integral will \textit{always} exist for any bounded function on $ [a,b] $. The set $ \mathbf{P}([a,b])\neq\emptyset$, as any interval $ [a,b] $ has a trivial partition of $ \{x_0=a,x_1=b\} $. The set is also bounded, as for all $ P\in\mathbf{P}([a,b]) $, $$\inf_{x\in[a,b]}f(x)\cdot(b-a)\le L(P,f)\le U(P,f)\le \sup_{x\in[a,b]}f(x)\cdot(b-a) .$$ We know the infimum and supremum of $ f $ exist on $ [a,b] $, because $ f $ is bounded. This gives us two nonempty bounded subsets of $ \R $ in the form of $ \{U(P,f)\}_{P\in\textbf{P}([a,b])} $ and $ \{L(P,f)\}_{P\in\textbf{P}([a,b])} $. The supremum and infimum of these sets are guaranteed to exist by the completeness of $ \R $. 
@@ -4189,6 +4189,9 @@ Figure 58 shows a Riemann integrable function, and the value of the integral on 
 	\end{tikzpicture}
 	\caption{ The function $ f $ is Riemann integrable on $ [a,b] $.}
 \end{figure}
+\begin{remark}[Bounded Functions on a Closed Interval]
+	It cannot be stressed enough that we are only able to define the Riemann integral for real functions that are bounded, and can only do so on a closed interval.
+\end{remark}
 While Definition 6.5 may make sense on a theoretical level, it's not at all practical to use it to verify a function is actually integrable. How are we supposed to possibly find the supremum of all possible lower Riemann sums, and find the infimum of all possible upper Riemann sums?! A simple example will be presented, but it will be the only time we actually use Definition 6.5 to verify integrability. We will therefore need to find some alternate criterion for Riemann integrability.    
 \begin{example}
 	Let $ f(x)=c $ on $ [a,b] $ for some constant $ c\in\R  $. Suppose $ P=\{0,x_1,\ldots,x_{n-1},1\} $ is a partition of $ [a,b] $. We have  \begin{align*}
@@ -4521,7 +4524,7 @@ The Riemann Criterion gives way to several related results that put integrabilit
 	These combine to give $$  \left\lvert \sum_{i=1}^nf(t_i)\Delta x_i-\int_{a}^{b}f(x)\ dx\right\rvert\le U(P,f)-L(P,f)<\varepsilon. $$
 \end{enumerate}
 \end{proof}
-This proposition seems like a random string of inequalities,\footnote{To be honest, most of real analysis seems like a random string of inequalities sometimes.} but...
+This proposition seems like a random string of inequalities,\footnote{To be honest, most of real analysis seems like a random string of inequalities sometimes.} but we will use them to prove many important results.
 \subsection{Properties of Riemann Integration}
 Now we can present some familiar properties of the integral. Just like when we did this with limits and derivatives, most of these may be familiar, so examples won't be furnished for every single possible property. 
 \begin{theorem}
@@ -4774,23 +4777,435 @@ This function is not integrable on $ [0,1] $ (see Subsection 6.11), but $ f^2 $ 
 		\left\lvert\int_{-1}^{1}x\ dx \right\rvert=0\le 1=\int_{-1}^{1}|x|\ dx =0.
 	\end{align*}
 \end{example}
-\subsection{Riemann Integration and Monotonicity}
+\subsection{Riemann Integration, Monotonicity, and Discontinuities}
+The second class of functions that are integrable are monotonic functions. The integrability on continuous functions was not a surprise, but this is. Proposition 4.2 limited the number of discontinuities of a monotonic function to a countably infinite number, but this is still an infinite number. The fact that such a function could feasibly be integrated is not something we should have expected. 
+ \begin{proposition}
+ 	If $ f $ is monotonic on $ [a,b] $, then $ f $ is integrable. 
+ \end{proposition}
+ \begin{proof}
+	Let $ \varepsilon>0 $. For any $ n\in\N $, define a partition of $ [a,b] $ such that $$ \Delta x_i=\frac{b-a}{n}.$$
+	
+	We will show the result for a monotonically increasing function. Because the function is monotonically increasing, $ M_i=f(x_i) $, and $ m_i=f(x_i) $.\footnote{If $ f $ is always increasing, then the infimum on $ [x_{i-1},x_i] $ will be achieved at  smallest value in the interval, namely $ x_i $. Similarly, the supremum on the interval will be achieved at  largest value in the interval, namely $ x_{i-1} $.} We have \begin{align*}
+		U(P,f)-L(P,f)&=\sum_{i=1}^{n}(M_i-m_i)\Delta x_i\\&=\sum_{i=1}^{n}(f(x_i)-f(x_{i-1}))\frac{b-a}{n}\\&=\frac{b-a}{n}\sum_{i=1}^{n}(f(x_i)-f(x_{i-1}))
+	\end{align*}
+	By the Archimedean Property of $ \R $, we can find an $ n $ large enough such that $$U(P,f)-L(P,f)=\frac{b-a}{n}\sum_{i=1}^{n}(f(x_i)-f(x_{i-1}))<\varepsilon $$ for all $ \varepsilon>0 $. Because this $ n $ corresponds to a choice of a partition, we have found a partition that gives $ U(P,f)-L(P,f)<\varepsilon$, so Riemann's Criterion is satisfied. 
+ \end{proof}
+\begin{example}
+	
+\end{example}
+\begin{proposition}
+	Suppose $ f $ is bounded on $ [a,b] $ and has only finitely many points of discontinuity on $ [a,b] $. Then $ f $ is Riemann integrable on $ [a,b] $.
+\end{proposition}
 
- 
+\begin{proof}
+	Let $ \varepsilon>0 $. Set $ M=\sup |f(x)| $, and $ E=\{x\in[a,b]\mid f\text{ discontinuous}\} $. The set $ E $ is finite by assumption, so we can cover $ E $ by finitely many disjoint intervals $ [u_j,v_j]\subset[a,b] $.\footnote{So if $ f $ is discontinuous as $ x_0 $, we form a little interval of length $ \varepsilon $ around it such that no other point in the small interval is a point of discontinuity.} We can pick these intervals such that the sum of their lengths is $ \varepsilon $:
+	$$\sum_{j=1}^{m} v_j-u_j<\frac{\varepsilon}{(b-a)+2M}. $$ 
+	
+	Now we will remove the open segments $ (u_j,v_j) $ from $ [a,b] $, giving a set $ K $. $$K=[a,b]\backslash\bigcup_{j=1}^m(u_j,v_j) $$ Because we removed open segments, $ K $ is still closed, so it is compact.\footnote{Removing segments never put the boundedness of $ [a,b] $ in jeopardy, so clearly $ K $ is bounded.} On the compact set $ K $, $ f $ is continuous,\footnote{Remember, we just removed all the point pf discontinuity by removing $ (u_j,v_j) $.} giving uniform continuity. There exists a $ \delta>0 $ such that $$|f(s)=f(t)|<\frac{\varepsilon}{(b-a)+2M} $$ for any $ s,t\in K $ satisfying $ |s-t|<\delta $.
+	
+	Now construct a partition $ P=\{x_0,\ldots,x_n\} $ of $ [a,b] $ such that: $ u_j\in P $ for all $ j $, $ v_j\in P $ for all $ j $, $ (u_j,v_j)\cap P=\emptyset $. We will have $ \Delta x_i<\delta $, as $ x_i,x_{i-1}\in K $...{\color{red}FINISH}
+	
+	
+\end{proof}
+\begin{remark}[Integrability is Weaker than Continuity]
+Integrability is often seen as equivalent to continuity in calculus courses, but this section goes to show this is not at all correct. Any monotonic function is integrable, even though it may have countably infinite discontinuities. Any bounded function with finite points of discontinuity is bounded. These facts make integrability a far weaker condition than continuity. 
+\end{remark}
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+\draw (-.3,7) node {$ \R$};
+\draw (16,-0.3) node {$ \R$};		
+\draw[thick,->] (0,0) -- (0,7);
+\draw[thick,->] (0,0) -- (16,0);
+\draw[thick] (1,-0.2) -- (1,0.2);
+\draw[thick] (14,-0.2) -- (14,0.2);
+\draw[blue] (14,5.5) node {$ f(x) $};	
+\draw[black] (1,-.5) node {$ a $};
+\draw[black] (14,-.5) node {$ b $};	
+\fill[fill=gray!15] (1,1)  to[out=45,in=180]  (7,6) to[out=0,in=180] (10.5,1) to[out=0,in=230] (14,5) -- (14,0) -- (1,0) -- (1,1);
+\draw[thick, blue] (1,1)  to[out=45,in=180]  (7,6) to[out=0,in=180] (10.5,1) to[out=0,in=230] (14,5);
+\draw[white, thick] (2,0)--(2,2.16);	
+\draw[white, thick] (3,0)--(3,3.5);
+\draw[white, thick] (4,0)--(4,4.65);
+\draw[white, thick] (5,0)--(5,5.45);
+\draw[white, thick] (6,0)--(6,5.88);
+\draw[white, thick] (7,0)--(7,6);
+\draw[white, thick] (8,0)--(8,5.56);
+\draw[white, thick] (9,0)--(9,2.45);
+\draw[white, thick] (10,0)--(10,1.06);
+\draw[white, thick] (11,0)--(11,1.05);
+\draw[white, thick] (12,0)--(12,1.64);
+\draw[white, thick] (13,0)--(13,3.3);
+\filldraw[color=blue, fill=white]  circle (2pt);
+\filldraw[color=blue, fill=white] (2,2.16)circle (2pt);
+\filldraw[color=blue, fill=white]  (3,3.5)circle (2pt);
+\filldraw[color=blue, fill=white] (4,4.65)circle (2pt);
+\filldraw[color=blue, fill=white]  (5,5.45)circle (2pt);
+\filldraw[color=blue, fill=white] (6,5.88)circle (2pt);
+\filldraw[color=blue, fill=white]  (7,6)circle (2pt);
+\filldraw[color=blue, fill=white] (8,5.56)circle (2pt);
+\filldraw[color=blue, fill=white] (9,2.45)circle (2pt);
+\filldraw[color=blue, fill=white]  (10,1.06)circle (2pt);
+\filldraw[color=blue, fill=white]  (11,1.05)circle (2pt);
+\filldraw[color=blue, fill=white]  (12,1.64)circle (2pt);
+\filldraw[color=blue, fill=white]  (13,3.3)circle (2pt);
+\end{tikzpicture}	
+\caption{Despite having 12 points of discontinuity on $ [a,b] $, $ f $ is still integrable.}
+\end{figure}
+\begin{example}[Simple Functions]
+	Any simple function (Definition 6.6) is Riemann integrable, despiting them often being discontinuous. Example 6.3 and Figure 61 show an example of this type of discontinuous, yet integrable, function.
+\end{example}
 \subsection{The Riemann-Stieltjes Integral (Optional)}
+\textbf{Disclaimer}: Again, we need to be a bit informal here. The purpose of this section is to build intuition for Sections 12-14, so I'm not as worried about using proper verbiage. Again, I'll be assuming that the ``actual length'', or simply ``length'', of an interval $  [x_{i-1},x_i] $ is $ |x_i-x_{i-1}| $.
+
+If you think back to the definition of the upper and lower Riemann sums, we always treated the width of the rectangle at $ [x_{i-1},x_i]\subset P $ as $ |x_{i-1}-x_i| $. Is there anything stopping us from defining the width of the corresponding rectangle as $ |2x_{i-1}-2x_i| $? Or what about $ |x_{i-1}^2-x_i^2| $?  It turns out, we can still perform Riemann integration if we decide to assign different widths to the rectangles of a Riemann sum. 
+
+Let $ \alpha:[a,b]\to\R $ be any monotonic function. We can redefine the upper and lower Riemann sums as 
+\begin{align*}
+U(P,f,\alpha)&=\sum_{i=1}^{n}M_i\Delta \alpha(x_i),\\
+L(P,f,\alpha)&=\sum_{i=1}^{n}m_i\Delta \alpha(x_i),
+\end{align*} 
+where $\Delta\alpha(x_i)=|\alpha(x_i)-\alpha(x_{i-1})| $. The function $ \alpha $ is determining how we assign length to different intervals in $ P $. We can think of it as a \textit{weighted} version of the original upper and lower sums, where $ \alpha $ determine the weight assigned to different parts of $ [a,b] $, and each interval is assigned an ``artificial length'' of $ |\alpha(x_i)-\alpha(x_{i-1})| $. By ``weight'', I'm talking about how much ``artificial'' length we assign to an interval relative to it's ``actual'' length. It is meant in the same sense as a ``weighted'' average, where you take some observations to be more significant, and assign them more weight when calculating the mean. This clearly merits several examples.
+\begin{example}[$ \alpha(x)=x $]
+	Let $ \alpha(x)=x $. In this case we have $$ \alpha( \Delta x_i)=|\alpha(x_i)-\alpha(x_{i-1})|=|x_i-x_{i-1}|,$$ so each interval is assigned it's ``true'' length (Figure 66).
+	\begin{figure}[h!]
+		\centering
+		\begin{tikzpicture}	
+		\draw[fill=gray!15, thin, opacity=0.6] (2.5,0) rectangle (4.5,2.44);
+		\draw[thick,->] (0,0) -- (0,7);
+		\draw[thick,->] (0,0) -- (7,0);
+	\draw[thick,->] (8,0) -- (15,0);
+	\draw[thick,->] (8,0) -- (8,7);
+	\draw[thick] (0.5,.2)--(0.5,-.2);
+	\draw[thick] (6.5,.2)--(6.5,-.2);
+		\draw[black] (0.5,-.5) node {$ a $};
+	\draw[black] (6.5,-.5) node {$ b $};	
+	\draw[thick] (8.5,.2)--(8.5,-.2);
+	\draw[thick] (14.5,.2)--(14.5,-.2);
+	\draw[black] (8.5,-.5) node {$ a $};
+	\draw[black] (14.5,-.5) node {$ b $};
+	\draw[thick, blue] (1,5) to[out=45,in=180] (3,3) to[out=0,in=180] (7,1);
+	\draw[thick, blue] (8.5,1) -- (14.5,7);
+	\draw[black] (10.5,-.3) node {$ x_{i-1} $};
+	\draw[black] (12.5,-.3) node {$ x_{i} $};	
+	\draw[blue] (12.5,6) node {$ \alpha(x)=x $};	
+	\draw[blue] (3,3.5) node {$ f(x) $};
+	\draw[thick, dashed] (12.5,0)--(12.5, 5)-- (8,5);
+	\draw[thick, dashed] (10.5,0)--(10.5, 3)-- (8,3);
+		\draw[thick, dashed] (0,2.44)--(4.5, 2.44);
+		\draw[black] (-0.3,2.44) node {$ m_i $};
+	\draw[black] (7.3,5) node {$ \alpha(x_{i-1}) $};
+	\draw[black] (7.5,3) node {$ \alpha(x_{i}) $};
+	\draw[red!30, ultra thick] (8,5) -- (8,3);
+	\draw[black] (2.5,-.3) node {$ x_{i-1} $};
+	\draw[black] (4.5,-.3) node {$ x_{i} $};
+	\draw[red!30, ultra thick] (2.5,0) -- (4.5,0);
+	\draw[red] (3.5, 0.3) node {\tiny $ |\alpha(x_i)-\alpha(x_{i-1})|  $};
+	\draw[red] (7, 4) node {\tiny $ |\alpha(x_i)-\alpha(x_{i-1})|  $};
+		\end{tikzpicture}
+		\caption{To determine how we weight the interval  $ [x_{i-1},x_i] $, we calculate $ |\alpha(x_i)-\alpha(x_{i-1})|  $, and then assign it to the interval.}
+	\end{figure}
+This is a special case for two reasons. Firstly, each interval is weighted equally.\footnote{Meaning that $ |\alpha(x_i)-\alpha(x_{i-1})|\propto|x_i-x_{i-1}| $ for all $ i $.} Secondly, each interval is weighted such that $ |\alpha(x_i)-\alpha(x_{i-1})|=|x_i-x_{i-1}| $, so we get back the original Riemann sums. The weighted area assigned to the gray rectangle is $$m_i\Delta \alpha(x_i)=m_i \Delta x_i .$$
+\end{example}
+\begin{example}[$ \alpha(x)=2x $]
+	Let $ \alpha(x)=2x $. In this case we have $$ \alpha( \Delta x_i)=|\alpha(x_i)-\alpha(x_{i-1})|=|2x_i-2x_{i-1}|,$$ so each interval is assigned twice its ``actual'' length (Figure 67). 
+		\begin{figure}[h!]
+		\centering
+		\begin{tikzpicture}	
+		\draw[fill=gray!15, thin, opacity=0.6] (2.5,0) rectangle (4.5,2.44);
+		\draw[thick,->] (0,0) -- (0,7);
+		\draw[thick,->] (0,0) -- (7,0);
+		\draw[thick,->] (8,0) -- (15,0);
+		\draw[thick,->] (8,0) -- (8,7);
+		\draw[thick] (0.5,.2)--(0.5,-.2);
+		\draw[thick] (6.5,.2)--(6.5,-.2);
+		\draw[black] (0.5,-.5) node {$ a $};
+		\draw[black] (6.5,-.5) node {$ b $};	
+		\draw[thick] (8.5,.2)--(8.5,-.2);
+		\draw[thick] (14.5,.2)--(14.5,-.2);
+		\draw[black] (8.5,-.5) node {$ a $};
+		\draw[black] (14.5,-.5) node {$ b $};
+		\draw[thick, blue] (8.5,1) -- (14.5,7);
+		\draw[thick, blue] (1,5) to[out=45,in=180] (3,3) to[out=0,in=180] (7,1);
+		\draw[black] (10.5,-.3) node {$ x_{i-1} $};
+		\draw[black] (12.5,-.3) node {$ x_{i} $};	
+		\draw[blue] (12.5,6) node {$ \alpha(x)=2x $};
+				\draw[thick, dashed] (0,2.44)--(4.5, 2.44);
+		\draw[black] (-0.3,2.44) node {$ m_i $};	
+		\draw[blue] (3,3.5) node {$ f(x) $};
+		\draw[thick, dashed] (12.5,0)--(12.5, 5)-- (8,5);
+		\draw[thick, dashed] (10.5,0)--(10.5, 3)-- (8,3);
+		\draw[black] (7.3,5) node {$ \alpha(x_{i-1}) $};
+		\draw[black] (7.5,3) node {$ \alpha(x_{i}) $};
+		\draw[red, ultra thick] (8,5) -- (8,3);
+		\draw[black] (2.5,-.3) node {$ x_{i-1} $};
+		\draw[black] (4.5,-.3) node {$ x_{i} $};
+		\draw[red, ultra thick] (2.5,0) -- (4.5,0);
+		\draw[red] (3.5, 0.3) node {\tiny $ |2x_i-2x_{i-1}|  $};
+		\draw[red] (7, 4) node {\tiny $ |\alpha(x_i)-\alpha(x_{i-1})|  $};
+		
+		\end{tikzpicture}
+		\caption{We now assign more weight to $ [x_{i-1},x_i] $  than we did with $ \alpha(x)=x $.}
+	\end{figure}
+Now we have$$ m_i\Delta \alpha(x_i)=2m_i \Delta x_i.$$ This is still a somewhat special case though, because we are assigning ``artificial'' lengths that are proportional to the ``actual'' length of an interval. For example, this choice of $ \alpha $ gives $ |\alpha(1)-\alpha(0)|=2 $ and $ |\alpha(2)-\alpha(0)|=4 $. In both cases, the ``artificial'' length is double the ``actual'' length. In fact, if $ \alpha(x)$ is linear, then each interval is weighted equally. For $ \alpha(x)=\beta x+\gamma $,
+\begin{align*}
+	\Delta \alpha( x_i)=|(\beta\Delta x_{i-1}+\gamma)|-|(\beta\Delta x_i+\gamma)|=\beta|x_{i-1},x_i|=\beta \Delta x_i\propto \Delta x_i,
+\end{align*} 
+so all we're doing is scaling the ``actual'' length. 
+\end{example}
+\begin{example}{$ \alpha(x)=x^2 $}
+ Now let's see what happens for a nonlinear choice of $ \alpha(x) $. Suppose we have two intervals in a partition, $ [0,0.1] $ and $ [1,10] $. With this choice of $ \alpha $ we have \begin{align*}
+ 	|\alpha(0.1)-\alpha(0)|=0.01,\\
+ 	|\alpha(10)-\alpha(1)|=81.
+ \end{align*}
+ This value of $ \alpha $ assigns a lot of weight to large intervals, and a small amount of weight to small intervals. This is the first example we've seen where $ \alpha $ truly assigns different weights to different intervals, and not just scaling up every length by a constant. 
+\end{example}
+ 
+Using $ \alpha $, we can redefine the Riemann integral as developed in Subsection 6.2.
+$$\lowint_a^b f(x)\ d\alpha=\sup\limits_{P\in\textbf{P}([a,b])} L(P,f,\alpha), \ \ \ \ \upint_a^b f(x)\ d\alpha =\inf\limits_{P\in\textbf{P}([a,b])} U(P,f,\alpha). $$
+
+\begin{definition}
+	Suppose $ f $ is a bounded real function  on the interval $ [a,b] $ and $ \alpha $ is a monotonic function on $ [a,b] $. If $$ \lowint_a^b f(x)\ d\alpha=\upint_a^b f(x)\ d\alpha,$$ then we say $ f $ is \textit{\color{red}Riemann–Stieltjes integrable (on $ [a,b] $)} and we write the common value of the upper and lower Riemann integral as $$ \int_{a}^{b}f(x)\ d\alpha.$$ We refer to this common value as the \textit{\color{red}Riemann–Stieltjes integral of $ f $ on [a,b]}. 
+\end{definition}
+The Riemann–Stieltjes (RS) is simply a weighted integral. Nearly all the results developed up until now can be established for the RS integral. In fact many standard texts such as \cite{rudin1964principles} opt to work exclusively with the RS integral for this reason. 
+\begin{remark}[Why Monotonic?]
+	If $ \alpha $ is not monotonic, then it could assign negative ``artificial length'' to an interval $ [x_{i-1},x_{i}] $ (which requires $ x_i >x_{i-1}$). 
+\end{remark}
+\begin{example}[Probability Distributions]
+	A random variable $ X $ has a cumulative distribution function (CDF) $ F:[a,b]\to[0,1] $ such that $$ \Prr{c\le X\le d}=F(d)-F(c).$$ The CDF is assigning a probability to $ [c,d] $. Depending on our choice of $ F $, the weight assigned to each interval in probability will differ. If $ F $ is a uniform distribution, every interval is assigned equal probability, i.e equal weight. But this sounds \textit{just like} RS integration! If we let $ \alpha(x)=F(x) $, then we have $$\int_{c}^{d} dF=\int_{c}^{d}1\ dF=1(F(d)-F(c))=\Prr{c\le X\le d}. $$ 
+	
+	Now suppose that the random variable $ X $ only takes on values $ x\in[a,b] $. If we want to find the expected value of $ X $ over, then we calculate a the RS integral of $ x $ over all of $ [a,b] $. $$ E[x]=\int_{a}^{b}x\ dF$$ This is akin to a weighted average, because we are averaging every single possible realization of $ X $, but we first assign weight to the interval $ [a,b] $ in accordance with the probability of each event occurring. 
+\end{example}
+\begin{example}[Inertia]
+	Suppose there is a rod of unit length where the mass contained in $ [0,x] $ is given by $ m(x) $. The inertia $ I $ is given as $$ I=\int_{0}^{1}x^2\ dm.$$ 
+\end{example}
+If you have taken a probability of physics course, these last two examples may look somewhat familiar. Using integration to calculate the expected value of a random variable, or the moment of inertia are standard applications, but it is normally introduced as a Riemann integral of a different quantity, not a RS integral. What is the connection between the two? Is it possible to calculate a RS integral as a Riemann integral? The next theorem allows us to do just this.
+\begin{theorem}[RS Integral as Riemann Integral]
+Assume $ \alpha $ increase monotonically and $ \alpha' $ is integrable on $ [a,b] $. Let $ f $ be a bounded real function on $ [a,b] $. The function $ f $ is RS integrable on $ [a,b] $ \textit{if and only if} $ f\alpha' $ is Riemann integrable on $ [a,b] $. In this case we have 
+$$ \int_{a}^{b}f(x)\ d\alpha=\int_{a}^{b}f(x)\alpha'(x)\ dx .$$
+\end{theorem} 
+Before we prove this, we should rationalize why this equation holds. We want to integrate $ f(x) $ as if the interval $ [a,b] $ is not weighted. To do this we need to convert between $ \alpha(x) $ and $ x $ somehow. For the RS sums, $ \alpha(x) $ is manipulating the width of a rectangle, thereby manipulating its area. But couldn't we instead manipulate the height of the rectangle to achieve the same change in area? If we were to do this, we would need to multiply the height of the rectangle by the same factor that we change the width by. But what quantity captures the change in width? That would be $ \alpha' $. What determines the height of the rectangle? That is $ f $ (vicariously through its supremum or infimum). So if we let the height of the rectangle be $ f(x)\alpha'(x) $, we acheive the same area that resulted from reweighting the width using $ \alpha $.
+
+Let's accompany this argument with a quick example. Using a constant function would be best, as the integral in this case just amounts to a rectangle. Let $ f(x)=10 $ on $ [5,10] $, and $ \alpha(x)=2x $. If we calculate the area using a RS integral, we have $$ \int_{5}^{10}f(x)\ d\alpha=\int_{5}^{10}10\ d\alpha=10[2(10)-2(5)]=100.$$ Alternatively, we could acheive the same area under $ f(x) $ by multiply $ f(x) $ by $ 2 $, which just happens to be $ \alpha' $ (which we are about to prove is no coincidence).
+$$ \int_{5}^{10}f(x)a'(x)\ d\alpha=\int_{5}^{10}10\cdot 2\ dx=20(10-5)=100.$$
+We get the same exact value. The actual proof, which is on the harder side, is not nearly as important as understanding the intuition behind the result. 
+\begin{proof}
+The function $ \alpha $ is integrable, so it satisfies the Riemann Criterion. That is for $ \varepsilon>0 $ there exists a partition $ P=\{x_0,\ldots,x_n\} $ of $ [a,b] $ such that $$ U(P,\alpha')-L(P,\alpha')<\frac{\varepsilon}{\sup |f(x)|}.$$ 
+By the differentiability of $ \alpha' $, we can apply the Mean Value Theorem on each interval $ [x_{i-1},x_i] $. There exists a $ t_i\in[x_{i-1},x_i] $ such that
+\begin{align}
+	\alpha_i(x_{i-1})-\alpha_i(x_i)&=\alpha'(t_i)(x_{i-1}-x_i),\nonumber\\\Delta\alpha_i&=\alpha'(t_i)\Delta x_i,
+\end{align}
+for $ i=i,\ldots,n $. By Part 2 of Proposition 6.1 and the integrability of $ \alpha' $, for $ s_i\in [x_{i-1},x_i]$,\footnote{Part 2 of Proposition 6.1 requires two points in$ s_i,t_i\in [x_{i-1},x_i]$. We will use the $ t_i $ that we found using the Mean Value Theorem.}
+\begin{align}
+\sum_{i=1}^n|\alpha'(s_i)-\alpha'(t_i)|\Delta x_i<\frac{\varepsilon}{|\sup f(x)|}.
+\end{align}
+By (15), \begin{align}
+	\sum_{i=1}^nf(s_i)\Delta \alpha_i=\sum_{i=1}^nf(s_i)\alpha'(t_i)\Delta x_i.
+\end{align}
+If we set $ M=\sup|f(x)| $, then (17) and (16) give $$ \left\lvert\underbrace{\sum_{i=1}^nf(s_i)\Delta \alpha_i}_{U(P,f,\alpha)}-\underbrace{\sum_{i=1}^nf(s_i)\alpha'(t_i)}_{U(P,f\alpha')}\Delta x_i \right\rvert\le M\varepsilon.$$ This will hold for all $ s_i\in[x_{i-1},x_i] $, so $$|U(P,f,\alpha)-U(P,f\alpha')|< M\frac{\varepsilon}{|f(x)|}=\varepsilon. $$ This all will hold for any refinement of $ P $, so we can conclude $$\left\lvert \upint_{a}^bf(x)\ d\alpha-\upint_{a}^bf(x)\alpha'(x)\ dx \right\rvert\le\varepsilon .$$ This holds for all $ \varepsilon>0 $, so $$  \upint_{a}^bf(x)\ d\alpha=\upint_{a}^bf(x)\alpha'(x)\ dx.$$ This \textit{exact} reasoning will give $$\lowint_{a}^bf(x)\ d\alpha=\lowint_{a}^bf(x)\alpha'(x)\ dx,$$ so we can conclude $$ \int_{a}^bf(x)\ d\alpha=\int_{a}^bf(x)\alpha'(x)\ dx.$$
+\end{proof}   
+\begin{example}[Probability Distributions]
+ A random variable $ X $ with CDF $ F $, has a probability density function (PDF) defined as $ F'=f $. If we apply Theorem 6.4 to Example 6.16 we get
+ \begin{align*}
+ 	\Prr{c\le X\le d}&=\int_{c}^{d} dF=\int_{c}^{d}F'(x)\ dx=\int_{c}^{d}f(x)\ dx,\\
+ 	E[x]&=\int_{a}^{b} x\ dF=\int_{a}^{b}xF'(x)\ dx=\int_{a}^{b}xf(x)\ dx.
+ \end{align*}
+\end{example}
+This is the last time we'll see the RS integral, but the ideas which motivate it will return. 
 \subsection{The Fundamental Theorem Of Calculus and Consequences}
-Wait...how do we actually calculate these things? 
+Wait...how do we actually calculate these things? So far we've only been able to integrate constant functions (Example 6.1).\footnote{If we think of the integral in terms of simple functions, we can integrate those too, but only because we  defined the integral explicitly in that case.} This section will present \textit{the} theorem of calculus. The Fundamental Theorem of Calculus allows us to easily calculate integrals by the means of derivatives. But is this what we really care about? From the standpoint of analysis, who cares about calculating the area under a curve? Mathematicians have been able to do this quite accurately for millennial. What is \textit{amazing} is that the area under a curve is somehow related to differentiation at all. Despite being able to calculate areas and rates for centuries, mathematicians thought these two tasks were totally unrelated. This is to say, \textit{everyone} takes this theorem for granted. When introduced to integrals in calculus, most are taught that integration is the opposite of differentiation only minutes after the integral is defined, but this is not a very obvious of a relationship.\footnote{You're probably thinking ``yes it is'', but keep in mind that you have known this for years, and have most likely seen several interpretations of the relationship.} Math students are so conditioned to think of integration hand-in-hand with differentiation, that it makes it hard to appreciate the Fundamental Theorem from the standpoint of analysis. \textbf{So do not think of this section as a means to calculation, think of it as a beautiful insight into two seemingly disparate topics}. Pontification over. 
+
+For such an important pair of results, The Fundamental Theorem of Calculus is not overwhelmingly difficult to prove. The second part is just an application of the Mean Value Theorem,\footnote{This is one reason that the Mean Value Theorem is so important.}
+
+\begin{definition}
+	Let $ F $ be a real differentiable function. If $ F'=f $, then we say $ F $ is the {\color{red}antiderivative} of $ f $. 
+\end{definition}
+\begin{theorem}[Fundamental Theorem of Calculus I]
+Let $ f $ be integrable on $ [a,b] $. For $ a\le x\le b $, let $$ F(x)=\int_{a}^{x}f(t)\ dt .$$ Then $ F $ is continuous on $ [a,b] $; furthermore, if $ f $ is continuous at a point $ x_0\in[a,b] $, then $ F $ is differentiable, and $F'(x_0)=f(x_0)$. 
+\end{theorem}
+\begin{proof}
+	We will first show that $ F $ is continuous Because $ f $ is integrable, it is bounded, so there exists an $ M $ for which $ |f(t)|\le M $ on $ [a,b] $. If $ a\le x<y\le b $, Theorem 6.2 Parts 3 and 5 give\begin{align}
+|F(y)-F(x)|=\left\lvert\int_{x}^{y}f(t)\ dt \right\rvert\le M(y-x).
+	\end{align}
+	 If we have $|y-x|<\varepsilon/M$, then $$ |F(y)-F(x)|<\varepsilon,$$ so $ F $ is continuous.\footnote{It actually ended up being uniformly continuous, so happy day.} 
+	
+	Now suppose $ f $ is continuous at $ x_0 $. For $ \varepsilon>0 $, there exists a $ \delta>0 $ such that $$|f(t)-f(x_0)|<\varepsilon $$ for $ t\in[a,b] $ which satisfy $ |t-x_0|<\delta $. Therefore if we have $$ x_0-\delta<s\le x_0\le t<x_0+\delta,$$ and $ a\le s<t\le b $, by Theorem 6.2 Part 5 we have \begin{align*}
+	\left\lvert\int_{s}^{t}\underbrace{f(u)-f(x_0)}_{<\varepsilon}\ du\right\rvert&<\varepsilon(t-s)
+	\end{align*}
+	Not only does this inequality take the form of (18),\footnote{Let $ M=\varepsilon $, $ y=t $, $ x=s $, and $ f(t)=f(u) $.} but we satisfy the conditions under which (18) holds, so we have \begin{align*}
+		|F(t)-F(s)-f(x_0)|&=\left\lvert\int_{s}^{t}f(u)\ du-f(x_0)\right\rvert<\varepsilon(t-s)\\	\left\lvert\frac{F(t)-F(s)}{s-t}-f(x_0)\right\rvert&=\left\lvert\frac{1}{s-t}\int_{s}^{t}f(u)-f(x_0)\ du\right\rvert<\varepsilon\\\left\lvert\frac{F(t)-F(s)}{s-t}-f(x_0)\right\rvert&<\varepsilon.
+	\end{align*}
+	That is, for all $ \varepsilon>0 $ this final inequality holds for any $ s\in(x_0-\delta,x_0+\delta)$, so if we take $ t=x_0 $ this becomes the definition of the following limit: $$F'(x_0)=\lim\limits_{s\to x}\frac{F(t)-F(x_0)}{s-x_0}=f(x_0) .$$
+\end{proof}
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+	\fill[fill=red!10, opacity=0.8] (0,0) -- (7,3) -- (7,0) -- (0,0) ;
+	\draw (7,-0.5) node {$ x $};
+	\draw[thick] (7,0.2)--(7,-0.2);
+	\draw (-.3,7) node {$ \R$};
+	\draw (16,-0.4) node {$ \R$};		
+	\draw[thick,->] (0,0) -- (0,7);
+	\draw[thick,->] (0,0) -- (16,0);
+	\draw[thick, red] (0,0)  to[out=5,in=190]  (9,1) to[out=10,in=260] (14,7);
+	\draw[thick, blue] (0,0) -- (14,6);
+	\draw[blue] (8,4) node {$ f $};
+	\draw[red] (12.7,4) node {$ F $};
+	\draw[red] (5,1) node {\scriptsize $ F(x)=\displaystyle\int_{0}^{x}f(t)\ dt $};
+	\end{tikzpicture}
+	\caption{The first part of The Fundamental Theorem of Calculus says that $ F'=f $.}
+\end{figure}
+
+\begin{theorem}[Fundamental Theorem of Calculus II]
+	Let $ f $ be integrable on $ [a,b] $. If there exists a differentiable function $ F $ on $ [a,b] $ such that $ F'=f $, then $$ \int_{a}^{b}f(x)\ dx=F(b)-F(a).$$
+\end{theorem}
+\begin{proof}
+Let $ \varepsilon>0 $. By Riemann's Criterion, there exists some $ P+\{x_0,\ldots,x_n\} $ of $ [a,b] $ such that $ U(P,f)-L(P,f)<\varepsilon $. By the Mean Value Theorem, for each $ i $ we have a $ t_i\in[x_{t-1},x_t] $ such that \begin{align*}
+	F(x_i)-F(x_{i-1})&=F'(t_i)(x_i-x_{i-1}),\\
+	F(x_i)-F(x_{i-1})&=f(t_i)\Delta x_i.
+\end{align*}
+Taking the sum over all $ i $ gives $$\sum_{i=1}^{n}f(t_i)\Delta x_i=F(b)-F(a) .$$ By Proposition 6.1 Part 3, $$\left\lvert F(b)-F(a)-\int_{a}^{b}f(x)\ dx\right\rvert=\left\lvert\sum_{i=1}^{n}f(t_i)-\int_{a}^{b}f(x)\ dx\right\rvert<\varepsilon. $$ 
+This holds for all $ \varepsilon $, so $$\int_{a}^{b}f(x)\ dx=F(b)-F(a). $$
+\end{proof}
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+	\fill[fill=red!10, opacity=0.8] (5,0) -- (5,15/7) -- (13,39/7) -- (13,0) -- (5,0) ;
+	\draw[thick] (5,0.2)--(5,-0.2);
+	\draw[thick] (13,0.2)--(13,-0.2);
+	\draw (-.3,7) node {$ \R$};
+	\draw (5,-0.5) node {$ a$};
+	\draw (13,-0.5) node {$ b$};
+	\draw (16,-0.4) node {$ \R$};		
+	\draw[thick,->] (0,0) -- (0,7);
+	\draw[thick,->] (0,0) -- (16,0);
+	\draw[thick,dashed] (5,0.45) -- (0,0.45);
+	\draw[thick,dashed] (13,4) -- (0,4);
+	\draw[thick, blue] (0,0)  to[out=5,in=190]  (9,1) to[out=10,in=260] (14,7);
+	\draw[thick, blue] (0,0) -- (14,6);
+	\draw[blue] (9,4.7) node {$ f(x) $};
+	\draw[blue] (14.5,4.5) node {$ F'(x)=f(x) $};
+	\draw[red] (7,1.6) node {\scriptsize $ \displaystyle\int_{a}^{b}f(x)\ dx $};
+	\draw[red, ultra thick] (0,0.45) -- (0,4);
+	\draw[black, thick] (-0.2,4)--(0.2,4);
+	\draw[black, thick] (-0.2,.45)--(0.2,.45);
+		\draw (-.6,4) node {$ F(b)$};
+		\draw (-.6,.45) node {$ F(a)$};
+		\draw[red] (-.8,2.225) node {\scriptsize $ F(b)-F(a)$};
+	\end{tikzpicture}
+	\caption{The second part of The Fundamental Theorem of Calculus says that if $ F'=f $, then we have $ \int_{a}^{b}f(x)\ dt=F(b)-F(a) $.}
+\end{figure}
+In essence, the Fundamental Theorem of Calculus (FTC) tells us that integration and differentiation are inverse operations.
+
+A great application of the FTC is to find some integration technique that is analogous to the Product Rule of differentiation. 
+\begin{proposition}[Integration by Parts]
+Suppose $ F $ and $ G $ are differentiable functions on $ [a,b] $, and $ F'=f $ and $ G'=g $ are integrable as well. Then $$ \int_{a}^{b}F(x)g(x)\ dx=F(b)G(b)-F(a)G(a)-\int_{a}^{b}f(x)G(x)\ dx.$$
+\end{proposition}
+\begin{proof}
+	Let $ H(x)=F(x)G(x) $. We have $$H'(x)=F'(x)G(x)+G'(x)F(x)=f(x)G(x)+g(x)F(x) ,$$ so $ H' $ is integrable by Proposition 6.5. The FTC gives \begin{align*}
+		\int_{a}^{b}H'(x)\ dx&=H(b)-H(a)\\
+		\int_{a}^{b}f(x)G(x)+g(x)F(x)\ dx&=F(b)G(b)-F(a)G(a)\\
+		\int_{a}^{b}f(x)G(x)\ dx+\int_{a}^{b}g(x)F(x)\ dx&=F(b)G(b)-F(a)G(a)\\\int_{a}^{b}F(x)g(x)\ dx&=F(b)G(b)-F(a)G(a)-\int_{a}^{b}f(x)G(x)\ dx
+	\end{align*}
+	\begin{remark}[But What About Discontinuous Functions?]
+		Subsection 6.7 showed that the set of Riemann integrable functions includes many more functions than just those are which continuous. Unfortunately, the FTC requires continuity. We still have no clear way of treating discontinuities when integrating. Example 6.20 and Example 6.23 will discuss this more.
+	\end{remark}
+\end{proof}
 \subsection{Change of Variables}
 Change of variables may be something you first saw explicitly in multivariable calculus when working with polar or spherical coordinates, but you actually learned a basic form of it earlier. In the case functions of a single variable it is often called $ u $-substitution. For the sake of generalization later on, we'll refer to it as change of variables, but just keep in mind that all it is, is $u$-substitution. 
 
 The general idea of change of variables is that it is the opposite of the Chain Rule. 
 
-$$ \int_{a}^{b}f(x)\ dx=\int_{\phi(a)}^{\phi(b)}f(\phi(y))\phi'(y)\ dy$$
+$$ \int_{\phi(a)}^{\phi(b)}f(x)\ dx=\int_{a}^{b}f(\phi(y))\phi'(y)\ dy$$
+We can justify this equality with reasoning similar to that which accompanied Theorem 6.6. This is best done with an example, as we need to deal with two sets of Riemann sums. 
 
+Let $ f(x)=5 $, $ \phi(y)=2y $,and $ [a,b]=[0,10] $. We have 
+\begin{align}
+\int_{\phi(a)}^{\phi(b)}f(x)\ dx=\int_{0}^{20}5\ dx=100,\\\int_{a}^{b}\phi(y)\ dy=\int_{0}^{10}2y \ dy=25.
+\end{align}
+Equation (19) corresponds to a square of area 100, while Equation (20) corresponds to a square of area 25. The goal of change of variables is to manipulate the area of the triangle formed by $ \phi $ so it has an area equal to the square formed by $ f $. This allows us to integrate $ f $ without even considering its domain. We instead work in $ \phi $'s domain. First, we want to change the height of the Riemann sums which form the triangle so they correspond to the height of the sums corresponding to $ f $ and the rectangle (see Figure 68). This is achieved by composing $ \phi $ with $ f $. Our updated area is the integral of $ f(\phi(y))=5 $ over  $ [0,10] $. 
+\begin{align}
+ \int_{0}^{10}5\ dx=50.
+\end{align}
+		\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}	
+	\fill[fill=blue!10] (8,0) rectangle (13,2) ;
+	\fill[fill=blue!10] (0,0) -- (3.5,3.5) -- (3.5,0) -- (0,0) ;
+	\draw[thick,->] (0,0) -- (0,7);
+	\draw[thick,->] (0,0) -- (7,0);
+	\draw[thick,->] (8,0) -- (15,0);
+	\draw[thick,->] (8,0) -- (8,7);
+	
+	\draw[thick] (3.5,.2)--(3.5,-.2);
+	\draw[thick] (-0.2,3.5)--(.2,3.5);
+	\draw[blue] (2,1) node {25};
+	\draw[black] (3.5,-.5) node {10};
+	\draw[black] (-.5,3.5) node {20};
+	\draw[black] (-.5,7) node {$ \phi(y) $};
+	\draw[black] (7,-.3) node {$ y $};
+	\draw[black] (7.5,7) node {$ f(x) $};
+	\draw[black] (15,-.3) node {$ x $};
+	\draw[blue] (10.5,1) node {50};
+		\draw[black] (13,-.5) node {10};
+	\draw[black] (7.7,2) node {5};
+	\draw[blue] (6.9,4.5) node {$ f\circ \phi $};
+		\draw[thick] (13,-.2)--(13,-.2);
+	\draw[thick] (7.8,2)--(8.2,2);
+	\draw[thick, ->, blue] (6.4,4) to[out=30,in=150] (7.4,4);	
+	\end{tikzpicture}
+	\caption{By composing $ \phi $ with $ f $, we modify the height of the integral of $ \phi $.}
+\end{figure}
+But we aren't done yet. The difference between (21) and (19) is the width of the corresponding rectangles. We cannot change the width of the prior though, because the whole point of this is to integrate in the domain of $ \varphi $. The bounds of integration should not be touched. We can instead scale the height of this rectangle by $ \varphi'(y) $, which is the rate at which the width would be scaled if we decided to move to the domain of $ f $ (Figure 68). 
+		\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}	
+	\fill[fill=blue!10] (0,0) rectangle (5,2) ;
+	\fill[fill=blue!10] (8,0) rectangle (13,4) ;
+	\draw[thick,->] (0,0) -- (0,7);
+	\draw[thick,->] (0,0) -- (7,0);
+	\draw[thick,->] (8,0) -- (15,0);
+	\draw[thick,->] (8,0) -- (8,7);
+	
+	\draw[thick] (5,.2)--(5,-.2);
+	\draw[thick] (-0.2,2)--(.2,2);
+	\draw[blue] (2,1) node {50};
+	\draw[black] (5,-.5) node {10};
+	\draw[black] (-.5,2) node {5};
+	\draw[black] (-.5,7) node {$ \phi(y) $};
+	\draw[black] (7,-.3) node {$ y $};
+	\draw[black] (7.5,7) node {$ f(x) $};
+	\draw[black] (15,-.3) node {$ x $};
+	\draw[blue] (10.5,1) node {100};
+	\draw[black] (13,-.5) node {10};
+	\draw[black] (7.7,4) node {10};
+	\draw[blue] (6.9,4.5) node {$ \times\phi'(y) $};
+	\draw[thick] (13,-.2)--(13,-.2);
+	\draw[thick] (7.8,4)--(8.2,4);
+	\draw[thick, ->, blue] (6.4,4) to[out=30,in=150] (7.4,4);	
+	\end{tikzpicture}
+	\caption{By scaling the height of the square from Figure 67 by a factor of $ \phi' $, we get the desired area.}
+\end{figure}
+This gives us $$ \int_{0}^{10}5\phi'(y)\ dy=\int_{0}^{10}5\cdot 2\ dy=100.$$ Therefore we have scaled the area in (16) to that in (15) by geometrically transforming the function over which we are integrating. In one step this is: $$\int_{\phi(a)}^{\phi(b)}f(x)\ dx=\int_{0}^{20}5\ dx=100=\int_{0}^{10} 5\times 2\ dy=\int_{a}^{b}f(\phi(y))\phi'(y)\ dy $$
 
-
+To convince yourself this works, it may be helpful to draw the pictures for the reverse direction. That is, how would we manipulate the square of area 100, to end up with a triangle of area 25. This particular direction is actually the useful direction, as you start with the simpler integral! It is also the direction you proceed in when performing $ u $-substitution. 
+\begin{remark}[Why Did I Go to All This Trouble?]
+	This very simple example may seem a little redundant, but change of variables becomes very complicated when working with mulitvariable functions. It will be really important to have a strong intution about this process when we move to the general case. It also helps in this simplified case because change of variables doesn't have this nice geometric representation when working with nontrivial functions. Even picking $ f $ to be linear would have prevented us from using well known formulas for the area of shapes. 
+\end{remark}
+\begin{theorem}[Change of Variables]
+	Suppose $ f $ is a bounded real function on $ [a,b] $ which is integrable. If $ \varphi:[a,b]\to[\varphi(a),\varphi(b)] $ is a continuous and strictly monotonic function, then $ f(\varphi) $ is integrable on $ [a,b] $, and $$ \int_{\phi(a)}^{\phi(b)}f(x)\ dx=\int_{a}^{b}f(\phi(y))\phi'(y)\ dy.$$
+\end{theorem}
+The proof will follow immediately from the Chain Rule and the Fundamental Theorem of Calculus.
+\begin{proof}
+Let $ F $ be the function such that $ F'=f $. We have $$F(\phi(y))'=F'(\phi(y))\phi'(y)=f(\phi(y))\phi'(y),$$ so $ F(\phi(u)) $ is the antiderivative of $ f(\phi(y))\phi'(y) $. By the Fundamental Theorem of Calculus, $$\int_{\phi(a)}^{\phi(b)}f(x)\ dx=F(\phi(b))-F(\phi(a))=\int_{a}^{b}f(\phi(y))\phi'(y)\ dy. $$
+\end{proof}
+\begin{example}
+	Suppose $ f(x)=(2x^3+1)^7x^2 $. We would like to integrate $$\int_{0}^{1} (2x^3+1)^7x^2\ dx, $$ but it is not clear how to integrate with respect to $ x $ in this case. We will instead change the variable we are integrating with respect to and appeal to Theorem 6.5. Let $ \phi(x)=2x^3+1 $, and $ f(u)=u^7 $. Integration with respect to $ u $ gives \begin{align*}
+		\int_{0}^{1} (2x^3+1)^7x^2\ dx=\frac{1}{6}\int_{0}^{\phi(1)} f(\phi(x)) 6x^2\ dx=\frac{1}{6}\int_{\phi(0)}^{\phi(1)} f(\phi(x)) \phi'(x)\ dx=\frac{1}{6}\int_{1}^{3}f(u)\ du=\frac{1}{6}\int_{1}^{3}u^7\ du=\frac{410}{3}.
+	\end{align*}
+\end{example}
 \subsection{Shortcomings of Riemann Integration}
-We conclude this section by giving several examples of functions that are either not integrable, or we have no means of evaluating the integral of. From now until section 13,\textbf{ when we write ``integral'', we will mean ''Riemann integral''}, but you should keep these examples in the back of your head. They allude to the fact that we have only scratched the surface of integration.
+We conclude this section by giving several examples of functions that are either not integrable, or we have no means of evaluating the integral of. From now until section 13,\textbf{ when we write ``integral'', we will mean ``Riemann integral''}, but you should keep these examples in the back of your head. They allude to the fact that we have only scratched the surface of integration.
 \begin{example}[Dirichlet Function]
 	Define $ f:\R\to\R $ as $$f(x)=\begin{cases}
 	1\text{ if }x\in\Q\\0\text{ if }x\notin\Q
@@ -4798,7 +5213,7 @@ We conclude this section by giving several examples of functions that are either
 \end{example}
 
 \begin{example}[Unbounded Function]
-	Let $ f(x)=1/x $. This function cannot be integrated on $ [0,1] $, as it is unbounded on this interval, because $ f(x-)=\infty $.  
+	Let $ f(x)=1/x $. This function cannot be integrated on $ (0,1] $, as it is unbounded on this interval, because $ f(x-)=\infty $. If we instead tried to use the interval $ [0,1] $, then $ f $ would not be defined as $ 0\in[0,1] $.  
 \end{example}
 \begin{example}[Integral Over All of $ \R $]
 	Suppose we want to integrate some function over all of $ \R $. The whole real line is unbounded, so how do we measure the length of an infinite set and find upper and lower Riemann sums? Integration this way is not possible in this case. 
