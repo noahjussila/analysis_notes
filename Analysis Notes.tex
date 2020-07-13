@@ -28,6 +28,8 @@
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\x}{\mathbf{x}}
 \newcommand{\y}{\mathbf{y}}
+\newcommand{\z}{\mathbf{z}}
+\newcommand{\ze}{\mathbf{0}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 \newcommand{\LL}{\mathcal{L}}
@@ -744,10 +746,10 @@ Geometrically, this is equivalent to saying that the length of any side of a tri
 The real line $ \R $ is a metric space when equipped with the metric $ d(x,y)=|x-y| $. 
 \end{example}
 \begin{example}[Euclidean Metric]
-Euclidean space $ \R^n $ is a metric space when equipped with the metric $$ d(\mathbf{x},\mathbf{y})=|\x-\y|=\sqrt{(x_1-y_1)^2+\cdots+(x_n-y_n)^2} .$$ The Euclidean metric is sometimes refered to as the $ \ell^2 $-metric. The Euclidean metric is intimately linked to the concept of a \textit{\color{red}norm}. Recall from linear algebra that Euclidean space is a vector space where vectors are elements of $ \R^n $, and scalers are elements of $ \R $. This space is equipped with function $ \norm{\cdot}_2:\R^n\to\R $ that measures the length of vectors. $$ \norm{\x}_2=\sqrt{x_1^2+\cdots+x_n^2}$$ We can write the $ \ell^2 -$metric as $ d(\x,\y)=\norm{\x-\y}_2 $. Right now, don't worry too much about norms.\footnote{I admittedly am not certain of when it is best to introduce the concept of a norm. I don't like how \cite{rudin1964principles} talks about it in passing in when reviewing Euclidean space. Introducing it latter on when covering functional analysis is also problematic, because we're going to use the $ \sup $-norm before that to measure the distance between two functions.} 
+Euclidean space $ \R^n $ is a metric space when equipped with the metric $$ d(\mathbf{x},\mathbf{y})=|\x-\y|=\sqrt{(x_1-y_1)^2+\cdots+(x_n-y_n)^2} .$$  The Euclidean metric is intimately linked to the concept of a \textit{\color{red}norm}. Recall from linear algebra that Euclidean space is a vector space where vectors are elements of $ \R^n $, and scalers are elements of $ \R $. This space is equipped with function $ \norm{\cdot}_2:\R^n\to\R $ that measures the length of vectors. $$ \norm{\x}_2=\sqrt{x_1^2+\cdots+x_n^2}$$ We can write the Euclidean metric as $ d(\x,\y)=\norm{\x-\y}_2 $. Right now, don't worry too much about norms.\footnote{I admittedly am not certain of when it is best to introduce the concept of a norm. I don't like how \cite{rudin1964principles} talks about it in passing in when reviewing Euclidean space. Introducing it latter on when covering functional analysis is also problematic, because we're going to use the $ \sup $-norm before that to measure the distance between two functions.} 
 \end{example}
 \begin{example}[Taxi-Cab Metric]
-If our set is $ \R^2 $ we can let $ d(\mathbf{x},\mathbf{y})=|x_1-y_1|+|x_2-y_2| $. This is often referred to as the taxi-cab metric, as it is how you would measure distance if driving a car on a grid. We can extend to $ \R^n $ and let $ d(\mathbf{x},\mathbf{y})=\sum_{i=1}^{n}|x_i-y_i| $. This metric is also called the $ \ell^1 -$metric.    
+If our set is $ \R^2 $ we can let $ d(\mathbf{x},\mathbf{y})=|x_1-y_1|+|x_2-y_2| $. This is often referred to as the taxi-cab metric, as it is how you would measure distance if driving a car on a grid. We can extend to $ \R^n $ and let $ d(\mathbf{x},\mathbf{y})=\sum_{i=1}^{n}|x_i-y_i| $. 
 \end{example}
 \begin{example}[$ p $-Adic Metric]
 The previous examples are easy to verify, but this may not always be the case. Suppose are set is $ \Z $ and $ d:\Z\times\Z\to[0,\infty] $ is defined as $$ d(x,y)=\begin{cases}
@@ -839,7 +841,7 @@ As the name implies, a neighborhood centered at $ x $ is simply all the points `
 \end{example} 
  
 \begin{example}
-Let $ d_{\ell^2}:\R^2\times\R^2\to[0,\infty] $ be the euclidean metric, and $ d_{\ell^1}:\R^2\times\R^2\to[0,\infty] $ be the taxi-cab metric. A neighborhood in $ (\R^2, d_{\ell^1}) $ may have a different ``shape'' then it would in $ (\R^2, d_{\ell^2}) $. We will denote $ N_{3}(\mathbf{0})\in \R^2 $ as $ E $ and $ F $, in $ (X,d_{\ell^2}) $ and $ (X,d_{\ell^1}) $ respectively. These neighborhoods are shown in Figure 11.     
+Let $ d_{2}:\R^2\times\R^2\to[0,\infty] $ be the euclidean metric, and $ d_{\ell^1}:\R^2\times\R^2\to[0,\infty] $ be the taxi-cab metric. A neighborhood in $ (\R^2, d_{1}) $ may have a different ``shape'' then it would in $ (\R^2, d_{2}) $. We will denote $ N_{3}(\mathbf{0})\in \R^2 $ as $ E $ and $ F $, in $ (X,d_{2}) $ and $ (X,d_{1}) $ respectively. These neighborhoods are shown in Figure 11.     
 	\begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}
@@ -851,7 +853,7 @@ Let $ d_{\ell^2}:\R^2\times\R^2\to[0,\infty] $ be the euclidean metric, and $ d_
 	\draw[color = red] (2.5,2.5) node {$ F $};
 	\draw[color = blue] (4.5,4.5) node {$ E $};
 	\end{tikzpicture}
-	\caption{$ N_{3}(\mathbf{0})\in \R^2 $ in $ (\R^2, d_{\ell^2}) $ and $ (\R^2, d_{\ell^1}) $. }
+	\caption{$ N_{3}(\mathbf{0})\in \R^2 $ in $ (\R^2, d_{2}) $ and $ (\R^2, d_{1}) $. }
 \end{figure}	
 \end{example}
 \begin{definition}
@@ -1185,7 +1187,7 @@ Informally, if $ E $ is dense in $ X $, then we can approximate any point of $ X
 \end{example}
 Many results involving approximation can be stated in terms of dense sets. One of these is the Weierstrass Approximation Theorem. This will be formally treated and proved in Section 7, but for now we will give the result as an example of a dense set.
 \begin{example}[Weierstrass Approximation Theorem]
-	Let $ \mathscr{C}([a,b])=\{f\mid f:[a,b]\to \R\text{ and } f\text{ continuous}\} $ be the set of real valued continuous functions with domain $ [a,b] $. Now let $ \mathscr{P}([a,b]) $ be the set of all real valued polynomials with domain $ [a,b] $.\footnote{This set is traditionally denoted as $ \R[x] $ in abstract algebra.} The set $ \mathscr{P}([a,b])  $ is dense in $ \mathscr{C}([a,b]) $. We will always be able to approximate a continuous function on a bounded interval arbitrarily well with polynomials. This result, and spaces of functions, will be discussed again in Section 7. 
+	Let $ C([a,b])=\{f\mid f:[a,b]\to \R\text{ and } f\text{ continuous}\} $ be the set of real valued continuous functions with domain $ [a,b] $. Now let $ \mathscr{P}([a,b]) $ be the set of all real valued polynomials with domain $ [a,b] $.\footnote{This set is traditionally denoted as $ \R[x] $ in abstract algebra.} The set $ \mathscr{P}([a,b])  $ is dense in $ C([a,b]) $. We will always be able to approximate a continuous function on a bounded interval arbitrarily well with polynomials. This result, and spaces of functions, will be discussed again in Section 7. 
 \end{example}
 \begin{definition}
 	Let $ X $ be a metric space. The set $ E\subseteq X $ is \textit{\color{red}perfect} if every point of $ E $ is a limit point of $ E $ $ (E=E') $. 
@@ -2349,7 +2351,7 @@ The Cauchy Criterion is what we have been building to. To prove a sequence conve
 	The rationals $ \Q $ are not complete. For example, the the sequence $ x_n=(1+1/n)^n $ does not converge in $ \Q $, but it is Cauchy.
 \end{example}
 \begin{example}
-	The set of all real valued continuous functions defined on the domain $ [a,b]\subseteq\R $, denoted $ \mathscr{C}([a,b]) $, is complete. Right now, this example seems very abstract, as we haven't even discussed sequences of functions. We will return to this later on.  
+	The set of all real valued continuous functions defined on the domain $ [a,b]\subseteq\R $, denoted $ C([a,b]) $, is complete. Right now, this example seems very abstract, as we haven't even discussed sequences of functions. We will return to this later on.  
 \end{example}
 \begin{remark}
 	Early on, we referred to $ \R $ as ``complete'' in the sense that it had no gaps. While this is related to Definition 3.7, they're not the same. Formally defining the first and distinguishing it from Definition 3.7 would be a long detour. If it is ever unclear which one is being referred to, then I'll try to specify. 
@@ -5226,12 +5228,49 @@ While the Fundamental Theorem of Calculus allows us to evaluate integrals for co
 \end{example}
 
 
-
+\newpage
 
 
 \section{Sequences and Series of Functions}
+Section 3 looked at sequences and series of numbers. We want to extend these ideas to real functions. It's tempting to think that we have already seen sequences of functions in the context of continuity. If $ f $ is continuous at $ x $, then for any sequence $ \{x_n\} $ which converges to $ x $, we have $ f(x_n)\to f(x) $. This looks like a sequence of functions, but it's still a numeric sequence. Each $ f(x_n) $ is a number. This sequence is just the result of applying a function to a set of numbers. This preliminary example provides a bonafide example of the types of sequences we are turning our attention to.
+\begin{example}
+	Define $ f_n:\R\to\R $ as $ f_n(x)=x^n $. We have a sequence of functions in $ \{f_n\} $.\footnote{The functions now have a subscript $ n $, indicating that each $ n $ garners a different function.} The first several terms of this sequence look like: $$ x,x^2,x^3,x^4,x^5,\ldots.$$
+\end{example} 
+We can easily discuss a sequence of functions, or its possible limit, in the context of continuity, differentiation, and integration. Determining how sequence and series interact with these concepts will be a major goal. Then we will focus on approximating and/or expressing a function as a limit of a sequence or series.  
 \subsection{Metric Spaces of Functions}
-\subsection{Sequences}
+Before we can discuss sequences of functions, we need to think about a metric space of functions. Until now, we've only look at metric spaces of numbers, but we never said a metric space couldn't be comprised of more abstract objects. We'll start by giving several definitions of sets of functions that have already been covered. This will amount to just introducing some convenient notation.
+\begin{definition}
+	The \textit{\color{red}set of continuous real functions} defined on a set $ X\subset\R $ is denoted $ C(X)$. 
+\end{definition}
+\begin{definition}
+	The \textit{\color{red}set of continuous bounded real functions} defined on a set $ X\subset\R $ is denoted $ BC(X)$. 
+\end{definition}
+\begin{definition}
+	The \textit{\color{red}set of $ n $-times differentiable (real) functions} defined on a set $ X\subset\R $ is denoted $ C^n(X) $. 
+\end{definition}
+\begin{example}
+	We have $ BC(X)\subset C(X),$ and $C^\infty(X)\subset\ldots C^2(X)\subset C^1(X)\subset C(X) .$
+\end{example}
+\begin{example}
+	If we define $ \mathscr{R}(X) $ to be the set of all Riemann integrable functions on $ X $, then $$C^\infty(X)\subset\ldots C^2(X)\subset C^1(X)\subset C(X)\subset\mathscr{R}(X) .$$ We also have $ BC(X)\subset\mathscr{R}(X) $. For now, we should hold off on working with the set $ \mathscr{R} $, because we'll define a larger set of integrable functions later. 
+\end{example}
+How would we measure the distance between two functions? On what sets of functions is this even possible? Well, if a function is unbounded, then that complicates matters. We cannot exactly measure the distance between two objects if one of them goes off to infinity.\footnote{The Euclidean metric in $ \R $ cannot measure the distance between $ \infty $ and $ x\in\R $ (although this is also because $ \infty\notin\R $). } For that reason, we will define a metric on $ BC(X) $. We would also be able to do this for the set of all bounded functions, but for now we'll just assume continuity. 
+
+For $ g,f\in BC(X) $, what is a reasonable choice $ d(f,g) $? At some point $ x_0\in X $, we know the distance between the two functions is given by the Euclidean metric. $$d(f(x_0),g(x_0))=|f(x_0)-g(x_0)| $$ This isn't really the distance between the two functions though. It's the distance between the \textit{real numbers} the functions take on at the single point $ x_0 $. This doesn't account for all the other points on which the set is defined, $ X\backslash\{x_0\} $. Perhaps we could just take the maximum distance between the functions over $ X $? This would provide us with a conservative estimate, that says ``okay well the distance is \textit{at most} this.'' Just to be careful, we should take the supremum instead of the maximum.\footnote{If $ X $ is closed than each element of $ BC(X) $ achieves a max by the Extreme Value Theorem, so using the supremum in this case would not be strictly required.} Our candidate distance function is $$d(f,g)=\sup_{x\in X}|f(x)-g(x)| .$$
+But does this choice of $ d $ satisfy definition 2.1?
+
+We will have $ d(f,g)=0 $ if and only $ f=g $ in $ BC(X) $. We also have $ d(f,g)=f(g,f) $, as $ |f(x)-g(x)|=|g(x)-f(x)|  $. It only remains to be shown that this choice of metric verifies the triangle inequality. For $ f,g,h\in BC(X) $ the triangle inequality in the Euclidean metric gives  
+\begin{align*}
+	d(f,g)+d(g,h)&=\sup_{x\in X}|f(x)-g(x)|+\sup_{x\in X}|g(x)-h(x)|\\
+				 &\ge |f(x)-g(x)|+|g(x)-h(x)|\\
+				 &\ge |f(x)-h(x)|.
+\end{align*}
+This shows that $ \sup_{x\in X}|f(x)-g(x)|+\sup_{x\in X}|g(x)-h(x)| $ is an upper bound of $ |f(x)-h(x)| $, so it is weakly greater than the supremum of $ |f(x)-h(x)| $.
+$$	d(f,g)+d(g,h)\ge \sup_{x\in X}|f(x)-g(x)|+\sup_{x\in X}|g(x)-h(x)|\ge \sup_{x\in X} |f(x)-h(x)|=d(f,h) $$
+\begin{definition}
+	The \textit{\color{red}supremum/sup metric} on $ BC(X) $ is defined as $$d(f,g)=\norm{f-g}_\infty=\sup_{x\in X}|f-g|. $$
+\end{definition}
+For now, take the sup metric's special notation as given. We will explain where this notation comes from in the beginning of Section 8. 
 \subsection{Pointwise Convergence}
 \begin{figure}[h!]
 	\centering
@@ -5315,7 +5354,115 @@ While the Fundamental Theorem of Calculus allows us to evaluate integrals for co
 \subsection{Power Series}
 \subsection{Taylor Series}
 \section{Real Functions of Several Variables}
+Now we'll take an aside to review linear algebra and multivariable functions. Most of this will look familiar, but some of the notation may differ slightly from what is seen in a linear algebra course. Come Section 16, \textbf{some of these definitions will be repeated with different notation}. Right now the notation will be more tailored to Euclidean space. Many results related to vector spaces will also be stated as fact or given in examples. The proofs of them can be found in any linear algebra textbook. 
+\subsection{Euclidean Space}
+Before we can define Euclidean space, we need to introduce the concept of a vector space. 
+\begin{definition}
+	A \textit{\color{red}vector space} is a set of vectors $ V $ over a field of scalers $ F $ equipped with two operations: $ +:V\times V $, and $ \cdot:F\times V\to V $. These operations, called addition and scaler multiplication, must satisfy the following properties for all $ \x,\y,\mathbf{z}\in V $ and $ a,b\in F $:
+	\begin{enumerate}
+		\item $ \x+\y=\y+\x $,
+		\item $ \x+(\y+\z)=(\x+\y)+\z $,
+		\item there is a unique $ \mathbf{0}\in V $ such that $ \ze+\x=\x $,
+		\item $ \x+(-1)\x=\ze $,
+		\item $ 1\x=\x $,
+		\item $ a(b\x)=(ab)\x $,
+		\item $ (c+d)\x=c\x+d\x $,
+		\item $ c(\x+\y)=c\x+c\y $.
+	\end{enumerate}
+\end{definition}
+Certain vector spaces are equipped with a function that measures the ``length'' of a vector in $ V $. Norms can be seen as a generalization of the absolute value of a number.
+\begin{definition}
+	A \textit{\color{red}normed vector space} is a vector space $ V $ over a field of scalers $ F $ equipped with a function $\norm{\cdot}:V\to[0,\infty)$ called a \textit{\color{red}norm} which for all $ \x,\y\in V $ and $ c\in F $ satisfies:
+	\begin{enumerate}
+		\item $ \norm{\x}=0\iff \x=\ze$,
+		\item $ \norm{c\x}=|c|\cdot \norm{\x} $,
+		\item $ \norm{\x+\y}\le\norm{\x}+\norm{\y} $.
+	\end{enumerate} 
+\end{definition}
+\begin{example}
+	A trivial normed vector space is the set $ \R $ over $ \R $. In this case, a vector is just a real number. 
+\end{example}
+The next two examples of normed vector spaces are fairly abstract. The goal with them is to get a sense of just how general vector spaces can be.
+\begin{example}[Vector Space of Real Sequences]
+	Let $ \R^\N $ be the space of all real sequence $ \{x_n\} $, and $ \R $ be the set of scalers. If we define \begin{align*}
+		\{x_n\}+\{y_n\}&=\{x_n+y_n\}\\
+		a\{x_n\}&=\{ax_n \}
+	\end{align*}
+	for $ a\in\R $ and $ \{x_n\},\{y_n\}\in\R^\N $, then we have a vector space. To make this a normed vector space, we can restrict our attention to sequence for which $ \norm{\{x_n\}}_2<\infty $ where $$ \norm{\{x_n\}}_2=\left[x_1^2+x_2^2+\cdots\right]^\frac{1}{2}=\left(\sum_{n\in\N}x_n^2\right)^\frac{1}{2}.$$  We will call this normed vector space $ \ell^2 $. For $ x_n=1/n $ in $ \ell^2 $, then $$\norm{\{1/n\}}=\left(\sum_{n=1}^\infty\frac{1}{n^2}\right)^\frac{1}{2}=\left(\frac{\pi^2}{6}\right)^\frac{1}{2}=\frac{\pi}{\sqrt{6}} .$$ 
+\end{example}
+\begin{example}[Vector Space of Continuous Functions]
+	Let $ C([a,b]) $ be the set of real continuous functions on $ [a,b] $. This set forms a vector space over the set of scalers $ \R $. This is also a normed vector space equipped with the \textit{\color{red}supremum/sup norm} (pronounced ``soup'' norm), which is written as $$\norm{f}_\infty=\sup_{x\in [a,b]}|f(x)| .$$
+\end{example}
+\begin{remark}[Norm vs. Metric]
+If you think all the way back to Example 2.2, we mentioned that norms and metrics are related. This is because every normed vector space is a metric space if we define $$ d(\x,\y)=\norm{\x-\y}.$$ The converse however is not true. A metric space needn't be a vector space, as a metric space isn't necessarily endowed with the algebraic structure of a vector space. In this sense, metric spaces are actually generalizations of normed vector spaces! When we have a normed vector space and want to discuss it in the context of a metric space, we will assume $ d(\x,\y)=\norm{\x-\y}.$ This is why I said that ``supremum metric'' is not a common term. If you're interested in the set $ C([a,b]) $ with $ d(f,g)=\sup_{x\in [a,b]}|f-g| $, then we simply specify that it has the \textit{\color{red}sup norm} (pronounced ``soup norm''), and infer the corresponding metric. 
+\end{remark}
+
+
+Despite having worked in Euclidean space for the majority of the previous sections, having assumed familiarity, we will formally define it now. 
+\begin{definition}
+	We define the normed vector space comprised of vectors $ \x\in\R^n $, scalers $ c\in\R $, a norm $\norm{\cdot}:\R^n\to\R$ given by $$ \norm{\x}=\sqrt{x_1^2+\cdots +x_2^2},$$and an \textit{\color{red}dot/inner product} $ \cdot:\R^n\times \R^n\to\R$ defiend by $$ \x\cdot\y=\sum_{i=1}^nx_i\cdot y_i,$$ as \textit{\color{red} Euclidean space}.
+\end{definition}
+\begin{example}[A Trivial Example]
+Let $ \R $ be the vector space over a field of scalers $ \R $. The norm on this vector space is $|x| $. In this case, the dot product just becomes multiplication of real numbers. This happens to also be how scaler multiplication behaves, as each scaler is also a real number. 
+\end{example}
+\begin{example}[Column Vectors]
+We represent an element $ \x=(x_1,\ldots, x_n)\in\R^n $ with a column vector $$\x=\begin{bmatrix}
+x_1\\\vdots\\x_n
+\end{bmatrix} .$$
+\end{example}
+\begin{note}[$ \norm{\cdot} $ vs. $ \norm{\cdot}_2 $]
+	In Example 2.2, we talked about the Euclidean norm in relation to the Euclidean metric (that relationship follows from Remark 8.1). We denoted it by $ \norm{\cdot}_2 $. This is the most technical possible notation (for reasons we will see in the next example). That being said, if you are ever working with a normed vector space and it is obvious how the norm would be defined, feel free to use $ \norm{\cdot} $. If you're working in $ \R^n $, everyone will assume it is with the Euclidean norm. It never hurts to use $ \norm{\cdot}_2 $, but \textbf{you can assume this is the norm being used with $ \R^n $ from here on out unless otherwise specified.}
+\end{note}
+\begin{example}[But Where Does the 2 Come From?]
+	But why do we even denote the Euclidean metric with $ \norm{\cdot}_2 $ in the first place? This comes from a more general norm on $ \R^n $ called the $ p $-norm, written as $$ \norm{\x}_p=(|x_1|^p+\cdots + |x_n|^p)^\frac{1}{p}=\left(\sum_{i=1}^n|x_i|^p\right)^\frac{1}{p}$$ for $ p\in\N $. We take the absolute value of each component of $ \x $ before exponentiating by $ p $ to ensure $ \norm{\x}_p>0 $.\footnote{When we defined a norm, we gave its domain as nonnegative numbers.} If we let $ p=2 $, then we have the Euclidean norm as given in Definition 8.3. If we take $ p=1 $, then we have $$ \norm{\x}_1=|x_1|+\ldots+|x_n|.$$ This particular choice would give rise to the taxi-cab metric from Example 2.3. If we take our vector space to be $ \R $, then $$\norm{x}_p=\left(|x|^p \right)^\frac{1}{p}=|x|$$ for any choice of $ p $.
+	
+	A useful exercise is picking different choices of $ p $ for $ \norm{\x}_p $ and a fixed $ \x\in\R^n $. This will give us a better sense of how the idea of ``length'' changes as $ p $ changes. Let $ \x=(1/2,1,2) $.  
+	\begin{align*}
+		\norm{\x}_1&=\frac{1}{2}+1+2=3.5\\
+		\norm{\x}_2&=\left(\left(\frac{1}{2}\right)^2+1^2+2^2\right)^\frac{1}{2}=\left(\frac{1}{4}+1+4\right)^\frac{1}{2}=2.29\\
+		\norm{\x}_5&=\left(\left(\frac{1}{2}\right)^5+1^5+2^5\right)^\frac{1}{2}=\left(\frac{1}{32}+1+32\right)^\frac{1}{5}=2.01\\
+		\norm{\x}_{10}&=\left(\left(\frac{1}{2}\right)^{10}+1^{10}+2^{10}\right)^\frac{1}{{10}}=\left(\frac{1}{4}+1+1024\right)^\frac{1}{{10}}=2.0002\\
+		\norm{\x}_{15}&=\left(\left(\frac{1}{2}\right)^{15}+1^{15}+2^{15}\right)^\frac{1}{{15}}=\left(\frac{1}{2^{15}}+1+2^{15}\right)^\frac{1}{{15}}=2.000004\\
+	\end{align*}  
+	What is happening here? When we let $ p=1 $, the length of $ \x $ is the sum of its components lengths. All the components contribute equally. When we take $ p=2 $, instead of summing the lengths, we first square them. Small components like $ 1/2 $ get smaller, and large components like $ 2 $ get bigger.\footnote{``small'' means less than $ 1 $, ``large'' means greater than $ 1 $.} After doing this, we sum them, and then take the square root so the length is not artificually inflated by use squaring each component. By squaring each number, we let the larger components ``contribute'' more to the length. We do so even more if we take $ p $ to be larger. In fact, if we let $ p\to\infty $, the largest component of $ \x $ will begin to dominate the other, being the only one that contributes to the norm. We actually end up with $$ \lim\limits_{p\to\infty}\norm{\x}_p=\norm{\x}_\infty=\sup\{|x_1|,\ldots, |x_n|\}=\max\{|x_1|,\ldots, |x_n|\}. $$ This is just the $ \sup $ norm, but for a finite set of points! 
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.7\linewidth]{figures/lp_norm}
+		\caption{}
+		\label{fig:lpnorm}
+	\end{figure}
+	
+	
+	We can also use the $ p $-norm for sequence in $ \R^\N $. We call the space of sequences in $ \R^\N $ for which $ \norm{\{x_n\}}<\infty $ $ \ell^p $ space. We already saw $ \ell^2 $ in Example 8.1. The only real difference between $ \ell^p $ and $ \R^n $ equipped with $ \norm{\cdot}_p $, is that the vectors in $ \ell^p $ are infinite sequences. In $ \R^n $ each vector is finite. This is why for all $ \x\in\R^n $ we have $ \norm{\x}_p<\infty $. We don't need to eliminate any elements of $ \R^n $ to get a normed vector space like we need to for $ \R^\N $. This difference is so subtle, that you may even see the Euclidean metric on $ \R^n $ associated with the notation $ \ell^2 $, and the taxi-cab metric on $ \R^n $ associated with $ \ell^1 $.  
+\end{example}
+\begin{remark}[The Missing Link]
+	We now know that as we let $ p\to\infty $ for $ \norm{\cdot}_p $ we end up with a discrete version of the $ \sup $ norm that we saw in Subsection 7.1. Is it possible to define $ \norm{f}_p $ for $ f\in C([a,b]) $, and conclude that $ \lim\limits_{n\to\infty}\norm{f}_p=\norm{f}_\infty $. The answer is yes.\footnote{Well, \textit{very} technically no. The limit will turn out to \textit{essentially} by the sup norm.} We will see this for the first time in Section 13, and dedicate an entire section to it with Section 17.
+\end{remark}
+\begin{example}[Euclidean Norm and Dot Products]
+The dot product and the norm are related via the following equation:
+$$ \norm{\x}=\sqrt{x_1^2+\ldots+x_n^2}=\sqrt{x_1x_1+\ldots+x_nx_n}=\sqrt{\x\cdot\x}.$$
+\end{example}
+\begin{proposition}[Cauchy-Schwarz Inequality]
+	
+\end{proposition}
+\begin{definition}
+	linear combo
+\end{definition}
+\begin{definition}
+	span
+\end{definition}
+\begin{definition}
+	independence 
+\end{definition}
+\begin{definition}
+	basis
+\end{definition}
+\begin{remark}[Generalizing Euclidean Space]
+If you look at the definition of Euclidean space, you should note it has an additional feature that is not required of a normed vector space. We defined a special function which we called the ``dot product''. In Section 16, we will study a type of vector spaces called Hilbert Spaces. These are generalizations of Euclidean space, as not only are they euipped with a norm, but they also have a function analagous to the dot product. 
+\end{remark}
 \subsection{Linear Transformations}
+\subsection{Nonlinear Transformations and Functions}
+\subsection{Space of Linear Transformations}
 \section{Differentiation with Several Variables}
 \subsection{The Derivative as a Linear Map}
 	\begin{figure}[h]
