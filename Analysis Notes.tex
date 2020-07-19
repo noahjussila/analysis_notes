@@ -33,6 +33,7 @@
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 \newcommand{\LL}{\mathcal{L}}
+\newcommand{\uni}{\overset{\text{uni}}{\to}}
 \DeclareMathOperator{\diam}{diam}
 \newcommand{\Prr}[1]{\text{Pr}\left(#1\right)}
 \pgfplotsset{my style/.append style={axis x line=middle, axis y line=
@@ -983,8 +984,8 @@ The set $ \emptyset $ in any metric space $ X $ is closed and open. This set has
 \begin{example}
 The set of rationals $ \Q $ is neither open nor closed in $ \R $. For all $ x\in\Q $, $ N_r(x) $ will contain irrational numbers for all $ r $, meaning $ N_r(x)\not\subseteq\Q $. Therefore no elements of $ \Q $ are interior points. The set $ \Q $ also does not contain all of its limit points, as any irrational number is a limit point as a result of Theorem 2.4. For example, any neighborhood of $ \sqrt{2} $ will contain elements of $ \Q $ (which are not $ \sqrt{2} $), making it a limit point. 
 \end{example}
-\begin{remark}
-	The point made in Remark 3.3 is especially relevant for open and closed sets. A set could be open in one metric space, but closed in another. In most cases it's clear what metric space we are working in, but sometimes it is not. In cases where it is vague, it's always best to say a set is \textit{open in $ X $} or \textit{closed in $ X $}. For this reason it is a good practice to either specify $ E\subseteq X $, or include ``in $ X $.'' Many topics in analysis concern the metric space $ \R^n $ or $ \R $, so if you say a set is closed or open in conversation, it is usually assumed the metric space is one of these spaces. For example, if you were to ask someone ``are the integers closed or open?", they would most likely assume you mean ``are the integers closed or open in $ \R $?" 
+\begin{remark}[Relative to Which Space]
+	The point made in Remark 2.4 is especially relevant for open and closed sets. A set could be open in one metric space, but closed in another. For example, if we have the space of real numbers $ [0,1] $ with the Euclidean metric, $ [0,0.5) $ is open in $ Y $. We also have that $ [0,1] $ is open in $ Y $! In most cases it's clear what metric space we are working in, but sometimes it is not. In cases where it is vague, it's always best to say a set is \textit{open in $ X $} or \textit{closed in $ X $}. For this reason it is a good practice to either specify $ E\subseteq X $, or include ``in $ X $.'' Many topics in analysis concern the metric space $ \R^n $ or $ \R $, so if you say a set is closed or open in conversation, it is usually assumed the metric space is one of these spaces. For example, if you were to ask someone ``are the integers closed or open?", they would most likely assume you mean ``are the integers closed or open in $ \R $?" 
 \end{remark}
 
 \begin{example}
@@ -2816,7 +2817,7 @@ The definition of a limit of a function as given in Definition 4.1 has two quirk
 \begin{definition}
 	Let $ X $ and $ Y $ be metric spaces,  $ E\subset X $, $ p\in E $, and $ f:E\to Y $. Then $ f $ is \textit{\color{red}continuous at p} if for all $ \varepsilon>0 $, there exists a corresponding $ \delta>0 $ such that $$ d_Y(f(x),f(p))<\varepsilon $$ for all points $ x\in E $ which satisfy $ d_X(x,p)<\delta $. If $ f $ is continuous at every point of $ E $, then $ f $ is {\color{red}continuous (on $ E $)}. 
 \end{definition}
-This definition is illustrated in Figure 38.
+This definition is illustrated in Figure 38. Just like in calculus, a function is continuous at a point $ x $ if and only if $$\lim\limits_{t\to x}f(t)=f(x) $$
 \begin{remark}
 Go back and review Remark 2.4. This issue came up with sequences. We saw sequences that converged in one metric space, but not another. Similarly, a function can be continuous in one metric space but not another. It also can be continuous on one subset of a metric space, but not another. If a subset $ E\subset X $ is never specified, then we assume that $ E=X $. This is why we usually consider all of $ \R $ when determining if a real function is continuous.
 \end{remark}
@@ -5270,8 +5271,18 @@ $$	d(f,g)+d(g,h)\ge \sup_{x\in X}|f(x)-g(x)|+\sup_{x\in X}|g(x)-h(x)|\ge \sup_{x
 \begin{definition}
 	The \textit{\color{red}supremum/sup metric} on $ BC(X) $ is defined as $$d(f,g)=\norm{f-g}_\infty=\sup_{x\in X}|f-g|. $$
 \end{definition}
-For now, take the sup metric's special notation as given. We will explain where this notation comes from in the beginning of Section 8. 
+For now, take the sup metric's special notation as given. We will explain where this notation comes from in the beginning of Section 8. We should note that other valid metric spaces are the set of bounded real functions $ B(X) $, and $ C(X) $ as long as $ X $ is compact.\footnote{The function being bounded follows from the compact domain, as these functions are continuous. }
+\begin{example}
+	Let $ f(x)=\sin x $ and $ g(x)=\cos x $. Both of these functions are in the set $ BC(\R) $. We have $$\norm{f-g}_\infty=\sup_{x\in\R}|\cos x-\sin x|=\sqrt{2} .$$ In this case $ |\cos x-\sin x|=\R $ happens for all $ 3k\pi/4\in\R $ where $ k\in\Z $. 
+\end{example}
+
+In Subsection 7.3, the sup metric on spaces of functions will prove useful in our discussion of sequences of functions. 
 \subsection{Pointwise Convergence}
+We begin by defining one type of limit of a sequence of functions.
+\begin{definition}
+	Let $ E\subset \R $, and $ f_n:E\to\R $ for all $ n $. The sequence of functions $ \{f_n\} $ \textit{\color{red}converges (pointwise)} to $ f:E\to\R $ if for every $ x\in E $ and $ \varepsilon>0 $, there exists a \textit{corresponding} $ N\in\N $ such that $ |f_n(x)-f(x)|<\varepsilon $ whenever $ n\ge N $.  In this case we write $$ f(x)=\lim\limits_{n\to\infty} f_n(x)$$ for $ x\in E $.
+\end{definition}
+If $ \{f_n\} $ is a sequence of functions on $ E$, then for any fixed $ x\in E $, $ \{f_n(x)\} $ is a sequence of numbers. If this numerical sequence $ \{f_n(x)\} $ converges to $ f(x) $ for all $ x\in E $, then we have pointwise convergence. This means in practice we may use the same limit rules developed for a sequence of numbers on a sequence of functions. An illustration of this can be seen in Figure 72. The sequence of functions in this figure converges pointwise to $ x_0 $. It very well could converge pointwise to $ x_1 $ as well, it may just be that for some $ \varepsilon $ the value of $ N $ that gives $ |f_n(x_0)-f(x_0)|<\varepsilon $ for all $ n\ge N $ will not work for $ |f_n(x_1)-f(x_1)| $. That is to say, \textbf{just because $ \mathbf{\{f_n\}} $ converges pointwise to $ \mathbf{f} $ on $ \mathbf{E} $, that does not mean that one value of $ \mathbf{N} $ will give $ \mathbf{|f_n(x)-f(x)|<\varepsilon}$ for all $ \mathbf{x\in E} $!} This is why in Definition 7.5, we have a \textit{corresponding} $ N $ for each $ x\in E $ and $ \varepsilon>0 $. As the next examples will show, the particular value of $ N $ will depend on $ x $ and $ \varepsilon $. 
 \begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}
@@ -5306,16 +5317,84 @@ For now, take the sup metric's special notation as given. We will explain where 
 	\draw[red] (11.2,0.5) node {\scriptsize$ f_4 $};
 	\draw[green] (12.2,0.5) node {\scriptsize$ f_5 $};
 	\draw[green] (13.2,0.5) node {\scriptsize$ f_6 $};
-
+	\draw[blue] (13.2,6.7) node {$ f $};
 	\draw[thick] (7.5,0.2) -- (7.5,-0.2);
 	\draw (7.5,-0.5) node {$ x_0 $};
 		\draw[thick] (11.5,0.2) -- (11.5,-0.2);
 	\draw (11.5,-0.5) node {$ x_1 $};
 	\end{tikzpicture}
-	\caption{pointwise.}
+	\caption{The sequence of functions $ \{f_n\} $ converges pointwise to $ f $ at $ x_0 $. For this particular choice of $ \varepsilon $, we have $ |f_n(x_0)-f(x_0)|<\varepsilon $ for all $ n\ge 5 $. }
 \end{figure}
-
+\begin{example}
+Let $ f_n=1/nx $ be a sequence of functions. We can show that $ f_n\to f=0 $ on the interval $ (0,1) $. If we let $ N=1/\varepsilon x $, then $$|f_n(x)-f(x)|=\left\lvert\frac{1}{nx}-0\right\rvert=\frac{1}{nx}<\frac{1}{Nx}=\frac{1}{(1/\varepsilon x)x}=\varepsilon $$ for all $ n\ge N $. In any real application we would calculate the limit in the following way: $$ \lim_{n\to\infty}f_n=\lim_{n\to\infty}\frac{1}{nx}=\lim_{n\to\infty}\left(\frac{1}{n}\right)x=0\cdot x=0$$
+\end{example}
+\begin{example}
+	If we let $ f_n=(nx)/(1+nx^2) $, we have $ f_n\to f(x)=1/x $ on $ (0,\infty) $. 
+	If we let $ N=1/\varepsilon x $, then \begin{align*}
+		|f_n(x)-f(x)|&=\left\lvert\frac{nx}{1+nx^2}-\frac{1}{x}\right\rvert=\left\lvert\frac{nx^2-1+nx^2}{x+nx^3}\right\rvert=\left\lvert-\frac{1}{x+nx^3}\right\rvert=\frac{1}{x+nx^3}<\frac{1}{x+Nx^3}<\frac{1}{x+\left[\frac{1-x\varepsilon}{\varepsilon x^3}\right]x^3}=\varepsilon
+	\end{align*} for all $ n\ge N $. 
+\end{example}
+One reason that sequences of functions are so useful is because we may be able to express some complicated function as a limit of relatively ``nice'' functions.\footnote{We discussed this type of situation in the passage after Corollary 3.1}. Perhaps if we need to take the limit of, differentiate, or integrate some complicated function, we can instead work with a sequence which converges to that function. If $ f_n\to f $, can we just use the following relationships:
+\begin{align*}
+	\int_{a}^{b}f(x)\ dx=\int_{a}^{b}\lim\limits_{n\to\infty}f_n(x)\ dx&\stackrel{?}{=}\lim\limits_{n\to\infty}\int_{a}^{b}f_n(x)\ dx\\
+	f'(x)=\left(\lim\limits_{n\to\infty}f_n(x)\right)'&\stackrel{?}{=}\lim\limits_{n\to\infty}f_n^\prime(x)\\
+	\lim\limits_{t\to x}f(t)= \lim\limits_{t\to x }\left(\lim\limits_{n\to\infty}f_n(x)\right)&\stackrel{?}{=}\lim\limits_{n\to\infty}\lim\limits_{t\to x}f_n(t)
+\end{align*}
+Is the limit of the integral the integral of the limits? Is the limit of the derivative the derivative of the limits? If $ f_n $ is continuous for all $ n $, then the final proposed relationship asks if the limit of continuous functions is continuous, as we have $ \lim_{t\to x}f_n(t)=f_n(x) $. $$	\lim\limits_{n\to\infty}\lim\limits_{t\to x}f_n(t)=\lim\limits_{n\to \infty }f_n(x)=f(x)\stackrel{?}{=}\lim_{t\to x} f(t) $$
+These are all related to the question first mentioned in Remark 4.5. When are we allowed to move limits in and out of operations? These particular cases happen to be of theoretical interest, as integration, differentiation, and limits are all limiting processes. In effect, we want to know when we can interchange these limiting processes with a limit. Can we do this with pointwise convergence. As the next three examples show, the answer is, in general, an emphatic \textbf{NO}!
+\begin{example}[Discontinuous Limit of Continuous Functions]
+ We will restrict attention to $ [0,1]\subset\R $. Let $ f_n(x)=x^n $. We have $$ \lim\limits_{n\to\infty}f_n(x)=f(x)=\begin{cases}
+ 0\text{ if } 0\le x<1\\1\text{ if } x=1
+ \end{cases} .$$ One way to see this is consider the numerical sequence of $ \{f_n(a)\} $ for a choice of $ a\in[0,1] $. If $ a\in[0,1) $, then $ f_n(a)=a^n $ goes to zero. If $ a=1 $, then $ f_n(a)=1  $ which makes $ \{f_n(a)\}  $ a constant sequence. This explains why $ f $ is zero on $ [0,1) $ and $ 1 $ on $ \{1\} $. Figure 73 shows this sequence of functions. 
+ 	\begin{figure}[h!]
+ 	\centering
+ 	\includegraphics[width=0.7\linewidth]{figures/xn}
+ 	\caption{A sequence of continuous functions which converges to a discontinuous function.}
+ \end{figure}
+ Despite $ f_n $ being continuous on $ [0,1] $ for all $ n $, we have the limit of $ \{f_n\} $ is discontinuous on $ [0,1] $. In particular, $$\lim\limits_{t\to 1}f(t)=0\neq 1=\lim\limits_{n\to \infty}1=\lim\limits_{n\to \infty}\lim\limits_{t\to 1}f_n(t) $$
+\end{example} 
+\begin{example}[Integral of Limit $ \neq $ Limit of Integral]
+ Consider the sequence of functions given by $$ f_n(x)=\begin{cases}
+ n^2x\text{ if } 0\le x<\frac{1}{n}\\
+ 2n-n^2x\text{ if } \frac{1}{n}\le x <\frac{2}{n}\\
+ 0\text{ if } \frac{2}{n}\le x\le 1
+ \end{cases}.$$ We have $ f_n\to f=0 $ on $ [0,1] $. Figure 74 shows what $ f_n $ looks like for three values of $ n $. Calculating the integral of $ f_n $ for any $ n $ amounts to finding the area of a triangle of length $ 2/n $ and height $ n^2(1/n) $. $$ \int_{0}^1f_n(x)\ dx=\frac{1}{2}\left[\frac{2}{n}\left(n^2\frac{1}{n}\right)\right]=1 $$ Therefore we have $$\lim\limits_{n\to\infty}\int_{0}^{1}f_n(x)\ dx=\lim\limits_{n\to\infty}1=1\neq 0=\int_{0}^{1}0\ dx=\int_{0}^{1} f(x) dx=\int_{0}^{1}\lim\limits_{n\to\infty} f_n(x)\ dx.$$
+ \begin{figure}[h!]
+	\centering
+ 	\begin{tikzpicture}
+	 \draw (-.3,9) node {$ \R$};
+ 	 \draw (15,-0.3) node {$ \R$};		
+ 	 \draw[thick,->] (0,0) -- (0,9);
+     \draw[thick,->] (0,0) -- (15,0);
+     \draw[thick, black] (0,0) -- (8,0) -- (10,2) -- (12,0) -- (14,0);
+     \draw[thick] (14,0.2) -- (14,-0.2);
+     \draw[thick, black] (0,0) -- (5,0) -- (6,4) -- (7,0) -- (14,0);
+     \draw[thick, black] (0,0) -- (3,0) -- (3.5,8) -- (4,0) -- (14,0);
+     \draw[thick] (14,0.2) -- (14,-0.2);
+      \draw[thick, red] (0,0) -- (14,0);
+     \draw (14,-0.5) node {$ 1 $};
+      \draw[red] (13.5,0.3) node {$ f $};
+      \draw (11.5,1) node {$ f_n $};
+      \draw (6.8,2) node {$ f_{n'}$};
+      \draw (4.3,3) node {$ f_{n''} $};
+ 	\end{tikzpicture}
+	\caption{The sequence defined in Example 7.8 for whole numbers $ n<n'<n'' $. }
+ \end{figure}
+ 
+\end{example} 
+\begin{example}[Derivative of Limit $ \neq $ Limit of Derivative]
+Define $ f_n(x)=(\sin x) / x $. We have $f_n\to f$ where $ f(x)=0 $. We also have $$ \lim\limits_{n\to\infty}f_n'=\lim\limits_{n\to\infty}\cos nx\neq 0=f'=\left(\lim\limits_{n\to\infty}f_n\right)'$$
+\end{example}
+If we want to apply the topics of the previous three sections to sequences of functions, we'll need a stronger notion of convergence.  
 \subsection{Uniform Convergence}
+If you think return to the paragraph following Definition 7.5, you may wonder if certain functions converge such that one value of $ N $ only corresponds to $ \varepsilon $ and works for all $ x\in E $. We saw this type of reasoning in the definition of uniform continuity. If a function is unifomrly continuous on an interval, than for any $ \varepsilon>0 $, there exists a single $ \delta $ that gives $ |f(x)-f(y)|<\varepsilon $ when $ |x-y|<\delta $, regardless of the choice of $ x,y $. Similarly, if we find that the $ N $ in Definition 7.5 only corresponds to $ \varepsilon $ and not $ x $, i.e it works for all $ x\in E $, we say $ f $ converges uniformly. 
+\begin{definition}
+	Let $ E\subset \R $, and $ f_n:E\to\R $ for all $ n $. The sequence of functions $ \{f_n\} $ \textit{\color{red}converges uniformly} to $ f:E\to\R $ if for every  $ \varepsilon>0 $, there exists a  $ N\in\N $ such that $ |f_n(x)-f(x)|<\varepsilon $ whenever $ n\ge N $ \textit{for all} $ x\in E $.
+\end{definition} 
+\begin{note}
+	There is no real standardized notation for uniform convergence. I'll opt to write $ f_n\overset{\text{uni}}{\to} f $ to distinguish between the case of pointwise convergence which is notated as $ f_n\to f $. 
+\end{note}
+Just like how uniform continuity is a \textit{much} stronger condition than continuity, uniform convergence is far stronger than pointwise convergence. One way to see this is to compare Figure 75 and Figure 72. If a sequence converges pointwise, it doesn't matter when $ f_n $ becomes arbitrarily close to $ f $ for different points $ x\in E $. With uniform convergence, $ f_n $ must get arbitraily close to $ f $  for all $ x\in E $ simultaneously. The next example shows explicitly that $ N $ is not a function of $ x $ if $ f_n\uni f $. 
 \begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}
@@ -5349,7 +5428,114 @@ For now, take the sup metric's special notation as given. We will explain where 
 	\end{tikzpicture}
 	\caption{The sequence $ \{f_n\} $ converges uniformly to $ f $. }
 \end{figure}
+\begin{example}
+	Suppose $ f_n=1/n(1+x^2) $, and $ f=0 $. We have $ f_n\uni f $ on any interval $ [a,b] $. Let $ N=1/\varepsilon $. Because $ 1/(1+x^2)<1 $, we have $$|f_n(x)-f(x)|=\left\lvert\frac{1}{n(1+x^2)}-0\right\rvert=\frac{1}{n(1+x^2)}<\frac{1}{n}<\frac{1}{N}=\varepsilon $$ for all $ n\ge N $. Our choice of $ N $ did not depend on $ x $, hence $ f_n $ converges to $ f $ uniformly. 
+\end{example}
+If $ \{f_n\} $ converges uniformly and $ \{g_n\} $ converges pointwise, but not uniformly,\footnote{We specify that $ \{g_n\} $ does not converge uniformly, as every uniformly convergent sequence converges pointwise as well.}  then in theory, showing $ \{g_n\} $ converges should be easier. In Example 7.10 we needed to apply the inequality $ 1/(1+x^2)<1 $ to justify our choice of $ N $. We never needed to know any inequalities that would eliminate any reference to $ x $ when proving pointwise convergence. Nevertheless, uniform convergence becomes easier to verify due to our next results. The first is familiar, and eliminates the need for us to know the limit of $ f_n $. 
+\begin{theorem}[Cauchy Criterion for Uniform Convergence]
+	Let $ \{f_n\} $ be a sequence of real functions defined on $ E $. The sequence converges \textit{if and only if} for every $ \varepsilon>0 $ there exists a $ N\in \N $ such that
+	$$|f_n(x)-f_m(x)|<\varepsilon $$ for all $ x\in E $ when $ m,n\ge N $. 
+\end{theorem}
+\begin{proof}{\color{white}a}
+	\begin{enumerate}
+		\item [$ (\Longrightarrow) $] Suppose $ f_n\uni f $ on $ E $. There exists a $ N\in\N $ such that \begin{align*}
+			|f_n(x)-f(x)|&<\frac{\varepsilon}{2},\\
+			|f_m(x)-f(x)|&<\frac{\varepsilon}{2},
+		\end{align*}
+		for all $ x\in E $ whenever $ n,m\ge N $. Therefore $$|f_n(x)-f_m(x)|=|f_n(x)-f_m(x)+0|=|f_n(x)-f_m(x)+f(x)-f(x)|\le |f_n(x)-f(x)|+|f(x)-f_m(x)|<\varepsilon $$ for all $ x\in E $ whenever $ n,m\ge N $. 
+		\item [$ (\Longleftarrow) $]  Suppose for every $ \varepsilon>0 $ there exists a $ N\in \N $ such that
+		$$|f_n(x)-f_m(x)|<\varepsilon $$ for all $ x\in E $ when $ m,n\ge N $. By our assumption, the Cauchy Criterion holds for the numerical sequence $ \{f_n(x)\} $ for all $ x\in E $, so for each $ x $, $ \{f_n(x)\} $ converges. Let $ \{f(x)\} $ be the limit of $ \{f_n(x)\} $ for each $ x\in E $. But this gives that $ f_n\to f $. We just need to show that this convergence is uniform. 
+		
+		For our assumed inequality, fix $ n $ and let $ m\to \infty $, noting that $ \lim_{m\to \infty}f_m(x)=f(x) $. This gives 
+		\begin{align*}
+			\lim_{m\to\infty}|f_n(x)-f_m(x)|&\le \lim_{m\to\infty}\varepsilon\\
+		 	|f_n(x)-f(x)|&\le \varepsilon
+		\end{align*}
+		for every $ n\ge N $ and all $ x\in E $.\footnote{How do we know taking the limit as $ m\to\infty $ works? Well if $ m\ge N $, then as we let it grow the inequality will always be satisfied. }
+	\end{enumerate}
+\end{proof}
+There exists a second criterion for uniform convergence that is of more interest, as it will lead to conclusions about the space $ BC(X) $ with the sup metric (Definition 7.4). Suppose we know that $ f_n\to f $. Can we glean any additional information about $ f_n $ that would allow us to conclude $ f_n\uni f $? The answer is found in the supremum of the distance between $ f_n $ and $ f(x) $, $$M_n=\sup_{x\in E}|f_n(x)-f(x)| .$$ This value $ M_n $ is shown in Figure 76. 
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+	\draw (-.3,9) node {$ \R$};
+	\draw (15,-0.3) node {$ \R$};		
+	\draw[thick,->] (0,0) -- (0,9);
+	\draw[thick,->] (0,0) -- (15,0);
+
+	\draw[thick] (1,0.2) -- (1,-0.2);
+	\draw (1,-0.5) node {$ a $};
+	\draw[thick] (14,0.2) -- (14,-0.2);
+	\draw (14,-0.5) node {$ b $};
+	\draw[thick,red] (1,1) -- (14,1); 
+	\draw[thick,black] (1,1) to[out=0,in=260] (14,9); 
+	\draw[thick,black, dashed] (1,1) to[out=0,in=230] (14,6); 
+	\draw[thick,black, dashed] (1,1) to[out=0,in=220] (14,5);
+	\draw[thick,black, dashed] (1,1) to[out=0,in=190] (14,2);   
+	\draw[red] (14,0.7) node {$ f $};
+	\draw[black] (13.5,8) node {$ f_n $};
+	\draw[blue] (14.5,4) node {$ M_n $};
+	\draw[thick, blue, dashed] (14,1) -- (14,9);
+	\end{tikzpicture}
+	\caption{A sequence of functions $ f_n\to f $ on $ [a,b] $ where $ M_n=\sup_{x\in [a,b]}|f_n(x)-f(x)| $.}
+\end{figure}
+In this particular illustration, it appears that $ M_n\to 0 $ as $ n\to\infty $. If this is the case, can we relate this to uniform convergence? As Figure 75 shows, the geometric interpretation of uniform convergence for a fixed $ \varepsilon $ is that we can always find some $ N $ such that the functions $ f_N $, $ f_{N+1} $,$ \ldots $, fall within a distance of $ \varepsilon $ from $ f $ on the entirety of $ E $. As it turns out, if $ M_n\to 0 $, then we can do this! If $ \sup_{x\in [a,b]}|f_n(x)-f(x)|<\varepsilon $, then it follows that $ |f_n(x)-f(x)|<\varepsilon $ for all of $ x\in E $, as $ |f_n(x)-f(x)| \le \sup_{x\in [a,b]}|f_n(x)-f(x)| $. As long as $ M_n\to 0 $, we will be able to do this for all $ \varepsilon $, as we can find some large enough $ N $ where $ M_n<\varepsilon $. This is the entire idea of the proof of the result, which will now be stated and proven formally. 
+\begin{theorem}
+	Suppose $ f_n\to f $ on $ E $.\footnote{You actually don't need to assume that $ f_n\to f $, but it doesn't really make sense to try and show uniform convergence with pointwise convergence.} Let $$M_n=\sup_{x\in E}|f_n(x)-f(x)| .$$ We have $ f_n\uni f $ \textit{if and only if} $ \lim_{n\to\infty}M_n=0 $. 
+\end{theorem}
+\begin{proof}{\color{white}a}
+	\begin{enumerate}
+		\item [$ (\Longrightarrow) $] If $ f_n\uni f $ on $E$ there exists an $ N $ such that $$ |f_n(x)-f(x)|<\varepsilon$$ for all $ x\in E $ whenever $ n\ge N $, which includes the value of $ x $ on which $\sup |f_n(x)-f(x)| $ is achieved. Therefore for all $ \varepsilon $ there exists an $ N\in\N $ such that
+		\begin{align*}
+			\sup_{x\in E}|f_n(x)-f(x)|&<\varepsilon,\\M_n&<\varepsilon,
+		\end{align*}
+		giving $ M_n\to 0 $. 
+		\item [$ (\Longleftarrow) $]  If $ M_n\to 0 $, then for all $ \varepsilon>0 $ there exists an $ N\in\N $ such that \begin{align*}
+			&M_n<\varepsilon\\\implies&\sup_{x\in E}|f_n(x)-f(x)|<\varepsilon\\\implies& |f_n(x)-f(x)|<\varepsilon\ (\text{for all }x\in E).
+		\end{align*} 
+		This is the definition of $ f_n\uni f $. 
+	\end{enumerate}
+\end{proof}
+\begin{example}
+	Let $ f_n(x)=x/n $. We have $ f_n\uni 0 $ on $ [a,b] $, as $$ \lim\limits_{n\to\infty}\sup_{x\in [a,b]}|f_n(x)-f(x)|=\lim\limits_{n\to\infty}\left\lvert\frac{\max\{|a|,|b|\}}{n}\right\rvert=0.$$
+\end{example}
+\begin{example}
+	Let $ f_n=1/nx $. While $ f_n\to 0 $, the sequence $ \{f_n\} $ \textit{does not} converge uniformly on $ (0,1) $, as $$ \lim\limits_{n\to\infty}\sup_{x\in (0,1)}|f_n(x)-f(x)|=\lim\limits_{n\to\infty}\sup_{x\in (0,1)}\frac{1}{nx}= \lim\limits_{n\to\infty}\left(\lim\limits_{x\to0}\frac{1}{nx}\right)\neq 0.$$
+\end{example}
+\begin{corollary}
+	Let $ f_n $ be a sequence of continuous real valued functions. We have $ f_n\uni f $ in the Euclidean metric \textit{if and only if} $ f_n\to f $ in the metric space $ BC(X) $ equipped with the supremum norm.
+\end{corollary}
+\begin{proof}
+	If $ f_n\to f $ in $ BC(X) $, then for all $ \varepsilon>0 $ and $ x\in X $ there exists some $ N\in\N $ such that $$ d(f_n,f)=\sup_{x\in X}|f_n(x)-f(x)|=M_n<\varepsilon$$ for all $ n\ge N $. This holds if and only if $ \lim_{n\to\infty}M_n=0 $, which in turn is equivalent to $ f_n\uni f $ in the Euclidean metric by Theorem 7.2.
+\end{proof}
+\begin{remark}[The Metric of Uniform Convergence]
+	Corollary 7.1 tells us that pointwise convergence in $ BC(X) $ with the sup metric is uniform convergence of functions in $ \R $. This is a really cool result, as it shows that our conservative estimate of distance between elements in $ BC(X) $ given by the supremum metric is linked to the idea of a stronger form of convergence of functions in $ \R $. For this reason, you sometimes will hear the supremum metric called the \textit{\color{red}uniform metric}, which may be written as $$ \norm{f-g}_\infty=\norm{f-g}_u.$$ 
+\end{remark}
+
 \subsection{Properties of Uniform Convergence}
+As it turns out, uniform convergence is just what we need for the three proposed equalities at the end of Page 144 to hold.\footnote{...kind of. We will need to add a single assumption to uniform convergence for the limit of the derivatives to be the derivative of the limit.}
+\begin{proposition}
+	Suppose $ f_n\uni f $ on a metric space $ E\subset \R $. Let $ x $ be a limit point of $ E $, and suppose $$\lim\limits_{t\to x}f_(t)=A_n .$$ Then $ \{A_n\} $ converges, and $$ \lim\limits_{t\to x}\lim\limits_{n\to\infty}f_n(t)=\lim\limits_{n\to\infty} A_n=\lim\limits_{n\to\infty} \lim\limits_{t\to x}f_n(t). $$
+\end{proposition}
+\begin{proof}
+	Fix $ \varepsilon>0 $, and suppose $ f_n\uni f $ on $ E $. There exists an $ N\in\N $ such that $$ |f_n(t)-f_m(t)|<\varepsilon$$ for all $ t\in E $ when $ n,m\ge N $. Taking the limit of both sides of this inequality as $ t\to x $, we have \begin{align*}
+\lim\limits_{t\to x}|f_n(t)-f_m(t)|&<\lim\limits_{t\to x}\varepsilon\\|A_n-A_m|&<\varepsilon.
+	\end{align*}
+	Therefore $ \{A_n\} $ is a Cauchy sequence in $ \R $, so it converges to some $ A\in E $. Now we need to show the limits may be interchanged.
+	
+	Using the uniform convergence of $ f_n $, we can choose a $ n $ such that \begin{align}
+		|f_n(t)-f(t)|<\frac{\varepsilon}{3},
+	\end{align}
+	\textit{for all} $ t\in E $, \textit{and} such that \begin{align}
+		|A_n-A|<\frac{\varepsilon}{3}
+	\end{align}by the convergence of $ \{A_n\} $. For this same $ n $ we may choose some neighborhood $ N_\delta(x) $ such that\begin{align}
+|f_n(t)-A_n|<\frac{\varepsilon}{3}
+	\end{align}  if $ t\in N_\delta(x)\cap E $, and $ t\neq x $.\footnote{Instead of using a neighborhood of $ x $, we could say there exists some $ \delta $ such that $ |f_n(t)-A_n|<\varepsilon/3 $ for all $ t\in E $ which satisfy $ |t-x|<\delta $. Either way, all we're doing is using the definition of $ \lim\limits_{t\to x}f_n(t)=A $. } If we combine (22), (23), and (24), then we can conclude that for all $ \varepsilon $ there exists a $ N\in\N $ such that for all $ n\ge N $, \begin{align*}
+	|f(t)-A|&=|f(t)-A+0+0|\\&=|f(t)-A+(f_n(t)-f_n(t))+(A_n-A_n)|\\&=|(f_n(t)-f(t))-(A_n-A)-(f_n(t)-A)|\\&=\frac{\varepsilon}{3}+\frac{\varepsilon}{3}+\frac{\varepsilon}{3}\\&=\varepsilon.
+	\end{align*}
+	This shows the desired result.
+\end{proof}
+\subsection{Approximation with Polynomials}
 \subsection{Series}
 \subsection{Power Series}
 \subsection{Taylor Series}
