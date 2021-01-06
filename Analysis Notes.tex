@@ -5204,7 +5204,7 @@ Let $ F $ be the function such that $ F'=f $. We have $$F(\phi(y))'=F'(\phi(y))\
 \end{proof}
 \begin{example}
 	Suppose $ f(x)=(2x^3+1)^7x^2 $. We would like to integrate $$\int_{0}^{1} (2x^3+1)^7x^2\ dx, $$ but it is not clear how to integrate with respect to $ x $ in this case. We will instead change the variable we are integrating with respect to and appeal to Theorem 6.5. Let $ \phi(x)=2x^3+1 $, and $ f(u)=u^7 $. Integration with respect to $ u $ gives \begin{align*}
-		\int_{0}^{1} (2x^3+1)^7x^2\ dx=\frac{1}{6}\int_{0}^{\phi(1)} f(\phi(x)) 6x^2\ dx=\frac{1}{6}\int_{\phi(0)}^{\phi(1)} f(\phi(x)) \phi'(x)\ dx=\frac{1}{6}\int_{1}^{3}f(u)\ du=\frac{1}{6}\int_{1}^{3}u^7\ du=\frac{410}{3}.
+		\int_{0}^{1} (2x^3+1)^7x^2\ dx=\frac{1}{6}\int_{\phi(0)}^{\phi(1)} f(\phi(x)) 6x^2\ dx=\frac{1}{6}\int_{\phi(0)}^{\phi(1)} f(\phi(x)) \phi'(x)\ dx=\frac{1}{6}\int_{1}^{3}f(u)\ du=\frac{1}{6}\int_{1}^{3}u^7\ du=\frac{410}{3}.
 	\end{align*}
 \end{example}
 \subsection{Shortcomings of Riemann Integration}
@@ -5272,6 +5272,23 @@ $$	d(f,g)+d(g,h)\ge \sup_{x\in X}|f(x)-g(x)|+\sup_{x\in X}|g(x)-h(x)|\ge \sup_{x
 	The \textit{\color{red}supremum/sup metric} on $ BC(X) $ is defined as $$d(f,g)=\norm{f-g}_\infty=\sup_{x\in X}|f-g|. $$
 \end{definition}
 For now, take the sup metric's special notation as given. We will explain where this notation comes from in the beginning of Section 8. We should note that other valid metric spaces are the set of bounded real functions $ B(X) $, and $ C(X) $ as long as $ X $ is compact.\footnote{The function being bounded follows from the compact domain, as these functions are continuous. }
+
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+	\draw (-.3,9) node {$ \R$};
+	\draw (15,-0.3) node {$ X $};		
+	\draw[thick,->] (0,0) -- (0,9);
+	\draw[thick,->] (0,0) -- (15,0);
+	\draw[thick, dashed] (9.8,3.05) -- (9.8,8.58);
+	\draw[ thick, blue] (0,5)  to[out=60,in=120]  (15,5);
+	\draw[ thick, red] (0,6)  to[out=0,in=180]  (15,2);
+	\draw[red] (14, 1.8) node {$ g $};	
+	\draw[blue] (14, 7) node {$ f $};	
+	\draw (10.5,5.815) node {$ \norm{f-g} $};	
+	\end{tikzpicture}
+	\caption{The distance between $ f $ and $ g $ as given by the sup metric is simply the supremum of the distance between $ f(x) $ and $ g(x) $ for a fixed $ x\in X $.}
+\end{figure}
 \begin{example}
 	Let $ f(x)=\sin x $ and $ g(x)=\cos x $. Both of these functions are in the set $ BC(\R) $. We have $$\norm{f-g}_\infty=\sup_{x\in\R}|\cos x-\sin x|=\sqrt{2} .$$ In this case $ |\cos x-\sin x|=\R $ happens for all $ 3k\pi/4\in\R $ where $ k\in\Z $. 
 \end{example}
@@ -5282,7 +5299,7 @@ We begin by defining one type of limit of a sequence of functions.
 \begin{definition}
 	Let $ E\subset \R $, and $ f_n:E\to\R $ for all $ n $. The sequence of functions $ \{f_n\} $ \textit{\color{red}converges (pointwise)} to $ f:E\to\R $ if for every $ x\in E $ and $ \varepsilon>0 $, there exists a \textit{corresponding} $ N\in\N $ such that $ |f_n(x)-f(x)|<\varepsilon $ whenever $ n\ge N $.  In this case we write $$ f(x)=\lim\limits_{n\to\infty} f_n(x)$$ for $ x\in E $.
 \end{definition}
-If $ \{f_n\} $ is a sequence of functions on $ E$, then for any fixed $ x\in E $, $ \{f_n(x)\} $ is a sequence of numbers. If this numerical sequence $ \{f_n(x)\} $ converges to $ f(x) $ for all $ x\in E $, then we have pointwise convergence. This means in practice we may use the same limit rules developed for a sequence of numbers on a sequence of functions. An illustration of this can be seen in Figure 72. The sequence of functions in this figure converges pointwise to $ x_0 $. It very well could converge pointwise to $ x_1 $ as well, it may just be that for some $ \varepsilon $ the value of $ N $ that gives $ |f_n(x_0)-f(x_0)|<\varepsilon $ for all $ n\ge N $ will not work for $ |f_n(x_1)-f(x_1)| $. That is to say, \textbf{just because $ \mathbf{\{f_n\}} $ converges pointwise to $ \mathbf{f} $ on $ \mathbf{E} $, that does not mean that one value of $ \mathbf{N} $ will give $ \mathbf{|f_n(x)-f(x)|<\varepsilon}$ for all $ \mathbf{x\in E} $!} This is why in Definition 7.5, we have a \textit{corresponding} $ N $ for each $ x\in E $ and $ \varepsilon>0 $. As the next examples will show, the particular value of $ N $ will depend on $ x $ and $ \varepsilon $. 
+If $ \{f_n\} $ is a sequence of functions on $ E$, then for any fixed $ x\in E $, $ \{f_n(x)\} $ is a sequence of numbers. If this numerical sequence $ \{f_n(x)\} $ converges to $ f(x) $ for all $ x\in E $, then we have pointwise convergence. This means in practice we may use the same limit rules developed for a sequence of numbers on a sequence of functions. An illustration of this can be seen in Figure 73. The sequence of functions in this figure converges pointwise to $ x_0 $. It very well could converge pointwise to $ x_1 $ as well, it may just be that for some $ \varepsilon $ the value of $ N $ that gives $ |f_n(x_0)-f(x_0)|<\varepsilon $ for all $ n\ge N $ will not work for $ |f_n(x_1)-f(x_1)| $. That is to say, \textbf{just because $ \mathbf{\{f_n\}} $ converges pointwise to $ \mathbf{f} $ on $ \mathbf{E} $, that does not mean that one value of $ \mathbf{N} $ will give $ \mathbf{|f_n(x)-f(x)|<\varepsilon}$ for all $ \mathbf{x\in E} $!} This is why in Definition 7.5, we have a \textit{corresponding} $ N $ for each $ x\in E $ and $ \varepsilon>0 $. As the next examples will show, the particular value of $ N $ will depend on $ x $ and $ \varepsilon $. 
 \begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}
@@ -5345,7 +5362,7 @@ These are all related to the question first mentioned in Remark 4.5. When are we
 \begin{example}[Discontinuous Limit of Continuous Functions]
  We will restrict attention to $ [0,1]\subset\R $. Let $ f_n(x)=x^n $. We have $$ \lim\limits_{n\to\infty}f_n(x)=f(x)=\begin{cases}
  0\text{ if } 0\le x<1\\1\text{ if } x=1
- \end{cases} .$$ One way to see this is consider the numerical sequence of $ \{f_n(a)\} $ for a choice of $ a\in[0,1] $. If $ a\in[0,1) $, then $ f_n(a)=a^n $ goes to zero. If $ a=1 $, then $ f_n(a)=1  $ which makes $ \{f_n(a)\}  $ a constant sequence. This explains why $ f $ is zero on $ [0,1) $ and $ 1 $ on $ \{1\} $. Figure 73 shows this sequence of functions. 
+ \end{cases} .$$ One way to see this is consider the numerical sequence of $ \{f_n(a)\} $ for a choice of $ a\in[0,1] $. If $ a\in[0,1) $, then $ f_n(a)=a^n $ goes to zero. If $ a=1 $, then $ f_n(a)=1  $ which makes $ \{f_n(a)\}  $ a constant sequence. This explains why $ f $ is zero on $ [0,1) $ and $ 1 $ on $ \{1\} $. Figure 74 shows this sequence of functions. 
  	\begin{figure}[h!]
  	\centering
  	\includegraphics[width=0.7\linewidth]{figures/xn}
@@ -5358,7 +5375,7 @@ These are all related to the question first mentioned in Remark 4.5. When are we
  n^2x\text{ if } 0\le x<\frac{1}{n}\\
  2n-n^2x\text{ if } \frac{1}{n}\le x <\frac{2}{n}\\
  0\text{ if } \frac{2}{n}\le x\le 1
- \end{cases}.$$ We have $ f_n\to f=0 $ on $ [0,1] $. Figure 74 shows what $ f_n $ looks like for three values of $ n $. Calculating the integral of $ f_n $ for any $ n $ amounts to finding the area of a triangle of length $ 2/n $ and height $ n^2(1/n) $. $$ \int_{0}^1f_n(x)\ dx=\frac{1}{2}\left[\frac{2}{n}\left(n^2\frac{1}{n}\right)\right]=1 $$ Therefore we have $$\lim\limits_{n\to\infty}\int_{0}^{1}f_n(x)\ dx=\lim\limits_{n\to\infty}1=1\neq 0=\int_{0}^{1}0\ dx=\int_{0}^{1} f(x) dx=\int_{0}^{1}\lim\limits_{n\to\infty} f_n(x)\ dx.$$
+ \end{cases}.$$ We have $ f_n\to f=0 $ on $ [0,1] $. Figure 75 shows what $ f_n $ looks like for three values of $ n $. Calculating the integral of $ f_n $ for any $ n $ amounts to finding the area of a triangle of length $ 2/n $ and height $ n^2(1/n) $. $$ \int_{0}^1f_n(x)\ dx=\frac{1}{2}\left[\frac{2}{n}\left(n^2\frac{1}{n}\right)\right]=1 $$ Therefore we have $$\lim\limits_{n\to\infty}\int_{0}^{1}f_n(x)\ dx=\lim\limits_{n\to\infty}1=1\neq 0=\int_{0}^{1}0\ dx=\int_{0}^{1} f(x) dx=\int_{0}^{1}\lim\limits_{n\to\infty} f_n(x)\ dx.$$
  \begin{figure}[h!]
 	\centering
  	\begin{tikzpicture}
@@ -5394,7 +5411,7 @@ If you think return to the paragraph following Definition 7.5, you may wonder if
 \begin{note}
 	There is no real standardized notation for uniform convergence. I'll opt to write $ f_n\overset{\text{uni}}{\to} f $ to distinguish between the case of pointwise convergence which is notated as $ f_n\to f $. 
 \end{note}
-Just like how uniform continuity is a \textit{much} stronger condition than continuity, uniform convergence is far stronger than pointwise convergence. One way to see this is to compare Figure 75 and Figure 72. If a sequence converges pointwise, it doesn't matter when $ f_n $ becomes arbitrarily close to $ f $ for different points $ x\in E $. With uniform convergence, $ f_n $ must get arbitraily close to $ f $  for all $ x\in E $ simultaneously. The next example shows explicitly that $ N $ is not a function of $ x $ if $ f_n\uni f $. 
+Just like how uniform continuity is a \textit{much} stronger condition than continuity, uniform convergence is far stronger than pointwise convergence. One way to see this is to compare Figure 76 and Figure 73. If a sequence converges pointwise, it doesn't matter when $ f_n $ becomes arbitrarily close to $ f $ for different points $ x\in E $. With uniform convergence, $ f_n $ must get arbitraily close to $ f $  for all $ x\in E $ simultaneously. The next example shows explicitly that $ N $ is not a function of $ x $ if $ f_n\uni f $. 
 \begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}
@@ -5454,7 +5471,7 @@ If $ \{f_n\} $ converges uniformly and $ \{g_n\} $ converges pointwise, but not 
 		for every $ n\ge N $ and all $ x\in E $.\footnote{How do we know taking the limit as $ m\to\infty $ works? Well if $ m\ge N $, then as we let it grow the inequality will always be satisfied. }
 	\end{enumerate}
 \end{proof}
-There exists a second criterion for uniform convergence that is of more interest, as it will lead to conclusions about the space $ BC(X) $ with the sup metric (Definition 7.4). Suppose we know that $ f_n\to f $. Can we glean any additional information about $ f_n $ that would allow us to conclude $ f_n\uni f $? The answer is found in the supremum of the distance between $ f_n $ and $ f(x) $, $$M_n=\sup_{x\in E}|f_n(x)-f(x)| .$$ This value $ M_n $ is shown in Figure 76. 
+There exists a second criterion for uniform convergence that is of more interest, as it will lead to conclusions about the space $ BC(X) $ with the sup metric (Definition 7.4). Suppose we know that $ f_n\to f $. Can we glean any additional information about $ f_n $ that would allow us to conclude $ f_n\uni f $? The answer is found in the supremum of the distance between $ f_n $ and $ f(x) $, $$M_n=\sup_{x\in E}|f_n(x)-f(x)| .$$ This value $ M_n $ is shown in Figure 77. 
 \begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}
@@ -5479,7 +5496,7 @@ There exists a second criterion for uniform convergence that is of more interest
 	\end{tikzpicture}
 	\caption{A sequence of functions $ f_n\to f $ on $ [a,b] $ where $ M_n=\sup_{x\in [a,b]}|f_n(x)-f(x)| $.}
 \end{figure}
-In this particular illustration, it appears that $ M_n\to 0 $ as $ n\to\infty $. If this is the case, can we relate this to uniform convergence? As Figure 75 shows, the geometric interpretation of uniform convergence for a fixed $ \varepsilon $ is that we can always find some $ N $ such that the functions $ f_N $, $ f_{N+1} $,$ \ldots $, fall within a distance of $ \varepsilon $ from $ f $ on the entirety of $ E $. As it turns out, if $ M_n\to 0 $, then we can do this! If $ \sup_{x\in [a,b]}|f_n(x)-f(x)|<\varepsilon $, then it follows that $ |f_n(x)-f(x)|<\varepsilon $ for all of $ x\in E $, as $ |f_n(x)-f(x)| \le \sup_{x\in [a,b]}|f_n(x)-f(x)| $. As long as $ M_n\to 0 $, we will be able to do this for all $ \varepsilon $, as we can find some large enough $ N $ where $ M_n<\varepsilon $. This is the entire idea of the proof of the result, which will now be stated and proven formally. 
+In this particular illustration, it appears that $ M_n\to 0 $ as $ n\to\infty $. If this is the case, can we relate this to uniform convergence? As Figure 76 shows, the geometric interpretation of uniform convergence for a fixed $ \varepsilon $ is that we can always find some $ N $ such that the functions $ f_N $, $ f_{N+1} $,$ \ldots $, fall within a distance of $ \varepsilon $ from $ f $ on the entirety of $ E $. As it turns out, if $ M_n\to 0 $, then we can do this! If $ \sup_{x\in [a,b]}|f_n(x)-f(x)|<\varepsilon $, then it follows that $ |f_n(x)-f(x)|<\varepsilon $ for all of $ x\in E $, as $ |f_n(x)-f(x)| \le \sup_{x\in [a,b]}|f_n(x)-f(x)| $. As long as $ M_n\to 0 $, we will be able to do this for all $ \varepsilon $, as we can find some large enough $ N $ where $ M_n<\varepsilon $. This is the entire idea of the proof of the result, which will now be stated and proven formally. 
 \begin{theorem}
 	Suppose $ f_n\to f $ on $ E $.\footnote{You actually don't need to assume that $ f_n\to f $, but it doesn't really make sense to try and show uniform convergence with pointwise convergence.} Let $$M_n=\sup_{x\in E}|f_n(x)-f(x)| .$$ We have $ f_n\uni f $ \textit{if and only if} $ \lim_{n\to\infty}M_n=0 $. 
 \end{theorem}
@@ -5514,9 +5531,9 @@ In this particular illustration, it appears that $ M_n\to 0 $ as $ n\to\infty $.
 
 \subsection{Properties of Uniform Convergence}
 As it turns out, uniform convergence is just what we need for the three proposed equalities at the end of Page 144 to hold.\footnote{...kind of. We will need to add a single assumption to uniform convergence for the limit of the derivatives to be the derivative of the limit.}
-\begin{proposition}
-	Suppose $ f_n\uni f $ on a metric space $ E\subset \R $. Let $ x $ be a limit point of $ E $, and suppose $$\lim\limits_{t\to x}f_(t)=A_n .$$ Then $ \{A_n\} $ converges, and $$ \lim\limits_{t\to x}\lim\limits_{n\to\infty}f_n(t)=\lim\limits_{n\to\infty} A_n=\lim\limits_{n\to\infty} \lim\limits_{t\to x}f_n(t). $$
-\end{proposition}
+\begin{theorem}
+	Suppose $ f_n\uni f $ on a metric space $ E\subset \R $. Let $ x $ be a limit point of $ E $, and suppose $$\lim\limits_{t\to x}f(t)=A_n .$$ Then $ \{A_n\} $ converges, and $$ \lim\limits_{t\to x}\lim\limits_{n\to\infty}f_n(t)=\lim\limits_{n\to\infty} A_n=\lim\limits_{n\to\infty} \lim\limits_{t\to x}f_n(t). $$
+\end{theorem}
 \begin{proof}
 	Fix $ \varepsilon>0 $, and suppose $ f_n\uni f $ on $ E $. There exists an $ N\in\N $ such that $$ |f_n(t)-f_m(t)|<\varepsilon$$ for all $ t\in E $ when $ n,m\ge N $. Taking the limit of both sides of this inequality as $ t\to x $, we have \begin{align*}
 \lim\limits_{t\to x}|f_n(t)-f_m(t)|&<\lim\limits_{t\to x}\varepsilon\\|A_n-A_m|&<\varepsilon.
@@ -5535,16 +5552,293 @@ As it turns out, uniform convergence is just what we need for the three proposed
 	\end{align*}
 	This shows the desired result.
 \end{proof}
+\begin{corollary}
+	If $ \{f_n\} $ is a sequence of continuous functions on $ E\subset \R $, and if $ f_n\uni f $ on $ E $, then $ f $ is continuous on $ E $.
+\end{corollary}[Uniform Convergence Preserves Continuity]
+\begin{proof}
+	This follows from the fact the alternate definition of continuity given by Corollary 4.2. Each function $ f_n $ is continuous, so we can find the limit as $ t\to x $ by evaluating at $ f $ at $ x $. Combining this with the equality given in Theorem 7.3 gives the result. 
+	\begin{align*}
+		\lim\limits_{t\to x}\lim\limits_{n\to\infty}f_n(t)&=\lim\limits_{n\to\infty} \lim\limits_{t\to x}f_n(t)\\ 	\lim\limits_{t\to x}f(t)&=\lim\limits_{n\to\infty}f_n\left( \lim\limits_{t\to x} t\right)\\
+		\lim\limits_{t\to x}f(t)&=\lim\limits_{n\to\infty}f_n\left(x\right)\\
+		\lim\limits_{t\to x}f(t)&=f\left(x\right)
+	\end{align*}
+\end{proof}
+\begin{example}
+	By Corollary 7.2, if the limit of a sequence of continuous functions is not continuous, then that sequence must not converge uniformly. This means that $ f_n(x)=x^n $ does not converge uniformly on $ [0,1] $ by Example 7.7.
+\end{example}
+\begin{example}[The Converse is False]
+If a sequence of continuous functions converges to a continuous function, this does not imply the sequence converges uniformly. Let $ f_n(x)=n^2x(1-x^2)^n $ on the interval $ (0,1] $. For all values of $ n\in\N $, $ f_n $ is continuous on $ (0,1] $. We also have a continuous limit, as $ \lim_{n\to\infty}f_n(x)=0 $ on $ (0,1] $. Nevertheless, applying Theorem 7.2 shows that this sequence does not converge uniformly. 
+\begin{align*}
+	\lim\limits_{n\to\infty}\sup_{x\in (0,1]}|f_n(x)-f(x)|&=\lim\limits_{n\to\infty}\left[\frac{1}{\sqrt{2n-1}}\right]\not\to 0.
+\end{align*}
+\begin{remark}
+	There are certain conditions where the converse of Corollary 7.2 does hold. These conditions are given as Theorem 7.13 in \cite{rudin1964principles}. As it turns out, the previous example works because we restricted our attention to $ (0,1] $, an interval which is not compact. 
+\end{remark}
+
+We now have the information necessary to prove a very nice property of the set of functions $ BC(X) $. Recall that a metric space is complete if every Cauchy sequence converges. Until now, we've only known one complete metric space, namely $ \R $. Example 3.28 claimed that the set of function $ C([a,b]) $ was complete, but at the time this could not be proved. Now we will prove this.\footnote{$ C([a,b])=BC([a,b]) $, as every continuous function on a compact domain is bounded.}
+ \end{example}
+\begin{theorem}($ BC(X) $ is Complete)
+	Suppose $ X\subset \R $. The set of functions $ BC(X) $ is complete. 
+\end{theorem}
+\begin{proof}
+	Let $ \{f_n\} $ be a Cauchy sequence in $ BC(X) $. By Theorem 7.1, the function converges uniformly to some limit $ f $ with domain $ X $. All that is left to show is that $ f\in BC(X) $, but this is a consequence of Corollary 7.2. Each $ f_n $ is continuous, and the sequence converges uniformly, so $ f $ is also continuous. By the definition of uniform convergence, there exists an $ n\in\N $ such that $ |f(x)-f_n(x)|<1 $ for all $ x\in X $. Since $ f_n(x) $ is bounded for all $ n $, $ f $ must be bounded, giving $ f\in BC(X) $. 
+\end{proof}
+
+Putting continuity aside, we can continue to uniform convergence's behavior with respect to integration. 
+\begin{theorem}[Uniform Convergence Preserves Integration]
+Suppose $ f_n $ is Riemann integrable on $ [a,b] $ for all $ n $, and $ f_n\uni f $ on $ [a,b] $. Then $ f $ is Riemann integrable on $ [a,b] $, and $$ \lim\limits_{n\to\infty}\int_{a}^{b}f_n(x)\ dx=\int_a^bf(x)\ dx.$$
+\end{theorem}
+\begin{proof}
+	First, we will show that $ f $ is integrable on $ [a,b] $. Define $$ \varepsilon_n=\sup_{x\in [a,b]}|f_n(x)-f(x)|.$$ This definition gives $$ f_n-\varepsilon_n\le f\le f_n+\varepsilon_n, $$ as $ \varepsilon_n $ is the least upper bound of the distance between $ f_n $ and $ f $. Applying Theorem 6.2 to this inequality gives 
+	\begin{align}
+		\int_{a}^{b}(f_n-\varepsilon_n)\ dx\le\lowint_{a}^b f \ dx\upint_{a}^b f \ dx\le \int_{a}^{b}(f_n+\varepsilon_n)\ dx.
+	\end{align}
+This implies 
+\begin{align*}
+		\upint_{a}^b f \ dx - \lowint_{a}^b f \ dx&\le  \int_{a}^{b}(f_n+\varepsilon_n)\ dx - \int_{a}^{b}(f_n-\varepsilon_n)\ dx\\
+		&= \int_{a}^{b}(f_n+\varepsilon_n) - (f_n-\varepsilon_n) \ dx\\&=\int_{a}^{b}2\varepsilon_n \ dx\\ &= 2\varepsilon_n (b-a).
+\end{align*}
+By uniform converge, $ \varepsilon_n\to 0 $ (Theorem 7.2), so $$	\upint_{a}^b f \ dx - \lowint_{a}^b f \ dx\le 0 $$ for all $ n $. The upper and lower integrals must be equal, which is the definition of Riemann integrability. 
+
+Equation (25) also gives the desired equality. 
+\begin{align*}
+	\int_{a}^b f \ dx&\le \int_{a}^{b}(f_n+\varepsilon_n)\ dx\\
+	&\le \int_{a}^{b}f_n\ dx + \int_{a}^{b}\varepsilon_n\ dx\\
+	\left\lvert\int_{a}^{b}f\ dx -\int_{a}^{b}f_n\ dx\right\rvert&\le \varepsilon_n(b-a)\\
+	\lim_{n\to\infty}\left\lvert\int_{a}^{b}f\ dx -\int_{a}^{b}f_n\ dx\right\rvert&\le \lim_{n\to\infty}\varepsilon_n(b-a)\\
+	\left\lvert\int_{a}^{b}f\ dx -\lim_{n\to\infty}\int_{a}^{b}f_n\ dx\right\rvert&\le0.
+\end{align*}
+Therefore we have $$ \lim\limits_{n\to\infty}\int_{a}^{b}f_n(x)\ dx=\int_a^bf(x)\ dx.$$
+\end{proof}
+
+Having seen that continuity and integration play well with uniform convergence, it is tempting to assume the same holds for differentiation. Unfortunately, as the next example shows, this is not true! As far as properties of functions go, differentiability is fairly demanding. This means we will need to make assumptions to reach any result about uniform convergence and derivatives. 
+\begin{example}[Uniform Convergence \textit{Does Not} Preserve Differentiation]
+Let $$ f_n(x)=\frac{\sin nx}{\sqrt{n}}. $$ We have that $ f_n(x)\uni 0 $ as  $$  \lim\limits_{n\to\infty}\sup_{x\in [a,b]}|f_n(x)-f(x)|=\lim\limits_{n\to\infty}\sup_{x\in [a,b]}=	\left\lvert \frac{\sin nx}{\sqrt{n}} \right\rvert=\lim\limits_{n\to\infty}\frac{1}{\sqrt{n}}=0.$$ Despite having uniform convergence, we have that $$ \lim_{n\to\infty}f_n'(0)=\lim_{n\to\infty}\sqrt{n}\cos (n
+\cdot0)\neq 0=\lim_{n\to 0}0=\lim_{n\to\infty}f'(0).$$
+
+It is also possible that the derivative of a uniform limit may not exist. Let $$ f_n(x)=\sqrt{\frac{1}{n^2}+x^2}.$$ We have that $ f_n(x)\uni|x| $, so $ f'(0) $ does not exist. This happens despite the fact that $ f_n'(0) $ exists for all $ n $. 
+\end{example}
+
+The next theorem will give the conditions under which uniform convergence will preserve differentiation, but they are fairly strong. For one, the sequence $ \{f_n'\} $ must converge uniformly. Not only that, but the sequence $ \{f_n\} $ will need to converge pointwise for at least one point.  
+
+\begin{theorem}[Uniform Convergence and Differentiation]
+Suppose $ \{f_n\} $ is a sequence of functions, differentiable on $ [a,b] $ and such that $ \{f(x_0)\} $ converges pointwise for some $ x_0\in[a,b] $. If $ \{f_n'\} $ converges uniformly on $ [a,b] $, then $ \{f_n\} $ converges uniformly to some function $ f $ on $ [a,b] $, and $$f'(x)=\lim\limits_{n\to\infty}f_n'(x) $$ on $ [a,b] $. 
+\end{theorem}
+\begin{proof}
+First, we will show that $ \{f_n\} $ converges uniformly to $ f $. The sequence $ \{f_n(x_0)\} $ converges, so it must be a Cauchy sequence. Similarly, $ \{f_n'\} $ converges uniformly, so it is also a Cauchy sequence. This means for all $ \varepsilon>0 $, there exists an $ N $ such that for all $ n,m\ge N $ we have \begin{align}
+	|f_n(x_0)-f_m(x_0)|&\le \frac{\varepsilon}{2},\\|f_n(t)'-f_m'(t)|&\le \frac{\varepsilon}{2(b-a)}.
+\end{align}
+Applying the Mean Value Theorem to the function $ f_n-f_m $, there exists an element $ t_0\in[x,t] $ such that $$ |f_n'(t_0) - f_m'(t_0)|=\frac{|f_n(x)-f_m(x)-(f_n(x)-f_m(x))| }{|x-t|}.$$
+This combined with (27) gives 
+\begin{align}
+	|f_n(x)-f_m(x)-f_n(t)+f_m(t)| &=|x-t|\cdot|f_n'(t_0) - f_m'(t_0)|,\nonumber\\&\le |x-t|\cdot \frac{\varepsilon}{2(b-a)}\\&=\frac{|x-t|}{b-a}\cdot\frac{\varepsilon}{2},\nonumber\\&\le \frac{\varepsilon}{2},
+\end{align}
+for any $ x,t\in[a,b] $ if $ n,m\ge N $.\footnote{The final line of this inequality follows from the fact that $ |x-t|\le b-a $, because $ x,t\in[a,b] $. } Combing (27) and (29)  while invoking the triangle inequality gives \begin{align*}
+|f_n(x)-f_m(x)|&\le |f_n(x)-f_m(x) + 0 + 0|\\&=|f_n(x)-f_m(x) + (f_n(x_0)-f_n(x_0)) + (f_m(x_0)-f_m(x_0))|\\&\le 	|f_n(x)-f_m(x)-f_n(x_0)+f_m(x_0)| + |f_n-f_m(x_0)| \\&<\frac{\varepsilon}{2}+\frac{\varepsilon}{2}\\&=\varepsilon
+\end{align*}
+for all $ x\in[a,b] $ when $ n,m\ge N $. The sequence $ f $ satisfies the Cauchy Criterion for uniform convergence, so $ f_n\uni f $ on $ [a,b] $. 
+
+Now we will show that under our assumptions, the derivative of the limit is the limit of the derivatives. Fix a point $ x\in[a,b] $ and define \begin{align*}
+	\phi_n(t)&=\frac{f_n(t)-f_n(x)}{t-x},\\\phi(t)&=\frac{f(t)-f(x)}{t-x},
+\end{align*}
+for $ x\in[a,b] $ where $ x\neq t  $. By (28), $$ |\phi_n(t)-\phi_m(t)|\le\frac{\varepsilon}{2(b-a)} $$ for all $ x\in[a,b] $ when $ n,m\ge N $. By the Cauchy Criterion for uniform convergence, $ \phi_n $ converges uniformly for $ t\neq x $. Since $ f_n\to f $, the uniform limit of $ \{\phi_n\} $ must be $ \phi $. $$\lim\limits_{n\to\infty}\phi_n(t)=\phi(t)\ \ \ \ \ (a\le t\le b, t\neq x)$$
+Because $ \phi_n\uni\phi $ we can interchange limits using Theorem 7.3 to reach the desired equality. 
+\begin{align*}
+	f'(x)=\lim\limits_{t\to x}\frac{f(t)-f(x)}{t-x}= \lim\limits_{t\to x}\phi(t)= \lim\limits_{t\to x}\lim\limits_{n\to\infty}\phi_n(t)=\lim\limits_{n\to\infty}\lim\limits_{t\to x}\phi_n(t)=\lim\limits_{n\to\infty}\lim\limits_{t\to x}\frac{f_n(t)-f_n(x)}{t-x}=\lim\limits_{n\to\infty}f_n'(x)
+\end{align*}
+\end{proof}
+\begin{example}(What if $ \{f\} $ Doesn't Converge Pointwise?)
+	content...
+\end{example}
 \subsection{Approximation with Polynomials}
+As stated earlier, uniform convergence is useful because we may want to take the limit of integral of a sequence of functions' limit, but not know the limit. With uniform convergence, this is no problem, as we can interchange limits freely. It still could be the case that $ f_n $ is difficult to work with. It's worth asking, given some function $ f  $ can we find a sequence of ``easy to work with'' functions which converges uniformly to $ f $? In this case, we know the desired limit of the sequence, but are looking for the sequence. 
+
+Some of the easiest functions to work with our polynomials. As it turns out, the answer to this question becomes yes if we look for a sequence of polynomials. This was first shown by Weierstrass. 
+\begin{theorem}[Weierstrass Approximation Theorem]
+	If $ f $ is a real continuous function on the interval $ [a,b] $, then there exists a sequence of real polynomials $ \{P_n\} $ such that $ P_n(x)\uni f(x) $ on $ [a,b] $. 
+\end{theorem}
+\begin{proof}
+	First, restrict attention to the case where $ [a,b]=[0,1] $ and $ f(0)=f(1)=0 $. We will construct the desired sequence $ \{P_n\} $. 
+	
+	Define the function $ Q_n(x) $ as $$Q_n(x)=c_n(1-x^2)^n $$ where $$ c_n=\left[\int_{-1}^{1} (1-t^2)^n\ dt\right]^{-1}.$$ This choice of $ c_n $ is made such that the integral of $ Q_n(x) $ on $ [-1,1] $ is $ 1 $ for all values of $ n $. \footnote{In this sense, $ c_n $ is just a scaling factor which standardizes $ Q_n(x) $ so this integral is always 1.}
+	\begin{align}
+		\int_{-1}^{1}Q_n(x)\ dx=c_n\int_{-1}^{1}(1-x^2)^n\ dx=\frac{\int_{-1}^{1} (1-x^2)^n\ dx}{\int_{-1}^{1} (1-t^2)^n\ dt}=1
+	\end{align}
+	Figure 78 shows $ Q_n(x) $ for a few values of $ n $. 
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.9\linewidth]{figures/landau_kern}
+		\caption{The function $ Q_n(x) $ on the interval $ [-1,1] $ for several values of $ n $.}
+		\label{fig:landaukern}
+	\end{figure}
+This seemingly random function $ Q_n(x) $ will be used to construct $ \{P_n\} $, so we may want to know some information about $c_n$'s magnitude that can be used to show $ P_n\uni f $. Using the fact that $ (1-x^2)^n\ge1-nx^2 $, $ 1\le 1/\sqrt{n} $, the symmetry of $ Q_n(x) $, and integration, we have 
+\begin{align*}
+	c_n=\left[\int_{-1}^{1} (1-t^2)^n\ dt\right]^{-1}=\left[2\int_{0}^{1} (1-t^2)^n\ dt\right]^{-1}\le\left[2\int_{0}^{1/\sqrt{n}} (1-t^2)^n \ dt\right]^{-1}&\le\left[2\int_{0}^{1/\sqrt{n}} 1-nt^2 \ dt\right]^{-1}\\&=\frac{3}{4}\sqrt{n}\\&<\sqrt{n}.
+\end{align*}
+This bound on $ c_n $ gives 
+\begin{align}
+Q_n(x)\le \sqrt{n}(1-\delta^2)^n
+\end{align}
+for any $ \delta\le |x| $. 
+
+Now we can define our sequence of polynomials to be $$ P_n(x)=\int_{-1}^{1}f(x+t)Q_n(t)\ dt. $$ Due to the fact that $ f $ is zero outside the interval $ [0,1] $ we know $ f(x+t) $ is zero for $ t $ outside the interval $ [-x,1-x] $, so we can rewrite the bounds of integration in the definition of $ P_n(x) $.  
+
+$$ P_n(x)=\int_{-x}^{1-x}f(x+t)Q_n(t)\ dt$$
+If we apply a change of variables (Theorem 6.7) using $ u=x+t $ we get 
+
+$$ P_n(x)=\int_{-x}^{1-x}f(x+t)Q_n(t)\ dt= \int_{0}^{1}f(u)Q_n(u-x)\ du.$$ At this point it's worth asking how we know $ P_n(x) $ is actually a polynomial. It becomes a bit clearer when writing $$ P_n(x)=\int_{0}^1f(u)c_n[1-(t-x)^2]^n\ dt.$$ The Binomial theorem could be used to expand the integrand, and any term with a $ t $ will be integrated and becomes a constant. What remains will be a polynomial in $ x $.  
+
+We are now ready to show that $ P_n\uni f $. By the continuity of $ f $, for all $ \varepsilon>0 $, there exists a corresponding $ \delta>0 $ such that $ |y-x|<\delta $ implies $|f(y)-f(x)|<\varepsilon/2 $. Let $ M=\sup|f(x)| $. By (30), (31), and the fact that $ Q_n(x)\ge 0 $, we see that for any $ x\in[0,1] $,
+\begin{align*}
+	|P_n(x)-f(x)&=\left\lvert\int_{-1}^{1}f(x+t)Q_n(t) \ dt - f(x) \right\rvert\\
+				&=\left\lvert\int_{-1}^{1}f(x+t)Q_n(t)\ dt - f(x)\cdot 1 \right\rvert\\
+				&=\left\lvert\int_{-1}^{1}f(x+t)Q_n(t) \ dt- f(x)\int_{-1}^1 Q_n(t) \ dt \right\rvert\\
+				&=\left\lvert\int_{-1}^{1}[f(x+t)-f(x)]Q_n(t) \ dt \right\rvert\\ 
+				&\le \int_{-1}^{1}|f(x+t)-f(x)|Q_n(t) \ dt \\ 
+				&= \int_{-1}^{-\delta}\underbrace{|f(x+t)-f(x)|}_{\le \sup|f(x)|+\sup|f(x)| }Q_n(t) \ dt + \int_{-\delta}^{\delta}\underbrace{|f(x+t)-f(x)|}_{\le \varepsilon/2}Q_n(t) \ dt + \int_{\delta }^{1}\underbrace{|f(x+t)-f(x)|}_{\le \sup|f(x)|+\sup|f(x)| }Q_n(t) \ dt\\
+				&\le 2M\int_{-1}^{-\delta} Q_n(t)\ dt + \frac{\varepsilon}{2}\int_{-\delta}^{\delta} Q_n(t)\ dt + 2M\int_{\delta}^{1} Q_n(t)\ dt\\ &\le 4M\sqrt{n}(1-\delta^2)^n + \frac{\varepsilon}{2}\\&<\varepsilon
+\end{align*}for a sufficiently large $ n $. This means that $ P_n\uni f $ on $ [0,1] $. 
+
+Finally, suppose $ f $ is any real valued continuous function on $ [a,b] $. We can extend our result by writing $$g(x)=f(a+(b-a)x)$$ so that $ g $ is defined on $ [0,1] $.  We know the Theorem holds for this simpler case, so there exists a sequence of $ P_n $ such that $ P_n\uni g $ on $ [0,1] $. Since $$f(x)=g\left(\frac{x-a}{b-a}\right) ,$$ we have a sequence of polynomials which converge uniformly to $ f $ in the form of $ P_n\left(\frac{x-a}{b-a}\right).$
+
+\end{proof}
+At first glance, Weierstrass' Approximation Theorem may not seem useful at all. While polynomials are easy to take limits of, integrate, and differentiate, we know $ f $ to begin with. This means that it would be easier to just take the integral of $ f $ instead of the limit of the integrals of the more complicated $ P_n $'s if we were interested in this value.  Nevertheless this result can be useful when proving other results, as we know polynomials satisfy a myriad of desirable properties. 
+\begin{example}
+	Define $ f $ to be $$f(x)=\begin{cases}
+	\frac{1}{2}-\left\lvert \frac{1}{2}-x\right\rvert \text{ if } -1 <x<1\\
+	0\text{ otherwise}
+	\end{cases}. $$ If we define $$ P_n(x)=\int_{0}^{1}f(t)Q_n(t-x)\ dt, $$ we should have that $ P_n(x)\uni f $ on $ [0,1] $. Figure 79 shows this convergence. 
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.9\linewidth]{figures/SW_approx}
+	\caption{The Weierstrass Approximation Theorem applied to $ f $ in Example 7.17.}
+	\label{fig:swapprox}
+\end{figure}
+If we want to be more explicit, we can write out $ P_n $ to a limited extent.
+\begin{align*}
+	P_n(x)&=\int_{0}^{1}f(t)Q_n(t-x)\ dt\\&=\int_{0}^{1}\left(\frac{1}{2}-\left\lvert \frac{1}{2}-x\right)\right\rvert c_n[1-(t-x)^2]^n\ dt\\
+	&=c_n\int_{0}^{1}\left(\frac{1}{2}-\left\lvert \frac{1}{2}-t\right\rvert\right)\sum_{k=0}^{n}(-t^2-2xt-x^2)^k\ dt
+\end{align*}
+At this point we could use the multinomial theorem to expand things further, but it gets fairly ugly. If you use Mathematica, Python with SymPy, or any other symbolic computation platform,  you can see the coefficients of $ P_n(x) $ for any $ n $. For example, for $ n=1 $ we have $$ P_1(x)=-\frac{3}{16}x^2 + \frac{3}{16}x + \frac{17}{128}$$
+\end{example}
+\begin{remark}[Stone-Weierstrass]
+This approximation theorem would go on to be generalized several times. Not only can this result be generalized to complex functions, but it can be generalized beyond real intervals. A more general version is due to Marshall Stone and is known as the Stone-Weierstrass Theorem, and works in a vastly more general topological setting than that of the real line. 
+
+\end{remark}
+
+
 \subsection{Series}
+Each sequence of functions $ \{f_n\} $ gives rise to a series of functions which results from summing $ f_n $ over $ n $. All the properties related to uniform convergence and sequences will follow for series as well. 
+
+
+\begin{definition}
+	A series of functions $ \sum f_n(x) $ \textit{\color{red}converges (pointwise)} on $ E\subset \R $ if the numerical series $ \sum f_n(x_0) $ converges for all $ x_0\in E $. Alternatively,   $ \sum f_n(x) $ converges on $ E\subset\R $ if the sequence of partial sums defined as $$ s_n(x)=\sum_{k=1}^{n}f_k(x) $$ converges on $ E $. In this case we write $\sum f_n(x)=f $, and call $ f $ the \textit{\color{red} sum} of the series.\footnote{You can assume that $ \sum f_n(x)=\sum_{n=1}^{\infty}f_n(x)$.} 
+\end{definition}
+
+
+\begin{definition}
+	A series of functions $ \sum f_n(x) $ \textit{\color{red}converges uniformly} on $ E\subset\R $ if the sequence of partial sums $ \{s_n\} $ converges uniformly on $ E $.  
+\end{definition}
+
+Verifying that a series converges uniformly is slightly different than verifying a sequence converges uniformly. We will turn to a test that is analogous to the comparison test for numerical series. 
+\begin{theorem}[Weierstrass M-Test]
+	Suppose $ \{f_n\} $ is a sequence of functions defined on $ E\subset\R $, and suppose $ |f_n(x)|\le M_n$ for all $ x\in E $ and $ n\in\N $. Then $ \sum f_n $ converges uniformly on $ E $ if $ \sum M_n $ converges. 
+\end{theorem}
+\begin{proof}
+Suppose that $ \sum M_n $ converges. The Cauchy Criterion holds for the partial sums of $ M_n $, so for any $ \varepsilon>0 $, there exists an $ N\in\N $ such that $$ \left\lvert\sum_{k=1}^{n}M_k-\sum_{k=1}^{m} M_k\right\rvert= \sum_{k=n}^{m}M_k< \varepsilon.$$
+Because $ |f_n(x)|\le M_n $ for all $ x\in E $, we have $$ |s_n(x)-s_m(x)|=\left\lvert\sum_{k=1}^{n}f_k(x)-\sum_{k=1}^{m} f_k(x)\right\rvert=\left\lvert\sum_{k=n}^{m}f_k(x)\right\rvert\le \sum_{k=n}^{m}M_k< \varepsilon$$ for $ n,m\ge N $. This makes $ s_n(x) $ a Cauchy sequence, so it converges uniformly by Theorem 7.1. This gives the uniform convergence of $ \sum f_n(x) $.  
+\end{proof}
+
+Much like the Cauchy Criterion, the Weierstrass M-Test does not necessitate knowledge of the actual limit. 
+\begin{example}
+	Define $ f_n $ to be $$ f_n(x)=\frac{1}{x^2+n^2}.$$ We have that $$  f_n(x)=\frac{1}{x^2+n^2}\le \frac{1}{n^2}=M_n$$ for each $ n $ and all $ x\in\R $. Because the sequence $ \sum M_n=\sum 1/n^2 $ converges, the series $ \sum f_n(x) $ converges by the Weierstrass M-Test. 
+\end{example}
+
+\begin{example}[Converse of Weierstrass M-Test Fails]
+	The converse of Theorem 7.8 need not hold. A somewhat trivial example is found in the constant function $ f_n(x)=(-1)^n/n $. The constant series of functions given by $ \sum f_n  $ converges uniformly to $ \ln 2 $. Despite this, there exists no bound on $ |f_n| $ which forms a convergent numerical series. The smallest possible value of $ M_n $ is $ 1/n $, but $ \sum 1/n $ diverges. Any example of a numerical series which converges but fails to converge absolutely would also work.
+\end{example}
+
+\begin{theorem}[Uniform Convergence and Series]
+	Let $ \sum f_n $ be a series of functions on the set $ E\subset \R $.
+	\begin{enumerate}
+		\item If $ f_n $ is continuous for all $ n $, and $ \sum_n f_n $ converges uniformly, then $  \sum_n f_n $ is continuous. 
+		\item If $ f_n $ is Riemann integrable for all $ n $ on $ [a,b]\subset E $, and $ \sum_n f_n $ converges uniformly on $ [a,b] $, then $  \sum_n f_n $ is Riemann integrable on $ [a,b] $, and $$ \int_{a}^{b}\sum_{n=1}^{\infty}f_n(x)\ dx=\sum_{n=1}^{\infty}\int_{a}^{b}f_n(x)\ dx $$ 
+		\item Suppose $ f_n $ is differentiable on $ E $ for all $ n $, $ \sum f_n(x_0) $ converges pointwise for some $ x_0\in E $, and $ \sum f_n' $ converges uniformly. Then $ \sum f_n $ converges uniformly, and $$\frac{d}{dx}\sum_{n=1}^{\infty}f_n(x)=\sum_{n=1}^{\infty}\frac{df_n}{dx} $$
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	The proofs for these follow from applying Theorem 7.3, Theorem 7.5, and Theorem 7.6 to the sequence of partial sums $ \{s_n\} $.
+\end{proof}
+
+
+\begin{example}(Weierstrass Function)
+	We can now construct one of the most famous pathological functions in math. Using series of functions, we can construct a function which is continuous on all of $ \R $ but fails to be differentiable at a single point. Begin by defining $ \varphi(x)=|x|$ on $ [-1,1] $, and extend it to the real line by requiring that $ \varphi(x+2)=\varphi(x) $.\footnote{Formally, $ \varphi(x)= [(x+1)\mod 2] - 1$ .} 
+\end{example}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.9\linewidth]{figures/weierstrass}
+	\caption{}
+	\label{fig:weierstrass}
+\end{figure}
+
 \subsection{Power Series}
+\begin{definition}
+	A \textit{\color{red} power series (centered about $ a $)} is an infinite series of the form $$ \sum_{n=0}^{\infty}c_n(x-a)^n $$
+\end{definition}
+\begin{definition}
+	A real function $ f $ is \textit{\color{red} (real) analytic} if it can be written as the sum of a power series. 
+\end{definition}
+\begin{definition}
+	Let $ \sum c_n(x-a)^n $ be a power series. We define \textit{\color{red}radius of convergence $ R $} of this series to be the quantity $$ R=\frac{1}{\lim\sup_{n\to\infty}|c_n|^{1/n}}$$ where we adopt the convention that $ 1/0=\infty $ and $ 1/\infty=0 $. 
+\end{definition}
+
+As the name suggest, the radius of convergence of a power series dictates the set on which a power series will converge.
+\begin{theorem}
+	Let $ \sum c_n (x-a)^n $ be a power series. The series will converge on the set $ \{x\in\R\mid |x-a|<R\} $ and diverge on the set $ \{x\in\R\mid |x-a|>R\} $. 
+\end{theorem}
+
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+	\draw[very thick, <->] (-8,0) -- (8,0);
+	\draw[very thick, <-, red] (-8,0) -- (-4.04,0);
+	\draw[very thick, ->, red] (4.04,0) -- (8,0);
+	\draw[very thick] (0,0.1) -- (0,-0.1);
+	\draw[color=green, very thick] (-4,0)circle (2pt);
+	\draw[color=green, very thick] (4,0)circle (2pt);
+	\draw[very thick, green] (-3.96,0) -- (3.96,0);
+	\draw (0,-.3) node {$ a $};
+	\draw (8,-.3) node {$ \R $};
+	\draw[green] (-2,.3) node {$ |x-a|<R $};
+	\draw[red] (-6,.3) node {$ |x-a|<R $};
+	\draw (4,-.3) node {$ x+a $};
+	\draw (-4,-.3) node {$ x-a $};
+	\end{tikzpicture}
+	\caption{The radius of convergence for a power series. The series converges for all values in green, and diverges for all values in red. It is not clear what happens when $ |x-a|=R $. }
+\end{figure}
+
+At some point you probably took a calculus course which introduced you to power series, and discussed how to integrate and differentiate power series. If you want to perform these operations on a power series, you an simply apply them to each term in the series. This was something special that could be done with power series, but not in general. Your calculus teacher may have emphasized this, but forgone any formal explanation. Now that we know all about uniform convergence and have Theorem 7.9, we can formally prove that power series exhibit these nice properties.  
+
+\begin{theorem}
+	Suppose the power series $ \sum c_n(x-a)^n $ converges for $ |x|<R  $, and define $ f(x)=\sum c_n(x-a)^n $ on the set of values such that $ |x|<R $. Then $ \sum c_n(x-a)^n $ converges uniformly to $ f $ on $ [-R +\varepsilon,R-\varepsilon] $ for all $ \varepsilon>0 $. Furthermore, $ f $ is continuous and differentiable in $ (-R,R) $ and $$f'(x)=\sum_{n=1}^{\infty}nc_nx^{n-1} .$$ 
+\end{theorem}
+\begin{corollary}
+	Under the hypotheses of Theorem 7.10, $ f $ is Riemann integrable in $ (-R,R) $, and for $ [\alpha,\beta]\subset [-R+\varepsilon,R-\varepsilon] $ we have $$ \int_{\alpha}^{\beta}f(x)\ dx=\sum_{n=1}^{\infty}c_n\frac{(\alpha-a)^{n+1}-(\beta-a)^{n+1}}{n+1}.$$
+\end{corollary}
+\begin{corollary}
+	Under the hypotheses of Theorem 7.10, $ f $ is infinitely differentiable in $ (-R,R) $,\footnote{We could simply write $ f\in C^\infty((-R,R)) $} and $$f^{(k)}(x)=\sum_{n=k}^{\infty} n(n-1)\cdots(n-k+1)c_n(x-a)^{n-k}.$$
+\end{corollary}
+
+\begin{remark}[Analyticity]
+
+\end{remark}
 \subsection{Taylor Series}
 \section{Real Functions of Several Variables}
 Now we'll take an aside to review linear algebra and multivariable functions. Most of this will look familiar, but some of the notation may differ slightly from what is seen in a linear algebra course. Come Section 16, \textbf{some of these definitions will be repeated with different notation}. Right now the notation will be more tailored to Euclidean space. Many results related to vector spaces will also be stated as fact or given in examples. The proofs of them can be found in any linear algebra textbook. 
 \subsection{Euclidean Space}
 Before we can define Euclidean space, we need to introduce the concept of a vector space. 
 \begin{definition}
-	A \textit{\color{red}vector space} is a set of vectors $ V $ over a field of scalers $ F $ equipped with two operations: $ +:V\times V $, and $ \cdot:F\times V\to V $. These operations, called addition and scaler multiplication, must satisfy the following properties for all $ \x,\y,\mathbf{z}\in V $ and $ a,b\in F $:
+	A \textit{\color{red}vector space} is a set of vectors $ V $ over a field of scalers $ F $ equipped with two operations: $ +:V\times V\to V $, and $ \cdot:F\times V\to V $. These operations, called addition and scaler multiplication, must satisfy the following properties for all $ \x,\y,\mathbf{z}\in V $ and $ a,b\in F $:
 	\begin{enumerate}
 		\item $ \x+\y=\y+\x $,
 		\item $ \x+(\y+\z)=(\x+\y)+\z $,
@@ -5577,7 +5871,7 @@ The next two examples of normed vector spaces are fairly abstract. The goal with
 	for $ a\in\R $ and $ \{x_n\},\{y_n\}\in\R^\N $, then we have a vector space. To make this a normed vector space, we can restrict our attention to sequence for which $ \norm{\{x_n\}}_2<\infty $ where $$ \norm{\{x_n\}}_2=\left[x_1^2+x_2^2+\cdots\right]^\frac{1}{2}=\left(\sum_{n\in\N}x_n^2\right)^\frac{1}{2}.$$  We will call this normed vector space $ \ell^2 $. For $ x_n=1/n $ in $ \ell^2 $, then $$\norm{\{1/n\}}=\left(\sum_{n=1}^\infty\frac{1}{n^2}\right)^\frac{1}{2}=\left(\frac{\pi^2}{6}\right)^\frac{1}{2}=\frac{\pi}{\sqrt{6}} .$$ 
 \end{example}
 \begin{example}[Vector Space of Continuous Functions]
-	Let $ C([a,b]) $ be the set of real continuous functions on $ [a,b] $. This set forms a vector space over the set of scalers $ \R $. This is also a normed vector space equipped with the \textit{\color{red}supremum/sup norm} (pronounced ``soup'' norm), which is written as $$\norm{f}_\infty=\sup_{x\in [a,b]}|f(x)| .$$
+	Let $ C([a,b]) $ be the set of real continuous functions on $ [a,b] $. This set forms a vector space over the set of scalers $ \R $. This is also a normed vector space equipped with the sup norm, which is written as $$\norm{f}_\infty=\sup_{x\in [a,b]}|f(x)| .$$
 \end{example}
 \begin{remark}[Norm vs. Metric]
 If you think all the way back to Example 2.2, we mentioned that norms and metrics are related. This is because every normed vector space is a metric space if we define $$ d(\x,\y)=\norm{\x-\y}.$$ The converse however is not true. A metric space needn't be a vector space, as a metric space isn't necessarily endowed with the algebraic structure of a vector space. In this sense, metric spaces are actually generalizations of normed vector spaces! When we have a normed vector space and want to discuss it in the context of a metric space, we will assume $ d(\x,\y)=\norm{\x-\y}.$ This is why I said that ``supremum metric'' is not a common term. If you're interested in the set $ C([a,b]) $ with $ d(f,g)=\sup_{x\in [a,b]}|f-g| $, then we simply specify that it has the \textit{\color{red}sup norm} (pronounced ``soup norm''), and infer the corresponding metric. 
@@ -5610,7 +5904,7 @@ x_1\\\vdots\\x_n
 		\norm{\x}_{10}&=\left(\left(\frac{1}{2}\right)^{10}+1^{10}+2^{10}\right)^\frac{1}{{10}}=\left(\frac{1}{4}+1+1024\right)^\frac{1}{{10}}=2.0002\\
 		\norm{\x}_{15}&=\left(\left(\frac{1}{2}\right)^{15}+1^{15}+2^{15}\right)^\frac{1}{{15}}=\left(\frac{1}{2^{15}}+1+2^{15}\right)^\frac{1}{{15}}=2.000004\\
 	\end{align*}  
-	What is happening here? When we let $ p=1 $, the length of $ \x $ is the sum of its components lengths. All the components contribute equally. When we take $ p=2 $, instead of summing the lengths, we first square them. Small components like $ 1/2 $ get smaller, and large components like $ 2 $ get bigger.\footnote{``small'' means less than $ 1 $, ``large'' means greater than $ 1 $.} After doing this, we sum them, and then take the square root so the length is not artificually inflated by use squaring each component. By squaring each number, we let the larger components ``contribute'' more to the length. We do so even more if we take $ p $ to be larger. In fact, if we let $ p\to\infty $, the largest component of $ \x $ will begin to dominate the other, being the only one that contributes to the norm. We actually end up with $$ \lim\limits_{p\to\infty}\norm{\x}_p=\norm{\x}_\infty=\sup\{|x_1|,\ldots, |x_n|\}=\max\{|x_1|,\ldots, |x_n|\}. $$ This is just the $ \sup $ norm, but for a finite set of points! 
+	What is happening here? When we let $ p=1 $, the length of $ \x $ is the sum of its components lengths. All the components contribute equally. When we take $ p=2 $, instead of summing the lengths, we first square them. Small components like $ 1/2 $ get smaller, and large components like $ 2 $ get bigger.\footnote{``small'' means less than $ 1 $, ``large'' means greater than $ 1 $.} After doing this, we sum them, and then take the square root so the length is not artificually inflated by use squaring each component. By squaring each number, we let the larger components ``contribute'' more to the length. We do so even more if we take $ p $ to be larger. In fact, if we let $ p\to\infty $, the largest component of $ \x $ will begin to dominate the others, being the only one that contributes to the norm. We actually end up with $$ \lim\limits_{p\to\infty}\norm{\x}_p=\norm{\x}_\infty=\sup\{|x_1|,\ldots, |x_n|\}=\max\{|x_1|,\ldots, |x_n|\}. $$ This is just the $ \sup $ norm, but for a finite set of points! 
 	\begin{figure}[h!]
 		\centering
 		\includegraphics[width=0.7\linewidth]{figures/lp_norm}
@@ -5647,8 +5941,78 @@ $$ \norm{\x}=\sqrt{x_1^2+\ldots+x_n^2}=\sqrt{x_1x_1+\ldots+x_nx_n}=\sqrt{\x\cdot
 If you look at the definition of Euclidean space, you should note it has an additional feature that is not required of a normed vector space. We defined a special function which we called the ``dot product''. In Section 16, we will study a type of vector spaces called Hilbert Spaces. These are generalizations of Euclidean space, as not only are they euipped with a norm, but they also have a function analagous to the dot product. 
 \end{remark}
 \subsection{Linear Transformations}
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+	\draw[step=1cm,black,very thin] (0,0) grid (6,6);
+	\draw[thick,->] (-0.4,3) -- (6.4,3);
+	\draw[thick,->] (3,-0.4) -- (3,6.4);
+	\draw[thick, ->] (6.9,4) to[out=30,in=150] (7.9,4);	
+	\draw (7.4,4.3) node {$  A $};
+	\draw[color = red] (5.5,3.6) node {$  \x $};
+	\draw[color = red] (13.9,4.8) node {$ A \x $};
+	\draw[thick,->] (7.6,3) -- (14.4,3);
+	\draw[very thick,->, color = red] (3,3) -- (6,4);
+	\draw[very thick,->, color = red] (11,3) -- (14.5,5.5);
+	\draw[thick,->] (11,-0.4) -- (11,6.4);
+		\pgftransformcm{1}{0.5}{0.5}{1}{\pgfpoint{0}{-29}}
+	\draw[step=1cm,black,very thin] (9,-5) grid (15,1);	
+	\end{tikzpicture}
+	\caption{.}
+\end{figure}
 \subsection{Nonlinear Transformations and Functions}
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+	\draw[step=1cm,black,very thin] (0,0) grid (6,6);
+	\draw[thick,->] (-0.4,3) -- (6.4,3);
+	\draw[thick,->] (3,-0.4) -- (3,6.4);
+	\draw[thick, ->] (6.4,4) to[out=30,in=150] (7.4,4);	
+	\draw (6.9,4.3) node {$ \mathbf{f}$};	
+	\draw [very thin, black] (8,0) sin (9,1) cos (10,0) sin (11,-1) cos (12,0) sin (13,1) cos (14,0);
+	\draw [very thin, black] (8,1) sin (9,2) cos (10,1) sin (11,0) cos (12,1) sin (13,2) cos (14,1);
+	\draw [very thin, black] (8,2) sin (9,3) cos (10,2) sin (11,1) cos (12,2) sin (13,3) cos (14,2);
+	\draw [very thin, black] (8,3) sin (9,4) cos (10,3) sin (11,2) cos (12,3) sin (13,4) cos (14,3);
+	\draw [very thin, black] (8,4) sin (9,5) cos (10,4) sin (11,3) cos (12,4) sin (13,5) cos (14,4);
+	\draw [very thin, black] (8,5) sin (9,6) cos (10,5) sin (11,4) cos (12,5) sin (13,6) cos (14,5);
+	\draw [very thin, black] (8,6) sin (9,7) cos (10,6) sin (11,5) cos (12,6) sin (13,7) cos (14,6);
+	\draw [very thin, black, rotate around={90:(11,4)}] (7,7) sin (8,7.5) cos (9,7) sin (10,6.5) cos (11,7) sin (12,7.5) cos (13,7);
+	\draw [very thin, black, rotate around={90:(11,4)}] (8,6) sin (9,6.5) cos (10,6) sin (11,5.5) cos (12,6) sin (13,6.5) cos (14,6);
+	\draw [very thin, black, rotate around={90:(11,4)}] (7,5) sin (8,5.5) cos (9,5) sin (10,4.5) cos (11,5) sin (12,5.5) cos (13,5);
+	\draw [very thin, black, rotate around={90:(11,4)}] (6,4) sin (7,4.5) cos (8,4) sin (9,3.5) cos (10,4) sin (11,4.5) cos (12,4);
+	\draw [very thin, black, rotate around={90:(11,4)}] (7,3) sin (8,3.5) cos (9,3) sin (10,2.5) cos (11,3) sin (12,3.5) cos (13,3);
+	\draw [very thin, black, rotate around={90:(11,4)}] (8,2) sin (9,2.5) cos (10,2) sin (11,1.5) cos (12,2) sin (13,2.5) cos (14,2);
+	\draw [very thin, black, rotate around={90:(11,4)}] (7,1) sin (8,1.5) cos (9,1) sin (10,.5) cos (11,1) sin (12,1.5) cos (13,1);
+	\draw[thick,->] (7.6,3) -- (14.4,3);
+	\draw[thick,->] (11,-0.4) -- (11,6.4);
+	\filldraw (4,4) circle (2pt) node[anchor = south east] {$ \mathbf{x} $};
+	\filldraw (11.65,4.5) circle (2pt) node[anchor = south west] {$ \mathbf{f(x)} $};
+	\end{tikzpicture}
+	\caption{.}
+\end{figure}
+
 \subsection{Space of Linear Transformations}
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+	\draw[thick,->] (-0.4,3) -- (6.4,3);
+	\draw[thick,->] (3,-0.4) -- (3,6.4);
+	\draw[thick, ->] (6.4,4) to[out=30,in=150] (7.4,4);	
+	\draw (6.9,4.3) node {$  A $};	
+	\draw[red] (5,5.3) node {$ \{\x\in\R^2\mid\norm{x} = 1\}$};
+	\draw[red] (13.5,6.5) node {$ \{A\x\in\R^2\mid\norm{x} = 1\}$};
+	\draw[blue] (9.7,2.4) node {$ \norm{A}_\text{op}$};
+	\draw[very thick, color = red] (3,3) circle (2);
+	\draw[very thick, color = blue, dashed] (11,3) -- (8.2,0.2);
+	\draw[thick,->] (7.6,3) -- (14.4,3);
+	\draw[thick,->] (11,-0.4) -- (11,6.4);
+	\draw[very thick, color = red, rotate=45]  (9.9, -5.6) ellipse (4 and 1);
+	\end{tikzpicture}
+	\caption{.}
+\end{figure}
+
 \section{Differentiation with Several Variables}
 \subsection{The Derivative as a Linear Map}
 	\begin{figure}[h]
@@ -5755,6 +6119,42 @@ How do discontinuities play with integration
 \subsection{Motivation}
 \subsection{$ \sigma $-Algebras}
 \subsection{Measures}
+\begin{figure}
+	\centering
+\begin{tikzpicture}
+\draw[thick,black] (5,5) to[out=0,in=230] (10,6); 
+\draw[thick,black] (10,6) to[out=50,in=120] (5, 8);
+\draw[thick,black] (5, 8) to[out=310,in=120] (3, 6);
+\draw[thick,black] (3, 6) to[out=310,in=180] (5,5);
+
+\draw[fill=gray!40, thin, dashed, opacity=0.45] (2.5,4.5) rectangle (5,7);
+\draw[fill=gray!40, thin, dashed, opacity=0.45] (5,4.5) rectangle (7.5,7);
+\draw[fill=gray!40, thin, dashed, opacity=0.45] (7.5,4.5) rectangle (11,7);
+\draw[fill=gray!40, thin, dashed, opacity=0.45] (2.5,7) rectangle (5,9);
+\draw[fill=gray!40, thin, dashed, opacity=0.45] (5,7) rectangle (7.5,9);
+\draw[fill=gray!40, thin, dashed, opacity=0.45] (7.5,7) rectangle (11,9);
+
+\draw[fill=gray!40, thin, dashed, opacity=0.45] (12,5.3) rectangle (13,6);
+\draw[fill=gray!40, thin, dashed, opacity=0.45] (12.5,4.85) rectangle (18.15,5.3);
+\draw[fill=gray!40, thin, dashed, opacity=0.45] (13,5.3) rectangle (18.5,7);
+\draw[fill=gray!40, thin, dashed, opacity=0.45] (13,6) rectangle (11.9,6.5);
+\draw[fill=gray!40, thin, dashed, opacity=0.45] (13,7) rectangle (12,6.5);
+\draw[fill=gray!40, thin, dashed, opacity=0.45] (18.5,5.5) rectangle (19,7.3);
+\draw[fill=gray!40, thin, dashed, opacity=0.45] (19.2,6) rectangle (19,6.9);
+\draw[fill=gray!40, thin, dashed, opacity=0.45] (18.5,7) rectangle (13,7.3);
+\draw[fill=gray!40, thin, dashed, opacity=0.45] (18.5,7.3) rectangle (13.7,7.6);
+\draw[fill=gray!40, thin, dashed, opacity=0.45] (18.2,7.6) rectangle (13.9,7.9);
+\draw[fill=gray!40, thin, dashed, opacity=0.45] (17.7, 7.9) rectangle (13.8,8.2);
+\draw[fill=gray!40, thin, dashed, opacity=0.45] (17,8.2) rectangle (13.7,8.5);
+\draw[fill=gray!40, thin, dashed, opacity=0.45] (16.5,8.5) rectangle (13.7,8.7);
+\draw[thick,black] (14,5) to[out=0,in=230] (19,6); 
+\draw[thick,black] (19,6) to[out=50,in=120] (14, 8);
+\draw[thick,black] (14, 8) to[out=310,in=120] (12, 6);
+\draw[thick,black] (12, 6) to[out=310,in=180] (14,5);
+\end{tikzpicture}
+\caption{}
+\end{figure}
+
 dirac, counting, 
 \subsection{Measures on $ \R $}
 \section{Integration Revisited}
@@ -5762,6 +6162,52 @@ dirac, counting,
 \subsection{Itegration of Simple Functions}
 \subsection{Integration of Nonnegative Functions}
 \subsection{Integration of Real Functions}
+
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+	\draw (-.3,7) node {$ \R$};
+	\draw (16,-0.3) node {$ \R$};		
+	\draw[thick,->] (0,0) -- (0,7);
+	\draw[thick,->] (0,0) -- (16,0);
+	\draw[thick] (1,-0.2) -- (1,0.2);
+	\draw[thick] (14,-0.2) -- (14,0.2);
+	\draw[blue] (14,5.5) node {$ f(x) $};	
+	\draw[black] (1,-.5) node {$ a $};
+	\draw[black] (14,-.5) node {$ b $};	
+	\draw[fill=gray!40, thin, opacity=0.6] (1.77,1) rectangle (1,0);
+	\draw[fill=gray!80, thin, opacity=0.6] (1.77,0) rectangle (2.56,2);
+	\draw[fill=gray!120, thin, opacity=0.6] (3.5,3) rectangle (2.56,0);
+	\draw[fill=gray!160, thin, opacity=0.6] (3.5,0) rectangle (4.7,4);
+	\draw[fill=gray!200, thin, opacity=0.6] (8.53,5) rectangle (4.7,0);
+	\draw[fill=gray!160, thin, opacity=0.6] (8.53,0) rectangle (8.9,4);
+	\draw[fill=gray!120, thin, opacity=0.6] (9.16,3) rectangle (8.9,0);
+	\draw[fill=gray!80, thin, opacity=0.6] (9.16,0) rectangle (9.47,2);
+	\draw[fill=gray!40, thin, opacity=0.6] (12.32,1) rectangle (9.47,0);
+	\draw[fill=gray!80, thin, opacity=0.6] (12.32,0) rectangle (13.06,2);
+	\draw[fill=gray!120, thin, opacity=0.6] (13.58,3) rectangle (13.06,0);
+		\draw[fill=gray!160, thin, opacity=0.6] (13.58,0) rectangle (14,4);
+	\draw[very thin, dashed] (0,1) -- (14,1);
+	\draw[very thin, dashed] (0,2) -- (14,2);
+	\draw[very thin, dashed] (0,3) -- (14,3);
+	\draw[very thin, dashed] (0,4) -- (14,4);
+	\draw[very thin, dashed] (0,5) -- (14,5);
+	\draw[very thin, dashed] (0,6) -- (14,6);
+	\draw[black] (-0.18,2.5) node {$ I_2 $};	
+	\draw[thick] (-0.2,2) -- (0.2,2);
+	\draw[thick] (-0.2,3) -- (0.2,3);
+	\draw[thick] (12.32,-0.2) -- (12.32,0.2);
+	\draw[thick] (13.06,-0.2) -- (13.06,0.2);
+	\draw[thick] (1.77,-0.2) -- (1.77,0.2);
+	\draw[thick] (2.56,-0.2) -- (2.56,0.2);
+	\draw[black] (2.165,-.3)node {\tiny $ f^{-1}(I_2) $};
+	\draw[black] (12.69,-.3)node {\tiny $ f^{-1}(I_2) $};
+	\draw [blue, thick] plot [smooth, tension=1] coordinates { (1,1) (7,6) (10.5,1) (14,5) };
+ 	
+	\end{tikzpicture}
+	\caption{Lebesgue Integral.}
+\end{figure}
+
 \subsection{Product Measures}
 \subsection{Lebesgue Integration in $ n- $Dimensions}
 \section{Differentiation with Measures}
