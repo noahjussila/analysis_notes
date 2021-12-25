@@ -4,17 +4,18 @@ This repository is home to an ongoing project that was first conceived during my
 # Sources I'm Using
 One of the reasons I want to organize all my notes is because they pull from four different courses, and several texts. My goal is for the final product to be a convex combination of various sources, all presented in a approachable manner. 
 
-1. "Baby" Rudin, *Principles of Mathematical Analysis* 
-2. ("Adult"?) Rudin, *Real and Complex Analysis* 
-3. ("Elderly"?) Rudin, *Functional Analysis*
+1. Rudin, *Principles of Mathematical Analysis* 
+2. Rudin, *Real and Complex Analysis* 
+3. Rudin, *Functional Analysis*
 4. Tao, *Analysis I*
 5. Tao, *Analysis II*
-6. Folland, *Real Analysis: Modern Techniques and Their Applications*
-7. Royden and Fitzpatrick, *Real Analysis*
-8. Aliprantis, *Infinite Dimensional Analysis: A Hitchhiker's Guide*
-9. Munkres, *Analysis on Manifolds*
-10. Axler, *Measure, Integration, & Real Analysis*
-11. Grafako, *Classical Fourier Analysis*
+6. Apostol, *Mathematical Analysis*
+7. Folland, *Real Analysis: Modern Techniques and Their Applications*
+8. Royden and Fitzpatrick, *Real Analysis*
+9. Aliprantis, *Infinite Dimensional Analysis: A Hitchhiker's Guide*
+10. Munkres, *Analysis on Manifolds*
+11. Axler, *Measure, Integration, & Real Analysis*
+12. Grafako, *Classical Fourier Analysis*
 
 # Tentative Outline
 - Chpaters 1-7, first semester undergrad course
