@@ -10,6 +10,7 @@
 \usepackage{blindtext}
 \usepackage{natbib}
 \usepackage{graphicx}
+\usepackage{centernot}
 \usepackage{pgfplots}
 \usepackage{rotating}
 \usepackage{mathrsfs}
@@ -90,6 +91,19 @@
 	
 	
 	My selection of sources is motivated not only by the books I really enjoy, but also those that are considered standard. For material presented in an undergraduate course, I absolutely love \cite{tao2006analysis} and \cite{tao2009analysis}. Tao starts at the most basic level of arithmetic and numbers are works all the way up to Lebesgue Integration in his two part series. He motivates nearly every topic, provides examples, and gives the reader a big picture of the subject. That being said, his approach left me confused at times when I first read his books. In the first volume, Tao eschews point-set topology entirely and opts to work exclusively in $ \R $. This is great because most people who learn real analysis only ever care about $ \R $, but it also makes some concepts overly technical. For instance, I think that seuqences and continuity are easier to present and motivate in general metric spaces. My hunch is that I'm in the minority here, as Terry Tao went the other direction, and he has one more Fields Medal than I do. Tao also doesn't include any figures. Another text that is awesome is the infamous ``Baby'' \cite{rudin1964principles}. This book is so widely used for a reason.\footnote{My uneducated hypothesis about this is that \cite{rudin1964principles} really only perfect makes sense if you already know all the material well, so professors who do not remember what it is like to learn analysis just assume everyone understands this book.} It's concise, clear, and presents the material with no frills. It makes a great textbook if you have a professor who motivates the material, provides examples, and draws the occasional illustration. If you do not have such a professor, than \cite{rudin1964principles} becomes pure torture. This book is very much the outline of the first 7 sections of these notes. Sections 8-11 pull mostly from...
+	
+
+	\begin{table}[]
+		\centering
+		\begin{tabular}{|l|l|l|}
+			\hline
+			Standard Topics & Sections 1 - 7 &  \citet{tao2006analysis, tao2009analysis}, \cite{rudin}\\ \hline
+			Multivariable Calculus & Sections 8 - 11 &  \\ \hline
+			Measure Theory and Integration &  Sections 12 - 14&  \\ \hline
+			Functional Analysis & Sections 15-19  &  \\ \hline
+		\end{tabular}
+	\end{table}
+
 	
 	
 	\subsection{Presentation}
@@ -2891,7 +2905,7 @@
 	\begin{example}[Thomae's function]
 		Define the real function $ f:[0,1]\to[0,1] $ as $$f(x)=\begin{cases}
 			\frac{1}{q} \text{ if }x=\frac{p}{q}\text{ for }p,q\in\Z\\
-			0\text{ if }x\neq\Q
+			0\text{ if }x\notin\Q
 		\end{cases} ,$$ where we assume $ p/q\in\Q $ is in simplest terms. The function $ f $ is continuous for the irrational numbers in $ [0,1] $ but discontinues for the rational numbers in $ [0,1] $. 
 		
 		Suppose $ r\in[0,1] $ is irrational, giving $ f(r)=0 $. Fix $ \varepsilon>0 $. By the Archimedean Property, there is some $ m\in\N $ such that $ 1/m \varepsilon$, and some $ k_m\in $ such that $$ r\in\left(\frac{k_m}{m},\frac{k+1}{m}\right) .$$ Define the following values:
@@ -4220,15 +4234,15 @@
 	\end{remark}
 	While Definition 6.5 may make sense on a theoretical level, it's not at all practical to use it to verify a function is actually integrable. How are we supposed to possibly find the supremum of all possible lower Riemann sums, and find the infimum of all possible upper Riemann sums?! A simple example will be presented, but it will be the only time we actually use Definition 6.5 to verify integrability. We will therefore need to find some alternate criterion for Riemann integrability.    
 	\begin{example}
-		Let $ f(x)=c $ on $ [a,b] $ for some constant $ c\in\R  $. Suppose $ P=\{0,x_1,\ldots,x_{n-1},1\} $ is a partition of $ [a,b] $. We have  \begin{align*}
+		Let $ f(x)=c $ on $ [0,1] $ for some constant $ c\in\R  $. Suppose $ P=\{0,x_1,\ldots,x_{n-1},1\} $ is a partition of $ [0,1] $. We have  \begin{align*}
 			M_i&=\sup_{x\in[x_{i-1},x_i]} f(x)=c,\\
 			m_i&=\inf_{x\in[x_{i-1},x_i]} f(x)=c,\\
 		\end{align*} 
-		For $ i=1,\ldots, n $. The lower and upper Riemann sums will agree, as $ M_i=m_i $ for $ i=1,\ldots, n $. $$ U(P,f)=L(P, f)=\sum_{i=1}^{n}i\cdot(x_k-x_{k-1})=(x_n-x_{n-1})+(x_{n-1}+x_{n-2})+\ldots (x_2-x_1)+(x_1-x_0)=x_n-x_0=b-a.$$ We let $ P $ be arbitrary, so these sums will always be $ 1 $.
+		For $ i=1,\ldots, n $. The lower and upper Riemann sums will agree, as $ M_i=m_i $ for $ i=1,\ldots, n $. $$ U(P,f)=L(P, f)=\sum_{i=1}^{n}c\cdot(x_k-x_{k-1})=c(x_n-x_{n-1})+\cdots +c(x_1-x_0)=c(x_n-x_0)=c(1-0)= c.$$ We let $ P $ be arbitrary, so these sums will always be $ 1 $.
 		\begin{align*}
-			\lowint_a^b f(x)\ dx=\sup\limits_{P\in\textbf{P}([a,b])} L(P,f)=\sup\{c\}=c\\ \upint_a^b f(x)\ dx =\inf\limits_{P\in\textbf{P}([a,b])} U(P,f)=\inf\{c\}=c.
+			\lowint_0^1 f(x)\ dx=\sup\limits_{P\in\textbf{P}([0,1])} L(P,f)=\sup\{c\}=c\\ \upint_0^1 f(x)\ dx =\inf\limits_{P\in\textbf{P}([0,1])} U(P,f)=\inf\{c\}=c.
 		\end{align*}  
-		These values agree, so $ f $ is Riemann integrable, and $$\int_{a}^{b} c\ dx=c(b-a) .$$
+		These values agree, so $ f $ is Riemann integrable, and $$\int_{0}^{1} c\ dx=c .$$
 	\end{example}
 	\subsection{An Alternative Interpretation: Simple Functions (Very Optional)}
 	Before we explore the properties of Riemann integration and develop a way to verify we can integrate a function, we can give an alternate formulation of the upper and lower Riemann integral. Not only is this  how \cite{tao2006analysis} opts to introduce the Riemann integral, but it is how we will go about defining a superior form of integration in Section 13. The general idea is that we define the Riemann integral for for very ``simple'' functions, and then relate the integration of these functions to bounded real functions on $ [a,b] $. \textbf{Disclaimer}: this introduction to simple functions is slightly informal for reasons that will be acknowledged afterwards. 
@@ -4510,7 +4524,7 @@
 			\end{align*}
 			Combining these two inequalities for $ P^* $ yields
 			\begin{align*}
-				U(P^*,f)-L(P^*,f)&=U(P^*,f)-L(P^*,f)+0\\&=U(P^*,f)-L(P^*,f)+\left[-\int_a^b f(x)+\int_a^bf(x)\ dx\right]\\&=\left[U(P^*,f)-\int_a^b f(x)\right]+\left[\int_a^bf(x)\ dx-L(P^*,f)\right]\\&<\frac{\varepsilon}{2}+\frac{\varepsilon}{2}\\&=\varepsilon.
+				U(P^*,f)-L(P^*,f)&=U(P^*,f)-L(P^*,f)+0\\&=U(P^*,f)-L(P^*,f)+\left[-\int_a^b f(x)\ dx+\int_a^bf(x)\ dx\right]\\&=\left[U(P^*,f)-\int_a^b f(x)\ dx\right]+\left[\int_a^bf(x)\ dx-L(P^*,f)\right]\\&<\frac{\varepsilon}{2}+\frac{\varepsilon}{2}\\&=\varepsilon.
 			\end{align*}
 			\item [$ (\Longleftarrow) $] Suppose for all $ \varepsilon>0 $ there exists a partition such that $ U(P,f)-L(P,f)<\varepsilon $. By the definition of supremum and infimum we have 
 			\begin{align*}
@@ -5376,15 +5390,48 @@
 			
 			This is progress, but we want to show that $ D $ is a null set, not an arbitrary subset $ D_\alpha $. Fortunately, we can write $ D $ as the countable union of $ D_\alpha $ as follows: 
 			$$ D = \bigcup_{k=1}^\infty D_{1/k}.$$ The countable union of null sets is also a null set, so $ D $ is a null set. 
-			\item [$ (\Longleftarrow) $] Suppose the set of discontinuities of $ f $ on $ [a,b] $, call it $ D $, is a null set. Given some $ \varepsilon >0 $, define $ E=\{x\mid\omega_f(x)\ge \varepsilon\} $. We have $ E\subseteq D $, so $ E $ is a null set,\footnote{The subset of a null set is itself a null set, as any open cover of $ D $ is an open cover of $ E $.} and there exists some open cover $ \{U_i\} $ of $ E $ such that $ U_i=(a_i,b_i)$, and 
-			$$ \sum_{i=1}^{\infty}(b_i-a_i) < \varepsilon.$$The set $ E $ is also bounded, as $ E\subset [a,b] $, and it is closed by Lemma 6.5. All closed and bounded sets in $ \R $ are compact, so there a finite subcover of $ \{U_i\} $: 
-			$$ E\subset \bigcup_{i=1}^m U_i. $$
-			We define the union of this finite cover as $ U_\varepsilon =\bigcup_{i=1}^m U_i $. Define $ W_\varepsilon =[a,b]\backslash U_\varepsilon = [a,b]\cap U_\varepsilon^c $. For all $ x\in W_\varepsilon $, $ \omega_f(x)<\varepsilon $ (i.e $ f $ is continuous for all points of $ W_\varepsilon $).			
-			
-			
-			The set $ W_\varepsilon =[a,b]\backslash U_\varepsilon = [a,b]\cap U_\varepsilon^c $ is the intersection of two closed intervals, making it closed. Thus $ W_\varepsilon $ is a closed and bounded subset of $ \R $, so it is compact. 
-			
-			{\color{red}FINISH}
+			\item [$ (\Longleftarrow) $] 
+			This direction of the proof is a bit more involved, so we'll break it into the following steps:
+			\begin{enumerate}
+				\item[1.]  For any $ \varepsilon > 0 $, find an open cover of points at which $ f $ is discontinuous and has an oscillation greater than or equal to $ \varepsilon/2(b-a) $. Call this finite open cover $ \{U_j\}_{j=1}^m $
+				\item[2.] Find a finite open cover of the points of $ [a,b] $ which do not intersect $ \{U_j\}_{j=1}^m $. 
+				\item [3.] Combine the open covers from Step 1 and Step 2 to form a partition of $ [a,b] $.
+				\item [4.] Show that by construction, and clever choices of arguments involving $ \varepsilon $, $ U(P,f) - L(P,f) < \varepsilon$.
+			\end{enumerate}
+			\begin{enumerate}
+				\item [Step 1.]	Suppose the set of discontinuities of $ f $ on $ [a,b] $, call it $ D $, is a null set. By Lemma 6.4,
+				$$ D=\{x\in[a,b] \mid \omega_f(x)>0\}. $$ Given some $ \varepsilon > 0 $, define $$ E=\brc{x\mid\omega_f(x)\ge \frac{\varepsilon}{2(b-a)}},$$ where $ E\subseteq D $. The set $ E $ is the subset of a null set, making itself a null set.\footnote{We did not formally state this lemma, but it's quite immediate. Any open cover of $ D $ is an open cover of $ E $, so the result holds.}  By the definition of a null set (Definition 6.12), we can find an open cover $ \{U_i\} $ of $ E $ such that $ U_i = (\alpha_i,\beta_i)$ and
+				$$ \sum_{i=1}^\infty(\beta_i-\alpha_i)< \frac{\varepsilon}{2\left(\displaystyle\sup_{x\in[a,b]}f(x) - \displaystyle\inf_{x\in[a,b]}f(x) \right) }.$$ The set $ E $ is bounded, as it is a subset of $ [a,b] $. In addition, Lemma 6.5 tells us that $ E $ is closed. A closed and bounded set in $ \R $ is compact, so any open cover of $ E $ has a finite subcover. This includes the open cover $ \{U_i\} $! There exists finite indices $ j = 1,\ldots, m $ such that $ E \subseteq \cup_{j=1}^m U_j$. 
+				\item[Step 2.] Let's look at the set of points in $ [a,b] $ that are not in this finite subcover $ \{U_j\} $, call it $ W $. 
+				$$ W=[a,b]\backslash\cup_{j=1}^m U_j. $$ Because $ E \subseteq \cup_{j=1}^m U_j $, $ W \subset [a,b]\backslash E $. In other words, for a fixed $ x\in W $, $ \omega_f(x)<\frac{\varepsilon}{2(b-a)} $ (by the definition of $ E $). In terms of Definition 6.13, 
+				$$ \omega_f(x)= \inf_{r > 0}\omega_f(N_r(x))= \inf_{r > 0}\sup_{y,z\in (x-r,x+r)}\abs{f(y)-f(z)}<\frac{\varepsilon}{2(b-a)}.$$
+				This definition tells us for our fixed $ x\in W $, there exists some corresponding $ r_x > 0 $ such that whenever $ y,z\in (x-r_x,x+r_x) $, we have 
+				\begin{align*}
+					&  \abs{f(y)-f(z)}\le \sup_{y,z\in (x-r,x+r)}\abs{f(y)-f(z)} < \frac{\varepsilon}{2(b-a)}\\
+					\implies &  \abs{f(y)-f(z)}< \frac{\varepsilon}{2(b-a)}
+				\end{align*}
+				If we do this for all $ x $, we have an open cover of $ W $ in the form of $$\brc{(x-r_x,x+r_x)\mid x \in W}.$$ Does this have a finite open subcover? It would if $ W $ is compact, which turns out to be true. Clearly $ W $ is bounded as $ W \subseteq [a,b] $. Fortunately, $ W $ also happens to be closed as we can write it as 
+				$$ W = [a,b] \cap \paren{\cup_{j=1}^m U_j}^c = [a,b] \cap \paren{\cap_{j=1}^m U_j^c}.$$ Each $ U_j $ is open, so $ U_j^c $ is closed. The finite intersection of closed sets is closed, so $ W $ is closed. If $ W $ is closed and bounded $V= \{x_1,\ldots, x_N\}\subset W $ such that 
+				$$ W\subseteq \bigcup_{x\in V}(x - r_{x}, x+ r_{x}).$$
+				\item [Step 3.] We can combine the finite open covers from Step 1 and Step 2 to form a finite cover of $ [a,b] $:
+				$$ [a,b]\subseteq \left(\bigcup_{x\in V}(x - r_{x}, x+ r_{x})\right)\cup \left(\bigcup_{j=1}^m U_j\right).$$ We can define a partition $ P=[y_0,\ldots,y_n] $ of $ [a,b] $ such that each interval $ [y_{\ell-1},y_\ell] $ is contained entirely in one interval of our finite open cover of $ [a,b] $. This means  $  [y_{\ell-1},y_\ell] $ will either be a subset of $ (x-r_x,x+r_x) $ for some $ x\in V $, or $  [y_{\ell-1},y_\ell] $ will be a subset of $ U_j $ for some $ j=1,\ldots,m $. We can split $ P $ into two using this fact:
+				\begin{align*}
+					P_1 &= \{y_\ell \in P \mid \exists x\in V\text{ s.t }[y_{\ell-1},y_\ell]\subseteq (x-r_x,x+r_x)\}\\
+					P_2 &= \{y_\ell \in P \mid \exists j\text{ s.t }[y_{\ell-1},y_\ell]\subseteq U_j\}
+				\end{align*}
+			\item[Step 4.] {\tiny
+			\begin{align*}
+				U(P,f) - L(P,f) & = \sum_{\ell=1}^nM_\ell\Delta y_\ell  - \sum_{\ell=1}^nm_i\Delta y_\ell  \\
+				& = \sum_{\ell=1}^n(M_\ell-m_\ell)\Delta y_\ell \\ 
+				& = \sum_{y_\ell \in P_1} (M_\ell-m_\ell)\Delta y_\ell  + \sum_{y_\ell \in P_2} (M_\ell-m_\ell)\Delta y_\ell & (P = P_1\cup P_2 \text{ and } P_1\cap P_2 = \emptyset)\\ 
+				&=  \sum_{y_\ell \in P_1} (M_\ell-m_\ell)\Delta y_\ell  + \left(\displaystyle\sup_{x\in[a,b]}f(x) - \displaystyle\inf_{x\in[a,b]}f(x) \right)\sum_{y_\ell \in P_2} \Delta y_\ell & \left(M_\ell \le \sup_{x\in[a,b]}f(x) \text{ and } m_\ell\ge \inf_{x\in[a,b]}f(x)\ \forall \ell\right) \\& =  \sum_{y_\ell \in P_1} (M_\ell-m_\ell)\Delta y_\ell  + \left(\displaystyle\sup_{x\in[a,b]}f(x) - \displaystyle\inf_{x\in[a,b]}f(x) \right)\sum_{j = 1}^m (\beta_j - \alpha_j) & ([y_{\ell -1},y_\ell] \subset U_j = (\alpha_j,\beta_j) \ \forall y_\ell \in P_2)\\ 
+				& <  \sum_{y_\ell \in P_1} (M_\ell-m_\ell)\Delta y_\ell  + \left(\displaystyle\sup_{x\in[a,b]}f(x) - \displaystyle\inf_{x\in[a,b]}f(x) \right)\frac{\varepsilon}{2\left(\displaystyle\sup_{x\in[a,b]}f(x) - \displaystyle\inf_{x\in[a,b]}f(x) \right)} & (\cup_jU_j\text{ is a null set})\\ 
+				& =  \sum_{y_\ell \in P_1} (M_\ell-m_\ell)\Delta y_\ell  + \frac{\varepsilon}{2}\\
+				& < \frac{\varepsilon}{2(b-a)}\sum_{y_\ell \in P_1} \Delta y_\ell  + \frac{\varepsilon}{2} & (\text{definition of }P_1\text{ and } r_x)\\
+				& \le \frac{\varepsilon}{2(b-a)}(b-a)  + \frac{\varepsilon}{2} & \left(\sum_{y_\ell \in P_1} (M_\ell-m_\ell)y_\ell \le [a,b]\right)\\ 
+				& = \varepsilon
+			\end{align*}}
+			\end{enumerate}
 		\end{enumerate}
 	\end{proof}
 	We know from Remark 6.4 that Riemann integrability is a weaker condition than continuity. Just because a function is ``nice'' enough to be integrable, does not mean it is ``nice'' enough to be continuous. However, Lebesgue's criterion tells us that if a function is ``nice'' enough to be continuous, except on a null set, then this is equivalent to being ``nice'' enough to be integrable.  Lebesgue's criterion also immediately gives Proposition 6.7 and Proposition 6.8 as corollaries. 
@@ -5401,8 +5448,9 @@
 	\begin{example}[Thomae's function]
 		Recall Example 4.8 where $ f:[0,1]\to[0,1] $ was defined as $$f(x)=\begin{cases}
 			\frac{1}{q} \text{ if }x=\frac{p}{q}\text{ for }p,q\in\Z\\
-			0\text{ if }x\neq\Q
-		\end{cases} ,$$ taking $ p/q\in\Q $ to be in simplest terms. The set of discontinuities of $ f $ on $ [0,1] $ is $ [0,1]\cap\Q $. While this set is infinite, it is countable, making it a null set. By Lebesgue's criterion $ f $ is Riemann integrable on $ [0,1] $. 
+			0\text{ if }x\notin\Q
+		\end{cases} ,$$ taking $ p/q\in\Q $ to be in simplest terms. The set of discontinuities of $ f $ on $ [0,1] $ is $ [0,1]\cap\Q $. While this set is infinite, it is countable, making it a null set. By Lebesgue's criterion $ f $ is Riemann integrable on $ [0,1] $. Let's calculate the integral of $ f $ over $ [0,1] $. Suppose $ P $ is an arbitrary partition of $ [0,1] $. Any interval $ [x_{i-1},x_i] $ of this partition contains a rational number because $ \Q $ is dense in $ \R $. As such $$ \inf_{x\in[x_{i-1}, x_i]}f(x) = 0$$ for all $ i $. This means $ L(P,f) = 0 $ is for all $ 0 $, so the lower integral is $ 0 $. Because $ f $ is Riemann integrable, the integral over $ [0,1] $ is the lower integral: 
+	$$\int_0^1 f(x) \ dx = \lowint_{0}^1 f(x)\ dx = 0 .$$
 	\end{example}
 	\subsection{Shortcomings of Riemann Integration}
 	We conclude this section by giving several examples of functions that are either not integrable, or we have no means of evaluating the integral of. From now until section 13,\textbf{ when we write ``integral'', we will mean ``Riemann integral''}, but you should keep these examples in the back of your head. They allude to the fact that we have only scratched the surface of integration.
@@ -8284,7 +8332,7 @@
 		The matrix $ \F_{(x,y,z)}'(x,y,z,u)$ is not invertible, so we cannot solve for $ u $ in terms of $ x,y,z $. On the other hand $ \F_{(y,z,u)}' $, $  \F_{(x,z,u)}'$, and $ \F_{(x,y,u)}' $ are all invertible, so we can solve for $ x $, $ y $, and $ z $ in terms of the other variables. 
 	\end{example}
 	\section{Riemann Integration with Several Variables}
-	Section 6 developed the theory of Riemann integration for real bound functions, mostly following the direction of \cite{rudin1964principles}. We know extend this theory to functions of several variables. Neither \cite{rudin1964principles} nor \citet{tao2006analysis,tao2009analysis} treat this material, instead choosing to refine the notion of integration on $ \R $ with a concept we will take up in Section 13. Riemann integration with functions of several variables is covered by \cite{apostol} and \cite{munk1}. 
+	Section 6 developed the theory of Riemann integration for real bound functions, mostly following the direction of \cite{rudin1964principles}. We know extend this theory to functions of several variables. Neither \cite{rudin1964principles} nor \citet{tao2006analysis,tao2009analysis} treat this material, instead choosing to refine the notion of integration on $ \R $ with a concept we will take up in Section 13. Riemann integration with functions of several variables is covered by \cite{apostol}, \cite{munk1}, and \cite{spivak2018calculus}. 
 	
 	First, we will extend the definition of Riemann integrability to a bounded function $ f:\R^n\to\R $. This proves to be relatively straightforward and the existence of the integral is given by Riemann's criterion and Lebesgue's criterion, two results introduced in Section 6. Then we will consider two issues that arise when integrating functions of several variables -- how do we calculate these integrals, and how do we integrate over regions that are not rectangles. Finally, we properly generalize $ u -$substitution and introduce change of variables in earnest. 
 	
@@ -8297,7 +8345,7 @@
 	\end{definition}
 	
 	\begin{definition}
-		A partition $ P^*=(P_1^*,\ldots,P_n^*) $ is a refinement of $ P=(P_1,\ldots,P_n) $ if $ P_j^* $ is a refinement of $ P_j $ for at least one $ j $. $ P^* $ is a \textit{\color{red}common refinement} of $ P $ and $ P' $ if $ P_j^* $ is a refinement for $ P_j $ and $ P_j' $ for all $ J $:
+		A partition $ P^*=(P_1^*,\ldots,P_n^*) $ is a \textit{\color{red}refinement} of $ P=(P_1,\ldots,P_n) $ if $ P_j^* $ is a refinement of $ P_j $ for at least one $ j $. $ P^* $ is a \textit{\color{red}common refinement} of $ P $ and $ P' $ if $ P_j^* $ is a refinement for $ P_j $ and $ P_j' $ for all $ J $:
 		$$ P^*=(P_1\cup P_1', \ldots, P_n\cup P_n').$$
 	\end{definition}
 	\begin{figure}[h]
@@ -8421,10 +8469,10 @@ For the sake of convenience, we will always denote the volume of $ R $ as $ v(R)
 	\end{definition} 
 Figure 109 and Figure 110 illustrate $ L(P,f) $ and $ U(P,f) $ for a given example. Note that by construction $ L(P,f)\le U(P,f) $, as 
 \begin{align*}
-	&\inf_{\x\in R}f(\x) \le \sup_{\x\in R}f(\x) \ \  (\forall R\in P)\\
-	\implies & m_R \le M_r \ \ (\forall R\in P) \\ 
-	\implies & \sum_{R\in P} m_R \le\sum_{R\in P}  M_r \\ 
-	\implies & \sum_{R\in P} m_R v(R)\le\sum_{R\in P}  M_r v(R)\\
+	&\inf_{\x\in R}f(\x) \le \sup_{\x\in R}f(\x) \ \  (\forall R\in P),\\
+	\implies & m_R \le M_r \ \ (\forall R\in P) ,\\ 
+	\implies & \sum_{R\in P} m_R \le\sum_{R\in P}  M_r, \\ 
+	\implies & \sum_{R\in P} m_R v(R)\le\sum_{R\in P}  M_r v(R),\\
 	\implies & L(P,f) \le U(P,f).\end{align*}
 \begin{figure}[h!]
 	\centering
@@ -8450,14 +8498,502 @@ Figure 109 and Figure 110 illustrate $ L(P,f) $ and $ U(P,f) $ for a given examp
 	\end{tikzpicture}
 	\caption{The upper Riemann sum counterpart to Figure 109.}
 \end{figure}
-	
-	
+We also know that $ U(P,f) $ and $ L(P,f) $ must exist. The set $ \brc{f(\x)\mid \x\in R}\subset \R $ is bounded for all $ R\in P $, as $ f $ is bounded on $ Q $. By the completeness of $ \R $, each of these sets must have an infimum and supremum, so $ M_R $ and $ m_R $ exists for each $ R $. If $ L(P,f) $ and $ U(P,f) $ are well defined for any $ P $, we can take the supremum and infimum of them, respectively.
+\begin{definition}
+	Suppose $ \mathbf P(Q) $ is the set of all partitions of a rectangle $ Q\subset \R^n $. If $ f:Q\to \R $ is a bounded function, we define the \textit{\color{red}upper Riemann integral of $ f $ over $ Q $} and \textit{\color{red}lower Riemann integral of $ f $ over $ Q $} as: 
+	\begin{align*}
+		\upint_Q f(\x)\ d\x =\inf_{P\in \textbf{P}(Q)} U(P,f),\\
+		\lowint_Q f(\x)\ d\x =\sup_{P\in \textbf{P}(Q)} L(P,f).
+	\end{align*}
+\end{definition}	
+When these bounds coincide, we have a Riemann integral for $ f:Q\to \R $.
+\begin{definition}
+Suppose $ f $ is a bounded real function on the rectangle $ Q\subset \R^n $. If $$ \lowint_Q f(\x)\ d\x =	\upint_Q f(\x)\ d\x  ,$$ then $ f $ is \textit{\color{red}Riemann integrable (on $ Q $)}, and we write the common value of the upper and lower Riemann integral as 
+$$ \int_Qf(\x)\ d\x = \idotsint_Q f(x_1,\ldots,x_n)\ d(x_1,\ldots,x_n). $$  This common value is the \textit{\color{red}(multiple) Riemann integral of $ f $ (over $ Q $)}. 
+\end{definition}	
+In the event that $ n = 2 $, we call this integral the \textit{\color{red}double (Riemann) integral} of $ f $ and can write 
+$$ \iint_Q f(\x)\ d\x.$$ Similarly, if $ n=3 $ we call it the \textit{\color{red}triple (Riemann) integral} of $ f $ and can write 
+$$\iiint_Q f(\x)\ d\x .$$
+
+We now turn to the question of when precisely some $ f:Q\to\R $ is Riemann integrable for $  Q\subset \R^n $? When we faced this question for $ n = 1 $, our first answer came in the form of Riemann's criterion (Theorem 6.1) which gave a necessary and sufficient condition for integrability in terms of partitions and an arbitrary $ \varepsilon>0 $. We then circled back to this question and were introduced to Lebesgue's criterion (Theorem 6.8) which says a function is integrable if its discontinuities are ``negligible''. Both of these criteria generalize to multiple Riemann integrals. Before presenting them, we will verify a function is Riemann integrable ``from scratch'' by generalizing Example 6.1.
+\begin{example}
+	Suppose $ \f:\R^n\to\R $ is defined as $ f(\x) = c $ for some constant $ c\in \R $. Let $ Q = [0,1]^n $ be the unit hypercube in $ \R^n $. Let's calculate the integral of  $ f $ over $ Q $. An arbitrary partition of $ Q $ is comprised of $ n $ one-dimensional partitions of the form $ P_j =\{0,x_{1,j},\ldots, x_{k_j-1,j},1\} $ (where $ x_{0,j}=0 $ and $ x_{k_j,j}=1 $). Regardless of the partition $ P $, $ f $ is constant over all of $ Q $, so it will be constant over any $ R\in P $. Thus, 
+	\begin{align*}
+		M_R &= \sup_{\x\in R}f(\x) = \sup \{c\} = c, \\
+		m_R &= \inf_{\x\in R}f(\x) = \inf \{c\} = c .
+	\end{align*} 
+	Therefore, 
+	\begin{align*}
+		&M_R  = m_r\ \ (\forall R\in P)\\
+		\implies & \sum_{R\in P} M_rv(R)  = \sum_{R\in P} m_rv(R) \\ \implies & U(P,f) = L(P,f) 
+	\end{align*}
+We took $ P $ to be arbitrary so this holds for all $ P\in \mathbf P(Q) $ and we have 
+\begin{align*}
+		&\inf_{P\in \textbf{P}(Q)} U(P,f)=\sup_{P\in \textbf{P}(Q)} L(P,f),\\
+	\implies &\upint_Q f(\x)\ d\x = \lowint_Q f(\x)\ d\x, 
+\end{align*}
+so $ f $ is Riemann integrable over $ Q $.
+
+We still need to calculate the integral. For our arbitrary $ P\in \mathbf P(Q) $,\footnote{It's very tempting to assert that the sum of $ v(R) $ \textit{must} be $ v(Q) = (1-0)^n = 1$, as $ Q $ is the disjoint union of subrectangles $ R $. Do we know this is how volume behaves though? We have not formally explored the properties of length/area/volume yet, and jumping to this conclusion is fairly extreme. We will return to this and related issues in Section 12.} let's calculate the common value 
+$$ U(P,f) = L(P,f) = \sum_{R\in P} c\cdot v(R)= c\sum_{R\in P} v(R) .$$ This is a matter of calculating the sum of volumes $ v(R) $, where $$ R=[x_{\ell_1-1,1},x_{\ell_1,1}]\times [x_{\ell_2-1,2},x_{\ell_2,2}] \times \cdots \times [x_{\ell_n-1,n},x_{\ell_n,n}]$$ for $  \ell_j\in \{1,\ldots,k_j\}$ for $ j=1,\ldots,n $. For a fixed $ R\in P $ we have 
+	$$v(R) = \paren{x_{\ell_1,1} - x_{\ell_1-1,1}}\times \cdots \times \paren{x_{\ell_n,n} - x_{\ell_n-1,n}}
+= \Delta x_{\ell_1,1}\times \cdots \times \Delta x_{\ell_n,n}.$$ The sum of all such $ v(R) $ is 
+$$ \sum_{R\in P} v(R) = \sum_{\ell _1 = 1}^{k_1}\sum_{\ell _2 = 1}^{k_2}\cdots \sum_{\ell _n = 1}^{k_n}\brk{\paren{x_{\ell_1,1} - x_{\ell_1-1,1}}\times \cdots \times \paren{x_{\ell_n,n} - x_{\ell_n-1,n}}}.$$ If we focus on the innermost summation we have 
+\begin{align*}
+	\sum_{\ell _n = 1}^{k_n}\brk{\paren{x_{\ell_1,1} - x_{\ell_1-1,1}}\times \cdots \times \paren{x_{\ell_n,n} - x_{\ell_n-1,n}}} & = \brk{\paren{x_{\ell_1,1} - x_{\ell_1-1,1}}\times \cdots \times \paren{x_{1,n} - x_{0,n}}} \\ & + \brk{\paren{x_{\ell_1,1} - x_{\ell_1-1,1}}\times \cdots \times \paren{x_{2,n} - x_{1,n}}} + \cdots 
+	\\ & +  \brk{\paren{x_{\ell_1,1} - x_{\ell_1-1,1}}\times \cdots \times \paren{x_{k_j,n} - x_{k_j-1,n}}} \\ & = \brk{ \paren{x_{1,n} - x_{0,n}} + \paren{x_{2,n} - x_{1,n}} + \cdots +  \paren{x_{k_n,n} - x_{k_n-1,n}}}\\ & \times \brk{\paren{x_{\ell_1,1} - x_{\ell_1-1,1}}\times \cdots \times\paren{x_{\ell_{n-1},n-1} - x_{\ell_{n-1}-1,n-1}} }\\ & =\paren{x_{k_n,n}-x_{0,n}}\brk{\paren{x_{\ell_1,1} - x_{\ell_1-1,1}}\times \cdots \times\paren{x_{\ell_{n-1},n-1} - x_{\ell_{n-1}-1,n-1}} }.
+\end{align*}
+But $ x_{k_j,n}=1 $ and $ x_{0,n}=0 $, so 
+$$ \sum_{\ell _n = 1}^{k_n}\brk{\paren{x_{\ell_1,1} - x_{\ell_1-1,1}}\times \cdots \times \paren{x_{\ell_n,n} - x_{\ell_n-1,n}}}  = \brk{\paren{x_{\ell_1,1} - x_{\ell_1-1,1}}\times \cdots\times\paren{x_{\ell_{n-1},n-1} - x_{\ell_{n-1}-1,n-1}}},$$ and we've eliminated any reference to the index $ \ell_n $ by showing its inclusion amounts to multiplication by $ 1 $. We can repeat this simplification $ n-1 $ more times:\footnote{Just looking at the algebra, this rearranging may not seem intuitive, but it actually has a very nice geometric intuition. We essentially are summing the subrectangles across a fixed dimension taking advantage of the fact that the length in any direction is $ 1 $. Try drawing a picture for $ n =2 $ and working through the steps with and example!} 
+
+\begin{align*}
+	\sum_{R\in P} v(R) &= \sum_{\ell _1 = 1}^{k_1}\sum_{\ell _2 = 1}^{k_2}\cdots \sum_{\ell _n = 1}^{k_n}\brk{\paren{x_{\ell_1,1} - x_{\ell_1-1,1}}\times \cdots \times \paren{x_{\ell_n,n} - x_{\ell_n-1,n}}}\\ 
+	& = \sum_{\ell _1 = 1}^{k_1}\sum_{\ell _2 = 1}^{k_2}\cdots \sum_{\ell _{n-1} = 1}^{k_{n-1}}1\cdot \brk{\paren{x_{\ell_1,1} - x_{\ell_1-1,1}}\times \cdots \times \paren{x_{\ell_{n-1},{n-1}} - x_{\ell_{n-1}-1,{n-1}}}}\\ 
+	& = \sum_{\ell _1 = 1}^{k_1}\sum_{\ell _2 = 1}^{k_2}\cdots \sum_{\ell _{n-2} = 1}^{k_{n-2}}1^2\cdot \brk{\paren{x_{\ell_1,1} - x_{\ell_1-1,1}}\times \cdots \times \paren{x_{\ell_{n-1},{n-2}} - x_{\ell_{n-2}-1,{n-2}}}}\\ 
+	\vdots &\\
+	& = \sum_{\ell _1 = 1}^{k_1}1^{n-1}	\paren{x_{\ell_1} - x_{\ell_1 -1,1}}\\ 
+	& = 1^n\\
+	& = 1.
+\end{align*}
+Therefore for any $ P\in \mathbf P (Q) $, $$ U(P,f)=L(P,f) = c\sum_{R\in P} v(R)= c\cdot 1 = c .$$
+The supremum and infimum of $ \{c\}  $ coincide, and we have $$ \int_Q f(\x) \ d\x = \int_{[0,1]^n}c\ d\x = c.$$
+\end{example}
+
 	\subsection{Riemann and Lebesgue's Criteria}
-	$ \brc{}$
+	We'll begin by building towards Riemann's criterion. 
+		\begin{lemma}
+			Suppose $ P $ is a partition of the rectangle $ Q\subset \R^n $, and $ f:Q\to \R $ is a bounded function. If $ P' $ is a refinement of $ P $, then $ L(P,f)\le L(P',f) $ and $ U(P',f)\le U(P,f) $.
+		\end{lemma}
+		\begin{proof}
+			Suppose $ Q=[a_1,b_1]\times \cdots  \times [a_n,b_n]$, and $ P=(P_1,\ldots, P_j) $ where $P_j=\{x_{0,j},\ldots , x_{k_j,j}\}$ for $ j=1,\ldots,n $. It suffices to show the result when $ P' $ is a refinement of $ P $ which results from adding a single point to one $ P_j $.\footnote{If it holds in this case, then we simply apply the result iteratively until we have the desired refinement.}
+			Suppose we add the point $ x^* $ to $ P_1 $, such that $ x^*\in [x_{i-1,1}, x_{i,1}] $.
+			$$ P_1' =\{x_{0,1},\ldots , x_{i-1,1}, x^*, x_{i,1}, \ldots, x_{k_j,1}\}$$ We now have a refinement $ P'=(P_1',\ldots,P_n) $.
+			
+		  Define $$ S = [x_{\ell_2-1,2},x_{\ell_2,2}] \times \cdots \times [x_{\ell_n-1,n},x_{\ell_n,n}]$$ for some arbitrary choice of intervals of $(P_2,\ldots, P_n) $ given by the indices $ \ell_2,\ldots,\ell_n $. A subrectangle of $ P $ or $ P' $ takes the form 
+		  \begin{align*}
+ R&=[x_{\ell_1-1,1},x_{\ell_1,1}]\times [x_{\ell_2-1,2},x_{\ell_2,2}] \times \cdots \times [x_{\ell_n-1,n},x_{\ell_n,n}],\\ 
+ & =[x_{\ell_1-1,1},x_{\ell_1,1}]\times S.
+		  \end{align*}
+		Because $ P $ and $ P' $ differ only with respect to $ P_1 $, the choice of $ S $ (i.e the choice of the intervals from $ P_2,\ldots, P_n $ which define $ R $) can be fixed for now. While nearly all the subrectangles of $ P $ coincide with those of $ P' $, we have a notable exception involving $ x^* $. For a fixed $ S $,  $ P $ has a subrectangle of the form $ R_S = [x_{i-1,1}, x_{i,1}]\times S $, whereas $ P' $ has two subrectangles $ R_S'=[x_{i-1,1}x^*]\times S$ and $ R_S''=[x^*, x_{i,1}]\times S$. The inclusion of $ x^* $ in $ P_1 $ splits the subrectangle $ R_S $ into two disjoint subrectangles,
+		$$R_S = R_S'\cup R_S'' .$$ Figure 111 illustrates this in the case where $ Q\subset \R^2 $.
+		\begin{figure}[h!]
+			\centering
+			\begin{tikzpicture}
+				\draw[thick,->] (-0.4,0) -- (10,0);
+				\draw[thick,->] (0,-0.4) -- (0,10);
+				\fill[fill=red!20, opacity=0.8] (4,4) rectangle (5,5);
+				\fill[fill=red!20, opacity=0.8] (5,4) rectangle (6,5);
+				\draw[step=1cm,black,thick] (1,1) grid (9,9);
+				\draw[color = blue, very thick] (4,4) rectangle (6,5);
+				\draw[thick] (-.2,5) -- (.2,5);
+				\draw[thick] (-.2,4) -- (.2,4);
+				\draw[thick] (4,-.2) -- (4,.2);
+				\draw[thick] (5,-.2) -- (5,.2);
+				\draw[thick] (6,-.2) -- (6,.2);
+				\draw (4,-.4) node {$x_{i-1,1}$};
+				\draw (5,-.4) node {$x^*$};
+				\draw (6,-.4) node {$x_{1,1}$};
+				\draw (-.3, 4.5) node {$S$};
+				\draw[red] (4.5, 4.5) node {$R_S'$};
+				\draw[red] (5.5, 4.5) node {$R_S''$};
+			\draw[blue] (5.5, 5.2) node {$R_S$};
+			\end{tikzpicture}
+			\caption{For a fixed subrectangle $ S\subset \R^{n-1} $, the subrectangle $ R_s = [x_{i-1,1}, x_{i,1}]\times S\in P $ is partitioned into $ R_S'=[x_{i-1,1}x^*]\times S $ and $ R_S''=[x^*, x_{i,1}]\times S$ when refining $ P $ with the addition of $ x^* $ to $ P_1 $.}
+		\end{figure}
 		
-	\subsection{Iterated Integrals}
+		Since $ R_s = R_s'\cup R_s'' $, 
+		\begin{align*}
+			\inf_{\x\in R_S}f(\x) \le \inf_{\x\in R_S'}f(\x) \implies m_{R_S} \le m_{R_S'} ,\\
+			\inf_{\x\in R_S}f(\x) \le \inf_{\x\in R_S''}f(\x) \implies m_{R_S} \le m_{R_S''},\\
+				\sup_{\x\in R_S}f(\x) \le \sup_{\x\in R_S'}f(\x) \implies M_{R_S} \ge M_{R_S'},\\
+				\sup_{\x\in R_S}f(\x) \le \sup_{\x\in R_S''}f(\x) \implies M_{R_S} \ge M_{R_S''}.
+		\end{align*}
+		Using these inequalities, we get 
+		\begin{align*}
+			m_{R_S}v(R_s)&=m_{R_S}\left[(x_{i,1}-x_{i-1,1})v(S)\right]\\ 
+			&=m_{R_S}\left[(x_{i,1}-x_{i-1,1} + (x^*-x^*) )v(S)\right] & (x^*-x^* = 0)\\
+			&=m_{R_S}\left[((x_{i,1}-x^*) + (x^*-x_{i-1,1})) v(S)\right] \\
+			& = m_{R_S}\left[(x_{i,1}-x^*)v(S) +  (x^*-x_{i-1,1})v(S)\right] \\
+			& = m_{R_S}\left[v(R_S') + v(R_S'')\right]\\ 
+			& = m_{R_S}v(R_S') + m_{R_S}v(R_S'')\\
+			& \le  m_{R_S'}v(R_S') + m_{R_S''}v(R_S'') & (m_{R_S} \le m_{R_S'}\text{ and } m_{R_S} \le m_{R_S''}), \\
+			M_{R_S}v(R_s)&=M_{R_S}\left[(x_{i,1}-x_{i-1,1})v(S)\right]\\ 
+			&\vdots \\
+			M_{R_S}v(R_s) & \ge M_{R_S'}v(R_S') + M_{R_S''}v(R_S'')
+		\end{align*}
+		These inequalities hold for all $ S $, and summing over the subrectangles in each partition gives $ L(P,f)\le L(P',f) $ and $ U(P',f)\le U(P,f) $.
+		\end{proof}
+	\begin{lemma}
+		Suppose $ f $ is a bounded real function on the rectangle $ Q\subset \R^n $. Then $$ \lowint_Q f(\x)\ d\x \le	\upint_Q f(\x)\ d\x .$$ 
+	\end{lemma}
+	\begin{proof}
+		Suppose $ P_1 $ and $ P_2 $ partition $ Q $, and let $ P^* $ be a common refinement of $ P_1 $ and $ P_2 $. By Lemma 10.1 and $ L(P^*,f)\le U(P^*,f) $,
+		$$ L(P_1,f)\le L(P^*,f)\le U(P^*,f)\le U(P_2,f).$$
+		If we fix $ P_1 $ and $ P_2 $ we can take the supremum and infimum over $ \mathbf P(Q) $. 
+		\begin{align*}
+			&\sup_{P_1\in \textbf{P}(Q)}L(P_1,f) \le \sup_{P_2\in \textbf{P}(Q)}U(P_2,f)\\\implies &  \lowint_Q f(\x)\ d\x \le	\upint_Q f(\x)\ d\x 
+		\end{align*}
+	\end{proof}
+	\begin{theorem}[Riemann's Criterion]
+		Suppose $ f $ is a bounded real function on the rectangle $ Q\subset \R^n $. Then $ f $ is Riemann integrable on $ Q $ \textit{if and only if} for all $ \varepsilon > 0 $, there exists a partition $ P\in\mathbf P(Q) $ such that 
+		$$ U(P,f)-L(P,f) <\varepsilon.$$
+	\end{theorem}
+	\begin{proof}{\color{white}a}
+		\begin{enumerate}
+			\item [$ (\Longrightarrow) $] Suppose $ f $ is Riemann integrable, and let $ \varepsilon>0 $. By the completeness of the real numbers and properties of the supremum, there exists a partition $ P_1 $ such that \begin{align*}
+				&U(P_1,f)-\sup\limits_{P\in\textbf{P}([a,b])}U(P,f)<\frac{\varepsilon}{2}\\
+				\implies &U(P_1,f)-\upint_Q f(\x)\ d\x<\frac{\varepsilon}{2} & (\text{definition 10.4})\\
+\implies &				U(P_1,f)-\int_Q f(\x)\ d\x<\frac{\varepsilon}{2}& \paren{\upint_Q f(\x)\ d\x \ge \int_Q f(\x)\ d\x}
+			\end{align*} 
+			Similarly, there exists a partition $ P_2 $ such that $$\int_Qf(\x)\ d\x-L(P_2,f)<\frac{\varepsilon}{2}. $$ If we choose $ P^* $ to be the common refinement of $ P_1 $ and $ P_2 $, then by Lemma 6.1, \begin{align*}
+				U(P^*,f)-\int_Qf(\x)\ d\x&<U(P_1,f)-\int_Q f(\x)\ d\x<\frac{\varepsilon}{2},\\\int_Qf(\x)\ d\x-L(P^*,f)&<\int_Qf(\x)\ d\x-L(P_2,f)<\frac{\varepsilon}{2}.
+			\end{align*}
+			Combining these two inequalities for $ P^* $ yields
+			\begin{align*}
+				U(P^*,f)-L(P^*,f)&=U(P^*,f)-L(P^*,f)+0\\&=U(P^*,f)-L(P^*,f)+\left[-\int_Q f(\x)\ d\x +\int_Qf(\x)\ d\x\right]\\&=\left[U(P^*,f)-\int_Qf(\x)\ d\x\right]+\left[\int_Qf(\x)\ d\x-L(P^*,f)\right]\\&<\frac{\varepsilon}{2}+\frac{\varepsilon}{2}\\&=\varepsilon.
+			\end{align*}
+			\item [$ (\Longleftarrow) $] Suppose for all $ \varepsilon>0 $ there exists a partition such that $ U(P,f)-L(P,f)<\varepsilon $. By the definition of supremum and infimum we have 
+			\begin{align*}
+				L(P,f)\le\sup\limits_{P\in\textbf{P}(Q)}U(P,f)=\lowint_Qf(\x)\ d\x,\\
+				\upint_{a}^b f(\x)\ d\x\le \inf\limits_{P\in\textbf{P}(Q)}U(P,f)\le U(P,f),
+			\end{align*}
+			for all $ P\in\mathbf{P}(Q) $. Combining this inequalities with Lemma 6.2 gives $$ L(P,f)\le\lowint_Q f(\x)\ d\x\le\upint_Q f(\x)\ d\x\le U(P,f).$$ This implies that $$0\le\lowint_Q f(\x)\ d\x- \upint_Q f(\x)\ d\x \le \varepsilon,$$ but if this holds for all $ \varepsilon>0 $, $$ \lowint_Q f(\x)\ d\x = \upint_Q f(\x)\ d\x.$$ Therefore $ f $ is Riemann integrable. 
+		\end{enumerate}
+	\end{proof}
+	The proof of Riemann's condition for multiple Riemann integrals is virtually the same as the proof for Riemann integrals in $ \R $. The big difference comes in the amount of effort we need to put in to use Riemann's criterion. Working with partitions in $ \R^n $ is exponentially more difficult than working with partitions in $ \R $. Instead it is much easier to work with the general version of Lebesgue's criterion, which is stated in terms of discontinuities instead of partitions.
+	
+	\begin{definition}
+		Suppose $ A\subset \R^n $. The set $ A $ is a \textit{\color{red}null set (in $ \R^n $)} if for every $ \varepsilon > 0 $ there exists an open cover $ \{U_i\}\subset \R $, where $ U_i=(a_{1,i},b_{1,i})\times \cdots \times (a_{n,i},b_{n,i}) $ is an open rectangle, such that 
+		$$ \sum_{i=1}^{\infty} (b_{1,i}-a_{1,i})\times\cdots \times  (b_{n,i}-a_{n,i}) = \sum_{i=1}^{\infty}v(U_i) < \varepsilon.$$
+	\end{definition}
+
+	Much like Lemma 10.2 and Theorem 10.1, the proof for Lebesgue's criterion for multiple integrals is nearly line for line the same as it was for integrals of single variable functions. As such, I'll just state the theorem, and omit the proof. 
+	\begin{theorem}[Lebesgue's Criterion]
+		Suppose $ f $ is a real bounded function defined on a rectangle $ Q\subset \R^n$. Then, $ f $ is Riemann integrable \textit{if and only if} the set of discontinuities of $ f $ on $ Q $ is a null set.
+	\end{theorem}
+	Lebesgue's criterion allows us to immediately conclude that most of the functions of several variables we encounter, namely continuous ones, in practice are in fact Riemann integrable.
+	\begin{corollary}[Continuous $ \implies $ Riemann Integrable]
+			Suppose $ f $ is a real bounded function defined on a rectangle $ Q\subset \R^n$. If $ f $ is continuous on $ Q $, then it is Riemann integrable.
+	\end{corollary} 
+	\subsection{Iterated Integrals and Fubini's Theorem}
+	When we first saw Riemann integrals, spent quite a bit of time exploring the properties of integrals before addressing the elephant in the room that was calculating them. This of course is done quite readily using the fundamental theorem of calculus (Theorem 6.6). Alas, there is no direct generalization of this theorem that would allow us to calculate 
+	$$ \int_Qf(\x)\ d\x.$$ Perhaps we can still find someway to make the fundamental theorem of calculus work for us. Let's return to the example of a constant function on $ [0,1]^n $ (Example 10.1).
+	\begin{example}
+	Define $ f:Q\to \R $, where $ Q=[0,1]^n $, as $ f(\x)=c $.	Recall from Example 6.1, that if $ n = 1 $, $$\int_Qf(\x)\ d\x = \int_0^1 c\ dx = \sum_{i=1}^{n}c\cdot \Delta x_i = c ,$$ where $ P=\{x_0,\ldots,x_n\} $ is a partition of $ [0,1] $. In general, we saw that 
+	$$ \int_Qf(\x)\ d\x = \sum_{R\in P} c\cdot v(R) =  \sum_{\ell _1 = 1}^{k_1}\sum_{\ell _2 = 1}^{k_2}\cdots \sum_{\ell _n = 1}^{k_n}c\brk{\paren{x_{\ell_1,1} - x_{\ell_1-1,1}}\times \cdots \times \paren{x_{\ell_n,n} - x_{\ell_n-1,n}}}=c.$$
+	We simplified these nested summations by simplifying each one starting with the innermost one and working our way back. Let's revisit this process. First let's reverse the order of the summations,
+	$$ \int_Qf(\x)\ d\x  = \sum_{\ell _n = 1}^{k_n}\sum_{\ell _{n-1} = 1}^{k_{n-1}}\cdots \sum_{\ell _1 = 1}^{k_1}c\brk{\paren{x_{\ell_1,1} - x_{\ell_1-1,1}}\times \cdots \times \paren{x_{\ell_n,n} - x_{\ell_n-1,n}}},$$ as the order of the summations will have no effect on the value.  Focusing on the inner most summation, we have 
+	\begin{align*}
+		\sum_{\ell _1 = 1}^{k_1}c\brk{\paren{x_{1,1} - x_{0,1}}\times \cdots \times \paren{x_{k_1,n} - x_{k_1-1,n}}}&= c\brk{ \paren{x_{1,1} - x_{0,1}} + \paren{x_{2,1} - x_{1,1}} + \cdots +  \paren{x_{k_1,1} - x_{k_1-1,1}}}\\ & \times \brk{\paren{x_{\ell_1,1} - x_{\ell_1-1,1}}\times \cdots \times\paren{x_{\ell_{n-1},n-1} - x_{\ell_{n-1}-1,n-1}} } \\& = \brk{\sum_{i=1}^{k_1}c\cdot \Delta x_{i,1}}\brk{\paren{x_{\ell_1,1} - x_{\ell_1-1,1}}\times \cdots \times\paren{x_{\ell_{n-1},n-1} - x_{\ell_{n-1}-1,n-1}} } \\ & = 
+	\brk{	\int_{0}^{1} c \ dx_1 }\brk{\paren{x_{\ell_1,1} - x_{\ell_1-1,1}}\times \cdots \times\paren{x_{\ell_{n-1},n-1} - x_{\ell_{n-1}-1,n-1}} }.
+	\end{align*}
+ 	By focusing on the inner summation first, we restrict our attention to the one dimensional partition $ P_1 $ (an element of $ P $), and can express the value in terms of a Riemann integral in one dimension. This eliminates the index $ \ell_1 $, while simultaneously relating this step to an integral in the dimension which $ \ell_1 $ indexes over. Like before we can repeat this step for the remaining summations, working our way backwards. 
+ 	\begin{align*}
+ 		\int_Qf(\x)\ d\x  & = \sum_{\ell _n = 1}^{k_n}\sum_{\ell _{n-1} = 1}^{k_{n-1}}\cdots \sum_{\ell _1 = 1}^{k_1}c\brk{\paren{x_{\ell_1,1} - x_{\ell_1-1,1}}\times \cdots \times \paren{x_{\ell_n,n} - x_{\ell_n-1,n}}}\\ & = \sum_{\ell _n = 1}^{k_n}\sum_{\ell _{n-1} = 1}^{k_{n-1}}\cdots \sum_{\ell _2 = 1}^{k_1}\brk{	\int_{0}^{1} c \ dx_1} \brk{\paren{x_{\ell_2,1} - x_{\ell_2-1,1}}\times \cdots \times \paren{x_{\ell_n,n} - x_{\ell_n-1,n}}}\\ & =
+ 		\sum_{\ell _n = 1}^{k_n}\sum_{\ell _{n-1} = 1}^{k_{n-1}}\cdots \sum_{\ell _3 = 1}^{k_1}\brk{\int_0^1\brk{	\int_{0}^{1} c \ dx_1} \ dx_2}\brk{\paren{x_{\ell_3,1} - x_{\ell_3-1,1}}\times \cdots \times \paren{x_{\ell_n,n} - x_{\ell_n-1,n}}}\\ &\vdots \\ & =  \int_{0}^{1}\int_{0}^{1}\cdots\int_{0}^{1}c\ dx_1\ dx_2\ \cdots\ dx_n
+ 	\end{align*}
+ 	Remarkably, we have 
+ 	$$ \int_{[0,1]^n}f(\x) \ d\x =  \int_{0}^{1}\int_{0}^{1}\cdots\int_{0}^{1}f(\x)\ dx_1\ dx_2\ \cdots\ dx_n.$$
+ 	Integrating $ f $ over $ Q $ with respect to $ \x $ is a matter or integrating in one dimension iteratively over $Q$ projected to the $ i $-th dimension with respect to $ x_i $! Furthermore, the order of our summations when calculating $ v(R) $ was moot, so we can integrate over each $ x_i $ separately in any order we want. In other words, if $ \y = (x_1,\ldots,x_{i-1}, x_{i+1},x_n) $, then 
+ 	$$\int_{[0,1]^n}f(\x) \ d\x = \int_{[0,1]^{n-1} }\int_{0}^{1} f(\x) \ dx_i\ d\y$$ for all $ i $. These two equalities are reminiscent of calculating volume. If we have a cube in $ \R^3 $, we have 
+ 	$$ V = \text{length}\times \text{width}\times\text{height}.$$ Length, width, and height are all just measures of volume in one dimension. We also can find their product in any order, as multiplication is commutative. The integral $ \int_{Q}f(\x) \ d\x$ is a volume in $ \R^n $.
+ 	\end{example}
+ 	A fair criticism of this example is that $ f(\x) $ is a constant. This makes the example trivial in a sense, as $ f(\x) $ does not depend on any elements of $ \x $. Perhaps our findings from Example 10.1 do not generalize to non-trivial functions. Our next theorem addresses this, and specifies under what conditions we can decompose a multiple integral into separate integrals which can be calculated using the fundamental theorem of calculus. 
+ 	\begin{theorem}[Fubini's Theorem for Riemann Integrals, General Version]
+ 		Suppose $ Q= A\times B $ is a rectangle in $ \R^{n+m} $, where $ A $ is a rectangle in $ \R^n $ and $ B $ is a rectangle in $ \R^m $. Let $ f:Q\to\R $ be a bounded function written in the form $ f(\x,\y) $ for $ \x\in A $ and $ \y \in B $. If $ f $ is integrable over $ Q $, then $ \lowint_B f(\x,\y) $ and $ \upint_B f(\x,\y) $ (which are functions of $ \x $) are integrable over $ A $ with respect to $ \x $. Furthermore the integral of $ f $ over $ Q $ can be expressed as two \textit{\color{red} iterated integrals}:
+ 		\begin{align*}
+ 			\int_Q f(\x,\y)\ d(\x,\y) = \int_{A}\lowint_Bf(\x,\y)\ d\y\ d\x = \int_{A}\upint_Bf(\x,\y)\ d\y\ d\x
+ 		\end{align*}
+ 	\end{theorem}
+ \begin{proof}
+ 	Assume that $ f $ is integrable over $ Q $. For the sake of convenience, we will write:
+ 	\begin{align*}
+ 		\underline I(\x) &= \lowint_Bf(\x,\y)\ d\y,\\
+ 		\overline I(\x) &= \upint_Bf(\x,\y)\ d\y.
+ 	\end{align*}
+ 	Let $ P $ be an arbitrary partition of $ Q $. This partition can be written as $ P=(P_A, P_B) $ where $ P_A $ and $ P_B $ are partitions of $ A $ and $ B $, respectively. Note that any subrectangle of $ P $ takes the form $ R_A\times R_B $ for subrectangles $ R_A\in P_A $ and $ R_B\in P_B $.
+ 	\begin{enumerate}
+ 		\item Show that $ L(P,f)\le L(P_A, \underline{I}) $.
+ 		\item Show that $ U(P,f)\ge U(P_A, \overline{I}) $.
+ 		\item Combine inequalities from Step 1 and Step 2 to reach two inequalities.
+ 		\item Use the two derived inequalities from Step 3 to prove that $ \overline I $ and $ \underline I $ are integrable.
+ 		\item Verify that 
+ 		$$\int_Q f(\x,\y)\ d(\x,\y) = \int_{A}\underline{I}(\x)\ d\x = \int_{A}\overline{I}(\x)\ d\x .$$
+ 	\end{enumerate}
+ 	\begin{enumerate}
+ 		\item [Step 1.] Consider an arbitrary subrectangle $ R=R_A\times R_B\in P $.  For some $ \x_0\in R_A $, 
+ 		$$ m_{R} = \inf_{(\x,\y)\in R_A\times R_B} f(\x,\y) \le  f(\x_0,\y) \ \ (\forall \y \in R_B).$$
+ 		If this inequality holds for all $ \y\in R_B $, then it must hold for the value of $ \y $ which gives the ``smallest'' value of $ f(\x_0,\y) $.
+ 		\begin{align*}
+ 			 &m_{R} \le   f(\x_0,\y) \ \ (\forall \y \in R_B) \\ 
+ 			 \implies & m_{R} \le \inf_{\y\in R_B} f(\x_0, \y)\\
+ 			 \implies &  m_{R}(f) \le m_{R_B}( f(\x_0, \y)).
+ 		\end{align*}
+ 		The bound $ m_R(f) $ and $ m_{R_B}( f(\x_0, \y)) $ are expressed as functions to eliminate any confusion as to which function they refer to. Keep in mind that $ \x_0 $ is fixed, so $ f(\x_0,\y) $ is a function of $ \y $, whereas $ f $ depends on $ (\x,\y) $. We can multiple this inequality by $ v(R_B) $, and then sum over all $ R_B\in P_B $. 
+ 		\begin{align*}
+ 			&m_{R}(f) \le m_{R_B}( f(\x_0, \y))\\
+ 			\implies & m_{R}(f)v(R_B) \le m_{R_B}( f(\x_0, \y))v(R_B) & (\forall v(R_B)\in P_B)\\ 
+ 			\implies &  \sum_{R_B\in P_B}m_{R}(f)v(R_B) \le \underbrace{\sum_{R_B\in P_B}m_{R_B}( f(\x_0, \y))v(R_B)}_{L(P_B, f(\x_0, \y))} \\
+ 			\implies & \sum_{R_B\in P_B}m_{R}(f)v(R_B) \le L(P_B, f(\x_0, \y))& (\text{Definition 10.3})
+ 		\end{align*}
+ 		We took $ P=(P_A, P_B) $ to be an arbitrary partition of $ Q $, so this inequality holds for all $ P_B \in \mathbf P(B)$.
+ 		\begin{align*}
+ 			& \sum_{R_B\in P_B}m_{R}(f)v(R_B) \le L(P_B, f(\x_0, \y)) & (\forall P_B \in  \mathbf P(B) )\\ 
+ 			\implies & \sum_{R_B\in P_B}m_{R}(f)v(R_B) \le \sup_{P_B \in \mathbf P(B)} L(P_B, f(\x_0, \y)) \\
+ 			\implies & \sum_{R_B\in P_B}m_{R}(f)v(R_B)  \le \lowint_Bf(\x_0,\y)\ d\y & (\text{Definition }10.4)\\ 
+ 			\implies & \sum_{R_B\in P_B}m_{R}(f)v(R_B) \le \underline{I}(\x_0) & (\text{Definition of } \underline{I}(\x_0) ) 
+ 		\end{align*} 
+ 		We took $ \x_0\in \R_A $ to be completely arbitrary here, so this inequality will hold for every $ \x_0 \in R_A $.
+ 		\begin{align*}
+ 			&\sum_{R_B\in P_B}m_{R}(f)v(R_B) \le \underline{I}(\x) & (\forall \x \in R_A ) \\
+ 			\implies & \sum_{R_B\in P_B}m_{R}(f)v(R_B) \le\underbrace{ \inf_{\x\in R_A}\underline{I}(\x) }_{m_{R_A}(\underline{I})}\\
+ 			\implies & \sum_{R_B\in P_B}m_{R}(f)v(R_B) \le m_{R_A}(\underline{I}) \\ 
+ 			\implies & \sum_{R_B\in P_B}m_{R}(f)v(R_B)v(R_A) \le m_{R_A}(\underline{I})v(R_A)\\ 
+ 			\implies & \sum_{R_B\in P_B}m_{R}(f)v(Q) \le m_{R_A}(\underline{I})v(R_A) & (v(R_A)v(R_B) = V(R_A\times R_B)= V(Q))\\ 
+ 		\end{align*}
+ 		The subrectangle $ R_A $ is completely arbitrary, so this holds for all $ R_A $. 
+ 		\begin{align*}
+ 			&\sum_{R_B\in P_B}m_{R}(f)v(Q) \le m_{R_A}(\underline{I})v(R_A) & (\forall R_A \in P_A) \\
+ 			\implies & \sum_{R_A\in P_A}\sum_{R_B\in P_B}m_{R}(f)v(Q) \le \sum_{R_A\in P_A}m_{R_A}(\underline{I})v(R_A)\\ 
+ 			\implies & \sum_{R\in Q}m_{R}(f)v(Q) \le \sum_{R_A\in P_A}m_{R_A}(\underline{I})v(R_A) & (P = P_A\times P_B)\\ 
+ 			\implies & L(P,f)\le L(P_A, \underline{I})&(\text{Definition }10.3)
+ 		\end{align*}
+ 		\item [Step 2.] We now repeat Step 1, but with upper limits and the inequalities reversed. 
+ 		\begin{align*}
+ 			&M_R(f) \ge M_{R_B}(f(\x_0,\y)) \\ 
+ 			\implies & M_r(f)v(R_B) \ge M_{R_B}(f(\x_0,\y))v(R_B) & (\forall R_B\in P_B)\\ 
+ 			\implies& \sum_{R_B\in P_B}M_r(f)v(R_B) \ge \sum_{R_B\in P_B}M_{R_B}(f(\x_0,\y))v(R_B) & (\forall  P_B\in \mathbf P(B)) \\ 
+ 			\implies &  \sum_{R_B\in P_B}M_r(f)v(R_B) \ge \overline I(\x) & (\forall \x \in R_A)\\ 
+ 			\implies & \sum_{R_B\in P_B}M_r(f)v(R_B) \ge M_{R_A}(\overline I) \\ 
+ 			\implies & \sum_{R_B\in P_B}M_r(f)v(Q) \ge M_{R_A}(\overline I) v(R_A)& (\forall R_A \in P_A)\\
+ 			\implies & \sum_{R\in P}M_r(f)v(Q) \ge \sum_{R_A\in P_A}M_{R_A}(\overline I) v(R_A)\\
+ 			\implies & U(P,f)\ge U(P_A, \overline{I}) 
+ 		\end{align*}
+ 		\item [Step 3.] Lemma 10.2 asserts that:
+ 		\begin{align*}
+ 			&\underline I(\x) \le \overline{I}(\x)   & (\forall \x \in A) \\ 
+ 			\implies & \inf_{\x\in R_A}\underline I(\x) \le \inf_{\x\in R_A}\overline{I}(\x)  & (\forall R_A\in P_A)\\
+ 			\implies & m_{R_A}(\underline I) \le m_{R_A}(\overline{I}) & (\text{Definition }10.3) \\ 
+ 			\implies & \sum_{R_A\in P_A} m_{R_A}(\underline I) \le  \sum_{R_A\in P_A} m_{R_A}(\overline I)\\
+ 			\implies & L(P_A,\underline I) \le L(P_A, \overline I) & (\text{Definition }10.3)\\ 
+ 			\implies & L(P,f) \le L(P_A,\underline I) \le L(P_A, \overline I)  & (\text{Step 1})\\ 
+ 			\implies &  L(P,f) \le L(P_A,\underline I) \le L(P_A, \overline I) \le U(P_A ,\overline I) & (m_{R_A} \le M_{R_A}) \\ 
+ 			\implies & L(P,f) \le L(P_A,\underline I) \le L(P_A, \overline I) \le U(P_A ,\overline I)  \le U(P_A, I) & (\text{Step 2}).
+ 		\end{align*}
+ 		This same train of thought can be applied to conclude $ U(P_A,\underline I) \le U(P_A, \overline I) $, which then gives 
+ 		$$ L(P,f) \le L(P_A,\underline I) \le U(P_A, \underline I) \le U(P_A ,\overline I)  \le U(P_A, I) .$$ We therefore have 
+ 		\begin{align}
+ 			 L(P,f) \le L(P_A,\underline I) \le L(P_A, \overline I) \le U(P_A ,\overline I)  \le U(P, f) \\ 
+ 			 L(P,f) \le L(P_A,\underline I) \le U(P_A, \underline I) \le U(P_A ,\overline I)  \le U(P, f).
+ 		\end{align}
+ 		Note that (60) and (61) do not compare $ L(P_A, \overline I) $ and $ U(P_A, \underline I) $. It's ambiguous as to which of these values is larger.
+ 		\item [Step 4.] We have assumed $ f $ is integrable over $ Q $, so Riemann's condition tells us that for all $ \varepsilon >0 $ (Theorem 10.1) there exists some $ P=(P_A,P_B) $ such that $ U(P,f)-L(P,f)<\varepsilon $. But (60) implies that 
+ 		$$ U(P_A, \overline{I}) - U(P_A, \overline{I})  \le U(P,f)-L(P,f), $$ so $ U(P_A, \overline{I}) - U(P_A, \overline{I}) <\varepsilon$. Thus for all $ \varepsilon $, Riemann's condition is satisfied by $ P_A $, and $ \overline{I}(\x) $ is integrable. Similarly we can use (61) to show that $ U(P_A, \underline{I}) - U(P_A, \underline{I}) <\varepsilon$, implying that $ \underline I(\x) $ is integrable.
+ 		\item [Step 5.] By Definition 10.4 and Definition 10.5:
+		\begin{align}
+			L(P_A, \overline I) &\le \int_A \overline{I}\ d\x \le U(P_A, \overline I),\\ 
+			L(P_A, \underline I) &\le \int_A \underline{I}\ d\x \le U(P_A, \underline I),\\
+			L(P, f) &\le \int_Q f(\x,\y)\ d\x \ d\y \le U(P, f),
+		\end{align}
+	for all $ P=(P_A,P_B) $. Combining (62) and (60) give 
+	\begin{align}
+		&L(P,f)\le L(P_A, \overline I)\le \int_A \overline{I}\ d\x \le U(P_A, \overline I) \le U(P,f) \nonumber \\
+		\implies & L(P, f) \le  \int_A \overline{I}\ d\x \le U(P, f).
+	\end{align}
+	If we combine (65) and (64), we have 
+	$$ \abs{ \int_A \overline{I}\ d\x -  \int_Q f(\x,\y)\ d\x \ d\y}\le U(P,f)-L(P,f).$$ For all $ \varepsilon $, we can always find a $ P $ such that  $ U(P,f)-L(P,f) < \varepsilon $, so 
+	$$ \abs{ \int_A \overline{I}\ d\x -  \int_Q f(\x,\y)\ d\x \ d\y} < \varepsilon $$ for all $ \varepsilon $. This means that 
+	$$\int_Q f(\x,\y)\ d\x \ d\y =  \int_A \overline{I}\ d\x,$$ as desired. Similarly, combining (63) and (61) allows us to conclude 
+	$$\int_Q f(\x,\y)\ d\x \ d\y =  \int_A \underline{I}\ d\x.$$ By the definition of $ \underline I $ and $ \overline I $, we have 
+	$$	\int_Q f(\x,\y)\ d(\x,\y) = \int_{A}\lowint_Bf(\x,\y)\ d\y\ d\x = \int_{A}\upint_Bf(\x,\y)\ d\y\ d\x.$$
+ 	\end{enumerate}
+ \end{proof}
+\begin{example}[Interchanging Order of Integration]
+	The decision to label the variable $ \y $ and $ \x $ in Theorem 10.3 is an arbitrary decision, so it also applies when integrating with respect to $ \x $ first. That is, if $ \f $ is integrable over $ Q $, then $ \lowint_A f(\x,\y)\ d\x $ and $ \upint_A f(\x,\y)\ d\x $ exist, and 
+	$$ \int_Q f(\x,\y)\ d(\x,\y) = \int_{B}\lowint_Af(\x,\y)\ d\x\ d\y = \int_{B}\upint_Af(\x,\y)\ d\x\ d\y .$$ 
+	In sum, Fubini's theorem gives 
+	$$  \int_Q f(\x,\y)\ d(\x,\y) = \int_{B}\lowint_Af(\x,\y)\ d\x\ d\y = \int_{B}\upint_Af(\x,\y)\ d\x\ d\y =  \int_{A}\lowint_Bf(\x,\y)\ d\y\ d\x = \int_{A}\upint_Bf(\x,\y)\ d\y\ d\x.$$ 
+\end{example}
+ \begin{example}
+ 	Let $ Q = [0,1]\times [0,1] $ and define $ f:Q\to \R $ as $$f(x,y)=\begin{cases}
+ 		1 & x\in \R\backslash\Q\\
+ 		1 & y\in \R\backslash\Q \\ 
+ 		1-1/q & x = p/q, y\in \Q 
+ 	\end{cases} .$$ If $ x $ and/or $ y $ are irrational, then $ f(x,y)=0 $. If both $ x $ and $ y $ are rational then $ f(x,y)=1-1/q $ where $ x = p/q $ is in lowest terms. The function is constant everywhere except on the countable set $ \Q^2 $, so the set of discontinuities of $ f $ on $ \Q $ is a null set. By Lebesgue's criterion (Theorem 10.2), $ f $ is integrable. Before using Fubini's theorem, let's integrate $ f $ over $ Q $ using Definition 10.4.
+ 	
+ 	Let $ P $ be a partition of $ Q=[0,1]\times [0,1] $. Any subrectangle $ R\in P $ contains an irrational number, so 
+ 	$$ M_R = \sup_{\x\in R}f(\x) = 1,$$
+ 	giving $ U(P,f)=1 $ for any partition $ P $. Definition 10.4 gives 
+ 	\begin{align*}
+ 		\int_{[0,1]^2}f(x,y) \ d(x,y)  = \upint_{[0,1]^2} f(x,y)\ d(x,y)= \inf_{P\in \textbf{P}(Q)} U(P,f)  = 1.
+ 	\end{align*}
+ 	
+ 	Now let's verify Fubini's theorem. In the event that $ \x \in \R\backslash \Q $, $ f(x,y) = 1 $ for all $ y\in \R $, so 
+ 	$$ \upint_0^1 f(x,y)\ dy = \lowint_0^1 f(x,y)\ dy  = 1 \ \ (x\in\R\backslash \Q) .$$ 
+ 	Instead, suppose $ x =p/q\in \Q $. Any partition contains an irrational number and a rational number ($ \Q $ is dense in $ \R $), so 
+ 	\begin{align*}
+ 		\upint_0^1 f(x,y)\ dy &= 1 &  (x\in \Q)\\ 
+ 		\lowint_0^1 f(x,y)\ dy &= 1-1/q &  (x\in \Q)
+ 	\end{align*}
+ 	We have 
+ 	\begin{align*}
+ 		\upint_0^1 f(x,y)\ dy &= 1 \\
+ 		\lowint_{0}^1 f(x,y)\ dy & = \begin{cases}
+ 			1 & x\in \R\backslash\Q\\
+ 			1-1/q & x=p/q\in \Q
+ 		\end{cases}
+ 	\end{align*}
+ 	Both of which are indeed integrable. Note that Fubini's theorem only says these upper and lower integrals are integrable functions. It does not say that $ \int_Bf(x,y) $ exists! In fact, for our example $\int_Bf(x,y) $ fails to exist, as the upper and lower integrals do not agree when $ x\in \Q $. Lastly, let's verify that the iterated integrals equal the integral of $ f $ over $ Q $. Integrating the upper integral with respect to $ x $ gives
+ 	$$\int_{[0,1]^2}f(\x,\y)\ d(x,y)=\int_{0}^1\upint_0^1f(x,y)\ dy\ dx =\int_{0}^{1}1\ dx = 1 .$$
+ 	Integrating the lower integral with respect to $ x $ is similar to our original calculation of $ \int_Q f(x,y)\ d(x,y) $. Any interval of a partition will contain an irrational number, so 
+ 	$$ M_R = \sup_{x\in R} f(x) = \sup_{x\in \R} \lowint_{0}^1 f(x,y)\ dy = 1,$$ and $ U(P,f) = 1 $ for all $ P $. Thus 
+ 	$$ \upint_{0}^{1}\lowint_{0}^{1} f(x,y)\ dy \ dx = 1,$$ which implies 
+ 	$$\int_{0}^{1}\int_{0}^{1} f(x,y)\ dy \ dx = 1 $$ because we already verified $  \lowint f(x,y)\ dy$ is integrable. 
+ \end{example}
+
+\begin{remark}[$ \int g = \int h  \centernot{\implies}g = h $]
+	Example 10.3 highlights one of the more subtle results from Fubini's theorem. Suppose $ g $ and $ h $ are two integrable functions on $ [a,b] $. If $ g = h$ on $ [a,b] $, then $$\int_{a}^{b}g(x)\ dx = \int_{a}^{b}h(x)\ dx. $$ Example 10.3 shows that the converse is not true. Define 
+	\begin{align*}
+	g(x) &= \upint_0^1 f(x,y)\ dy = 1\\
+	h(x) & = \lowint_{0}^1 f(x,y)\ dy = \begin{cases}
+		1 & x\in \R\backslash\Q\\
+		1-1/q & x=p/q\in \Q
+	\end{cases}
+	\end{align*}
+	Despite $ g(x)\neq h(x) $ on $ [0,1] $, we have 
+	$$ \int_{0}^{1}g(x)\ dx = \int_{0}^{1}h(x)\ dx$$ by Fubini's theorem. In general, Fubini's theorem says that the upper and lower integral of $ f(\x,\y) $ with respect to $ \y $ are ``close enough'' (but not necessarily equal) that integrating them over $ \x $ gives the same quantity: $$\int_{A}\lowint_Bf(\x,\y)\ d\y\ d\x = \int_{A}\upint_Bf(\x,\y)\ d\y\ d\x.$$ This raises the question, how do we know if two functions are ``close enough'' to each other on an interval to establish the equality of their integrals over that interval? Example 10.3 actually gives us a bit of a hint about this. The functions $ g(x) $ and $ h(x) $ are equal as long as $ x\notin \Q $. The set of points at which they differ is 
+	$$ \{x\in [0,1] \mid g(x)\neq h(x)\}= \Q\cap [0,1].$$ The set $ \Q\cap [0,1] $ is a null set, so it is ``negligible'' as far as integration is concerned. This is no coincidence, and we will formalize this in Section 13.
+\end{remark}
+
+A special case of Fubini's theorem arises when $$ \lowint_Bf(\x,\y)\ d\y\  = \upint_Bf(\x,\y)\ d\y.$$ If two functions are equal, then they have the same integral, so  $$\int_{A}\lowint_Bf(\x,\y)\ d\y\ d\x = \int_{A}\upint_Bf(\x,\y)\ d\y\ d\x.$$ But $  \lowint_Bf(\x,\y)\ d\y\  = \upint_Bf(\x,\y)\ d\y$ is the definition of $ f(\x,\y) $ being integrable over $ B $ for all $ \x\in A $, so 
+\begin{align*}
+	&\int_Bf(\x,\y)\ d\y = \lowint_Bf(\x,\y)\ d\y\  = \upint_Bf(\x,\y)\ d\y\\
+\implies & \int_{Q}f(\x,\y)\ d(\x,\y)= \int_A\int_B \ f(\x,\y)\ d\y \ d\x.
+\end{align*}
+The addition of the assumption that $ f(\x,\y) $ is integrable over $ B $ for all $ \x\in A $ simplifies Fubini's theorem considerably, and eliminates many knife edge cases such as Example 10.3 (albeit at the cost of some generality). 
+ \begin{corollary}[Fubini's Theorem for Riemann Integrals, ``Nicer'' Version]
+ 	Suppose $ Q= A\times B $ is a rectangle in $ \R^{n+m} $, where $ A $ is a rectangle in $ \R^n $ and $ B $ is a rectangle in $ \R^m $. Let $ f:Q\to\R $ be a bounded function written in the form $ f(\x,\y) $ for $ \x\in A $ and $ \y \in B $. If $ f $ is integrable over $ Q $ and $ f(\x,\y) $ is integrable over $ B $ for all $ \x\in A $, then 
+ 	$$ \int_{Q}f(\x,\y)\ d(\x,\y)= \int_A\int_B \ f(\x,\y)\ d\y \ d\x.$$
+ 	If we also have that $ f(\x,\y) $ is integrable over $ A $ for all $ \y\in B $, then 
+ 	$$ \int_{Q}f(\x,\y)\ d(\x,\y)= \int_B\int_A\ f(\x,\y)\ d\x \ d\y = \int_A\int_B \ f(\x,\y)\ d\y \ d\x$$ 
+ \end{corollary}
+
+\begin{example}[Thomae's Function Generalized]
+Let $ Q = [0,1]^2 $, and define $ f:Q\to \R $ as 
+$$f(x,y) = \begin{cases}
+	(1/q)(1/s) & x = p/q \text{ and } y = r/s \text{ for }p,q,r,s\in \Z\\ 
+	0 & (x,y)\notin\Q^2
+\end{cases}.$$	
+The function $ f $ is constant everywhere on $ Q $ except on the null set $ \Q^2 $, so $ f $ is integrable on $ Q $. The function $ f(\x,\y) $ is integrable with respect to $ y $ over $ [0,1] $ for all $ x $, and $$ \int_{0}^{1}f(x,y)\ dy = 0.$$ Similarly, The function $ f(\x,\y) $ is integrable with respect to $ x $ over $ [0,1] $ for all $ y $, and  $$ \int_{0}^{1}f(x,y)\ dx = 0.$$ By Fubini's theorem, 
+\begin{align*}
+	\int_{[0,1]^2} f(x,y)\ d(x, y) = \int_{0}^{1}\int_{0}^{1} f(x,y) \ dy \ dx = \int_{0}^{1}0 \ dx = 0,\\
+	\int_{[0,1]^2} f(x,y)\ d(x, y) = \int_{0}^{1}\int_{0}^{1} f(x,y) \ dx \ dy = \int_{0}^{1}0 \ dy = 0.
+\end{align*}
+\end{example}
+\begin{example}[Converse of Fubini's Theorem Fails]
+	Suppose $ Q = [0,1]^2 $, and $ f:Q\to\R $ is defined as 
+	$$ f(x,y)=\frac{x^2 - y^2}{(x^2+y^2)^2}.$$
+	The function $ f $ is integrable over $ [0,1] $ with respect to $ x $ for all $ y $, and integrable over $ [0,1] $ with respect to $ y $ for all $ x $.
+	\begin{align*}
+		\int_0^1 \frac{x^2 - y^2}{(x^2+y^2)^2}\ dy &= -\frac{1}{1+x^2}\\
+		\int_0^1 \frac{x^2 - y^2}{(x^2+y^2)^2}\ dx &= \frac{1}{1+y^2}
+	\end{align*}
+	Integrating each of these with respect to the other variable gives 
+	\begin{align*}
+				\int_0^1 \int_0^1 \frac{x^2 - y^2}{(x^2+y^2)^2}\ dy\ dx &= 	\int_0^1 -\frac{1}{1+x^2}\ dx = -\frac{\pi}{4}\\ 
+				\int_0^1\int_0^1 \frac{x^2 - y^2}{(x^2+y^2)^2}\ dx\ dy &= \int_0^1\frac{1}{1+y^2}\ dy = \frac{\pi}{4}.
+	\end{align*}
+	The iterated integrals disagree, so what happened? It turns out that $ f(x,y) $ was never integrable over $ Q $ to begin with, as it is unbounded! While Fubini's theorem states that the integrability of $ f $ over $ Q $ ensures the upper and lower integrals with respect to $ x $ and $ y $ exists, the existence of these upper and lower integrals do not guarantee that $ f $ is integrable over $ Q $. This is still the case when the upper and lower integrals coincide for $ x $ and $ y $: 
+	\begin{align*}
+		\int_0^1 \frac{x^2 - y^2}{(x^2+y^2)^2}\ dy &  =  \upint_0^1 \frac{x^2 - y^2}{(x^2+y^2)^2}\ dy  = \lowint_0^1 \frac{x^2 - y^2}{(x^2+y^2)^2}\ dy = -\frac{1}{1+x^2},\\ 
+			\int_0^1 \frac{x^2 - y^2}{(x^2+y^2)^2}\ dx & =	\upint_0^1 \frac{x^2 - y^2}{(x^2+y^2)^2}\ dx = 	\lowint_0^1 \frac{x^2 - y^2}{(x^2+y^2)^2}\ dx = \frac{1}{1+y^2}.
+	\end{align*}
+\end{example}
+
+Even with Corollary 10.2, we still need to calculate the iterated integrals from scratch. If we assume that $ f $ is continuous, then we are able to use the fundamental theorem of calculus. This is the version of Fubini's theorem that is most often used and introduced in a multivariable calculus class.  
+
+ \begin{corollary}[Fubini's Theorem for Riemann Integrals, ``Nicest'' Version]
+	Suppose $ Q= [a_1,b_1]\times \cdots \times [a_n,b_n] $ is a rectangle in $ \R^n $. If $ f:Q\to \R $ is continuous on $ Q $, then 
+	$$ \int_Q f(\x)\ d\x = \int_{a_n}^{b_n}\cdots \int_{a_1}^{b_1} f(\x)\ dx_1\ \cdots \ dx_n.$$ 
+\end{corollary}
+\begin{proof}
+	If $ f(\x) $ is continuous on $ Q $, then $ f(\x) $ is continuous with respect to $ x_i $ for all $ i $. Therefore $ f(\x) $ is integrable with respect to all $ x_i $, and we can apply Corollary 10.2.
+\end{proof}
+\begin{example}
+	Suppose $ f(x,y)=6xy^2 $, and we want to integrate it on the rectangle $ [2,4]\times[1,2] $. We have 
+	\begin{align*}
+		\int_{[2,4]\times [1,2]} 6xy^2\ d(x,y) &= \int_{2}^{4}\int_{1}^{2}6xy^2 \ dy \ dx = \int_{2}^{4}\left[2xy^3\right]_1^2\ dx = \int_{2}^{4}14x \ dx = [7x^2]_2^4 = 84,\\ 
+			\int_{[2,4]\times [1,2]} 6xy^2\ d(x,y) & = \int_{1}^{2}\int_{2}^{4}6xy^2 \ dx \ dy = \int_1^2 [3x^2y^2]_1^2 \ dy = \int_{1}^{2}36y^2 \ dy = [12y^3]_1^2 = 84.
+	\end{align*}
+\end{example}
+
+\begin{example}
+	Suppose $ f(x,y) $ is a continuous function on a subrectangle $ Q=[a_1,b_1]\times [a_2,b_2] $. If $ f(x) $ can be written as $ f(x)=g(x)h(y) $, then Fubini's theorem gives 
+	$$ \int_Q f(x,y)\ d(x,y) = \int_{a_2}^{b_2}\int_{a_1}^{b_1} g(x)\underbrace{h(y)}_{\text{constant}} \ dx\ dy= \int_{a_2}^{b_2}h(y) \underbrace{\int_{a_1}^{b_1} g(x) \ dx}_{\text{constant}} \ dy = \int_{a_2}^{b_2}h(y) \ dy \int_{a_1}^{b_1} g(x) \ dx$$
+\end{example}
+
 	\subsection{Jordan Content}
+	
+	Until now, we've only defined the integral of $ f(\x) $ over some rectangle $ Q\subset \R^n $. When $ n=1 $, this is sufficient, as any closed and bounded (compact) set in $ \R $ is a trivial rectangle.  For $ n>1 $, this is no longer the case. For example we may desire to integrate a function $ f(\x) $ over the unit circle. We want to generalize Riemann integration such that we can integrate over a much more general collection of subsets of $ \R^n $. 
+	
+	Before we can integrate over general (bounded) regions in $ \R^n $, we need to determine how to measure the area/volume of such regions. For the sake of exposition, set $ n=2 $, and suppose $ S \subset \R^2 $. Until now, $ S $ has taken the form $ [a_1,b_1]\times [a_2,b_2] $ and has area $ v(S)=(b_1-a_1)(b_2-a_2) $. But how do we measure the area is $ S $ is not a rectangle? This problem is reminiscent of finding the area under a curve, which gave the definition of the Riemann integral. In that case, we approximated the area underneath $ f $ with upper and lower Riemann sums, and were able to calculate the area underneath $ f $ when the infimum and supremum of these sums agreed. We can do something similar for general sets $ S\subset\R^2 $ using our definition of partitions.
+	
+	We have assumed $ S $ is bounded, so it is the subset of some rectangle $ Q\subset\R^2 $. We an approximate the area of $ S\subset Q $ by summing the areas of subrectangles corresponding to a partition of $ P $.  One way to do this is looking at the set of subrectangles  of $ P $ which are contained \textit{within} $ S $, in other words subrectangles which are subsets of $ S^\circ $ (recall the definition of interior as given in Section 2.4). We can approximate the area of $ S $ by summing over all such subrectangles:
+	$$ \sum\{v(R)\mid R\in P\text{ and }R\subseteq S^\circ\}.$$ 
+	We could also estimate the area of $ S $ by looking at subrectangles which contain elements of $ S $, \textit{or} limit points of $ S $. In other words, looking at subrectangles which intersect $ \bar S $ (recall the definition of closure as given in Section 2.4).
+	$$ \sum\{v(R)\mid R\in P\text{ and }R\cap \bar S\neq \emptyset\}.$$ Figure 112 illustrates these approximations for various partitions of $ Q $.
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=1\linewidth]{figures/jordan_content}
+		\caption{The area of $ S $ can be approximated as $ \sum\{v(R)\mid R\in P\text{ and }R\subseteq S^\circ\}$ (top row), or as $ \sum\{v(R)\mid R\in P\text{ and }R\cap \bar S\neq \emptyset\}$ (bottom row). }
+		\label{fig:jordancontent}
+	\end{figure}
+	
+	It appears that as we refine $ P $, our two approximations for converge, much like upper and lower Riemann sums. This observation inspires the following definition which resembles the definition of the Riemann integral.
+	
+	\begin{definition}
+		Let $ S\subset \R^n $ be a bounded set, and $ Q $ be a rectangle containing $ S $. Given some $ P\in \mathbf P(Q) $, consider:
+		\begin{align*}
+			\underline J(P,S) &= \sum\{v(R)\mid R\in P\text{ and }R\subseteq S^\circ\},\\
+			\bar J(P,S) & = \sum\{v(R)\mid R\in P\text{ and }R\cap \bar S\neq \emptyset\}.
+		\end{align*}
+	The numbers 
+	\begin{align*}
+		\underline c(S) = \sup_{P\in \textbf{P}(Q)} \underline{J}(P,S),\\ 
+		\bar c(S) = \inf_{P\in \textbf{P}(Q)} \bar {J}(P,S),
+	\end{align*}
+	are defined to be the  \textit{\color{red}inner Jordan content of $ S $} and \textit{\color{red}outer Jordan content of $ S $}, respectively. In the event that $  \underline c(S) = \bar c(S)$, we say $ S $ is \textit{\color{red}Jordan-measurable},  denote this common value as $ c(S) $, and refer to it as the \textit{\color{red}Jordan content of $ S $}.
+	\end{definition}
+	While the math behind the definitions make sense, what is with the very specific name? Why call this ``Jordan content'' and not just ``volume''? For one, part of its name is due to the mathematician who developed it (Camille Jordan), but this isn't the curious part. What the hell does ``content'' mean? While this is an excellent question, don't worry too much about it at the moment. We'll revisit it in a bit with an interesting example. 
+	
+	\begin{remark}[Null Set vs. Zero Jordan Content]
+		Jordan content gives a formal definition of area/volume, something that we did not have in earnest until now. The operative phrase here is ``in earnest'', as we did give a definition for a set that has ``negligible'' area/volume -- null sets (Definition 10.6). How does Jordan content relate to null sets? Null sets are defined using countable open covers. Jordan content is defined using the subrectangles of partitions, of which there are a finite number. In this sense, null sets are defined using finite coverings, while Jordan content is defined using finite coverings. 
+		
+		As a consequence, any set with Jordan content zero is necessarily a null set.  Suppose $ S $ is a bounded set in $ \R^n $ which is Jordan measurable, and $ c(S) = 0 $. By the definition of Jordan content, 
+		$$	c(S) = \bar c(S) = \inf_{P\in \textbf{P}(Q)}\bar J(P,S)  = \inf_{P\in \textbf{P}(Q)}\sum\{v(R)\mid R\in P\text{ and }R\cap \bar S\neq \emptyset\} = 0.$$
+	\end{remark}
+	
+	Much like how it is not easy to calculate a Riemann integral directly using its definition, it is not easy to calculate the Jordan content of a set using Definition 10.7  (when possible).  
+	
+	\begin{proposition}[Null Boundary $ \iff $ Jordan Measurable]
+		Suppose $ S $ is a bounded set in $ \R^n $. Then $ \bar c(\partial S) = \bar c(S)-\underline c(S) $. Furthermore, $ S $ is Jordan measurable \textit{if and only if} $ \partial S $ has Jordan content zero.
+	\end{proposition}
+
+	
+	
 	\subsection{Integration over General Regions}
+	
+	\begin{remark}[The Big Picture]
+		Jordan content iff riemann integrable
+		
+		Jordan content vs null set
+		
+		sets that are null sets but not jordan measurable (uncountable discontinuities cannot integrate)
+		
+		Jordan content isn't additive 
+		
+		all of these are related
+	\end{remark}
 	\subsection{Change of Variables}
 	\subsection{Change of Variables, Proof}
 	\section{Differential Forms}
@@ -8593,6 +9129,10 @@ Figure 109 and Figure 110 illustrate $ L(P,f) $ and $ U(P,f) $ for a given examp
 	\subsection{The Dual of $ L^p $}
 	\subsection{Inequalities}
 	\section{Riesz Representation Theorem}
+	\subsection{Continuous Functions with Compact Support}
+	\subsection{Radon Measures}
+	\subsection{Main Theorem}
+	\subsection{Related Results and Corollaries}
 	\section{Foundations of Fourier Analysis}
 	\subsection{Convolutions}
 	\section{Distributions}
