@@ -326,13 +326,13 @@
 	\end{remark}
 	
 	\begin{example}
-		If we return to Example 2.7, where $ E=\{-2,-1,2\}\subseteq\Z $, we have $ \sup E=2 $ and $ \inf E=-2 $. 
+		If we return to Example 1.7, where $ E=\{-2,-1,2\}\subseteq\Z $, we have $ \sup E=2 $ and $ \inf E=-2 $. 
 	\end{example}
 	\begin{example}
-		In example 2.8, $ \inf E=0 $ and $ \sup E=1 $.
+		In example 1.8, $ \inf E=0 $ and $ \sup E=1 $.
 	\end{example}
 	\begin{example}
-		Sticking with the set $ \Q$, consider the subset $ E=\{x\in\Q\mid x^2\le 2\}\subseteq \Q $. This set has no supremum, because the number satisfying $ x^2=2 $ is not an element of $ \Q $ (as shown in Proposition 2.2). We will formally prove this fact shortly. 
+		Sticking with the set $ \Q$, consider the subset $ E=\{x\in\Q\mid x^2\le 2\}\subseteq \Q $. This set has no supremum, because the number satisfying $ x^2=2 $ is not an element of $ \Q $ (as shown in Proposition 1.2). We will formally prove this fact shortly. 
 	\end{example}
 	It is no coincidence that a subset of $ \Q $ fails to have a supremum, because of one of the ``holes'' in $ \Q $. The following definition will help us formalize this relationship. 
 	\begin{definition}
@@ -349,7 +349,7 @@
 	\begin{proposition}
 		The set $ \Q $ does not have the least-upper-bound property.
 	\end{proposition}
-	To prove this, we will first establish that $ 2 $ is an upper bound of the set defined in Example 2.11, and then show the set has no supremum via contradiction.
+	To prove this, we will first establish that $ 2 $ is an upper bound of the set defined in Example 1.11, and then show the set has no supremum via contradiction.
 	\begin{proof}
 		If suffices to find a single subset of $ \Q $ which fails to have a supremum. Let that set be $ E=\{x\in\Q\mid x^2\le 2\} $. 
 		\begin{enumerate}
@@ -364,7 +364,7 @@
 			\end{equation} We can use $ y $ to reach a contradiction in each possible case, those being: $ \alpha^2<2 $, $ \alpha^2=2 $, $ \alpha^2>2 $.
 			\begin{enumerate}
 				\item Suppose that $ \alpha^2<2 $. This means that $ \alpha^2-2<0 $, so Equation (1) implies that $ y>\alpha $. At the same time, Equation (2) implies that $ y^2-2<0 $, which means $ y^2<2 $. This gives that $ y\in E $, despite the fact that $ \alpha<y $. This contradicts the fact that $ \alpha $ is an upper-bound of $ E $
-				\item Suppose $ \alpha^2=2 $. We already know this cannot be the case by Proposition 2.2. 
+				\item Suppose $ \alpha^2=2 $. We already know this cannot be the case by Proposition 1.2. 
 				\item  Finally, assume that $ \alpha^2>2 $, giving $ \alpha^2-2=0 $. Equation (1)	implies $ y<\alpha $ while Equation (2) implies $ y^2-2>0 $, meaning $ y^2>2 $. This establishes $ y $ as an upper bound for $ E $, but $ y<\alpha $, which contradicts $ \sup E=\alpha $.  
 			\end{enumerate}
 		\end{enumerate}
@@ -473,14 +473,12 @@
 			L)=(L,U)$$  
 			I claim that $ \sup E=\gamma $.
 			
-			First we must verify that $ \gamma\in\R $ by showing that $ (L,U) $ is a valid Dedekind cut, and satisfies the requirements of Definition 2.13: 
+			First we must verify that $ \gamma\in\R $ by showing that $ (L,U) $ is a valid Dedekind cut, and satisfies the requirements of Definition 1.13: 
 			\begin{enumerate}
-				\item The set $ E $ is nonempty, so there exists at least one $ \alpha=(L_\alpha,U_\alpha)\in E $. Because $ L_\alpha\neq\emptyset $ and $ U_\alpha\neq\emptyset $ by definition 2.13, we have $ L\neq\emptyset $ and $ U\neq\emptyset $. By the definition of $ U $ as $ \Q\backslash L $, we have that $  L\cup U=\Q$ and $ L\cap U=\emptyset $. 
-				\item {\color{red}FINISH THIS} 
-				\item  {\color{red}FINISH THIS} 
+				\item The set $ E $ is nonempty, so there exists at least one $ \alpha=(L_\alpha,U_\alpha)\in E $. Because $ L_\alpha\neq\emptyset $ and $ U_\alpha\neq\emptyset $ by definition 1.13, we have $ L\neq\emptyset $ and $ U\neq\emptyset $. By the definition of $ U $ as $ \Q\backslash L $, we have that $  L\cup U=\Q$ and $ L\cap U=\emptyset $. Therefore $ \gamma\in\R $. By construction, $ \alpha\le\gamma $ for all $ \alpha\in E $, making $ \gamma $ an upper bound. 
+				\item To show that it is the least-upper-bound, we will now show any number lesser than it cannot be an upper bound. Now suppose $ \delta <\gamma $. This means $  C\subseteq L $, where $ \delta $ is expressed as a cut $ \delta=(C,D) $. This means there exists some $ s\in L $ such that $ s\notin C $. But $ s\in L $, so it is in $ L_\alpha $ for some $ \alpha\in E $. Hence, $ C\subseteq L_\alpha $, giving $ \delta <\alpha $. This shows that $ \delta $ is not an upper bound, meaning $ \sup E =\gamma$.
 			\end{enumerate}
 		\end{proof}
-		Therefore $ \gamma\in\R $. By construction, $ \alpha\le\gamma $ for all $ \alpha\in E $, making $ \gamma $ an upper bound. To show that it is the least-upper-bound, we will now show any number lesser than it cannot be an upper bound. Now suppose $ \delta <\gamma $. This means $  C\subseteq L $, where $ \delta $ is expressed as a cut $ \delta=(C,D) $. This means there exists some $ s\in L $ such that $ s\notin C $. But $ s\in L $, so it is in $ L_\alpha $ for some $ \alpha\in E $. Hence, $ C\subseteq L_\alpha $, giving $ \delta <\alpha $. This shows that $ \delta $ is not an upper bound, meaning $ \sup E =\gamma$.
 	\end{theorem}
 	
 	\begin{example}
@@ -510,7 +508,7 @@
 	\end{enumerate}
 	The addition of an upper and lower bound on $ \R $ make the set $ \overline{\R} $ easier to work with in certain situations.\footnote{What we are really doing is working with $ \overline{\R} $ because it is a complete lattice. A complete lattice is a partially ordered set in which every subset has an infimum or supremum. The real line is not a complete lattice, as any set of the form $ (a,\infty)\subset\R $ has no supremum.} The most immediate result of working in $ \overline{\R} $ is that \textit{every} subset of $ \R $ has a supremum, not just bounded ones (the latter case being the only one stipulated by the least-upper-bound property). 
 	\subsection{Properties of $ \R $}
-	The importance of Theorem 2.2 can not be understated. It is perhaps \textit{the} defining property of $ \R $, and it gives rise to numerous results in analysis. For now, we can use it to prove two additional properties of $ \R $.
+	The importance of Theorem 1.2 can not be understated. It is perhaps \textit{the} defining property of $ \R $, and it gives rise to numerous results in analysis. For now, we can use it to prove two additional properties of $ \R $.
 	\begin{theorem}[Archimedean property of $ \R $]
 		For $ x,y\in \R $ where $ x>0 $, there exists an $ n\in\N $ such that $ nx>y $.
 	\end{theorem}   
@@ -524,11 +522,11 @@
 		For $ x,y\in \R $ where $ x<y $, there exists a $ p\in\Q $ such that $ x<p<y $. 
 	\end{theorem}  
 	\begin{proof}
-		We have $ x<y $, giving $ y-x>0 $. By the Archimedean property (Theorem 2.3), there exists an $ n\in\N $ such that 
+		We have $ x<y $, giving $ y-x>0 $. By the Archimedean property (Theorem 1.3), there exists an $ n\in\N $ such that 
 		\begin{equation}
 			n(y-x)>1.
 		\end{equation}
-		We can use Theorem 2.3 to find $ m_1,m_2\in\N $ for which:
+		We can use Theorem 1.3 to find $ m_1,m_2\in\N $ for which:
 		\begin{align*}
 			m_1>nx,\\m_2>-nx.
 		\end{align*}
