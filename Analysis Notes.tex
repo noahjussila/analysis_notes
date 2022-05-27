@@ -564,7 +564,7 @@
 		Define the relation $ X\sim Y $ \textit{if and only if} $ X $ and $ Y $ have the same cardinal number ($ |X|=|Y| $). The relation $ \sim $ is an equivalence relation. 
 	\end{proposition} 
 	\begin{proof}
-		We have that $ X\sim X $ by letting $ f:X\to X $ be $ f(x)=x $, so $ \sim $ is reflexive. If $ X\sim Y $, there exists a bijection $ f:X\to Y $. Since $ f $ is a bijection, it has an inverse $ f^{-1}:Y\to X $. This inverse is itself a bijection, so $ Y\sim X $, making $ \sim $ symmetric. Lastly, assume $ X\sim Y $ and $ Y\sim Z $. We have bijections $ f:X\to Y $ and $ g:Y\to Z $. The composition of two bijections is a bijection, so $ h:X\to Z $ is a bijection where $ h:X\to Z $. This makes $ \sim $ transitive.  
+		We have that $ X\sim X $ by letting $ f:X\to X $ be $ f(x)=x $, so $ \sim $ is reflexive. If $ X\sim Y $, there exists a bijection $ f:X\to Y $. Since $ f $ is a bijection, it has an inverse $ f^{-1}:Y\to X $. This inverse is itself a bijection, so $ Y\sim X $, making $ \sim $ symmetric. Lastly, assume $ X\sim Y $ and $ Y\sim Z $. We have bijections $ f:X\to Y $ and $ g:Y\to Z $. The composition of two bijections is a bijection, so $ h:X\to Z $ is a bijection. This makes $ \sim $ transitive.  
 	\end{proof}
 	\begin{example}
 		Let $ X=\{1,2,3\} $ and $ Y=\{\sqrt{2},e,\pi\} $. We can define $ f:X\to Y $ as $$ f(x)=\begin{cases}
@@ -615,7 +615,7 @@
 	\begin{definition}
 		A set $ X $ is  \textit{\color{red}uncountably infinite} (or uncountable) if it is neither finite nor countably infinite.
 	\end{definition}
-	Before jumping into examples, let's unpack some of this. Finiteness and countable infiniteness depend on whether a set has the same cardinal number as a subset of $ \N $ or $ \N $ itself. This means we can find a bijection between the set and a subset of $ \N $ or $ \N $ itself. Definition 2.22 and 2.23 are often presented in terms of this hypothetical bijection. Secondly, two of these definitions involve infinity. A set can be either countably infinite or uncountably infinite. In a sense, some infinite sets have so many elements that they cannot even be counted, and are ``bigger'' than other uncountable sets! These two concepts of infinity will show up constantly in real analysis. Hopefully examples will make this clear. Some of the following examples are so important that they will be presented as formal results. 
+	Before jumping into examples, let's unpack some of this. Finiteness and countable infiniteness depend on whether a set has the same cardinal number as a subset of $ \N $ or $ \N $ itself. This means we can find a bijection between the set and a subset of $ \N $ or $ \N $ itself. Definition 1.22 and 1.23 are often presented in terms of this hypothetical bijection. Secondly, two of these definitions involve infinity. A set can be either countably infinite or uncountably infinite. In a sense, some infinite sets have so many elements that they cannot even be counted, and are ``bigger'' than other uncountable sets! These two concepts of infinity will show up constantly in real analysis. Hopefully examples will make this clear. Some of the following examples are so important that they will be presented as formal results. 
 	\begin{example}
 		We will modify Example 2.22. Let Let $ X=\{\sqrt{2},e,\pi\} $ and $ N=\{1,2,3\}\subseteq \N$. Take our bijection to be the inverse of the function defined previously in Example 2.22. This shows that $ X $ is finite, and $ |X|=3 $. 
 	\end{example}
@@ -685,18 +685,18 @@
 	\begin{proposition}
 		Let $ \{E_n\} $, $ n\in\N $, be a sequence of countably infinite sets, and let $ E=\cup_{n\in N}E_n $ be a countable union. The set $ E $ is countably infinite. 
 	\end{proposition}
-	\begin{proposition}
+	\begin{proof}
 		We will prove via induction. Our base case is $ n=2 $. The sets $ E_1 $ and $ E_2 $ are countably infinite, so there exists bijections $ f:\N\to E_1 $ and $ g:\N\to E_2 $. Without loss of generality, assume $ E_1\cap E_2=\emptyset $.\footnote{Otherwise, we could replace $ E_1 $ with $ E_1\backslash E_2 $.} Define $ h:\N\to E_1\cup E_2 $ as $$ h(k)=\begin{cases}
 			f(k/2)\text{ if }k  \text{ is even}\\
 			g((k+1)/2)\text{ if }k  \text{ is odd}
-		\end{cases}. $$ This function counts the elements in the set by alternating between those in $ E_1 $ and $ E_2 $ (like in the proof of Proposition 2.7). The function $ h $ is a bijection, so $ E_1\cup E_2 $ is countably infinite. Now suppose this holds for $ E_1,\ldots E_{n-1} $. We can write $ E $ as a union of two countably infinite sets by taking the union over $ E_1,\ldots E_{n-1} $, which is countably infinite by the induction hypothesis. 
+		\end{cases}. $$ This function counts the elements in the set by alternating between those in $ E_1 $ and $ E_2 $ (like in the proof of Proposition 1.7). The function $ h $ is a bijection, so $ E_1\cup E_2 $ is countably infinite. Now suppose this holds for $ E_1,\ldots E_{n-1} $. We can write $ E $ as a union of two countably infinite sets by taking the union over $ E_1,\ldots E_{n-1} $, which is countably infinite by the induction hypothesis. 
 		\begin{align*}
 			E&=\bigcup_{n\in \N} E_n\\
 			&=E_1\cup E_2\cup\cdots E_{n-1}\cup E_n\\
 			&=(E_1\cup E_2\cup\cdots E_{n-1})\cup E_n
 		\end{align*} 
 		Therefore $ E $ is countably infinite. 
-	\end{proposition}
+	\end{proof}
 	\begin{corollary}
 		If $ X $ is uncountable, and $ E\subseteq X $ is countably infinite, then $ X\backslash E$ is uncountably infinite.
 	\end{corollary}
@@ -716,10 +716,10 @@
 		Every subset of $ \Q $ is countable, because $ \Q $ is countable. We already know two such examples: $ \N $ and $ \Z $. 
 	\end{example}
 	\begin{proposition}
-		Let $ \{E_n\} $, $ n=1,\ldots,m $, be a finite sequence of countably sets, and let $ E=\times_{n=1}^mE_n $ be a countable Cartesian product. The set $ E $ is countably infinite. 
+		Let $ \{E_n\} $, $ n=1,\ldots,m $, be a finite sequence of countable sets, and let $ E=\times_{n=1}^mE_n $ be a countable Cartesian product. The set $ E $ is countably infinite. 
 	\end{proposition}
 	\begin{proof}
-		It suffices to show the result for two sets $ E_1 $ and $ E_2 $, and then apply induction using the same argument used in the proof of Proposition 2.9. We have bijections $ f:E_1\to\N$ and $ g:E_2\to\N $. Define $ h:E_1\times E_2 $ as $$ h((a,b))=2^{f(a)}3^{g(a)},$$ where $ (a,b)\in E_1\times E_2 $. Each element in $ h(E_1\times E_2) $ is a whole number with a prime factorization comprised of only $ 2 $ and/or $ 3 $. Because each element of $ \N $ is uniquely determined by its prime factorization, $ h $ is injective. Unfortunately, $ h $ is no surjective, as there exist many elements of $ \N $ with prime factorizations that include more than $ 2 $ and/or $ 3 $. If we restrict the codomain of $ h $ to just its image, we have a bijection $ h':E_1\times E_2\to  h(E_1\times E_2) $  We do have that $ h(E_1\times E_2)\subseteq \N  $, so by Proposition 2.10, $ |h(E_1\times E_2)|=\aleph_0 $ . By transitivity, $ |E_1\times E_2|=\aleph_0 $. The aforementioned induction can be applied to conclude $ |E|=\aleph_0 $. 
+		It suffices to show the result for two sets $ E_1 $ and $ E_2 $, and then apply induction using the same argument used in the proof of Proposition 1.8. We have bijections $ f:E_1\to\N$ and $ g:E_2\to\N $. Define $ h:E_1\times E_2 $ as $$ h((a,b))=2^{f(a)}3^{g(a)},$$ where $ (a,b)\in E_1\times E_2 $. Each element in $ h(E_1\times E_2) $ is a whole number with a prime factorization comprised of only $ 2 $ and/or $ 3 $. Because each element of $ \N $ is uniquely determined by its prime factorization, $ h $ is injective. Unfortunately, $ h $ is no surjective, as there exist many elements of $ \N $ with prime factorizations that include more than $ 2 $ and/or $ 3 $. If we restrict the codomain of $ h $ to just its image, we have a bijection $ h':E_1\times E_2\to  h(E_1\times E_2) $  We do have that $ h(E_1\times E_2)\subseteq \N  $, so by Proposition 1.9, $ |h(E_1\times E_2)|=\aleph_0 $ . By transitivity, $ |E_1\times E_2|=\aleph_0 $. The aforementioned induction can be applied to conclude $ |E|=\aleph_0 $. 
 	\end{proof}
 	\begin{example}
 		The set of all pairs of rational numbers $ \Q^2 $ is countable.
